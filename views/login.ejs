@@ -1,33 +1,40 @@
-<% layout('/layout/header') -%>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper">
-      <div class="row">
-        <div class="content-wrapper full-page-wrapper auth-pages login-2">
-          <div class="card col-lg-4">
-            <div class="card-body px-5 py-5">
-              <div class="login-logo text-center">
-                <a href=""><img src="/images/logomdpyep.png" width="250" ></a>
-              </div>
-              <form>
-                <div class="form-group">
-                  <label>Usuario *</label>
-                  <input type="text" class="form-control p_input">
-                </div>
-                <div class="form-group">
-                  <label>Password *</label>
-                  <input type="text" class="form-control p_input">
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-block enter-btn">Ingresar</button>
-                </div>
-              </form>
+<% layout('/layout/index') -%>
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper">
+    <div class="row">
+      <div class="content-wrapper full-page-wrapper auth-pages login-2">
+        <div class="card col-lg-4">
+          <div class="card-body px-5 py-5">
+            <div class="login-logo text-center">
+              <a href=""><img src="/images/logomdpyep.png" width="250" ></a>
             </div>
+              <%if (typeof errors !== 'undefined') { %>
+                <div class="alert alert-warning text-center" role="alert">
+                <% errors.forEach(function(error){ %>
+                  <%= error.msg %></br>
+                <% }); %>
+               </div> 
+              <% } %>
+            <form method="post" action="/login">
+              <div class="form-group">
+                <label>Usuario *</label>
+                <input type="text" class="form-control" name="username">
+              </div>
+              <div class="form-group">
+                <label>Password *</label>
+                <input type="text" class="form-control" name="password">
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-block enter-btn">Ingresar</button>
+              </div>
+            </form>
+
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- row ends -->
+      <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
+    <!-- row ends -->
   </div>
-  <% layout('/layout/footer') -%>
+  <!-- page-body-wrapper ends -->
+</div>

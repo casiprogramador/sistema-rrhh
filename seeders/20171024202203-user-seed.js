@@ -9,6 +9,8 @@ module.exports = {
       estado: true,
       password: bcrypt.hashSync('12345', salt),
       rol_id: 1,
+      ultingreso: new Date(),
+      resetpwd: false,
       createdAt : new Date(),
       updatedAt : new Date()
     }], {});

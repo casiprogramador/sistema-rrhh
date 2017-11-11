@@ -8,10 +8,12 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var expressValidator = require('express-validator');
 // routes import
 var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
+var home = require('./routes/home');
 // sequelize
 var Sequelize = require("sequelize");
 
@@ -31,7 +33,47 @@ app.use(session({
   secret: 'clavesecreta',
   resave: false,
   saveUninitialized: false
-}))
+}));
+
+// Init passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Express mesages
+app.use(flash());
+app.use((req, res, next)=>{
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+})
+
+// Express message
+
+app.use(require('connect-flash')());
+app.use((req, res, next)=>{
+  res.locals.message = require('express-messages')(req, res);
+  next();
+})
+// Express validator
+
+app.use(expressValidator({
+  errorFormatter: function(params, msg, value){
+    var namespace = params.split('.')
+    , root = namespace.shift()
+    , formParam = root;
+
+    while(namespace.length){
+      formParam += '['+namespace.shift()+']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
+
+
 // passport
 //app.use(passport.initialize());
 //app.use(passport.session);
@@ -42,6 +84,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routes
 app.use('/', login);
 app.use('/users', users);
+app.use('/home', home);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

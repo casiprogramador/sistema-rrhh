@@ -17,26 +17,13 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-<<<<<<< HEAD
       ultingreso: {
         type: Sequelize.DATE
       },
       resetpwd: {
-        type: Sequelize.DATE
+        type: Sequelize.BOOLEAN
       },
-      id_empleado: {
-=======
       rol_id: {
->>>>>>> ebd738af926e1348ffa47031581427d484cc89da
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Empleados',
-            key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
-      id_rol: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Rols',
