@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Recursos Humanos</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/css/perfect-scrollbar.min.css">
+
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link type="text/css" href="/css/bootstrap-datepicker.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/images/la-paz.jpg" />
+   <%- block('style').toString() %>
+</head>
+
+<body>
+  <%- body -%>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/bootstrap-datepicker.min.js"></script>
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="/js/off-canvas.js"></script>
+  <script src="/js/hoverable-collapse.js"></script>
+  <script src="/js/misc.js"></script>
+
+  <script src="/js/script.js"></script>
+  <!-- endinject -->
+  <script>
+    $(document).ready(function(){
+      $( "#fecha-saldo-vacacion").val(getCurrentDate());
+      //$( "#panel-personal").hide();
+      $( "#form-saldo-vacacion" ).submit(function( event ) {
+        area = $( "#areas-select-vacacion option:selected" ).val();
+        fecha = $( "#fecha-saldo-vacacion").val();
+        tipo = $('input[name=tipo_personal]:checked').val();
+
+        console.log(area);
+        console.log(fecha);
+        console.log(tipo);
+        event.preventDefault();
+      });
+    });
+
+    function getCurrentDate(){
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+
+      var yyyy = today.getFullYear();
+      if(dd<10){
+          dd='0'+dd;
+      } 
+      if(mm<10){
+          mm='0'+mm;
+      } 
+      var today = dd+'/'+mm+'/'+yyyy;
+      return today;
+    }
+  </script>
+    <%- block('javascript').toString() %>
+</body>
+
+
+</html>

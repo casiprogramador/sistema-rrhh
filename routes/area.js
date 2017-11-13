@@ -3,16 +3,13 @@ var router = express.Router();
 var modelos = require('../../models/index');
 
 /* GET login page. */
-router.get('/formulario', function(req, res, next) {
+router.getAllAreas('/formulario', function(req, res, next) {
     modelos.Area.findAll({
-        attributes: ['id', 'desc_area']
+        attributes: ['desc_area']
     }).then(areas => {
-        console.log(JSON.stringify(areas));
-        res.render('vacacion/saldo', { areas: areas });
+        res.status(200).send(areas);
     });
 
 });
-
-
 
 module.exports = router;

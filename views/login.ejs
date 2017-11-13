@@ -1,4 +1,4 @@
-<% layout('/layout/index') -%>
+<% layout('/layouts/layout') -%>
 <div class="container-scroller">
   <div class="container-fluid page-body-wrapper">
     <div class="row">
@@ -14,6 +14,21 @@
                   <%= error.msg %></br>
                 <% }); %>
                </div> 
+              <% } %>
+              <%if (success_msg.length > 0 ) { %>
+                <div class="alert alert-warning text-center" role="alert">
+                  <%= success_msg %>
+                </div>
+              <% } %>
+              <%if (error_msg.length > 0 ) { %>
+                <div class="alert alert-warning text-center" role="alert">
+                  <%= error_msg %>
+                </div>
+              <% } %>
+              <%if (error.length > 0 ) { %>
+                <div class="alert alert-warning text-center" role="alert">
+                  <%= error %>
+                </div>
               <% } %>
             <form method="post" action="/login">
               <div class="form-group">

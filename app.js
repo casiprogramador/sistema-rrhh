@@ -14,15 +14,17 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 var home = require('./routes/home');
+var vacacion_saldo = require('./routes/vacacion/saldo');
 // sequelize
 var Sequelize = require("sequelize");
-
 var app = express();
 
 // view engine setup
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/', express.static('public'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -31,9 +33,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: 'clavesecreta',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }));
+
+
 
 // Init passport
 app.use(passport.initialize());
@@ -44,6 +48,8 @@ app.use(flash());
 app.use((req, res, next)=>{
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 })
 
@@ -73,18 +79,15 @@ app.use(expressValidator({
   }
 }));
 
-
-// passport
-//app.use(passport.initialize());
-//app.use(passport.session);
 // flash
 app.use(flash());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 // routes
 app.use('/', login);
 app.use('/users', users);
 app.use('/home', home);
+app.use('/vacacion/saldo',vacacion_saldo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
