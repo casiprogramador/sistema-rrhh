@@ -44,10 +44,36 @@
         area = $( "#areas-select-vacacion option:selected" ).val();
         fecha = $( "#fecha-saldo-vacacion").val();
         tipo = $('input[name=tipo_personal]:checked').val();
-        console.log(area);
-        console.log(fecha);
-        console.log(tipo);
+        //console.log(area);
+        //console.log(fecha);
+        //console.log(tipo);
         $( "#panel-personal").show();
+        //Ajax jquery
+        var data = {};
+				data.area = area;
+				$.ajax({
+						type: 'GET',
+				    contentType: 'application/json',
+            url: 'http://localhost:3000/area',						
+            success: function(data) {
+                  //console.log('success');
+                  //console.log(JSON.stringify(data));
+                  $.each(data, function (key, area) {
+                      
+                      $.ajax({
+                          type: 'GET',
+                          contentType: 'application/json',
+                          url: 'http://localhost:3000/empleado/'+area.id +'/area',						
+                          success: function(data) {
+                                $.each(data, function (key, empleado) {
+                                    console.log(empleado)
+                                })
+                              }
+                      });
+                      console.log(area.desc_area )
+                  })
+                }
+        });
         event.preventDefault();
       });
     });
