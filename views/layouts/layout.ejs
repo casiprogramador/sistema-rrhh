@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link type="text/css" href="/css/bootstrap-datepicker.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/images/la-paz.jpg" />
+  <link rel="shortcut icon" href="/images/iconlogo.png" />
    <%- block('style').toString() %>
 </head>
 
@@ -39,15 +39,15 @@
   <script>
     $(document).ready(function(){
       $( "#fecha-saldo-vacacion").val(getCurrentDate());
-      //$( "#panel-personal").hide();
+      // $( "#panel-personal").hide();
       $( "#form-saldo-vacacion" ).submit(function( event ) {
         area = $( "#areas-select-vacacion option:selected" ).val();
         fecha = $( "#fecha-saldo-vacacion").val();
         tipo = $('input[name=tipo_personal]:checked').val();
-
         console.log(area);
         console.log(fecha);
         console.log(tipo);
+        $( "#panel-personal").show();
         event.preventDefault();
       });
     });
