@@ -4,10 +4,11 @@ var modelos = require('../../models/index');
 
 /* GET login page. */
 router.get('/formulario', function(req, res, next) {
+    
     modelos.Area.findAll({
         attributes: ['id', 'desc_area']
     }).then(areas => {
-        console.log(JSON.stringify(areas));
+        //console.log('Usuario:'+res.locals.user.id);
         res.render('vacacion/saldo', { areas: areas });
     });
 
