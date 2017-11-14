@@ -15,19 +15,19 @@ module.exports = {
         type: Sequelize.DATE
       },      
       titulo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       nivel: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(20)
       },
       concluida: {
         type: Sequelize.BOOLEAN
       },
       ciudad: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       colegio_prof: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
 
       },
       id_empleado: {

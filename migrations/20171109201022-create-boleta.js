@@ -9,8 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       boleta: {
+        type: Sequelize.STRING(50)
+      },
+      fecha_solicitud: {
+        type: Sequelize.DATE
+      },
+      observacion: {
         type: Sequelize.STRING
       },
+      aprobado: {
+        type: Sequelize.BOOLEAN
+      },
+
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {

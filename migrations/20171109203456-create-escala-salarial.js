@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       categoria: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       clase: {
         type: Sequelize.INTEGER
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       denominacion_puesto: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       nro_item: {
         type: Sequelize.INTEGER

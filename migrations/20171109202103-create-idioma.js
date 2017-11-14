@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idioma: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       id_empleado: {
         type: Sequelize.INTEGER,

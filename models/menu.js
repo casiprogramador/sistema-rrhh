@@ -1,10 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Menu = sequelize.define('Menu', {
-    nombre: DataTypes.STRING,
+    nombre: DataTypes.STRING(50),
     url: DataTypes.STRING,
     icono: DataTypes.STRING,
-    nive_superior: DataTypes.INTEGER
+    tipo:  DataTypes.STRING(50),
+    nivel_superior: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

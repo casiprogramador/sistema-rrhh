@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Tipo_Empleado = sequelize.define('Tipo_Empleado', {
-    tipo: DataTypes.STRING
+    tipo: DataTypes.STRING(50)
   }, {
     classMethods: {
       associate: function(models) {

@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       url: {
         type: Sequelize.STRING
@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       tipo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       nivel_superior: {
         type: Sequelize.INTEGER

@@ -9,19 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_area_superior: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       desc_area: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50)
       },
       estado: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN
       },
       ausr: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50)
       },
-      desc_area: {
-        type: Sequelize.STRING,
+      nivel: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

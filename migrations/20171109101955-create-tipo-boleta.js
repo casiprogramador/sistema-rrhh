@@ -9,8 +9,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       tipo_boleta: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

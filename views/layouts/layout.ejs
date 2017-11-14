@@ -38,41 +38,77 @@
   <!-- endinject -->
   <script>
     $(document).ready(function(){
+      url_servidor = 'http://localhost:3000/';
       $( "#fecha-saldo-vacacion").val(getCurrentDate());
-      // $( "#panel-personal").hide();
+      $( "#panel-personal").hide();
+      
       $( "#form-saldo-vacacion" ).submit(function( event ) {
         area = $( "#areas-select-vacacion option:selected" ).val();
         fecha = $( "#fecha-saldo-vacacion").val();
         tipo = $('input[name=tipo_personal]:checked').val();
-        //console.log(area);
-        //console.log(fecha);
-        //console.log(tipo);
+
         $( "#panel-personal").show();
         //Ajax jquery
-        var data = {};
-				data.area = area;
 				$.ajax({
 						type: 'GET',
 				    contentType: 'application/json',
-            url: 'http://localhost:3000/area',						
-            success: function(data) {
-                  //console.log('success');
-                  //console.log(JSON.stringify(data));
-                  $.each(data, function (key, area) {
-                      
+            url: url_servidor+'area',						
+            success: function(areas) {
+                  $('#table-saldo > tbody tr').remove();
+                  $( "#panel-personal").show(); 
+                  $.each(areas, function (key, area) {
+                    //console.log(area.id);
+
                       $.ajax({
                           type: 'GET',
                           contentType: 'application/json',
-                          url: 'http://localhost:3000/empleado/'+area.id +'/area',						
-                          success: function(data) {
-                                $.each(data, function (key, empleado) {
-                                    console.log(empleado)
-                                })
+                          url: url_servidor+'empleado/'+area.id +'/area',						
+                          success: function(empleado_areas) {
+                              if(empleado_areas.length>0){
+                                //console.log('Area:'+area.desc_area+' N Empleados:'+empleado_areas.length );
+                                $.each(empleado_areas, function (key, empleado_area) {
+                                  $.ajax({
+                                      type: 'GET',
+                                      contentType: 'application/json',
+                                      url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',						
+                                      success: function(empleado_saldos) {
+                                        // console.log(area.desc_area);
+                                        tabla = '<tr>'
+                                            +'<td colspan="7"><h2>'+area.desc_area+'</h2></td>'
+                                            +'</tr>';
+                                        ci_empleado = '';
+                                        saldo_vacaciones_total = 0;
+                                        $.each(empleado_saldos, function (key, empleado_saldo) {
+                                            saldo_vacaciones_total += empleado_saldo.dias
+                                        });
+                                        $.each(empleado_saldos, function (key, empleado_saldo) {
+                                            console.log(empleado_saldo);
+                                            
+                                            if(ci_empleado !== empleado_saldo.ndi ){
+                                              tabla += '<tr><td>'+empleado_saldo.ndi+'</td>'
+                                                    +'<td>'+empleado_saldo.nombres+' '+empleado_saldo.paterno+' '+empleado_saldo.materno+'</td>'
+                                                    +'<td>'+empleado_saldo.cargo+'</td>'
+                                                    +'<td>'+empleado_saldo.fecha_ingreso+'</td>'
+                                                    +'<td></td>'
+                                                    +'<td>'+saldo_vacaciones_total+' dias</td>'
+                                                    +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
+                                            }else{
+                                              tabla +='<tr><td></td><td></td><td></td><td></td><td></td><td></td>'
+                                                +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
+                                            }
+                                            ci_empleado = empleado_saldo.ndi;
+                                        });
+
+                                        $('#table-saldo > tbody:last-child').append(tabla);
+                                      }
+                                  });
+                                });
                               }
+                          }
                       });
-                      console.log(area.desc_area )
                   })
-                }
+
+            }
         });
         event.preventDefault();
       });
