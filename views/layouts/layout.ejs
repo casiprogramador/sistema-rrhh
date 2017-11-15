@@ -54,7 +54,7 @@
           $.ajax({
 						type: 'GET',
 				    contentType: 'application/json',
-            url: url_servidor+'area',						
+            url: url_servidor+'area',			
             success: function(areas) {
                   $('#table-saldo > tbody tr').remove();
                   
@@ -73,7 +73,10 @@
                                   $.ajax({
                                       type: 'GET',
                                       contentType: 'application/json',
-                                      url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',						
+                                      url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',
+                                      data: {
+                                        estado_empleado: tipo
+                                      },						
                                       success: function(empleado_saldos) {
                                         // console.log(area.desc_area);
 
@@ -142,10 +145,12 @@
                       $.ajax({
                           type: 'GET',
                           contentType: 'application/json',
-                          url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',						
+                          url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',
+                          data: {
+                             estado_empleado: tipo
+                          },							
                           success: function(empleado_saldos) {
                           // console.log(area.desc_area);
-
                           ci_empleado = '';
                           tabla_empleado = '';
                           saldo_vacaciones_total = 0;
