@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 
 });
 
+<<<<<<< HEAD
 /* GET area especifica. */
 router.get('/:id_area', function(req, res, next) {
     modelos.Area.findById(req.params.id_area).then(area => {
@@ -20,3 +21,8 @@ router.get('/:id_area', function(req, res, next) {
 
 });
 module.exports = router;
+=======
+module.exports = router;
+
+
+>>>>>>> 399bb4c888e9e6fdb6da6dc417b751289e6006e5
