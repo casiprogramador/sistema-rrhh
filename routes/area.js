@@ -13,3 +13,5 @@ router.getAllAreas('/formulario', function(req, res, next) {
 });
 
 module.exports = router;
+
+
