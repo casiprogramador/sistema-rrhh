@@ -15,6 +15,7 @@ var login = require('./routes/login');
 var users = require('./routes/users');
 var home = require('./routes/home');
 var vacacion_saldo = require('./routes/vacacion/saldo');
+var boleta = require('./routes/boletas/boleta');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
@@ -88,6 +89,8 @@ app.use('/', login);
 app.use('/users', users);
 app.use('/home', home);
 app.use('/vacacion/saldo',vacacion_saldo);
+app.use('/boleta',boleta);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

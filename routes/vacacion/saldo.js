@@ -7,7 +7,7 @@ router.get('/formulario', function(req, res, next) {
     modelos.Area.findAll({
         attributes: ['id', 'desc_area']
     }).then(areas => {
-        console.log(JSON.stringify(areas));
+        //console.log(JSON.stringify(areas));
         res.render('vacacion/saldo', { areas: areas });
     });
 

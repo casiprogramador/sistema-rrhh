@@ -1,0 +1,80 @@
+<% layout('/layouts/admin') -%>
+        <!-- partial -->
+        <div class="content-wrapper">
+          <h1 class="page-title">Solicitud de Boletas</h1>
+          <div class="row grid-margin">
+              <div class="col-lg-10 grid-margin grid-margin-lg-0">
+                  <div class="card col-lg-12 col-lg-4   ">
+                      <div class="card-body col-8 col-4">
+                        <div class="form-group row">
+                                <label for="fecha reporte" class="col-sm-3 col-form-label">Tipo de Boleta:</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="boleta-select-vacacion">
+                                        <% for(var i=0; i< Tipo_boleta.length; i++) { %>
+                                             <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
+                                         <% } %>
+                                    </select>
+                                </div>
+                        </div>  
+                         <div>
+                             <div class="form-group row">
+                                    <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha Inicio:</label>
+                                    <div class="col-sm-8">
+                                      <div class="input-group date datepicker b-l-blue">
+                                          <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion"  required>
+                                          <div class="input-group-addon">
+                                          <span class="mdi mdi-calendar-blank"></span>
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha fin:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group date datepicker b-l-blue">
+                                                <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion"  required>
+                                                <div class="input-group-addon">
+                                                <span class="mdi mdi-calendar-blank"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="form-group row">
+                                    <label for="fecha reporte" class="col-sm-3 col-form-label">Hora Inicio:</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group clockpicker b-l-blue">
+                                            <input type="text" class="form-control p-input col-lg-3" value="09:30"  required>
+                                            <span class="input-group-addon">
+                                                <i class="mdi mdi-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label for="fecha reporte" class="col-sm-3 col-form-label">Hora fin:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group clockpicker b-l-blue">
+                                                <input type="text" class="form-control p-input col-lg-3" value="09:30"  required>
+                                                <span class="input-group-addon">
+                                                    <i class="mdi mdi-clock"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group row">
+                                        <label for="fecha reporte" class="col-sm-3 col-form-label">Tiempo Solicitado:</label>
+                                        <div class="col-sm-8">
+                                            <div>
+                                                    <input id="cname" class="form-control p-input col-lg-12" name="name" minlength="2" type="text"  required>
+                                             </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                            <div class="card-body btn-demo text-center">
+                         <button type="button" class="btn btn-primary">Solicitar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
