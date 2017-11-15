@@ -67,24 +67,32 @@
                           success: function(empleado_areas) {
                               if(empleado_areas.length>0){
                                 //console.log('Area:'+area.desc_area+' N Empleados:'+empleado_areas.length );
+                                nombre_area = '';
                                 $.each(empleado_areas, function (key, empleado_area) {
+                                  
                                   $.ajax({
                                       type: 'GET',
                                       contentType: 'application/json',
                                       url: url_servidor+'empleado/'+empleado_area.id+'/saldovacacion',						
                                       success: function(empleado_saldos) {
                                         // console.log(area.desc_area);
+
                                         tabla = '<tr>'
                                             +'<td colspan="7"><h2>'+area.desc_area+'</h2></td>'
                                             +'</tr>';
+                                        if(nombre_area != area.desc_area){
+                                          $('#table-saldo > tbody:last-child').append(tabla);
+                                        }
+                                        
                                         ci_empleado = '';
+                                        tabla_empleado = '';
                                         saldo_vacaciones_total = 0;
                                         $.each(empleado_saldos, function (key, empleado_saldo) {
                                             saldo_vacaciones_total += empleado_saldo.dias
                                         });
                                         $.each(empleado_saldos, function (key, empleado_saldo) {
-                                            console.log(empleado_saldo);
-                                            
+
+                                            console.log(area.desc_area);
                                             if(ci_empleado !== empleado_saldo.ndi ){
                                               tabla_empleado += '<tr><td>'+empleado_saldo.ndi+'</td>'
                                                     +'<td>'+empleado_saldo.nombres+' '+empleado_saldo.paterno+' '+empleado_saldo.materno+'</td>'
@@ -101,14 +109,15 @@
                                             if(key == empleado_saldos.length-1){
                                               $('#table-saldo > tbody:last-child').append(tabla_empleado);
                                             }
-                                            
+                                            nombre_area = area.desc_area;
                                             ci_empleado = empleado_saldo.ndi;
                                         });
 
-                                        $('#table-saldo > tbody:last-child').append(tabla);
+                                        //$('#table-saldo > tbody:last-child').append(tabla);
                                       }
                                   });
                                 });
+
                               }
                           }
                       });
