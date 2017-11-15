@@ -86,7 +86,7 @@
                                             console.log(empleado_saldo);
                                             
                                             if(ci_empleado !== empleado_saldo.ndi ){
-                                              tabla += '<tr><td>'+empleado_saldo.ndi+'</td>'
+                                              tabla_empleado += '<tr><td>'+empleado_saldo.ndi+'</td>'
                                                     +'<td>'+empleado_saldo.nombres+' '+empleado_saldo.paterno+' '+empleado_saldo.materno+'</td>'
                                                     +'<td>'+empleado_saldo.cargo+'</td>'
                                                     +'<td>'+empleado_saldo.fecha_ingreso+'</td>'
@@ -94,9 +94,14 @@
                                                     +'<td>'+saldo_vacaciones_total+' dias</td>'
                                                     +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
                                             }else{
-                                              tabla +='<tr><td></td><td></td><td></td><td></td><td></td><td></td>'
+                                              tabla_empleado +='<tr><td></td><td></td><td></td><td></td><td></td><td></td>'
                                                 +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
                                             }
+
+                                            if(key == empleado_saldos.length-1){
+                                              $('#table-saldo > tbody:last-child').append(tabla_empleado);
+                                            }
+                                            
                                             ci_empleado = empleado_saldo.ndi;
                                         });
 
@@ -112,16 +117,17 @@
             }
         });
         }else{
-          tabla = '<tr>'
-                  +'<td colspan="7"><h2>'+area_form_name+'</h2></td>'
-                  +'</tr>';
+          
           $.ajax({
             type: 'GET',
             contentType: 'application/json',
             url: url_servidor+'empleado/'+area_form+'/area',						
             success: function(empleado_areas) {
               $('#table-saldo > tbody tr').remove();
-
+              tabla = '<tr>'
+                  +'<td colspan="7"><h2>'+area_form_name+'</h2></td>'
+                  +'</tr>';
+            $('#table-saldo > tbody:last-child').append(tabla);
                    //console.log('Area:'+area.desc_area+' N Empleados:'+empleado_areas.length );
                     $.each(empleado_areas, function (key, empleado_area) {
                       $.ajax({
@@ -132,35 +138,48 @@
                           // console.log(area.desc_area);
 
                           ci_empleado = '';
+                          tabla_empleado = '';
                           saldo_vacaciones_total = 0;
                           $.each(empleado_saldos, function (key, empleado_saldo) {
                             saldo_vacaciones_total += empleado_saldo.dias
                           });
-                        
+                          $.each(empleado_saldos, function (key, empleado_saldo) {
+                      //console.log(empleado_saldo);
+                                //console.log(empleado_saldos.length);
+                                //console.log(key);                                            
+                                if(ci_empleado !== empleado_saldo.ndi ){
+                                      
+                                      tabla_empleado += '<tr><td>'+empleado_saldo.ndi+'</td>'
+                                      +'<td>'+empleado_saldo.nombres+' '+empleado_saldo.paterno+' '+empleado_saldo.materno+'</td>'
+                                      +'<td>'+empleado_saldo.cargo+'</td>'
+                                      +'<td>'+empleado_saldo.fecha_ingreso+'</td>'
+                                      +'<td></td>'
+                                      +'<td>'+saldo_vacaciones_total+' dias</td>'
+                                      +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
+                                     
+                                      
+                                    }else{
+                                      tabla_empleado +='<tr><td></td><td></td><td></td><td></td><td></td><td></td>'
+                                      +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
+                                        
+                                  }
+
+                                  if(key == empleado_saldos.length-1){
+                                    $('#table-saldo > tbody:last-child').append(tabla_empleado);
+                                  }
+                                  
+                                  ci_empleado = empleado_saldo.ndi;
+                                  //$('#table-saldo > tbody:last-child').append(tabla);
+                          });
                         }
                       });
                     });
-                  $.each(empleado_saldos, function (key, empleado_saldo) {
-                      //console.log(empleado_saldo);                                            
-                        if(ci_empleado !== empleado_saldo.ndi ){
-                              tabla += '<tr><td>'+empleado_saldo.ndi+'</td>'
-                              +'<td>'+empleado_saldo.nombres+' '+empleado_saldo.paterno+' '+empleado_saldo.materno+'</td>'
-                              +'<td>'+empleado_saldo.cargo+'</td>'
-                              +'<td>'+empleado_saldo.fecha_ingreso+'</td>'
-                              +'<td></td>'
-                              +'<td>'+saldo_vacaciones_total+' dias</td>'
-                              +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
-                          }else{
-                              tabla +='<tr><td></td><td></td><td></td><td></td><td></td><td></td>'
-                              +'<td>'+'<b>Gestion</b>: '+empleado_saldo.gestion+'- <b>Dias Vacacion</b>: '+empleado_saldo.dias+'</td></tr>';
-                          }
-                          ci_empleado = empleado_saldo.ndi;
-                  });
+
               }
           });
         }
 
-        $('#table-saldo > tbody:last-child').append(tabla);
+        
         event.preventDefault();
       });
     });
