@@ -35,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     banco: DataTypes.STRING(50),
     nro_cuenta: DataTypes.STRING(50),
     tipo_cuenta: DataTypes.STRING(50),
-    ausr: DataTypes.STRING(50)
+    ausr: DataTypes.STRING(50),
+    estado: DataTypes.BOOLEAN,
+    discapacidad: DataTypes.BOOLEAN,
+    discapacidad: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

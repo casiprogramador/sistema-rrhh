@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Tipo_boleta = sequelize.define('Tipo_boleta', {
-    tipo_boleta: DataTypes.STRING
+  var Tipo_empleado_boleta = sequelize.define('Tipo_empleado_boleta', {
+    id_tipo_empleado: DataTypes.INTEGER,
+    id_tipo_boleta: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
@@ -9,5 +10,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  return Tipo_boleta;
+  return Tipo_empleado_boleta;
 };

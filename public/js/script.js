@@ -5,4 +5,5 @@
         orientation: 'bottom',
         autoclose: true,
     });
+    $("#jsGrid").jsGrid();
   })(jQuery);

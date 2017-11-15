@@ -1,0 +1,105 @@
+<% layout('/layouts/admin') -%>
+
+
+<!-- partial -->
+<div class="content-wrapper">
+       <h1 class="page-title">Administración de Boletas</h1>
+       <div class="row grid-margin">
+         <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
+           <div class="card">
+             <div class="card-body">
+               <h2 class="card-title">Administracion de boletas</h2>
+               <form id="form-administrar-boletas">
+                   <div class="form-group row">
+                      <label for="area" class="col-sm-3 col-form-label">Estado de la licencia:</label>
+                        <div class="col-sm-8">
+                                <select class="form-control" id="boletas-select">
+                                        <option value="Anulado">Anulado</option>
+                                        <option value="Anulado">Anulado</option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="Aprobado">Aprobado</option>
+                                </select>
+                              </div>
+                        </div>
+                        <div class="form-group row"> 
+                            <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
+                            <label for="fecha reporte" class="col-sm-1 col-form-label">Del:</label>
+                            <div class="col-sm-3">
+                                
+                              <div class="input-group date datepicker b-l-blue">
+                                  <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion">
+                                  <div class="input-group-addon">  
+                                  <span class="mdi mdi-calendar-blank"></span>
+                                  </div>
+                              </div>
+                              </div>
+                              <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
+                            <div class="col-sm-3">
+                                  <div class="input-group date datepicker b-l-blue">
+                                      <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion">
+                                      <div class="input-group-addon">  
+                                      <span class="mdi mdi-calendar-blank"></span>
+                                      </div>
+                                  </div>
+                            </div>                      
+                        </div>
+                        <div class="form-group row"> 
+                            <label for="area" class="col-sm-3 col-form-label">Buscar por apellido:</label>
+                            <div class="col-sm-6"><input type="text" class="form-control" name="apellido"></div>
+                            <div class="col-sm-1"><button class="btn btn-primary" type="button">buscar</button></div>
+                        </div>
+                        
+
+                                  <div class="col-12">
+                                    <table id="order-listing" class="table" cellspacing="0" width="100%">
+                                      <thead>
+                                        <tr>
+                                            <th>Num</th>
+                                            <th>C.I.</th>
+                                            <th>Nombre</th>
+                                            <th>Licencia</th>
+                                            <th>Desde</th>
+                                            <th>Hasta</th>
+                                            <th>Estado</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          <% for(var i=0; i< areas.length; i++) { %>
+                                        <tr>
+                                            <td><%= areas[i].desc_area %></td>
+                                            <td>27/08/12</td>
+                                            <td>Edinburgh</td>
+                                            <td>New York</td>
+                                            <td>$1500</td>
+                                            <td>$3200</td>
+                                            <td>
+                                              <label class="badge badge-info">On hold</label>
+                                            </td>
+                                            <td>
+                                              <button class="btn btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                        
+                                      </tbody>
+                                    </table>
+                                  </div>
+
+
+
+
+
+               </form>
+
+
+
+
+
+
+
+
+             </div>
+           </div>
+         </div>
+</div>

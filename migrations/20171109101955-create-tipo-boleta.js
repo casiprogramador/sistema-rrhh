@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       tipo_boleta: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING
       },
       
       createdAt: {

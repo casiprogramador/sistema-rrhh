@@ -2,18 +2,17 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Areas', [{
-      id_area_superior : NULL,
-      desc_area : 'MDPyEP',
-      estado: true,
-      ausr: '',
-      nivel: 0,
-      ultingreso: new Date(),
-      resetpwd: false,
+    return queryInterface.bulkInsert('Boleta', [{
+      fecha_solicitud : new Date(),
+      observacion : '',
+      estado : 'Pendiente',
+      id_empleado : '1',
+      id_tipo_boleta : '1',
       createdAt : new Date(),
       updatedAt : new Date()
-    }], {});
-  },
+   
+}], {});
+ },
 
   down: (queryInterface, Sequelize) => {
     /*

@@ -14,7 +14,9 @@ module.exports = {
       fecha_fin: {
         type: Sequelize.DATE
       },
-      
+      nro_contrato: {
+        type: Sequelize.STRING
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {
