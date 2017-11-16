@@ -1,9 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Estudios = sequelize.define('Estudios', {
-    carrera: Datatypers.STRING,
-    institucion: Datatypers.STRING,
-    pais: Datatypers.STRING(50),
+    carrera: DataTypes.STRING,
+    institucion: DataTypes.STRING,
+    pais: DataTypes.STRING(50),
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
     años_vencidos: DataTypes.INTEGER,
