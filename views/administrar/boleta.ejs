@@ -48,9 +48,9 @@
                             <div class="col-sm-6"><input type="text" class="form-control" name="apellido"></div>
                             <div class="col-sm-1"><button class="btn btn-primary" type="button">buscar</button></div>
                         </div>
-                        
-
                                   <div class="col-12">
+                                    
+                                    
                                     <table id="order-listing" class="table" cellspacing="0" width="100%">
                                       <thead>
                                         <tr>
@@ -65,20 +65,16 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                          <% for(var i=0; i< areas.length; i++) { %>
+                                          <% for(var i=0; i< boletas.length; i++) { %>
                                         <tr>
-                                            <td><%= areas[i].desc_area %></td>
-                                            <td>27/08/12</td>
-                                            <td>Edinburgh</td>
-                                            <td>New York</td>
-                                            <td>$1500</td>
-                                            <td>$3200</td>
-                                            <td>
-                                              <label class="badge badge-info">On hold</label>
-                                            </td>
-                                            <td>
-                                              <button class="btn btn-outline-primary">View</button>
-                                            </td>
+                                            <td><%= boletas[i].id %></td>
+                                            <td><%= boletas[i].id_empleado %></td>
+                                            <td><%= boletas[i].id_empleado %></td>
+                                            <td><%= boletas[i].id_tipo_boleta %></td>
+                                            <td><%= boletas[i].fecha_inicio %></td>
+                                            <td><%= boletas[i].fecha_fin %></td>
+                                            <td><%= boletas[i].fecha_fin %></td>
+                                            
                                         </tr>
                                         <% } %>
                                         

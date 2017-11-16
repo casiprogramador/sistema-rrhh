@@ -31,7 +31,13 @@ module.exports = {
       fecha_nacimiento: {
         type: Sequelize.DATE
       },
-      pais: {
+      pais_expedido: {
+        type: Sequelize.STRING(50)
+      },
+      pais_nacimiento: {
+        type: Sequelize.STRING(50)
+      },
+      nacionalidad: {
         type: Sequelize.STRING(50)
       },
       departamento: {
@@ -85,11 +91,17 @@ module.exports = {
       nro_seguro: {
         type: Sequelize.STRING(50)
       },
+      tipo_seguro: {
+        type: Sequelize.STRING(50)
+      },
       nua: {
         type: Sequelize.STRING(50)
       },
       ren: {
         type: Sequelize.STRING(50)
+      },
+      años_calificados: {
+        type: Sequelize.INTEGER
       },
       nro_declar_jurada: {
         type: Sequelize.STRING(50)

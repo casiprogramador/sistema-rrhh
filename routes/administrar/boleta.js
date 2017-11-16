@@ -4,11 +4,11 @@ var modelos = require('../../models/index');
 
 /* GET login page. */
 router.get('/',function(req, res, next) {
-    modelos.Area.findAll({
-        attributes: ['id', 'desc_area']
-    }).then(areas => {
-        console.log(JSON.stringify(areas));
-        res.render('administrar/boleta', { areas: areas });
+    modelos.Boleta.findAll({
+        attributes: ['id', 'fecha_solicitud', 'observacion', 'estado', 'fecha_inicio', 'fecha_fin', 'id_empleado', 'id_tipo_boleta']
+    }).then(boletas => {
+        console.log(JSON.stringify(boletas));
+        res.render('administrar/boleta', { boletas: boletas });
     });
     });
 
