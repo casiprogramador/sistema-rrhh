@@ -61,8 +61,23 @@ module.exports = {
       grupo_sang: {
         type: Sequelize.STRING(20)
       },
-      direccion: {
-        type: Sequelize.STRING(50)
+      calle_avenida: {
+        type: Sequelize.STRING
+      },
+      nro_direccion:{
+        type: Sequelize.INTEGER
+      },
+      edificio_direccion:{
+        type: Sequelize.STRING
+      },
+      piso_edificio:{
+        type: Sequelize.INTEGER
+      },
+      departamento: {
+        type: Sequelize.STRING(20)
+      },
+      zona: {
+        type: Sequelize.STRING
       },
       telefono: {
         type: Sequelize.STRING(20)
