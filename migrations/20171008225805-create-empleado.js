@@ -115,7 +115,7 @@ module.exports = {
       ren: {
         type: Sequelize.STRING(50)
       },
-      años_calificados: {
+      anios_calificados: {
         type: Sequelize.INTEGER
       },
       nro_declar_jurada: {

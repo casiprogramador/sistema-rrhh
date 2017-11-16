@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     tipo_seguro: DataTypes.STRING(50),
     nua: DataTypes.STRING(50),
     ren: DataTypes.STRING(50),
-    años_calificados: DataTypes.INTEGER,
+    anios_calificados: DataTypes.INTEGER,
     nro_declar_jurada: DataTypes.STRING(50),
     col_profesional: DataTypes.STRING(50),
     nro_registro_pro: DataTypes.STRING(50),

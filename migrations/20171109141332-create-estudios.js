@@ -23,7 +23,7 @@ module.exports = {
       fecha_fin: {
         type: Sequelize.DATE
       },     
-      años_vencidos: {
+      anios_vencidos: {
         type: Sequelize.INTEGER
       },  
       titulo: {
