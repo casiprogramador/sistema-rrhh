@@ -1,19 +1,19 @@
 <% layout('/layouts/layout') -%>
 <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
-        <nav class="navbar navbar-primary col-lg-12 col-12 fixed-top d-flex flex-row">
-            <div class="text-center navbar-brand-wrapper">
+        <nav class="navbar navbar-primary col-lg-12 col-12 fixed-top d-flex flex-row print-ignore">
+            <div class="text-center navbar-brand-wrapper print-ignore">
                 <a class="navbar-brand brand-logo" href="#">
                   <img src="/images/nombrelogo.png" alt="nombre logo" width="60%">
                   <img src="/images/iconlogo.png" alt="icono logo" width="17%">
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="#"><img src="/images/iconlogo.png" alt="icono logo" width="50%"></a>
+                <a class="navbar-brand brand-logo-mini print-ignore" href="/"><img src="/images/iconlogo.png" alt="icono logo" width="50%"></a>
             </div>
-            <div class="navbar-menu-wrapper d-flex align-items-center">
-                <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
+            <div class="navbar-menu-wrapper d-flex align-items-center print-ignore">
+                <button class="navbar-toggler navbar-toggler align-self-center mr-2 print-ignore" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu print-ignore"></span>
                 </button>
-                <div class="nav-profile">
+                <div class="nav-profile print-ignore">
                   <span>Hola, <%= user.username %></span>
                   <img src="/images/faces/face6.jpg" />
                 </div>
@@ -22,7 +22,7 @@
                         <a type="button" class="btn btn-primary" href="/logout">Salir</a>
                         </li>
                     </ul>
-                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center print-ignore" type="button" data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
                   </button>
             </div>
@@ -34,7 +34,7 @@
         <div class="container-fluid page-body-wrapper">
           <div class="row row-offcanvas row-offcanvas-right">
             <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <nav class="sidebar sidebar-offcanvas print-ignore" id="sidebar">
                 <ul class="nav">
                     <!--main pages start-->
                     <li class="nav-item nav-category">
@@ -114,5 +114,7 @@
                  </ul>
             </nav>
             <%- body -%>
+          </div>
         <!-- page-body-wrapper ends -->
       </div>
+</div>

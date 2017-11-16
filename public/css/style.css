@@ -8607,6 +8607,31 @@
     .table-bordered td {
         border: 1px solid #ddd !important;
     }
+
+    navbar navbar-primary {
+        display: none !important;
+    }
+    .print-ignore{
+        display: none !important;
+    }
+
+    .table-print{
+        width: 700px !important;
+    }
+
+    .table-print td{
+        font-size: 12px !important;
+    }
+
+    .table-print h2{
+        font-size: 16px !important;
+    }
+
+    .margin-top-30{
+        margin-top: 30px;
+        margin-left: 0px;
+    }
+
 }
 
 *,

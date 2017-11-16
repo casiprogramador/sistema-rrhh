@@ -66,14 +66,14 @@
                   $('#table-saldo > tbody tr').remove();
                   
                   $.each(areas, function (key, area) {
-                    //console.log(area.id);
+
                       $.ajax({
                           type: 'GET',
                           contentType: 'application/json',
                           url: url_servidor+'empleado/'+area.id +'/area',						
                           success: function(empleado_areas) {
                               if(empleado_areas.length>0){
-                                //console.log('Area:'+area.desc_area+' N Empleados:'+empleado_areas.length );
+
                                 nombre_area = '';
                                 $.each(empleado_areas, function (key, empleado_area) {
                                   
@@ -85,12 +85,12 @@
                                         estado_empleado: tipo
                                       },						
                                       success: function(empleado_saldos) {
-                                        // console.log(area.desc_area);
+
 
                                         tabla = '<tr>'
                                             +'<td colspan="7"><h2>'+area.desc_area+'</h2></td>'
                                             +'</tr>';
-                                        if(nombre_area != area.desc_area){
+                                        if(nombre_area != area.desc_area && empleado_saldos.length > 0){
                                           $('#table-saldo > tbody:last-child').append(tabla);
                                         }
                                         
@@ -123,7 +123,6 @@
                                             ci_empleado = empleado_saldo.ndi;
                                         });
 
-                                        //$('#table-saldo > tbody:last-child').append(tabla);
                                       }
                                   });
                                 });
@@ -147,7 +146,7 @@
                   +'<td colspan="7"><h2>'+area_form_name+'</h2></td>'
                   +'</tr>';
             $('#table-saldo > tbody:last-child').append(tabla);
-                   //console.log('Area:'+area.desc_area+' N Empleados:'+empleado_areas.length );
+
                     $.each(empleado_areas, function (key, empleado_area) {
                       $.ajax({
                           type: 'GET',
@@ -157,7 +156,7 @@
                              estado_empleado: tipo
                           },							
                           success: function(empleado_saldos) {
-                          // console.log(area.desc_area);
+
                           ci_empleado = '';
                           tabla_empleado = '';
                           saldo_vacaciones_total = 0;
@@ -165,9 +164,7 @@
                             saldo_vacaciones_total += empleado_saldo.dias
                           });
                           $.each(empleado_saldos, function (key, empleado_saldo) {
-                      //console.log(empleado_saldo);
-                                //console.log(empleado_saldos.length);
-                                //console.log(key);                                            
+                                           
                                 if(ci_empleado !== empleado_saldo.ndi ){
                                       
                                       tabla_empleado += '<tr><td>'+empleado_saldo.ndi+'</td>'
@@ -190,7 +187,7 @@
                                   }
                                   
                                   ci_empleado = empleado_saldo.ndi;
-                                  //$('#table-saldo > tbody:last-child').append(tabla);
+
                           });
                         }
                       });
