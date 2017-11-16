@@ -67,13 +67,13 @@ module.exports = {
       nro_direccion:{
         type: Sequelize.INTEGER
       },
-      edificio_direccion:{
+      nombre_edificio:{
         type: Sequelize.STRING
       },
       piso_edificio:{
         type: Sequelize.INTEGER
       },
-      departamento: {
+      nro_departamento: {
         type: Sequelize.STRING(20)
       },
       zona: {
