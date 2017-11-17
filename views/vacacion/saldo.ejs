@@ -5,7 +5,20 @@
                 <div class="col-sm-12 col-lg-10 grid-margin print-ignore">
                   <div class="card margin-top-30">
                       <div class="card-body">
-                          <h2 class="card-title">Reporte Saldo de Vacacione</h2>
+                          <h2 class="card-title">Reporte Saldo de Vacaciones</h2>
+                          <form id="form-saldo-vacacion-individual">
+                                <div class="form-group row">
+                                    <label for="ci reporte" class="col-sm-3 col-form-label">C. I.:</label>
+                                    <div class="col-sm-8">
+                                      <table>
+                                          <tr>
+                                          <td><input type="text" onkeypress="return valida(event)" style="width:200px;height:35px" class="form-control" name="ci" id="civacacion"></td>
+                                          <td><button type="submit" class="btn btn-primary" onclick="buscar()">Busca persona</button></td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                            </form>
                           <form id="form-saldo-vacacion">
                               <div class="form-group row">
 
@@ -82,11 +95,11 @@
                         <th class="table-dark">CAS</th>
                         <th class="table-dark">Saldo</th>
                         <th class="table-dark">Gestion Pendientes</th>
+                        <th class="table-dark"></th>
+                        <th class="table-dark"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      
-                      
                     </tbody>
                   </table>
 

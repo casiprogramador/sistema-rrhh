@@ -21,9 +21,12 @@ var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
 
 
-// sequelize
-var Sequelize = require("sequelize");
-var app = express();
+var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
+
 
 // view engine setup
 app.engine('ejs', engine);
@@ -118,5 +121,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

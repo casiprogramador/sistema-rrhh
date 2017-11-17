@@ -57,17 +57,83 @@
 
   <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
   <script src="/js/data-table.js"></script>
+  <script src="/libs/jspdf.debug.js"></script>
+  <script src="/libs/jspdf.plugin.autotable.js"></script>
+  <script src="/js/dropify.min.js"></script>
   
   <!-- endinject -->
+  <script src="/js/jquery.validate.min.js"></script>
   <!-- inject:js -->
   <script src="/js/off-canvas.js"></script>
   <script src="/js/hoverable-collapse.js"></script>
   <script src="/js/misc.js"></script>
+  <script src="/js/dropify.js"></script>
+  <script src="/js/dinamico.js"></script>
 
   <script src="/js/script.js"></script>
 
   <!-- endinject -->
   <script>
+function buscar(){
+  var ci=getElementById("civacacion").innerHTML;
+  alert("ci");
+}
+
+function busqueda() {    
+  var pg = require('pg');  
+  var ci=getElementById("civacacion");
+  var conectionstring="postgres://postgres:postgres@localhost:5432/dbrrhh";
+  var pgClient= new pgClient(conectionstring);
+  pgClient.connect();
+  var query=pgClient.query('SELECT  * FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE e.id='+ci+' and  e.id=c.id_empleado and c.id_cargo=a.id and e.estado=true and a.id_area=r.id and s.id_empleado = e.id');
+  query.on("row",function(row,result){
+    result.addRow(row);
+    if(!result)
+    alert("no");
+  });
+}
+
+function valida(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+
+function generate() {
+        //document.getElementById('tabladatos').rows[i].cells.length ----- numero de columnas de la tabla-
+        //document.getElementById("tabladatos").rows.length  ----- numero de columnas de la tabla |
+        var columns = ["C. I.", "Nombre", "Cargo", "Fecha de Ingreso","Antiguedad","Saldo","Gestiones Pendientes","",""]  ;
+        var col=parseInt(document.getElementById('table').rows[0].cells.length);
+        var fil=parseInt(document.getElementById("table").rows.length);
+        var tabla=document.getElementById("table");
+        var data =new Array(fil);
+        for(var i=1;i<fil;i++){
+            var texto="";
+            var fila=new Array(9);
+            for(var j=1;j<col;j++){
+                fila[j]=document.getElementById('table').rows[i].cells[j].innerText;
+            }
+            data[i]=fila;
+        }
+        var doc = new jsPDF('l','pt','Legal');
+        doc.setFontSize('Arial','B',11);
+        var logo=new Image();
+        logo.src='/images/logo2.jpg';
+        doc.addImage(logo, 'JPEG', 15, 2, 80, 40);
+        doc.autoTable(columns, data);
+        doc.output("dataurlnewwindow");
+    }
+
+
     $(document).ready(function(){
       url_servidor = 'http://localhost:3000/';
       $( "#fecha-saldo-vacacion").val(getCurrentDate());
