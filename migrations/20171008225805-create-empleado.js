@@ -53,7 +53,7 @@ module.exports = {
         type: Sequelize.STRING(1)
       },
       estado_civil: {
-        type: Sequelize.STRING(1)
+        type: Sequelize.STRING(20)
       },
       num_serv_mil: {
         type: Sequelize.STRING(50)

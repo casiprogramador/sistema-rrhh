@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     provincia: DataTypes.STRING(50),
     fecha_ingreso: DataTypes.DATE,
     sexo: DataTypes.STRING(1),
-    estado_civil: DataTypes.STRING(1),
+    estado_civil: DataTypes.STRING(20),
     num_serv_mil: DataTypes.STRING(50),
     grupo_sang: DataTypes.STRING(20),
     calle_avenida: DataTypes.STRING,

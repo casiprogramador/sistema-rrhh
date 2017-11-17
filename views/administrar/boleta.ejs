@@ -21,22 +21,27 @@
                                 </select>
                               </div>
                         </div>
+                        
+
+
+
+
                         <div class="form-group row"> 
                             <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
                             <label for="fecha reporte" class="col-sm-1 col-form-label">Del:</label>
                             <div class="col-sm-3">
                                 
-                              <div class="input-group date datepicker b-l-blue">
-                                  <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion">
-                                  <div class="input-group-addon">  
-                                  <span class="mdi mdi-calendar-blank"></span>
+                              <div class="input-group date datepicker" id="datetimepicker1">
+                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-saldo-vacacion">
+                                  <div class="input-group-addon"> 
+                                  <span class="mdi mdi-calendar"></span>
                                   </div>
                               </div>
                               </div>
                               <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
                             <div class="col-sm-3">
-                                  <div class="input-group date datepicker b-l-blue">
-                                      <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion">
+                                  <div class="input-group date datepicker" id="datetimepicker2">
+                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-saldo-vacacion">
                                       <div class="input-group-addon">  
                                       <span class="mdi mdi-calendar-blank"></span>
                                       </div>
@@ -48,10 +53,17 @@
                             <div class="col-sm-6"><input type="text" class="form-control" name="apellido"></div>
                             <div class="col-sm-1"><button class="btn btn-primary" type="button">buscar</button></div>
                         </div>
-                                  <div class="col-12">
-                                    
-                                    
-                                    <table id="order-listing" class="table" cellspacing="0" width="100%">
+                        <div class="card-body btn-demo text-center">
+                          <input class ="btn btn-primaty" type="submit" value="Recuperar">
+                        </div>
+                        <div class="form-group row">
+                        
+                        
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col-12">
+                                    <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                       <thead>
                                         <tr>
                                             <th>Num</th>
@@ -61,7 +73,7 @@
                                             <th>Desde</th>
                                             <th>Hasta</th>
                                             <th>Estado</th>
-                                            <th>Actions</th>
+                                            <th>Acciones</th>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -73,7 +85,7 @@
                                             <td><%= boletas[i].id_tipo_boleta %></td>
                                             <td><%= boletas[i].fecha_inicio %></td>
                                             <td><%= boletas[i].fecha_fin %></td>
-                                            <td><%= boletas[i].fecha_fin %></td>
+                                            <td><%= boletas[i].estado %></td>
                                             
                                         </tr>
                                         <% } %>
@@ -81,18 +93,12 @@
                                       </tbody>
                                     </table>
                                   </div>
-
+                                </div>
 
 
 
 
                </form>
-
-
-
-
-
-
 
 
              </div>
