@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       telefono: {
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(20),
       },
       id_empleado: {
         type: Sequelize.INTEGER,
