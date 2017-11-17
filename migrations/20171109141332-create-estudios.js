@@ -8,26 +8,42 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      carrera: {
+        type: Sequelize.STRING
+      },
+      institucion: {
+        type: Sequelize.STRING
+      },
+      pais: {
+        type: Sequelize.STRING(50)
+      },
       fecha_inicio: {
         type: Sequelize.DATE
       },
       fecha_fin: {
         type: Sequelize.DATE
-      },      
+      },     
+      anios_vencidos: {
+        type: Sequelize.INTEGER
+      },  
       titulo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       nivel: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(20)
       },
       concluida: {
         type: Sequelize.BOOLEAN
       },
       ciudad: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       colegio_prof: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
+
+      },
+      nro_registro_prof: {
+        type: Sequelize.STRING(50)
 
       },
       id_empleado: {
