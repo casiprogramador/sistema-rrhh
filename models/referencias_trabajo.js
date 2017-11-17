@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     fecha_inicio: DataTypes.DATE,
     nombre: DataTypes.STRING,
     relacion: DataTypes.STRING,    
-    telefono: DataTypes.STRING(20)
+    telefono: DataTypes.STRING(20),
+    id_empleado: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

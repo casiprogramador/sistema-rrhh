@@ -70,7 +70,7 @@
                                                 <div class="col">
                                                 <div class="form-group">
                                                 <label for="name">Tipo de Seguro</label>
-                                                <select name="tiposeguro" class="js-example-basic-single" style="width:100%">
+                                                <select name="tiposeguro" class="form-control" style="width:100%">
                                                 <option value="Privado">Privado</option>
                                                 <option value="Publico">Publico</option>
                                                 </select>
@@ -140,7 +140,7 @@
                           <div class="col">
                           <div class="form-group">
                             <label for="name">Tipo de Cuenta</label>
-                            <select name="tipocuenta" class="js-example-basic-single" style="width:100%">
+                            <select name="tipocuenta" class="form-control" style="width:100%">
                                     <option value="CCMN">Cuenta Corriente M/N</option>
                                     <option value="CCME">Cuenta Corriente M/E</option>
                                     <option value="CAMN">Caja de Ahorros M/N</option>
@@ -164,14 +164,14 @@
                                 <div class="col">
                                 <div class="form-group">
                                   <label for="name">Nivel de Formacion</label>
-                                  <select name="nivelformacion" class="js-example-basic-single" style="width:100%">
+                                  <select name="nivelformacion" class="form-control" style="width:100%">
                                         <option value="Bachiller">Bachillerato</option>
                                         <option value="Licenciatura">Licenciatura</option>
                                         <option value="Maestria">Maestria</option>
                                         <option value="Doctorado">Doctorado</option>
                                         <option value="Otro">Otro</option>
                                         </select>
-                                        <input type="text" class="form-control" id="especificar" placeholder="Especificar">
+                                        <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion">
                                 </div>
                                 </div>
                                 <div class="col">
@@ -304,7 +304,11 @@
                                                         <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%"></td>
                                                 </tr>
                                                 <tr>
-                                                        <td><input name="lecturaotro" id="leeotro" rows="6" class="form-control" placeholder="Otro (especificar)"></td>
+                                                  <td><select name="otro" class="form-control" id="idioma" name="idioma">
+                                                          <% for(var i=2; i< Idioma.length; i++) { %>
+                                                               <option value="<%= Idioma[i].id %>"><%= Idioma[i].idioma %></option>
+                                                           <% } %>
+                                                      </select></td>
                                                         <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%"></td>
                                                         <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%"></td>
                                                         <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%"></td>

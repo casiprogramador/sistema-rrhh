@@ -32,6 +32,9 @@ module.exports = {
       nivel: {
         type: Sequelize.STRING(20)
       },
+      especificacion: {
+        type: Sequelize.STRING
+      },
       concluida: {
         type: Sequelize.BOOLEAN
       },

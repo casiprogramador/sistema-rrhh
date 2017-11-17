@@ -32,11 +32,26 @@
                         <div class="row">
                           <div class="col">
                           <div class="form-group">
-                          <label for="name">Nombres y Apellidos</label>
-                          <input type="text" class="form-control" id="nomapellidos" placeholder="Nombres y Apellidos">
+                          <label for="name">Apellido Paterno</label>
+                          <input name="paterno" type="text" class="form-control" id="nomapellidos" placeholder="paterno">
                           </div>
                           </div>
+                          <div class="col">
+                            <div class="form-group">
+                            <label for="name">Apellido Materno</label>
+                            <input name="materno" type="text" class="form-control" id="nomapellidos" placeholder="materno">
+                            </div>
+                            </div>
                           </div>
+
+                          <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                            <label for="name">Nombres</label>
+                            <input name="nombres" type="text" class="form-control" id="nomapellidos" placeholder="nombres">
+                            </div>
+                            </div>
+                            </div>
                   
                           <div class="row">
                           <div class="col">
@@ -44,25 +59,27 @@
                           <label for="name">Sexo</label>
                               <div class="form-radio">
                                   <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="sexodependientem" value="M" checked>
+                                    <input name="sexo" type="radio" class="form-check-input" name="optionsRadios" id="sexodependientem" value="M" checked>
                                     Masculino
                                   </label>
                               </div>
                               <div class="form-radio">
                                   <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="sexodependientef" value="F">
+                                    <input name="sexo" type="radio" class="form-check-input" name="optionsRadios" id="sexodependientef" value="F">
                                     Femenino
                                   </label>
                               </div>
                           </div>
                           </div>
                           </div>
+
+
                           <div class="row">
                           <div class="col">
                           <div class="form-group">
                           <label for="address">Fecha de Nacimiento</label>
                           <div class="input-group date datepicker b-l-blue">
-                              <input type="text" class="form-control">
+                              <input name="fecnac" type="text" class="form-control">
                               <div class="input-group-addon">
                                 <span class="mdi mdi-calendar-blank"></span>
                               </div>
@@ -72,16 +89,30 @@
                           <div class="col">
                           <div class="form-group">
                           <label for="address">N° de Documento de Identificacion</label>
-                          <input name="address" id="Nrodidependiente" rows="6" class="form-control" placeholder="N° de Documento de Identificacion">
+                          <input name="ndi" id="ndi" rows="6" class="form-control" placeholder="N° de Documento de Identificacion">
                           </div>
                           </div>
+                          <div class="col">
+                            <label for="name">Expedido en</label>
+                            <select name="expedido" class="form-control" style="width:100%">
+                            <option value="lp">La Paz</option>
+                            <option value="cbba">Cochabamba</option>
+                            <option value="stc">Santa Cruz</option>
+                            <option value="tj">Tarija</option>
+                            <option value="O">Oruro</option>
+                            <option value="ch">Chuquisaca</option>
+                            <option value="B">Beni</option>
+                            <option value="P">Pando</option>
+                            <option value="Pt">Potosi</option>
+                            </select>
+                            </div>
                           </div>
                   
                           <div class="row">
                           <div class="col">
                           <div class="form-group">
                           <label for="name">Tipo de Documento de Respaldo de la Relacion de Dependencia</label>
-                          <select class="js-example-basic-single" style="width:100%">
+                          <select name="tipodoc" class="form-control" style="width:100%">
                               <option value="matr">Certificado de Matrimonio</option>
                               <option value="librfam">Libreta Familiar</option>
                               <option value="certnac">Certificado de Nacimiento</option>
@@ -92,7 +123,7 @@
                           <div class="col">
                           <div class="form-group">
                           <label for="address">N° De Documento de la Relacion de Dependencia</label>
-                          <input name="address" id="nrodocdependencia" rows="6" class="form-control" placeholder="N° Identificacion Personal">
+                          <input name="nrodoc" id="nrodocdependencia" rows="6" class="form-control" placeholder="N° Identificacion Personal">
                           </div>
                           </div>
                           </div>

@@ -28,7 +28,7 @@
                     </tr>
                   </table>
                   <br><br><br><br>
-                  <h2 class="card-title">Registrar Nuevo Dependiente</h2>
+                  <h2 class="card-title">Registrar Experiencia</h2>
                   <form class="cmxform" id="registrodependiente" method="get" action="">
                     <div>
                             <form action="">
@@ -37,19 +37,19 @@
                                                                 <div class="col">
                                                                 <div class="form-group">
                                                                 <label for="name">Nombre de Institucion</label>
-                                                                <input type="text" class="form-control" id="nominst" placeholder="Nombre de la Institucion">
+                                                                <input name="nombre_empresa" type="text" class="form-control" id="nominst" placeholder="Nombre de la Institucion">
                                                                 </div>
                                                                 </div>
                                                                 <div class="col">
                                                                 <div class="form-group">
-                                                                <label for="address">Tipo de Institucion</label>
-                                                                <input name="address" id="Tipoinst" rows="6" class="form-control" placeholder="Tipo de Institucion">
+                                                                <label for="address">Tipo de Institucion (Publica, Privada, otra especificar)</label>
+                                                                <input name="tipo_empresa" id="Tipoinst" rows="6" class="form-control" placeholder="Tipo de Institucion">
                                                                 </div>
                                                                 </div>
                                                                 <div class="col">
                                                                 <div class="form-group">
                                                                 <label for="address">Cargo Desempeñado</label>
-                                                                <input name="address" id="cargo" rows="6" class="form-control" placeholder="Cargo Desempeñado">
+                                                                <input name="cargo" id="cargo" rows="6" class="form-control" placeholder="Cargo Desempeñado">
                                                                 </div>
                                                                 </div>
                                                                 </div>
@@ -59,13 +59,13 @@
                                                                 <div class="col">
                                                                 <div class="form-group">
                                                                 <label for="name">Pais</label>
-                                                                <input type="text" class="form-control" id="paisexperiencia" placeholder="Pais">
+                                                                <input name="pais" type="text" class="form-control" id="paisexperiencia" placeholder="Pais">
                                                                 </div>
                                                                 </div>
                                                                 <div class="col">
                                                                 <div class="form-group">
                                                                 <label for="address">Ciudad</label>
-                                                                <input name="address" id="ciudadexperiencia" rows="6" class="form-control" placeholder="Ciudad">
+                                                                <input name="ciudad" id="ciudadexperiencia" rows="6" class="form-control" placeholder="Ciudad">
                                                                 </div>
                                                                 </div>
                                                                 </div>
@@ -75,7 +75,7 @@
                                                                 <div class="form-group">
                                                                 <label for="name">Fecha de Inicio</label>
                                                                 <div class="input-group date datepicker b-l-blue">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name="fecha_inicio" type="text" class="form-control">
                                                                         <div class="input-group-addon">
                                                                           <span class="mdi mdi-calendar-blank"></span>
                                                                         </div>
@@ -86,7 +86,7 @@
                                                                 <div class="form-group">
                                                                 <label for="address">Fecha Fin</label>
                                                                 <div class="input-group date datepicker b-l-blue">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name="fecha_fin" type="text" class="form-control">
                                                                         <div class="input-group-addon">
                                                                           <span class="mdi mdi-calendar-blank"></span>
                                                                         </div>
