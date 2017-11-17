@@ -5,10 +5,10 @@ var modelos = require('../models/index');
 /* GET login page. */
 router.get('/', function(req, res, next) {
 
-    modelos.Area.findAll({
-        attributes: ['id','desc_area']
-    }).then(areas => {
-        res.json(areas);
+    modelos.Tipo_boleta.findAll({
+        attributes: ['id','tipo_boleta']
+    }).then(Tipo_boletas => {
+        res.json(Tipo_boletas);
     });
 
 });

@@ -13,8 +13,7 @@
                    <div class="form-group row">
                       <label for="area" class="col-sm-3 col-form-label">Estado de la licencia:</label>
                         <div class="col-sm-8">
-                                <select class="form-control" id="boletas-select">
-                                        <option value="Anulado">Anulado</option>
+                                <select class="form-control" name="tipo-boletas" id="tipo-boletas">
                                         <option value="Anulado">Anulado</option>
                                         <option value="Pendiente">Pendiente</option>
                                         <option value="Aprobado">Aprobado</option>
@@ -22,54 +21,41 @@
                               </div>
                         </div>
                         
-
-
-
-
                         <div class="form-group row"> 
                             <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
                             <label for="fecha reporte" class="col-sm-1 col-form-label">Del:</label>
                             <div class="col-sm-3">
                                 
                               <div class="input-group date datepicker" id="datetimepicker1">
-                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-saldo-vacacion">
+                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-inicio-boletas">
                                   <div class="input-group-addon"> 
-                                  <span class="mdi mdi-calendar"></span>
+                                  <span class="mdi mdi-calendar-blank"></span>
                                   </div>
                               </div>
                               </div>
                               <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
                             <div class="col-sm-3">
                                   <div class="input-group date datepicker" id="datetimepicker2">
-                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-saldo-vacacion">
+                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-fin-boletas">
                                       <div class="input-group-addon">  
                                       <span class="mdi mdi-calendar-blank"></span>
                                       </div>
                                   </div>
                             </div>                      
                         </div>
-                        <div class="form-group row"> 
-                            <label for="area" class="col-sm-3 col-form-label">Buscar por apellido:</label>
-                            <div class="col-sm-6"><input type="text" class="form-control" name="apellido"></div>
-                            <div class="col-sm-1"><button class="btn btn-primary" type="button">buscar</button></div>
+                        <div class="col-md-12 text-center"> 
+                          <button type="submit" class="btn btn-primary">Recuperar Boletas</button>
                         </div>
-                        <div class="card-body btn-demo text-center">
-                          <input class ="btn btn-primaty" type="submit" value="Recuperar">
-                        </div>
-                        <div class="form-group row">
-                        
-                        
-                        </div>
-
-                        <div class="form-group row">
+                      </form>
+                        <div class="form-group row" id="panel-boletas">
                           <div class="col-12">
                                     <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                       <thead>
                                         <tr>
                                             <th>Num</th>
                                             <th>C.I.</th>
-                                            <th>Nombre</th>
-                                            <th>Licencia</th>
+                                            <th>Nombre del empleado</th>
+                                            <th>Tipo de Boleta</th>
                                             <th>Desde</th>
                                             <th>Hasta</th>
                                             <th>Estado</th>
@@ -98,7 +84,7 @@
 
 
 
-               </form>
+               
 
 
              </div>

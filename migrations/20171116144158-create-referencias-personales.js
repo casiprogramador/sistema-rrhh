@@ -17,6 +17,16 @@ module.exports = {
       telefono: {
         type: Sequelize.STRING(20)
       },
+      id_empleado: {
+        type: Sequelize.INTEGER,
+        
+        references: {
+            model: 'Empleados',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
