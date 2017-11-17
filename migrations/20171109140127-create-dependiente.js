@@ -9,46 +9,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ndi: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(30)
       },
       expedido: {
         type: Sequelize.STRING(5)
       },
       paterno: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       materno: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       nombres: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       fecha_nacimiento: {
         type: Sequelize.DATE
       },
       sexo: {
-        type: Sequelize.STRING(2)
+        type: Sequelize.STRING(1)
       },
-      relacion: {
-        type: Sequelize.STRING
-      },
-      cert_matrim: {
-        type: Sequelize.STRING(2)
-      },
-      libreta_fam: {
-        type: Sequelize.STRING(2)
-      },
-      cert_nac: {
-        type: Sequelize.STRING(2)
-      },
-      otro: {
-        type: Sequelize.STRING(2)
+      tipo_documento: {
+        type: Sequelize.STRING(50)
       },
       desc_otro: {
         type: Sequelize.STRING
       },
       num_doc_depen: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       id_empleado: {
         type: Sequelize.INTEGER,

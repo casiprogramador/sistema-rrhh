@@ -6,6 +6,19 @@
                   <div class="card">
                       <div class="card-body">
                           <h2 class="card-title">Reporte Saldo de Vacaciones</h2>
+                          <form id="form-saldo-vacacion-individual">
+                                <div class="form-group row">
+                                    <label for="ci reporte" class="col-sm-3 col-form-label">C. I.:</label>
+                                    <div class="col-sm-8">
+                                      <table>
+                                          <tr>
+                                          <td><input type="text" onkeypress="return valida(event)" style="width:200px;height:35px" class="form-control" name="ci" id="civacacion"></td>
+                                          <td><button type="submit" class="btn btn-primary" onclick="buscar()">Busca persona</button></td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </div>
+                            </form>
                           <form id="form-saldo-vacacion">
                               <div class="form-group row">
 
@@ -63,7 +76,8 @@
               <div class="card">
                 <div class="card-body">
                   <h3 class="card-title text-center">Saldo de Vacaciones<br>al 10/10/2017</h3>
-                  <table id="table-saldo" class="table">
+                  <button  class="btn btn-primary" onclick="generate()">pdf</button>
+                  <table class="table" id="table">
                     <thead >
                       <tr>
                         <th class="table-dark">CI</th>
@@ -73,11 +87,21 @@
                         <th class="table-dark">CAS</th>
                         <th class="table-dark">Saldo</th>
                         <th class="table-dark">Gestion Pendientes</th>
+                        <th class="table-dark"></th>
+                        <th class="table-dark"></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td colspan="7"><h2>UNIDAD DE DASARROLLO NORMATIVO</h2></td>
+                        <td class="table-dark"></td>
+                        <td><h3>UNIDAD DE DASARROLLO NORMATIVO</h3></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
+                        <td class="table-dark"></td>
                       </tr>
                       <tr>
                         <td>60123245</td>
@@ -86,24 +110,132 @@
                          <td>10/10/2014</td>
                          <td>2 años</td>
                         <td>30 dias</td>
-                        <td>
-                            <b>Gestion</b> 2016 - <b>Vacacion:</b> 10 dias <br>
-                            <b>Gestion</b> 2017 - <b>Vacacion:</b> 5 dias <br>
-                        </td>
+                        <td><b> Gestion</b></td>
+                        <td><b>Dias</b></td>
+                        <td><b>Rec Ant</b></td>
                       </tr>
                       <tr>
-                        <td>60123245</td>
-                        <td>Maria Sanches Rivera</td>
-                        <td>Resonsable tecnico desarrollo</td>
-                         <td>10/10/2014</td>
-                         <td>2 años</td>
-                        <td>30 dias</td>
-                        <td>
-                            <b>Gestion</b> 2016 - <b>Vacacion:</b> 10 dias <br>
-                            <b>Gestion</b> 2017 - <b>Vacacion:</b> 5 dias <br>
-                        </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>2015</td>
+                          <td>15</td>
+                          <td></td>
                       </tr>
-                      
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>2016</td>
+                          <td>10</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Total</td>
+                          <td>25</td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td>60123245</td>
+                          <td>Maria Sanches Rivera</td>
+                          <td>Resonsable tecnico desarrollo</td>
+                           <td>10/10/2014</td>
+                           <td>2 años</td>
+                          <td>30 dias</td>
+                          <td><strong> Gestion</strong></td>
+                          <td><strong>Dias</strong></td>
+                          <td><strong>Rec Ant</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>2015</td>
+                            <td>15</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>2016</td>
+                            <td>10</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td>25</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>60123245</td>
+                            <td>Maria Sanches Rivera</td>
+                            <td>Resonsable tecnico desarrollo</td>
+                             <td>10/10/2014</td>
+                             <td>2 años</td>
+                            <td>30 dias</td>
+                            <td><strong> Gestion</strong></td>
+                            <td><strong>Dias</strong></td>
+                            <td><strong>Rec Ant</strong></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>2015</td>
+                              <td>15</td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>2016</td>
+                              <td>10</td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td>Total</td>
+                              <td>25</td>
+                              <td></td>
+                          </tr>
+                    
                     </tbody>
                   </table>
 

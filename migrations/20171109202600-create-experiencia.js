@@ -9,13 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre_empresa: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       tipo_empresa: {
+        type: Sequelize.STRING(50)
+      },
+      pais: {
+        type: Sequelize.STRING(50)
+      },
+      ciudad: {
         type: Sequelize.STRING
       },
       cargo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       fecha_inicio: {
         type: Sequelize.DATE

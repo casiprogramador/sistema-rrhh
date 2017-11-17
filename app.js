@@ -17,9 +17,15 @@ var home = require('./routes/home');
 var area = require('./routes/area');
 var empleado = require('./routes/empleado');
 var vacacion_saldo = require('./routes/vacacion/saldo');
+var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
+
 
 // view engine setup
 app.engine('ejs', engine);
@@ -92,6 +98,11 @@ app.use('/home', home);
 app.use('/area', area);
 app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
+app.use('/ficha_personal',ficha_personal_identificacion);
+app.use('/ficha_personal',ficha_personal_datoslaborales);
+app.use('/ficha_personal',ficha_personal_dependientes);
+app.use('/ficha_personal',ficha_personal_experiencia);
+app.use('/ficha_personal',ficha_personal_referencias);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -110,5 +121,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
