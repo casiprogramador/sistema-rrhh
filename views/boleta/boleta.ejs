@@ -3,13 +3,18 @@
         <div class="content-wrapper">
           <h1 class="page-title">Solicitud de Boletas</h1>
           <div class="row grid-margin">
+              
               <div class="col-lg-10 grid-margin grid-margin-lg-0">
+
+
+<form method="post" action="/boleta/guardar">
+
                   <div class="card col-lg-12 col-lg-4   ">
                       <div class="card-body col-8 col-4">
                         <div class="form-group row">
-                                <label for="fecha reporte" class="col-sm-3 col-form-label">Tipo de Boleta:</label>
+                                <label for="fecha reporte" class="col-sm-3 col-form-label" >Tipo de Boleta:</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" id="boleta-select-vacacion">
+                                    <select class="form-control" id="tipo_boleta" name="tipo_boleta">
                                         <% for(var i=0; i< Tipo_boleta.length; i++) { %>
                                              <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
                                          <% } %>
@@ -21,7 +26,7 @@
                                     <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha Inicio:</label>
                                     <div class="col-sm-8">
                                       <div class="input-group date datepicker b-l-blue">
-                                          <input type="text" class="form-control" name="fecha_inicio" id="fecha-boleta_inicio"  required>
+                                          <input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio"  required>
                                           <div class="input-group-addon">
                                           <span class="mdi mdi-calendar-blank"></span>
                                           </div>
@@ -32,7 +37,7 @@
                                         <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha fin:</label>
                                         <div class="col-sm-8">
                                             <div class="input-group date datepicker b-l-blue">
-                                                <input type="text" class="form-control" name="fecha_fin" id="fecha-boleta_fin"  required>
+                                                <input type="text" class="form-control" name="fecha_fin" id="fecha_fin"  required>
                                                 <div class="input-group-addon">
                                                 <span class="mdi mdi-calendar-blank"></span>
                                                 </div>
@@ -43,7 +48,7 @@
                                     <label for="fecha reporte" class="col-sm-3 col-form-label">Hora Inicio:</label>
                                     <div class="col-sm-8">
                                         <div class="input-group clockpicker b-l-blue">
-                                            <input type="text" class="form-control p-input col-lg-3" value="09:30" >
+                                            <input type="text" class="form-control p-input col-lg-3" value="09:30"  name="hora_inicio">
                                             <span class="input-group-addon">
                                                 <i class="mdi mdi-clock"></i>
                                             </span>
@@ -54,7 +59,7 @@
                                         <label for="fecha reporte" class="col-sm-3 col-form-label">Hora fin:</label>
                                         <div class="col-sm-8">
                                             <div class="input-group clockpicker b-l-blue">
-                                                <input type="text" class="form-control p-input col-lg-3" value="09:30"  required>
+                                                <input type="text" class="form-control p-input col-lg-3" value="09:30"   name="hora_fin">
                                                 <span class="input-group-addon">
                                                     <i class="mdi mdi-clock"></i>
                                                 </span>
@@ -76,5 +81,9 @@
                                 <input class="btn btn-primary" type="submit" value="Submit">
                       </div>
                   </div>
+
+
+                </form>
+
               </div>
           </div>

@@ -1,7 +1,7 @@
 (function($) {
     'use strict';
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'yyyy-mm-dd',
         orientation: 'bottom',
         autoclose: true,
     });
