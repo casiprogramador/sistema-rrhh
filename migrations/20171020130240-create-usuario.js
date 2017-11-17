@@ -29,6 +29,15 @@ module.exports = {
           model: 'Rols',
           key: 'id'
       },
+      id_empleado: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Empleados',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      },
       onUpdate: 'cascade',
       onDelete: 'cascade'
       },

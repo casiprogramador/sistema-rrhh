@@ -157,25 +157,6 @@
     }
   </script>
 
-
-<script>
-    $(document).ready(function(){
-      url_servidor = 'http://localhost:3000/';
-      $( "#fecha-inicio-boletas").val(getCurrentDate());
-      $( "#panel-boletas").hide();
-      $( "#form-administrar-boletas" ).submit(function( event ) {
-        tipo_boleta = $( "#tipo-boletas option:selected" ).val();
-        fecha_inicio = $( "#fecha-inicio-boletas").val();
-        fecha_fin = $( "#fecha-fin-boletas").val();
-        console.log(fecha_inicio+tipo_boleta+fecha_fin);
-        $("#panel-boletas").show();
-        //Ajax jquery
-			
-        event.preventDefault();
-      });
-    });
-
-</script> 
     <%- block('javascript').toString() %>
 </body>
 

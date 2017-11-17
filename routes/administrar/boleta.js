@@ -3,6 +3,8 @@ var router = express.Router();
 var modelos = require('../../models/index');
 
 /* GET login page. */
+area = $( "#areas-select-vacacion option:selected" ).val();
+if(true){
 router.get('/',function(req, res, next) {
     modelos.Boleta.findAll({
         attributes: ['id', 'fecha_solicitud', 'observacion', 'estado', 'fecha_inicio', 'fecha_fin', 'id_empleado', 'id_tipo_boleta']
@@ -12,7 +14,7 @@ router.get('/',function(req, res, next) {
     });
     });
 
-
+}
 
 
 

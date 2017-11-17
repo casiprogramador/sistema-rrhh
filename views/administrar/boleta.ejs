@@ -14,6 +14,7 @@
                       <label for="area" class="col-sm-3 col-form-label">Estado de la licencia:</label>
                         <div class="col-sm-8">
                                 <select class="form-control" name="tipo-boletas" id="tipo-boletas">
+                                        <option value="todos">Todos</option>
                                         <option value="Anulado">Anulado</option>
                                         <option value="Pendiente">Pendiente</option>
                                         <option value="Aprobado">Aprobado</option>
@@ -25,9 +26,9 @@
                             <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
                             <label for="fecha reporte" class="col-sm-1 col-form-label">Del:</label>
                             <div class="col-sm-3">
-      
+                                
                               <div class="input-group date datepicker" id="datetimepicker1">
-                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-inicio-boletas" value="02-16-2012">
+                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-inicio-boletas">
                                   <div class="input-group-addon"> 
                                   <span class="mdi mdi-calendar-blank"></span>
                                   </div>
@@ -36,7 +37,7 @@
                               <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
                             <div class="col-sm-3">
                                   <div class="input-group date datepicker" id="datetimepicker2">
-                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-fin-boletas" value="02-16-2012">
+                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-fin-boletas">
                                       <div class="input-group-addon">  
                                       <span class="mdi mdi-calendar-blank"></span>
                                       </div>
@@ -63,17 +64,24 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                                                                 
+                                          <% for(var i=0; i< boletas.length; i++) { %>
+                                        <tr>
+                                            <td><%= boletas[i].id %></td>
+                                            <td><%= boletas[i].id_empleado %></td>
+                                            <td><%= boletas[i].id_empleado %></td>
+                                            <td><%= boletas[i].id_tipo_boleta %></td>
+                                            <td><%= boletas[i].fecha_inicio %></td>
+                                            <td><%= boletas[i].fecha_fin %></td>
+                                            <td><%= boletas[i].estado %></td>
+                                            <td>
+                                              <button class="btn btn-outline-primary">Editar</button>
+                                            </td>
+                                        </tr>
+                                        <% } %>
                                       </tbody>
                                     </table>
                                   </div>
-                                </div>
-
-
-
-
-               
-
+                  </div>
 
              </div>
            </div>
