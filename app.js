@@ -26,7 +26,9 @@ var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificac
 var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
-
+// sequelize
+var Sequelize = require("sequelize");
+var app = express();
 
 // view engine setup
 app.engine('ejs', engine);
