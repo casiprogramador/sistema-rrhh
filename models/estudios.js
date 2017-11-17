@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     anios_vencidos: DataTypes.INTEGER,
     titulo: DataTypes.STRING(50),
     nivel: DataTypes.STRING(20),
+    especificacion: DataTypes.STRING,
     concluida: DataTypes.BOOLEAN,
     ciudad: DataTypes.STRING(50),
     colegio_prof: DataTypes.STRING(50),
