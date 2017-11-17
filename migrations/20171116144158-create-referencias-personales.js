@@ -1,27 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Areas', {
+    return queryInterface.createTable('Referencias_Personales', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_area_superior: {
-        type: Sequelize.INTEGER
-      },
-      desc_area: {
+      nombre: {
         type: Sequelize.STRING
       },
-      estado: {
-        type: Sequelize.BOOLEAN
+      relacion: {
+        type: Sequelize.STRING
       },
-      ausr: {
-        type: Sequelize.STRING(50)
-      },
-      nivel: {
-        type: Sequelize.INTEGER
+      telefono: {
+        type: Sequelize.STRING(20)
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Areas');
+    return queryInterface.dropTable('Referencias_Personales');
   }
 };

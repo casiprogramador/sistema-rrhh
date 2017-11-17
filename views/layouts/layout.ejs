@@ -9,13 +9,27 @@
   <link rel="stylesheet" href="/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/css/perfect-scrollbar.min.css">
 
+
+  <link rel="stylesheet" href="/css/materialdesignicons.css">
+  
+  
+  
+
+
+
+
+  <!-- jsgrid:css -->
+  <link type="text/css" rel="stylesheet" href="/css/jsgrid.min.css" >
+  <link type="text/css" rel="stylesheet" href="/css/jsgrid-theme.min.css" >
+  <link type="text/css" rel="stylesheet" href="/css/dataTables.bootstrap4.css" >
+
   <!-- endinject -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/style.css">
   <link type="text/css" href="/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="/css/jquery-clockpicker.min.css" />
   <!-- endinject -->
-  <link rel="shortcut icon" href="/images/iconlogo.png" />
+  <link rel="shortcut icon" href="/images/iconlogo.png" >
    <%- block('style').toString() %>
 </head>
 
@@ -23,6 +37,10 @@
   <%- body -%>
   <!-- container-scroller -->
   <!-- plugins:js -->
+  
+  
+
+
   <script src="/js/jquery.min.js"></script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -31,8 +49,14 @@
   <script src="/js/jquery-clockpicker.min.js"></script>
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/jquery.form-validation.js"></script>
-  
-  
+
+   <!-- jsgrid.js -->
+  <script type="text/javascript" src="/js/jsgrid.min.js"></script>
+
+  <script type="text/javascript" src="/js/dataTables.bootstrap4.js"></script>
+
+  <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
+  <script src="/js/data-table.js"></script>
   
   <!-- endinject -->
   <!-- inject:js -->
@@ -243,6 +267,23 @@
       return today;
     }
   </script>
+
+<script>
+  $(function () {
+      $('#datetimepicker1').datetimepicker();
+      $('#datetimepicker2').datetimepicker({
+          useCurrent: false //Important! See issue #1075
+      });
+      $("#datetimepicker1").on("dp.change", function (e) {
+          $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+      });
+      $("#datetimepicker2").on("dp.change", function (e) {
+          $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+      });
+  });
+</script>
+ 
+  
     <%- block('javascript').toString() %>
 </body>
 

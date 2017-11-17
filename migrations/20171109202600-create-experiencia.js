@@ -14,6 +14,12 @@ module.exports = {
       tipo_empresa: {
         type: Sequelize.STRING(50)
       },
+      pais: {
+        type: Sequelize.STRING(50)
+      },
+      ciudad: {
+        type: Sequelize.STRING
+      },
       cargo: {
         type: Sequelize.STRING(50)
       },

@@ -10,4 +10,7 @@
         align: 'left',
         donetext: 'Aceptar'
     });
+    $("#jsGrid").jsGrid();
+    
   })(jQuery);
+    

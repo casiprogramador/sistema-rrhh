@@ -1,35 +1,17 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Boleta', {
+    return queryInterface.createTable('Tipo_empleado_boleta', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fecha_solicitud: {
-        type: Sequelize.DATE
-      },
-      observacion: {
-        type: Sequelize.STRING
-      },
-      estado: {
-        type: Sequelize.STRING(20)
-      },
-
-      fecha_inicio: {
-        type: Sequelize.DATE
-      },
-
-      fecha_fin: {
-        type: Sequelize.DATE
-      },
-
-      id_empleado: {
+      id_tipo_empleado: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'Empleados',
+            model: 'Tipo_Empleados',
             key: 'id'
         },
         onUpdate: 'cascade',
@@ -37,7 +19,6 @@ module.exports = {
       },
       id_tipo_boleta: {
         type: Sequelize.INTEGER,
-        
         references: {
             model: 'Tipo_boleta',
             key: 'id'
@@ -56,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Boleta');
+    return queryInterface.dropTable('Tipo_empleado_boleta');
   }
 };

@@ -31,7 +31,13 @@ module.exports = {
       fecha_nacimiento: {
         type: Sequelize.DATE
       },
-      pais: {
+      pais_expedido: {
+        type: Sequelize.STRING(50)
+      },
+      pais_nacimiento: {
+        type: Sequelize.STRING(50)
+      },
+      nacionalidad: {
         type: Sequelize.STRING(50)
       },
       departamento: {
@@ -47,7 +53,7 @@ module.exports = {
         type: Sequelize.STRING(1)
       },
       estado_civil: {
-        type: Sequelize.STRING(1)
+        type: Sequelize.STRING(20)
       },
       num_serv_mil: {
         type: Sequelize.STRING(50)
@@ -55,8 +61,23 @@ module.exports = {
       grupo_sang: {
         type: Sequelize.STRING(20)
       },
-      direccion: {
-        type: Sequelize.STRING(50)
+      calle_avenida: {
+        type: Sequelize.STRING
+      },
+      nro_direccion:{
+        type: Sequelize.INTEGER
+      },
+      nombre_edificio:{
+        type: Sequelize.STRING
+      },
+      piso_edificio:{
+        type: Sequelize.INTEGER
+      },
+      nro_departamento: {
+        type: Sequelize.STRING(20)
+      },
+      zona: {
+        type: Sequelize.STRING
       },
       telefono: {
         type: Sequelize.STRING(20)
@@ -85,11 +106,17 @@ module.exports = {
       nro_seguro: {
         type: Sequelize.STRING(50)
       },
+      tipo_seguro: {
+        type: Sequelize.STRING(50)
+      },
       nua: {
         type: Sequelize.STRING(50)
       },
       ren: {
         type: Sequelize.STRING(50)
+      },
+      anios_calificados: {
+        type: Sequelize.INTEGER
       },
       nro_declar_jurada: {
         type: Sequelize.STRING(50)
@@ -117,6 +144,12 @@ module.exports = {
       },
       estado: {
         type: Sequelize.BOOLEAN
+      },
+      discapacidad: {
+        type: Sequelize.BOOLEAN
+      },
+      nro_carnet_discapacidad: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

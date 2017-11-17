@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     fecha_fin: DataTypes.DATE,
     dias: DataTypes.INTEGER,
     prescrito_estado: DataTypes.BOOLEAN,
+    gestion: DataTypes.INTEGER,
     observacion: DataTypes.STRING,
     id_empleado: DataTypes.INTEGER
   }, {

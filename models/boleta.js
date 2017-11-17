@@ -1,10 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Boleta = sequelize.define('Boleta', {
-    boleta: DataTypes.STRING(50),
     fecha_solicitud: DataTypes.DATE,
     observacion: DataTypes.STRING,
-    aprobado: DataTypes.BOOLEAN,
+    estado: DataTypes.STRING(20),
+    fecha_inicio: DataTypes.DATE,
+    fecha_fin: DataTypes.DATE,
     id_empleado: DataTypes.INTEGER,
     id_tipo_boleta: DataTypes.INTEGER
   }, {

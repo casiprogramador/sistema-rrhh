@@ -8,11 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     nombres: DataTypes.STRING(50),
     fecha_nacimiento: DataTypes.DATE,
     sexo: DataTypes.STRING(1),
-    relacion: DataTypes.STRING(20),
-    cert_matrim: DataTypes.BOOLEAN,
-    libreta_fam: DataTypes.BOOLEAN,
-    cert_nac: DataTypes.BOOLEAN,
-    otro: DataTypes.BOOLEAN,
+    tipo_documento: DataTypes.STRING(50),
     desc_otro: DataTypes.STRING(50),
     num_doc_depen: DataTypes.STRING(50),
     id_empleado: DataTypes.INTEGER
