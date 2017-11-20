@@ -9,7 +9,9 @@ router.get('/formulario', function(req, res, next) {
     modelos.Area.findAll({
         attributes: ['id', 'desc_area']
     }).then(areas => {
-        console.log(JSON.stringify(areas));
+        //console.log(JSON.stringify(areas));
+        //res.cookie('cokie' , 'cookie_value').send(areas);
+        //console.log("Cookies :  ", req.cookies);
         res.render('vacacion/saldo', { areas: areas });
     });
 
