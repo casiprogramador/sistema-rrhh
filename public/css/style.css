@@ -8607,31 +8607,25 @@
     .table-bordered td {
         border: 1px solid #ddd !important;
     }
-
     navbar navbar-primary {
         display: none !important;
     }
-    .print-ignore{
+    .print-ignore {
         display: none !important;
     }
-
-    .table-print{
+    .table-print {
         width: 700px !important;
     }
-
-    .table-print td{
+    .table-print td {
         font-size: 12px !important;
     }
-
-    .table-print h2{
+    .table-print h2 {
         font-size: 16px !important;
     }
-
-    .margin-top-30{
+    .margin-top-30 {
         margin-top: 30px;
         margin-left: 0px;
     }
-
 }
 
 *,
@@ -22921,4 +22915,9 @@ div.tagsinput span.tag a {
 .datepicker table tr td span:hover,
 .datepicker table tr td span.focused {
     background: #eee;
+}
+
+.form-margin-20 {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
 }

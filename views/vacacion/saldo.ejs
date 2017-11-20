@@ -5,7 +5,30 @@
                 <div class="col-sm-12 col-lg-10 grid-margin print-ignore">
                   <div class="card margin-top-30">
                       <div class="card-body">
-                          <h2 class="card-title">Reporte Saldo de Vacaciones</h2>
+                          <div class="row">
+                          <div class="col-sm-7">
+                            <h2 class="card-title">Reporte Saldo de Vacaciones</h2>
+                          </div>
+                          
+                          <div class="col-sm-4">
+                                    
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="tipo_reporte" value="area" checked>
+                                            Reporte por Area
+                                        </label>
+                                    </div>
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="tipo_reporte" value="persona">
+                                            Reporte por Persona
+                                        </label>
+                                    </div>
+                          </div>
+                          </div>                     
+                          
+                        <div id="form-busqueda-individual" class="form-margin-20">
+                         <h2 class="">Busqueda por Persona</h2>
                           <form id="form-saldo-vacacion-individual">
                                 <div class="form-group row">
                                     <label for="ci reporte" class="col-sm-3 col-form-label">C. I.:</label>
@@ -19,6 +42,9 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div id="form-busqueda-area" class="form-margin-20">
+                         <h2 class="">Busqueda por Area</h2>
                           <form id="form-saldo-vacacion">
                               <div class="form-group row">
 
@@ -69,6 +95,7 @@
                               <button type="submit" class="btn btn-primary">Buscar Personal</button>
                             </div>
                           </form>
+                        </div>
                       </div>
                   </div>
               </div>

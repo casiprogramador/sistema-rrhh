@@ -7,9 +7,10 @@
                   <img src="/images/nombrelogo.png" alt="nombre logo" width="60%">
                   <img src="/images/iconlogo.png" alt="icono logo" width="17%">
                 </a>
-                <a class="navbar-brand brand-logo-mini print-ignore" href="/"><img src="/images/iconlogo.png" alt="icono logo" width="50%"></a>
+                <a class="navbar-brand brand-logo-mini print-ignore" href="/home"><img src="/images/iconlogo.png" alt="icono logo" width="50%"></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center print-ignore">
+
                 <button class="navbar-toggler navbar-toggler align-self-center mr-2 print-ignore" type="button" data-toggle="minimize">
                     <span class="mdi mdi-menu print-ignore"></span>
                 </button>
@@ -17,11 +18,16 @@
                   <span>Hola, <%= user.username %></span>
                   <img src="/images/faces/face6.jpg" />
                 </div>
-                      <ul class="navbar-nav mt-2 mt-md-0 d-none d-lg-block ml-lg-auto">
-                        <li class="nav-item dropdown">
-                        <a type="button" class="btn btn-primary" href="/logout">Salir</a>
+                            <form class="form-inline mt-2 mt-md-0 d-none d-lg-block ml-lg-auto">
+                <input class="form-control search" type="text" placeholder="Buscar">
+            </form>
+                <ul class="navbar-nav print-ignore">
+                        <li class="nav-link count-indicator">
+                        <a type="button" class="btn btn-primary print-ignore" href="/logout">Salir</a>
                         </li>
-                    </ul>
+                </ul>
+
+                
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center print-ignore" type="button" data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
                   </button>
@@ -46,6 +52,7 @@
                             <span class="menu-title">Inicio</span>
                         </a>
                     </li>
+                    <%if (user.rol.rol === 'ADMIN') { %>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsVacacion" aria-expanded="false" aria-controls="collapseExample">
                             <i class="mdi mdi-beach"></i>
@@ -67,23 +74,25 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsAdministrar" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="mdi mdi-clock"></i>
-                            <span class="menu-title">Administracion de Boletas</span>
+                            <i class="mdi mdi-file-document"></i>
+                            <span class="menu-title">Boletas</span>
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
                         <div class="collapse" id="layoutsAdministrar">
                                 <ul class="nav flex-column sub-menu">
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/administrar/boleta">Administrar boletas</a>
+                                            <a class="nav-link" href="/administrar/boleta">Administrar</a>
                                         </li>
                 
                                     </ul>
                         </div>
                     </li>
+                    <% } %>
+                    <%if (user.rol.rol === 'EMPLEADO') { %>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsBoleta" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="mdi mdi-clock"></i>
+                            <i class="mdi mdi-file-document"></i>
                             <span class="menu-title">Boleta</span>
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
@@ -98,35 +107,7 @@
                                 </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#sidebarLayoutsSubmenu" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="mdi mdi-format-list-bulleted"></i>
-                            <span class="menu-title">General</span>
-                            <i class="mdi mdi-chevron-down"></i>
-                        </a>
-                        <div class="collapse" id="sidebarLayoutsSubmenu">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/sidebar-compact.html">Area</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/sidebar-collapsed.html">Funcionario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/sidebar-hidden.html">Reporte General</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/sidebar-hidden-overlay.html">Reportes Altas y Bajas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/sidebar-fixed.html">Reporte por Genero</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/layout/horizontal_menu.html">Reportes por Jerarquia</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>   
+ 
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">
                             <i class="mdi mdi-account-card-details"></i>
@@ -155,6 +136,7 @@
                                     </ul>
                         </div>
                     </li>
+                     <% } %>
                     <!--main pages end-->
                  </ul>
             </nav>
