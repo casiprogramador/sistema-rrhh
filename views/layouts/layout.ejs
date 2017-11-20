@@ -9,13 +9,18 @@
   <link rel="stylesheet" href="/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/css/perfect-scrollbar.min.css">
 
+  <!-- jsgrid:css -->
+  <link type="text/css" rel="stylesheet" href="/css/jsgrid.min.css" >
+  <link type="text/css" rel="stylesheet" href="/css/jsgrid-theme.min.css" >
+  <link type="text/css" rel="stylesheet" href="/css/dataTables.bootstrap4.css" >
+
   <!-- endinject -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/style.css">
   <link type="text/css" href="/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="/css/jquery-clockpicker.min.css" />
   <!-- endinject -->
-  <link rel="shortcut icon" href="/images/iconlogo.png" />
+  <link rel="shortcut icon" href="/images/iconlogo.png" >
    <%- block('style').toString() %>
 </head>
 
@@ -23,6 +28,10 @@
   <%- body -%>
   <!-- container-scroller -->
   <!-- plugins:js -->
+  
+  
+
+
   <script src="/js/jquery.min.js"></script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -31,50 +40,27 @@
   <script src="/js/jquery-clockpicker.min.js"></script>
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/jquery.form-validation.js"></script>
-  
-  
+
+  <script src="/js/jquery.dataTables.js"></script>
+  <script src="/js/data-table.js"></script>
+  <script src="/libs/jspdf.debug.js"></script>
+  <script src="/libs/jspdf.plugin.autotable.js"></script>
+  <script src="/js/dropify.min.js"></script>
   
   <!-- endinject -->
+  <script src="/js/jquery.validate.min.js"></script>
   <!-- inject:js -->
   <script src="/js/off-canvas.js"></script>
   <script src="/js/hoverable-collapse.js"></script>
   <script src="/js/misc.js"></script>
+  <script src="/js/dropify.js"></script>
+  <script src="/js/dinamico.js"></script>
 
   <script src="/js/script.js"></script>
-
+  <script src="/js/saldovacacion.js"></script>
   <!-- endinject -->
-  <script>
-    $(document).ready(function(){
-      $( "#fecha-saldo-vacacion").val(getCurrentDate());
-      // $( "#panel-personal").hide();
-      $( "#form-saldo-vacacion" ).submit(function( event ) {
-        area = $( "#areas-select-vacacion option:selected" ).val();
-        fecha = $( "#fecha-saldo-vacacion").val();
-        tipo = $('input[name=tipo_personal]:checked').val();
-        console.log(area);
-        console.log(fecha);
-        console.log(tipo);
-        $( "#panel-personal").show();
-        event.preventDefault();
-      });
-    });
-
-    function getCurrentDate(){
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth()+1; //January is 0!
-
-      var yyyy = today.getFullYear();
-      if(dd<10){
-          dd='0'+dd;
-      } 
-      if(mm<10){
-          mm='0'+mm;
-      } 
-      var today = dd+'/'+mm+'/'+yyyy;
-      return today;
-    }
-  </script>
+ 
+  
     <%- block('javascript').toString() %>
 </body>
 

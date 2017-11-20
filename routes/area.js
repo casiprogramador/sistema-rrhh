@@ -1,17 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var modelos = require('../../models/index');
+var modelos = require('../models/index');
 
-/* GET login page. */
-router.getAllAreas('/formulario', function(req, res, next) {
+/* GET todas la areas. */
+router.get('/', function(req, res, next) {
     modelos.Area.findAll({
-        attributes: ['desc_area']
+        attributes: ['id','desc_area']
     }).then(areas => {
-        res.status(200).send(areas);
+        res.json(areas);
     });
 
 });
 
+/* GET area especifica. */
+router.get('/:id_area', function(req, res, next) {
+    modelos.Area.findById(req.params.id_area).then(area => {
+        res.json(area);
+    });
+
+});
 module.exports = router;
-
-

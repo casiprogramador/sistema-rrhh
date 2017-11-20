@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     pais: DataTypes.STRING(50),
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
-    años_vencidos: DataTypes.INTEGER,
+    anios_vencidos: DataTypes.INTEGER,
     titulo: DataTypes.STRING(50),
     nivel: DataTypes.STRING(20),
     concluida: DataTypes.BOOLEAN,

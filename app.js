@@ -14,8 +14,18 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 var home = require('./routes/home');
+var area = require('./routes/area');
+var empleado = require('./routes/empleado');
 var vacacion_saldo = require('./routes/vacacion/saldo');
 var boleta = require('./routes/boletas/boleta');
+var administrar_boleta = require('./routes/administrar/boleta');
+
+
+var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
@@ -51,6 +61,7 @@ app.use((req, res, next)=>{
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  
   next();
 })
 
@@ -88,9 +99,12 @@ app.use(cookieParser());
 app.use('/', login);
 app.use('/users', users);
 app.use('/home', home);
+app.use('/area', area);
+app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
 app.use('/boleta',boleta);
 
+app.use('/administrar/boleta',administrar_boleta);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -109,5 +123,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

@@ -10,4 +10,6 @@
         align: 'left',
         donetext: 'Aceptar'
     });
+    
   })(jQuery);
+    
