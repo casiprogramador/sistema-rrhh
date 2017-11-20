@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50)
       },
       estado: {
         type: Sequelize.BOOLEAN
@@ -28,6 +28,12 @@ module.exports = {
         references: {
           model: 'Rols',
           key: 'id'
+      }},
+      empleado_id: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Empleados',
+            key: 'id'
       },
       onUpdate: 'cascade',
       onDelete: 'cascade'

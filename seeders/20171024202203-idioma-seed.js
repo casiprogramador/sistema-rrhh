@@ -6,7 +6,8 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Idiomas', [
       {idioma : 'Español', createdAt : new Date(), updatedAt : new Date()},
-      {idioma : 'Ingles', createdAt : new Date(), updatedAt : new Date()}
+      {idioma : 'Ingles', createdAt : new Date(), updatedAt : new Date()},
+      {idioma : 'Ninguno', createdAt : new Date(), updatedAt : new Date()}
     ], {});
   },
   down: (queryInterface, Sequelize) => {

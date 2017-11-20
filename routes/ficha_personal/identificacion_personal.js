@@ -19,7 +19,13 @@ router.get('/identificacion_personal2', function(req, res, next) {
 
 
 router.get('/identificacion_personal3', function(req, res, next) {
-    res.render('ficha_personal/ficha3');
+  modelos.Dependiente.findAll({ 
+    attributes: ['paterno', 'materno','nombres','desc_otro'],
+    // añadir id
+    where: { id: 1 } }).then(dependientes => {
+    // projects will be an array of Project instances with the specified name
+    res.render('ficha_personal/ficha3',{dependientes:dependientes});
+  })
 });
 
 router.get('/identificacion_personal4', function(req, res, next) {
@@ -97,16 +103,23 @@ router.post('/identificacion_personal', (req, res) => {
       email_trabajo: emailt
     })
       .then(newempleado => {
-        res.json(newempleado);
+        modelos.Idioma.findAll({
+          attributes: ['id', 'idioma']
+          }).then(Idioma => {
+          res.render('ficha_personal/ficha2',{Idioma:Idioma,id:newempleado.id});
+        });
+        //res.render('/identificacion_personal2',{ci:ci});
+        //res.json(newempleado);
       })
 });
 
 
 
-router.post('/identificacion_personal', (req, res) => {
+router.post('/identificacion_personal2', (req, res) => {
     console.log(req);
     // actualizacion tabla empleado
-    //const ndi = req.body.nit;
+    console.log(req);
+    const id_empleado = req.body.id_empleado;
     const nit = req.body.nit;
     const afp = req.body.afp;
     const seguro_medico = req.body.seguro_medico;
@@ -130,19 +143,20 @@ router.post('/identificacion_personal', (req, res) => {
     const pais = req.body.pais;
     const anios_vencidos = req.body.anios_vencidos;
     const fecha_inicio = req.body.fecha_inicio;
+    const fecha_fin = req.body.fecha_fin;
     const colegio_prof = req.body.colegio_prof;
     const nro_registro_prof = req.body.nro_registro_prof;
     // tabla idiomas
     const lecturaesp =req.body.lecturaesp;
     const escrituraesp =req.body.escrituraesp;
-    const hablaesp =req.body.lecturaesp;
+    const hablaesp =req.body.hablaesp;
     const lecturaing =req.body.lecturaing;
     const escrituraing =req.body.escrituraing;
-    const hablaing =req.body.lecturaing;
-    const id_otro =req.body.otro;
+    const hablaing =req.body.hablaing;
+    const otro =req.body.otro;
     const lecturaotro =req.body.lecturaotro;
     const escrituraotro =req.body.escrituraotro;
-    const hablaotro =req.body.lecturaotro;
+    const hablaotro =req.body.hablaotro;
     
     //actualizacion de empleado
     const newempleado = {  
@@ -159,67 +173,78 @@ router.post('/identificacion_personal', (req, res) => {
       banco: banco,
       tipo_cuenta: tipo_cuenta
     };
-    modelos.Empleados.update(newempleado, {where: { ndi: ndi } })  
-    .then(updatedMax => {
-      console.log(updatedMax)
-    })
-    //insercion de estudios
-    modelos.Estudios.create({
-      nivel: nivel,
-      especificacion: especificacion,
-      titulo: titulo,
-      carrera: carrera,
-      institucion: institucion,
-      concluida: concluida,
-      ciudad: ciudad,
-      pais: pais,
-      anios_vencidos: anios_vencidos,
-      fecha_inicio: req.body.fecha_inicio,
-      colegio_prof: colegio_prof,
-      nro_registro_prof: nro_registro_prof
-    })
-      .then(newestudios => {
-        res.json(newestudios);
-    })
-
-    //insercion idiomas_empleados
-
-    modelos.Empleado_Idioma.create(
-      {lecturaesp: lecturaesp, escrituraesp: escrituraesp, hablaesp: lecturaesp, id_empleado:id_empleado, id_idioma: 1},
-      {lecturaing: lecturaing, escrituraing: escrituraing,hablaing: lecturaing,id_empleado: id_empleado, id_idioma: 2},
-      {lecturaotro: lecturaotro, escrituraotro: escrituraotro,hablaotro: lecturaotro,id_empleado:id_empleado, id_otro: otro
-      })
-      .then(newempleado_idioma => {
-        res.json(newempleado_idioma);
+    modelos.Empleado.update(newempleado, {where: { id: id_empleado } })  
+          .then(updatedMax => {
+            modelos.Estudios.create({
+              nivel: nivel,
+              especificacion: especificacion,
+              titulo: titulo,
+              carrera: carrera,
+              institucion: institucion,
+              concluida: concluida,
+              ciudad: ciudad,
+              pais: pais,
+              anios_vencidos: anios_vencidos,
+              fecha_inicio: req.body.fecha_inicio,
+              colegio_prof: colegio_prof,
+              nro_registro_prof: nro_registro_prof,
+              id_empleado: id_empleado
+            })
+            .then(newestudios => {
+              modelos.Empleado_Idioma.create(
+                {lee: lecturaesp, escribe: escrituraesp, habla: hablaesp, id_empleado:id_empleado, id_idioma: 1})
+                .then(newempleado_idioma1 => {
+                  modelos.Empleado_Idioma.create(
+                    {lee: lecturaing, escribe: escrituraing, habla: hablaing, id_empleado: id_empleado, id_idioma: 2})
+                    .then(newempleado_idioma2 => {
+                      modelos.Empleado_Idioma.create(
+                        {lee: lecturaotro, escribe: escrituraotro, habla: hablaotro, id_empleado:id_empleado, id_otro: otro
+                        })
+                        .then(newempleado_idioma3 => {
+                          res.render('ficha_personal/ficha3');
+                      })
+                  })
+              })
+          })
     })
 });
 
-  
-router.post('/identificacion_personal', (req, res) => {
-    console.log(req);
-    const nombres = req.body.nombres;
-    const paterno = req.body.paterno;
-    const materno = req.body.materno;
-    const sexo = req.body.sexo;
-    const fecha_nacimiento = req.body.fecnac;
-    const ndi = req.body.ndi;
-    const expedido = req.body.expedido;
-    const tipo_documento = req.body.tipodoc;
-    const num_doc_depen = req.body.nrodoc;
-    modelos.Dependiente.create({
-      nombres: nombres,
-      paterno: paterno,
-      materno: materno,
-      sexo: sexo,
-      fecha_nacimiento: fecha_nacimiento,
-      ndi: ndi,
-      expedido: expedido,
-      tipo_documento: tipo_documento,
-      num_doc_depen: num_doc_depen
-    })
-      .then(newdependiente => {
-        res.json(newdependiente);
+router.post('/identificacion_personal3', (req, res) => {
+  const paterno = req.body.paterno;
+  const materno = req.body.materno;
+  const nombres = req.body.nombres;
+  const fecha_nacimiento = req.body.fecha_nacimiento;
+  const sexo = req.body.sexo;
+  const expedido = req.body.expedido;
+  const ndi = req.body.ndi;
+  const tipo_documento= tipo_documento;
+  const desc_otro = req.body.desc_otro;
+  const num_doc_depen = req.body.num_doc_depen;
+  const id_empleado = req.body.id_empleado;
+  modelos.Dependiente.create({
+    ndi: ndi,
+    expedido: expedido,
+    paterno: paterno,
+    materno: materno,
+    nombres: nombres,
+    fecha_nacimiento: fecha_nacimiento,
+    sexo: sexo,
+    tipo_documento: tipo_documento,
+    desc_otro: desc_otro,
+    num_doc_depen: num_doc_depen,
+    id_empleado: id_empleado
+  })
+    .then(newdependiente => {
+      modelos.Dependiente.findAll({ 
+        attributes: ['paterno', 'materno','nombres','desc_otro'],
+        // añadir id
+        where: { id: 1 } }).then(dependientes => {
+        // projects will be an array of Project instances with the specified name
+        res.render('ficha_personal/ficha3',{dependientes:dependientes});
       })
+      //res.render('/identificacion_personal2',{ci:ci});
+      //res.json(newempleado);
+    })
 });
 
 
