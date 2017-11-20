@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     ultingreso: DataTypes.DATE,
     resetpwd: DataTypes.BOOLEAN,
-    rol_id: DataTypes.INTEGER,
-    id_empleado: DataTypes.INTEGER
+    rol_id: DataTypes.INTEGER
   });
   Usuario.associate = function (models) {
     Usuario.belongsTo(models.Rol,{foreignKey: 'rol_id', as: 'rol'});

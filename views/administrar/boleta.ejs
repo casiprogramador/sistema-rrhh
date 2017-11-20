@@ -9,11 +9,11 @@
            <div class="card">
              <div class="card-body">
                <h2 class="card-title">Administracion de boletas</h2>
-               <form id="form-administrar-boletas">
+               <form  method="post" action="/administrar/boleta/buscar">
                    <div class="form-group row">
                       <label for="area" class="col-sm-3 col-form-label">Estado de la licencia:</label>
                         <div class="col-sm-8">
-                                <select class="form-control" name="tipo-boletas" id="tipo-boletas">
+                                <select class="form-control" name="estado" id="estado" >
                                         <option value="todos">Todos</option>
                                         <option value="Anulado">Anulado</option>
                                         <option value="Pendiente">Pendiente</option>
@@ -28,7 +28,7 @@
                             <div class="col-sm-3">
                                 
                               <div class="input-group date datepicker" id="datetimepicker1">
-                                  <input type="text" class="form-control" name="DateTimePicker" id="fecha-inicio-boletas">
+                                  <input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio" value="today();">
                                   <div class="input-group-addon"> 
                                   <span class="mdi mdi-calendar-blank"></span>
                                   </div>
@@ -37,7 +37,7 @@
                               <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
                             <div class="col-sm-3">
                                   <div class="input-group date datepicker" id="datetimepicker2">
-                                      <input type="text" class="form-control" name="DateTimePicker" id="fecha-fin-boletas">
+                                      <input type="text" class="form-control" name="fecha_fin" id="fecha_fin" value =today()>
                                       <div class="input-group-addon">  
                                       <span class="mdi mdi-calendar-blank"></span>
                                       </div>
@@ -48,7 +48,9 @@
                           <button type="submit" class="btn btn-primary">Recuperar Boletas</button>
                         </div>
                       </form>
-                        <div class="form-group row" id="panel-boletas">
+                        
+                      
+                      <div class="form-group row" id="panel-boletas">
                           <div class="col-12">
                                     <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                       <thead>
