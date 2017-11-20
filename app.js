@@ -26,6 +26,9 @@ var ficha_personal_referencias = require('./routes/ficha_personal/identificacion
 var Sequelize = require("sequelize");
 var app = express();
 
+//subida de imagenes
+//var fs =require('fs');
+
 
 // view engine setup
 app.engine('ejs', engine);
@@ -44,6 +47,9 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+//upload
+//app.use(express.bodyParser({uploaddir:'./uploads'}));
 
 
 

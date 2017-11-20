@@ -22,19 +22,37 @@ router.get('/identificacion_personal3', function(req, res, next) {
   modelos.Dependiente.findAll({ 
     attributes: ['paterno', 'materno','nombres','desc_otro'],
     // añadir id
-    where: { id: 1 } }).then(dependientes => {
+    where: { id_empleado: 1 } }).then(dependientes => {
     // projects will be an array of Project instances with the specified name
     res.render('ficha_personal/ficha3',{dependientes:dependientes});
   })
 });
 
 router.get('/identificacion_personal4', function(req, res, next) {
-    res.render('ficha_personal/ficha4');
+  modelos.Experiencia.findAll({ 
+    attributes: ['nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
+    // añadir id
+    where: { id_empleado: 1 } }).then(experiencia => {
+    // projects will be an array of Project instances with the specified name
+    res.render('ficha_personal/ficha4',{experiencia:experiencia});
+  })
 });
 
 
 router.get('/identificacion_personal5', function(req, res, next) {
-    res.render('ficha_personal/ficha5');
+  modelos.Referencias_Personales.findAll({ 
+    attributes: ['nombre', 'relacion','telefono'],
+    // añadir id
+    where: { id_empleado: 1 } }).then(referencias_personales => {
+    // projects will be an array of Project instances with the specified name
+    modelos.Referencias_Trabajo.findAll({ 
+      attributes: ['nombre', 'institucion','telefono'],
+      // añadir id
+      where: { id_empleado: 1 } }).then(referencias_trabajo => {
+      // projects will be an array of Project instances with the specified name
+      res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
+    })
+  })
 });
 
 
@@ -217,7 +235,7 @@ router.post('/identificacion_personal3', (req, res) => {
   const sexo = req.body.sexo;
   const expedido = req.body.expedido;
   const ndi = req.body.ndi;
-  const tipo_documento= tipo_documento;
+  const tipo_documento= req.body.tipo_documento;
   const desc_otro = req.body.desc_otro;
   const num_doc_depen = req.body.num_doc_depen;
   const id_empleado = req.body.id_empleado;
@@ -238,7 +256,7 @@ router.post('/identificacion_personal3', (req, res) => {
       modelos.Dependiente.findAll({ 
         attributes: ['paterno', 'materno','nombres','desc_otro'],
         // añadir id
-        where: { id: 1 } }).then(dependientes => {
+        where: { id_empleado: 1 } }).then(dependientes => {
         // projects will be an array of Project instances with the specified name
         res.render('ficha_personal/ficha3',{dependientes:dependientes});
       })
@@ -248,8 +266,7 @@ router.post('/identificacion_personal3', (req, res) => {
 });
 
 
-router.post('/identificacion_personal', (req, res) => {
-    console.log(req);
+router.post('/identificacion_personal4', (req, res) => {
     const nombre_empresa = req.body.nombre_empresa;
     const tipo_empresa = req.body.tipo_empresa;
     const cargo = req.body.cargo;
@@ -264,45 +281,74 @@ router.post('/identificacion_personal', (req, res) => {
       pais: pais,
       ciudad: ciudad,
       fecha_inicio: fecha_inicio,
-      fecha_fin: fecha_fin
+      fecha_fin: fecha_fin,
+      id_empleado:1
     })
       .then(newexperiencia => {
-        res.json(newexperiencia);
+        modelos.Experiencia.findAll({ 
+          attributes: ['nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
+          // añadir id
+          where: { id_empleado: 1 } }).then(experiencia => {
+          // projects will be an array of Project instances with the specified name
+          res.render('ficha_personal/ficha4',{experiencia:experiencia});
+        })
       })
 });
 
-router.post('/identificacion_personal', (req, res) => {
-  console.log(req);
-  const nombre = req.body.nombre;
+router.post('/identificacion_personal5', (req, res) => {
+  const nombrep = req.body.nombrep;
   const relacion = req.body.relacion;
-  const telefono = req.body.telefono;
+  const telefonop = req.body.telefonop;
   //id_empleado = req.body.id_empleado;
-  modelos.Referencias_personales.create({
-    nombre: nombre,
+  modelos.Referencias_Personales.create({
+    nombre: nombrep,
     relacion: relacion,
-    telefono: telefono,
-    ///id_empleado: id_empleado
+    telefono: telefonop,
+    id_empleado: 1
   })
     .then(newreferencias_personales => {
-      res.json(newreferencias_personales);
-    })
+      modelos.Referencias_Personales.findAll({ 
+        attributes: ['nombre', 'relacion','telefono'],
+        // añadir id
+        where: { id: 1 } }).then(referencias_personales => {
+        // projects will be an array of Project instances with the specified name
+        modelos.Referencias_Trabajo.findAll({ 
+          attributes: ['nombre', 'institucion','telefono'],
+          // añadir id
+          where: { id_empleado: 1 } }).then(referencias_trabajo => {
+          // projects will be an array of Project instances with the specified name
+          res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
+        })
+      })
+      })
 });
 
-router.post('/identificacion_personal', (req, res) => {
-  console.log(req);
-  const nombre = req.body.nombre;
+router.post('/identificacion_personal6', (req, res) => {
+  const nombrei = req.body.nombrei;
   const institucion = req.body.institucion;
-  const telefono = req.body.telefono;
+  const telefonoi = req.body.telefonoi;
   //id_empleado = req.body.id_empleado;
-  modelos.Referencias_personales.create({
-    nombre: nombre,
+  modelos.Referencias_Trabajo.create({
+    nombre: nombrei,
     institucion: institucion,
-    telefono: telefono,
-    ///id_empleado: id_empleado
+    telefono: telefonoi,
+    id_empleado: 1
   })
-    .then(newreferencias_personales => {
-      res.json(newreferencias_personales);
+    .then(referencias_trabajo => {
+      modelos.Referencias_Personales.findAll({ 
+        attributes: ['nombre', 'relacion','telefono'],
+        // añadir id
+        where: { id_empleado: 1 } }).then(referencias_personales => {
+        // projects will be an array of Project instances with the specified name
+        modelos.Referencias_Trabajo.findAll({ 
+          attributes: ['nombre', 'institucion','telefono'],
+          // añadir id
+          where: { id_empleado: 1 } }).then(referencias_trabajo => {
+          // projects will be an array of Project instances with the specified name
+          res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
+        })
+      })
+      })
     })
-});
 
 module.exports = router;

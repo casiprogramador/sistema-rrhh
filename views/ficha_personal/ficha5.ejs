@@ -14,22 +14,24 @@
                         <table class="table">
                           <tr>
                             <th>Nombre</th>
-                            <th>Relascion (Parentesco, Amistad, etc.)</th>
+                            <th>Relacion (Parentesco, Amistad, etc.)</th>
                             <th>Telefono</th>
                             <th></th>
                             <th></th>
                           </tr>
-                          <tr>
-                              <td>aaa</td>
-                              <td>aaa</td>
-                              <td>aaa</td>
-                              <td><button>Editar</button></td>
-                              <td><button>Eliminar</button></td>
-                          </tr>
+                          <% for(var i=0; i< referencias_personales.length; i++) { %>
+                            <tr>
+                          <td><%= referencias_personales[i].nombre %></td>
+                          <td><%= referencias_personales[i].relacion %></td>
+                          <td><%= referencias_personales[i].telefono %></td>
+                          <td><button>Editar</button></td>
+                          <td><button>Eliminar</button></td>
+                        </tr>
+                        <% } %>
                         </table>
                         <br><br><br><br>
                         <h2 class="card-title">Registrar Nueva Referencia</h2>
-                        <form class="cmxform" id="registrodependiente" method="post" action="">
+                        <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal5">
                           <div>
                                           
                                         <h2 class="card-title">Referencias Personales de Trabajo</h2>
@@ -37,7 +39,7 @@
                                         <div class="col">
                                         <div class="form-group">
                                         <label for="name">Nombre</label>
-                                        <input name="nombre" type="text" class="form-control" id="refnomb" placeholder="Nombre">
+                                        <input name="nombrep" type="text" class="form-control" id="refnomb" placeholder="Nombre">
                                         </div>
                                         </div>
                                         <div class="col">
@@ -49,7 +51,7 @@
                                         <div class="col">
                                         <div class="form-group">
                                         <label for="address">Telefono</label>
-                                        <input name="telefono" id="telfrelac" rows="6" class="form-control" placeholder="Telefono">
+                                        <input name="telefonop" id="telfrelac" rows="6" class="form-control" placeholder="Telefono">
                                         </div>
                                         </div>
                                         </div>                                   
@@ -80,38 +82,38 @@
                                 <th></th>
                                 <th></th>
                               </tr>
-                              <tr>
-                                  <td>aaa</td>
-                                  <td>aaa</td>
-                                  <td>aaa</td>
-                                  <td><button>Editar</button></td>
-                                  <td><button>Eliminar</button></td>
-                              </tr>
+                              <% for(var i=0; i< referencias_trabajo.length; i++) { %>
+                                <tr>
+                              <td><%= referencias_trabajo[i].nombre %></td>
+                              <td><%= referencias_trabajo[i].institucion %></td>
+                              <td><%= referencias_trabajo[i].telefono %></td>
+                              <td><button>Editar</button></td>
+                              <td><button>Eliminar</button></td>
+                            </tr>
+                            <% } %>
                             </table>
                             <br><br><br><br>
                             <h2 class="card-title">Registrar Nueva Referencia de Trabajo</h2>
-                            <form class="cmxform" id="registrodependiente" method="get" action="">
-                              <div>
-                                      <form action="">
-                                              
+                            <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal6">
+                              <div>                                              
                                             <h2 class="card-title">Referencias de Trabajo</h2>
                                             <div class="row">
                                             <div class="col">
                                             <div class="form-group">
                                             <label for="name">Nombre</label>
-                                            <input name="nombre" type="text" class="form-control" id="refnomb" placeholder="Nombre">
+                                            <input name="nombrei" type="text" class="form-control" id="refnomb" placeholder="Nombre">
                                             </div>
                                             </div>
                                             <div class="col">
                                             <div class="form-group">
                                             <label for="address">Institucion</label>
-                                            <input name="institucion" id="refrelac" rows="6" class="form-control" placeholder="institucion">
+                                            <input name="institucion" id="institucion" rows="6" class="form-control" placeholder="institucion">
                                             </div>
                                             </div>
                                             <div class="col">
                                             <div class="form-group">
                                             <label for="address">Telefono</label>
-                                            <input name="telefono" id="telfrelac" rows="6" class="form-control" placeholder="telefono">
+                                            <input name="telefonoi" id="telfrelac" rows="6" class="form-control" placeholder="telefono">
                                             </div>
                                             </div>
                                             </div>                                   

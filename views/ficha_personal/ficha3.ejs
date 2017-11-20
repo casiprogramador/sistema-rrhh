@@ -11,6 +11,7 @@
                 <div class="field_wrapper">
                     <br>
                     <h2 class="card-title">Dependientes Registrados</h2>
+                    <form class="cmxform" method="post" action="">
                   <table class="table">
                     <tr>
                       <th>Nombres y Apellidos</th>
@@ -18,12 +19,20 @@
                       <th></th>
                       <th></th>
                     </tr>
-                  
+                        <% for(var i=0; i< dependientes.length; i++) { %>
+                          <tr>
+                        <td><%= dependientes[i].nombres, dependientes[i].paterno, dependientes[i].materno  %></td>
+                        <td><%= dependientes[i].desc_otro %></td>
+                        <td><button>Editar</button></td>
+                        <td><button>Eliminar</button></td>
+                      </tr>
+                      <% } %>
                   </table>
+                </form>
 
                   <br><br><br><br>
                   <h2 class="card-title">Registrar Nuevo Dependiente</h2>
-                  <form class="cmxform" id="registrodependiente" method="get" action="">
+                  <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal3">
                     <div>
                         <div class="row">
                           <div class="col">
@@ -75,7 +84,7 @@
                           <div class="form-group">
                           <label for="address">Fecha de Nacimiento</label>
                           <div class="input-group date datepicker b-l-blue">
-                              <input name="fecnac" type="text" class="form-control">
+                              <input name="fecha_nacimiento" type="text" class="form-control">
                               <div class="input-group-addon">
                                 <span class="mdi mdi-calendar-blank"></span>
                               </div>
@@ -109,7 +118,7 @@
                           <div class="col">
                           <div class="form-group">
                           <label for="name">Tipo de Documento de Respaldo de la Relacion de Dependencia</label>
-                          <select name="tipodoc" class="form-control" style="width:100%">
+                          <select name="tipo_documento" class="form-control" style="width:100%">
                               <option value="matr">Certificado de Matrimonio</option>
                               <option value="librfam">Libreta Familiar</option>
                               <option value="certnac">Certificado de Nacimiento</option>
@@ -120,7 +129,7 @@
                           <div class="col">
                           <div class="form-group">
                           <label for="address">N° De Documento de la Relacion de Dependencia</label>
-                          <input name="nrodoc" id="nrodocdependencia" rows="6" class="form-control" placeholder="N° Identificacion Personal">
+                          <input name="num_doc_depen" id="nrodocdependencia" rows="6" class="form-control" placeholder="N° Identificacion Personal">
                           </div>
                           </div>
                           </div>
