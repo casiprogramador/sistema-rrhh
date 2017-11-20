@@ -14,7 +14,7 @@ router.get('/formulario', function(req, res, next) {
   })
   });
 
-    router.post('/guardar', (req, res) => {
+    router.post('/reporte', (req, res) => {
       console.log(req.body);
       
             const fecha_solicitud = moment().format("YYYY-MM-DD"+" 00:00:00.000 +00:00");
@@ -24,7 +24,16 @@ router.get('/formulario', function(req, res, next) {
             const  fecha_fin = req.body.fecha_fin;
             const id_empleado = res.locals.user.id;
             const id_tipo_boleta= req.body.tipo_boleta;
-       
+            const suma_dias =  moment(fecha_fin).diff(moment(fecha_inicio),"days")
+
+if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
+{
+  console.log('dirferencia de dias '+suma_dias);
+  req.flash('error_msg1','El saldo de vacacion no es valido');
+  res.redirect('/boleta/formulario');
+}
+else{
+  
               if(fecha_inicio<fecha_fin){
        
                 modelos.Boleta.create({
@@ -38,13 +47,16 @@ router.get('/formulario', function(req, res, next) {
           
                 })
                   .then(newboleta => {
-                    res.json(newboleta);
+
+                    res.render('boleta/reporte',{boleta:newboleta});
+
                   })
                 
                 }else{
                   req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
                   res.redirect('/boleta/formulario');
             }
+  }
               //res.json('boleta/boleta');
         });
       
