@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Empleado.associate = function (models) {
-      Empleado.hasMany(models.Boleta, {foreignKey: 'id_empleado', as: 'boleta'});
+      Empleado.hasMany(models.Boleta, { foreignKey: 'id_empleado', as: 'boleta'});
   };
 
   return Empleado;

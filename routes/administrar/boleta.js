@@ -30,7 +30,7 @@ router.post('/buscar', (req, res) => {
                   fecha_solicitud: {
                     [Op.between]: [req.body.fecha_inicio+" 00:00:00.000 +00:00",req.body.fecha_fin+" 00:00:00.000 +00:00"]
                   },
-                  //include: ['empleado']
+                  include: ['empleado']
                 }
               }).then((boletas) => {
 
