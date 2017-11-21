@@ -47,13 +47,14 @@ module.exports = (sequelize, DataTypes) => {
     ausr: DataTypes.STRING(50),
     estado: DataTypes.BOOLEAN,
     discapacidad: DataTypes.BOOLEAN,
-    discapacidad: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    discapacidad: DataTypes.STRING,
+    id_usuario: DataTypes.INTEGER
+
   });
+
+  Empleado.associate = function (models) {
+      Empleado.hasMany(models.Boleta, {foreignKey: 'id_empleado', as: 'boleta'});
+  };
+
   return Empleado;
 };

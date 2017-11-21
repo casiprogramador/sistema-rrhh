@@ -151,6 +151,16 @@ module.exports = {
       nro_carnet_discapacidad: {
         type: Sequelize.STRING
       },
+      id_usuario:{
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Usuarios',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
