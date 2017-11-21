@@ -1,0 +1,75 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+
+<div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+      <div class="content-wrapper">
+        <div class="row user-profile">
+            <div class="col-lg-10 side-right">
+              <div class="card">
+                <div class="card-body">
+                        <center><link rel="shortcut icon" href="/images/iconlogo.png" />
+                    <h1>Ficha personal</h1></center>
+
+                      <table class="table center-aligned-table" border="0" width=100%>
+                        <tr><td width=25%><h1>IDENTIFICACION PERSONAL</h1></td><td width=25%></td><td width=30%></td><td width=30%></td></tr>
+                          <tr><td><h3>Nombres</h3></td><td><%= newempleado[0].nombres %></td><td></td><td></td></tr>
+                          <tr><td><h3>Primer Apellido</h3></td><td><%= newempleado[0].paterno %></td><td></td><td></td></tr>
+                          <tr><td><h3>Segundo Apellido</h3></td><td><%= newempleado[0].materno %></td><td></td><td></td></tr>
+                          <tr><td><h3>Apellido de Casada</h3></td><td><%= newempleado[0].esposo %></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero de Carnet de Identidad</h3></td><td><%= newempleado[0].ndi %></td><td></td><td></td></tr>
+                          <tr><td><h3>Expedido en</h3></td><td><%= newempleado[0].expedido %></td><td></td><td></td></tr>
+                          <tr><td><h3>Pais</h3></td><td><%= newempleado[0].pais_expedido %></td><td></td><td></td></tr>
+                          <tr><td><h1> PERSONALES I</h1></td><td></td><td></td><td></td></tr>
+                          <tr><td><h2>Lugar de Nacimiento</h2></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>Provincia</h3></td><td><%= newempleado[0].provincia %></td><td></td><td></td></tr>
+                          <tr><td><h3>Departamento</h3></td><td><%= newempleado[0].departamento %></td><td></td><td></td></tr>
+                          <tr><td><h3>Pais</h3></td><td><%= newempleado[0].pais_nacimiento %></td><td></td><td></td></tr>
+                          <tr><td><h3>Nacionalidad</h3></td><td><%= newempleado[0].nacionalidad %></td><td></td><td></td></tr>
+                          <tr><td><h3>Fecha de Nacimiento</h3></td><td><%= newempleado[0].fecha_nacimiento %></td><td></td><td></td></tr>
+                          <tr><td><h1> PERSONALES II </h1></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>Sexo</h3></td><td><%= newempleado[0].sexo %></td><td></td><td></td></tr>
+                          <tr><td><h3>Grupo Sanguineo</h3></td><td><%= newempleado[0].grupo_sang %></td><td></td><td></td></tr>
+                          <tr><td><h3>Estado Civil</h3></td><td><%= newempleado[0].estado_civil %></td><td></td><td></td></tr>
+                          <tr><td><h3>Libreta Militar N°</h3></td><td><%= newempleado[0].num_serv_mil %></td><td></td><td></td></tr>
+                          <tr><td><h2>Direccion Domicilio</h2></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>Calle o Avenida</h3></td><td><%= newempleado[0].calle_avenida %></td><td></td><td><h3>N°:</h3> <%= newempleado[0].nro_direccion %></td></tr>
+                          <tr><td><h3>Nombre Edificio</h3></td><td><%= newempleado[0].nombre_edificio %></td><td><h3>Piso:</h3><%= newempleado[0].piso_edificio %></td><td><h3>Dpto:</h3> <%= newempleado[0].nro_departamento %></td></tr>
+                          <tr><td><h3>Zona</h3></td><td><%= newempleado[0].zona %></td><td></td><td></td></tr>
+                          <tr><td><h3>Telefono Domicilio</h3></td><td><%= newempleado[0].telefono %></td><td align=right><h3>Telefono Domicilio:</h3></td><td><%= newempleado[0].celular %></td></tr>
+                          <tr><td><h3>Casilla</h3></td><td><%= newempleado[0].paterno %></td><td></td><td></td></tr>
+                          <tr><td><h3>E'mail Personal</h3></td><td><%= newempleado[0].email_personal %></td><td align=right><h3>E'mail (trabajo):</h3></td><td><%= newempleado[0].email_trabajo %></td></tr>
+                          <tr><td><h1>DATOS LABORALES I</h1></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero NIT</h3></td><td><%= newempleado[0].nit %></td><td></td><td></td></tr>
+                          <tr><td><h3>Nombre AFP</h3></td><td><%= newempleado[0].afp %></td><td></td><td></td></tr>
+                          <tr><td><h3>Nombre Seguro Medico</h3></td><td><%= newempleado[0].seguro_medico %></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero Seguro Medico</h3></td><td><%= newempleado[0].nro_seguro %></td><td></td><td></td></tr>
+                          <tr><td><h3>Tipo de Seguro</h3></td><td><%= newempleado[0].tipo_seguro %></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero Unico de Afiliado NUA</h3></td><td><%= newempleado[0].nua %></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero REN (Exclusivo caso rentista)</h3></td><td><%= newempleado[0].ren %></td><td></td><td></td></tr>
+                          <tr><td><h3>Numero de Años Calificados</h3></td><td><%= newempleado[0].anios_calificados %></td><td></td><td></td></tr>
+                          <tr><td><h1>DATOS LABORALES II</h1></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>N° Declaracion Jurada</h3></td><td><%= newempleado[0].nro_declar_jurada %></td><td></td><td></td></tr>
+                          <tr><td><h3>N° Cuenta Bancaria</h3></td><td><%= newempleado[0].nro_cuenta %></td><td></td><td></td></tr>
+                          <tr><td><h3>Nombre Banco</h3></td><td><%= newempleado[0].banco %></td><td></td><td></td></tr>
+                          <tr><td><h3>Tipo de Cuenta</h3></td><td><%= newempleado[0].tipo_cuenta %></td><td></td><td></td></tr>
+                          <tr><td><h1>ESTUDIOS</h1></td><td></td><td></td><td></td></tr>
+                          <tr><td><h3>Nivel de Formacion</h3></td><td><%= newestudios[0].nivel %></td><td></td><td></td></tr>
+                          <tr><td><h3>Titulo Obtenido</h3></td><td><%= newestudios[0].titulo %></td><td></td><td></td></tr>
+                          <tr><td><h3>Carrera</h3></td><td><%= newestudios[0].carrera %></td><td></td><td></td></tr>
+                          <tr><td><h3>Institucion</h3></td><td><%= newestudios[0].institucion %></td><td></td><td></td></tr>
+                          <tr><td><h3>Concluida</h3></td><td><%= newestudios[0].concluida %></td><td></td><td></td></tr>
+                          <tr><td><h3>Ciudad</h3></td><td><%= newestudios[0].ciudad %></td><td align=right><h3>Pais:</h3></td><td><%= newestudios[0].pais %></td></tr>
+                          <tr><td><h3>N° de Años Vencidos</h3></td><td><%= newestudios[0].anios_vencidos %></td><td></td><td></td></tr>
+                          <tr><td><h3>Fecha Inicio</h3></td><td><%= newestudios[0].fecha_inicio %></td><td align=right><h3>Fecha Fin:</h3></td><td><%= newestudios[0].fecha_fin %></td></tr>
+                          <tr><td><h3>Colegio Profesional</h3></td><td><%= newestudios[0].colegio_prof %></td><td></td><td></td></tr>
+                          <tr><td><h3>N° Registro Profesional</h3></td><td><%= newempleado[0].nro_registro_prof %></td><td></td><td></td></tr>
+
+                      </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

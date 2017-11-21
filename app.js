@@ -22,6 +22,7 @@ var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificac
 var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_personal');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
@@ -113,6 +114,7 @@ app.use('/ficha_personal',ficha_personal_datoslaborales);
 app.use('/ficha_personal',ficha_personal_dependientes);
 app.use('/ficha_personal',ficha_personal_experiencia);
 app.use('/ficha_personal',ficha_personal_referencias);
+app.use('/ficha_personal',ficha_personal_reporte);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

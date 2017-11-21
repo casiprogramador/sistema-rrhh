@@ -39,6 +39,7 @@ router.get('/identificacion_personal4', function(req, res, next) {
 });
 
 
+
 router.get('/identificacion_personal5', function(req, res, next) {
   modelos.Referencias_Personales.findAll({ 
     attributes: ['nombre', 'relacion','telefono'],
@@ -370,5 +371,43 @@ router.post('/elimina_dependiente', (req, res) => {
   });
 });
 
+
+/*router.get('/ficha_personal', function(req, res, next) {
+  res.render('ficha_personal/ficha_personal');
+});*/
+
+router.get('/ficha_personal', (req, res) => {
+  const nombrei = req.body.nombrei;
+      modelos.Empleado.findAll({
+        where: { id: 1 } }).then(newempleado => {
+        // projects will be an array of Project instances with the specified name
+        modelos.Estudios.findAll({ 
+          where: { id_empleado: 1 } }).then(newestudios => {
+          // projects will be an array of Project instances with the specified name
+          modelos.Empleado_Idioma.findAll({ 
+            where: { id_empleado: 1 } }).then(newempleado_idioma => {
+            // projects will be an array of Project instances with the specified name
+            modelos.Dependiente.findAll({ 
+              where: { id_empleado: 1 } }).then(newdependiente => {
+              // projects will be an array of Project instances with the specified name
+              modelos.Experiencia.findAll({ 
+                where: { id_empleado: 1 } }).then(newexperiencia => {
+                // projects will be an array of Project instances with the specified name
+                modelos.Referencias_Personales.findAll({ 
+                  where: { id_empleado: 1 } }).then(newreferencias_personales => {
+                  // projects will be an array of Project instances with the specified name
+                  modelos.Referencias_Trabajo.findAll({ 
+                    where: { id_empleado: 1 } }).then(newreferencias_trabajo => {
+                    // projects will be an array of Project instances with the specified name
+                    //console.log({newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
+                    res.render('ficha_personal/ficha_personal',{newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+      })
 
 module.exports = router;
