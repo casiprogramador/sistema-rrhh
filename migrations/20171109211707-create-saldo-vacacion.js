@@ -20,6 +20,9 @@ module.exports = {
       prescrito_estado: {
         type: Sequelize.BOOLEAN
       },
+      gestion: {
+        type: Sequelize.INTEGER
+      },
       observacion: {
         type: Sequelize.STRING
       },

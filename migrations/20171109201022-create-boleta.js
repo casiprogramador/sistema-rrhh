@@ -8,17 +8,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      boleta: {
-        type: Sequelize.STRING(50)
-      },
       fecha_solicitud: {
         type: Sequelize.DATE
       },
       observacion: {
         type: Sequelize.STRING
       },
-      aprobado: {
-        type: Sequelize.BOOLEAN
+      estado: {
+        type: Sequelize.STRING(20)
+      },
+
+      fecha_inicio: {
+        type: Sequelize.DATE
+      },
+
+      fecha_fin: {
+        type: Sequelize.DATE
       },
 
       id_empleado: {

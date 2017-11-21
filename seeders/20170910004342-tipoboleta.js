@@ -11,7 +11,7 @@ module.exports = {
       createdAt : new Date(),
       updatedAt : new Date()
     },{
-      tipo_boleta : 'Boleta Salida Permiso sin Goce d ...',
+      tipo_boleta : 'Boleta Salida Permiso sin Goce de haberes',
       createdAt : new Date(),
       updatedAt : new Date()
     },{
@@ -35,11 +35,11 @@ module.exports = {
       createdAt : new Date(),
       updatedAt : new Date()
     },{
-      tipo_boleta : 'Boleta de Salida por Nacimiento  ...',
+      tipo_boleta : 'Boleta de Salida por Nacimiento',
       createdAt : new Date(),
       updatedAt : new Date()
     },{
-      tipo_boleta : 'Boleta de Salida por Fallecimien ...',
+      tipo_boleta : 'Boleta de Salida por Fallecimiento',
       createdAt : new Date(),
       updatedAt : new Date()
     },{
@@ -55,7 +55,7 @@ module.exports = {
       createdAt : new Date(),
       updatedAt : new Date()
     },{
-      tipo_boleta : 'Boleta Papanicolau, Mamografias, ...',
+      tipo_boleta : 'Boleta Papanicolau, Mamografias',
       createdAt : new Date(),
       updatedAt : new Date()
     },{
@@ -67,7 +67,7 @@ module.exports = {
       createdAt : new Date(),
       updatedAt : new Date()
     },{
-      tipo_boleta : 'RM 748/15 Día Nacional de Person ...',
+      tipo_boleta : 'RM 748/15 Día Nacional de Personas Discapacitadas',
       createdAt : new Date(),
       updatedAt : new Date()
 }], {});

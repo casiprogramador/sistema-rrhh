@@ -29,20 +29,8 @@ module.exports = {
       sexo: {
         type: Sequelize.STRING(1)
       },
-      relacion: {
-        type: Sequelize.STRING(20)
-      },
-      cert_matrim: {
-        type: Sequelize.BOOLEAN
-      },
-      libreta_fam: {
-        type: Sequelize.BOOLEAN
-      },
-      cert_nac: {
-        type: Sequelize.BOOLEAN
-      },
-      otro: {
-        type: Sequelize.BOOLEAN
+      tipo_documento: {
+        type: Sequelize.STRING(50)
       },
       desc_otro: {
         type: Sequelize.STRING

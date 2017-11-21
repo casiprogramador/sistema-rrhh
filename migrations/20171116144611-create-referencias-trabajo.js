@@ -1,36 +1,31 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Usuarios', {
+    return queryInterface.createTable('Referencias_Trabajos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING(50)
-      },
-      estado: {
-        type: Sequelize.BOOLEAN
-      },
-      password: {
+      nombre: {
         type: Sequelize.STRING
       },
-      ultingreso: {
-        type: Sequelize.DATE
+      institucion: {
+        type: Sequelize.STRING
       },
-      resetpwd: {
-        type: Sequelize.BOOLEAN
+      telefono: {
+        type: Sequelize.STRING(20),
       },
-      rol_id: {
+      id_empleado: {
         type: Sequelize.INTEGER,
+        
         references: {
-          model: 'Rols',
-          key: 'id'
-      },
-      onUpdate: 'cascade',
-      onDelete: 'cascade'
+            model: 'Empleados',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +38,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Usuarios');
+    return queryInterface.dropTable('Referencias_Trabajos');
   }
 };

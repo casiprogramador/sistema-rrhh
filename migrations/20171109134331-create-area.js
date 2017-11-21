@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       desc_area: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING
       },
       estado: {
         type: Sequelize.BOOLEAN

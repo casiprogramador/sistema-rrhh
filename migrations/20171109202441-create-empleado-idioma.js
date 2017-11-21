@@ -8,6 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      lee:{
+        type: Sequelize.INTEGER,
+      },
+      escribe:{
+        type: Sequelize.INTEGER,
+      },
+      habla:{
+        type: Sequelize.INTEGER,
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {

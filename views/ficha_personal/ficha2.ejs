@@ -1,0 +1,337 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+  <div class="row row-offcanvas row-offcanvas-right">
+
+    <!-- partial -->
+    <div class="content-wrapper">
+      <div class="row user-profile">
+          <div class="col-lg-10 side-right">
+            <div class="card">
+              <div class="card-body">
+                <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+                  <h2 class="card-title">Registro de Ficha Personal 2</h2>
+                  <ul class="nav nav-tabs flex-column flex-sm-row" id="FichaPersonalTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonalestab" data-toggle="tab" href="
+                      #identificacionpersonal" role="tab" aria-controls="identificacionpersonal">Datos Laborales I</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales1tab" data-toggle="tab" href="#datospersonales1" role="tab" aria-controls="datospersonales1">Datos Laborales II</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales2tab" data-toggle="tab" href="#datospersonales2" role="tab" aria-controls="datospersonales2">Estudios</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="wrapper">
+                  <hr>
+                  <form class="cmxform" id="registropersonal" method="get" action="">
+                    <fieldset>
+                  <div class="tab-content" id="myTabContent">
+                    <!-- tab datos laborales 1 -->
+                    <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
+                      <div class="container">
+                      <h1 class="card-title">Datos laborales I</h1>
+
+                                        <div class="row">
+                                        <div class="col">
+                                        <div class="form-group">
+                                        <label for="name">Numero Nit</label>
+                                        <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit">
+                                        </div>
+                                        </div>
+                                        <div class="col">
+                                        <div class="form-group">
+                                        <label for="designation">Nombre AFP</label>
+                                        <input name="afp" type="text" class="form-control" id="afp" placeholder="AFP">
+                                        </div>
+                                        </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                        <div class="col">
+                                        <div class="form-group">
+                                          <label for="mobile">Nombre Seguro Medico</label>
+                                          <input name="segmedico" type="text" class="form-control" id="segmedico" placeholder="Seguro Medico">
+                                        </div>
+                                        </div>
+                                        <div class="col">
+                                        <div class="form-group">
+                                        <label for="email">Numero de Seguro</label>
+                                        <input name="numsegmedico" type="email" class="form-control" id="numsegmedico" placeholder="Numero Seguro medico">
+                                        </div>
+                                        </div>
+                                        </div>
+
+
+                                                <div class="row">
+                                                <div class="col">
+                                                <div class="form-group">
+                                                <label for="name">Tipo de Seguro</label>
+                                                <select name="tiposeguro" class="js-example-basic-single" style="width:100%">
+                                                <option value="Privado">Privado</option>
+                                                <option value="Publico">Publico</option>
+                                                </select>
+                                                </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="form-group">
+                                                  <label for="name">Numero Unico de Afiliado NUA</label>
+                                                  <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado">
+                                                </div>
+                                                </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                        <div class="col">
+                                                        <div class="form-group">
+                                                          <label for="name">Numero REN (exclusivo caso rentista)</label>
+                                                          <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN">
+                                                        </div>
+                                                        </div>
+                                                        <div class="col">
+                                                        <div class="form-group">
+                                                          <label for="name">Numero de Años Calificados</label>
+                                                          <input name="cas" type="text" class="form-control" id="nacalificados" placeholder="Años Calificados">
+                                                        </div>
+                                                        </div>
+                                                        </div>
+
+                              
+
+                              <br><br><br><br><br><br><br><br><br>
+                        
+                        </div>>
+                        </div>
+                    <!-- tab identificacion personal ends -->
+                    <!-- tab datospersonales1 -->
+
+                    <div class="tab-pane fade" id="datospersonales1" role="tabpanel" aria-labelledby="dropdown1-tab">
+                      <div class="container">
+                      <h1 class="card-title">Datos Laborales II</h1>
+
+
+                      <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                            <label for="name">N° de Declaracion Jurada</label>
+                            <input name="declaracionjurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada">
+                          </div>
+                          </div>
+                          <div class="col">
+                          <div class="form-group">
+                            <label for="name">N° de Cuenta Bancaria</label>
+                            <input name="nrocuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria">
+                          </div>
+                          </div>
+                          </div>
+
+
+                          <div class="row">
+                          <div class="col">
+                          <div class="form-group">
+                            <label for="name">Nombre del Banco</label>
+                            <input name="nbanco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco">
+                          </div>
+                          </div>
+                          <div class="col">
+                          <div class="form-group">
+                            <label for="name">Tipo de Cuenta</label>
+                            <select name="tipocuenta" class="js-example-basic-single" style="width:100%">
+                                    <option value="CCMN">Cuenta Corriente M/N</option>
+                                    <option value="CCME">Cuenta Corriente M/E</option>
+                                    <option value="CAMN">Caja de Ahorros M/N</option>
+                                    <option value="CAME">Caja de Ahorros M/E</option>
+                                    </select>
+                          </div>
+                          </div>
+                          </div>
+
+                          </div>
+                          </div>
+                        <!-- tab datospersonales1 ends -->
+                        <!-- tab datospersonales2 -->
+
+                        <div class="tab-pane fade" id="datospersonales2" role="tabpanel" aria-labelledby="dropdown1-tab">
+                            <div class="container">
+                        <h1 class="card-title">Estudios</h1>
+
+
+                        <div class="row">
+                                <div class="col">
+                                <div class="form-group">
+                                  <label for="name">Nivel de Formacion</label>
+                                  <select name="nivelformacion" class="js-example-basic-single" style="width:100%">
+                                        <option value="Bachiller">Bachillerato</option>
+                                        <option value="Licenciatura">Licenciatura</option>
+                                        <option value="Maestria">Maestria</option>
+                                        <option value="Doctorado">Doctorado</option>
+                                        <option value="Otro">Otro</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="especificar" placeholder="Especificar">
+                                </div>
+                                </div>
+                                <div class="col">
+                                <div class="form-group">
+                                  <label for="name">Titulo Obtenido</label>
+                                  <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido">
+                                </div>
+                                </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                <div class="col">
+                                <div class="form-group">
+                                  <label for="name">Carrera</label>
+                                  <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera">
+                                </div>
+                                </div>
+                                <div class="col"><div class="form-group">
+                                  <label for="name">Institucion</label>
+                                  <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion">
+                                </div>
+                                </div>
+                                </div>
+    
+                                <div class="row">
+                                <div class="col-6">
+                                <div class="form-group">
+                                <label for="name">Concluida?</label>
+                                  <div class="form-radio">
+                                        <label class="form-check-label">
+                                          <input name="conluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="si" checked>
+                                          SI
+                                        </label>
+                                    </div>
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                          <input name="concluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="no">
+                                          NO
+                                        </label>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+    
+    
+                                <div class="row">
+                                <div class="col">
+                                <div class="form-group">
+                                <label for="name">Ciudad</label>
+                                <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad">
+                                </div>
+                                </div>
+                                <div class="col">
+                                <div class="form-group">
+                                <label for="name">Pais</label>
+                                <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais">
+                                </div>
+                                </div>
+                                </div>
+    
+                                <div class="row">
+                                <div class="col-4">
+                                <div class="form-group">
+                                <label for="name">Años Concluidos</label>
+                                <input name="aniosconcluidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin">
+                                </div>
+                                </div>
+                                <div class="col-4">
+                                <div class="form-group">
+                                <label for="name">Fecha Inicio</label>
+                                <div class="input-group date datepicker b-l-blue">
+                                    <input name="fecinicio" type="text" class="form-control">
+                                    <div class="input-group-addon">
+                                      <span class="mdi mdi-calendar-blank"></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="col-4">
+                                <div class="form-group">
+                                <label for="name">Fecha Fin</label>
+                                <div class="input-group date datepicker b-l-blue">
+                                    <input name="fecfin" type="text" class="form-control">
+                                    <div class="input-group-addon">
+                                      <span class="mdi mdi-calendar-blank"></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+                                </div>
+    
+                                <div class="row">
+                                <div class="col">
+                                <div class="form-group">
+                                <label for="name">Colegio Profesional</label>
+                                <input name="colegioporfesional" type="text" class="form-control" id="codprofesional" placeholder="Codigo Profesional">
+                                </div>
+                                </div>
+                                <div class="col">
+                                <div class="form-group">
+                                <label for="address">N° Registro Profesional</label>
+                                <input name="nroregistroprof" name="address" id="regprofesional" rows="6" class="form-control" placeholder="N° Registro Profesional">
+                                </div>
+                                </div>
+                                </div>
+
+
+                                            <div class="row">
+                                            <div class="col">
+                                            <div class="form-group">
+                                            <label for="address">Conocimientos</label>
+                                            <table border="0" class="table">
+                                                <tr>
+                                                    <th>IDIOMA</th>
+                                                    <th>LEE 1-100%</th>
+                                                    <th>ESCRIBE</th>
+                                                    <th>HABLA</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Español</td>
+                                                    <td><input name="lecturaesp" id="leeesp" rows="6" class="form-control" placeholder="%"></td>
+                                                    <td><input name="escrituraesp" id="escribeesp" rows="6" class="form-control" placeholder="%"></td>
+                                                    <td><input name="hablaesp" id="Hablaesp" rows="6" class="form-control" placeholder="%"></td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Ingles</td>
+                                                        <td><input name="lecturaing" id="leeing" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="escrituraing" id="escribeing" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%"></td>
+                                                </tr>
+                                                <tr>
+                                                        <td><input name="lecturaotro" id="leeotro" rows="6" class="form-control" placeholder="Otro (especificar)"></td>
+                                                        <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%"></td>
+                                                </tr>
+                                                </table>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            
+
+                                <div class="row">
+                                        <div class="col">
+                                        <div class="form-group">
+                                        <button type="submit" class="btn btn-success mr-2">Guardar</button>
+                                        <button class="btn btn-outline-danger">Cancelar</button>
+                                        </div>
+                                        </div>
+                                        </div> 
+                          </div>
+                        </div>
+              </div>
+              </fieldset>
+                  </form>
+            </div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
