@@ -46,7 +46,7 @@ passport.deserializeUser((id, done) => {
         },
         include: ['rol','empleado']
     }).then(usuario => {
-        //console.log(JSON.stringify(usuario));
+        console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(usuario));
         done(null, usuario);
     });
 });
