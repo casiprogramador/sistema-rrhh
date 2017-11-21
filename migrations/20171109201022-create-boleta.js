@@ -17,15 +17,18 @@ module.exports = {
       estado: {
         type: Sequelize.STRING(20)
       },
-
       fecha_inicio: {
         type: Sequelize.DATE
       },
-
       fecha_fin: {
         type: Sequelize.DATE
       },
-
+      dias: {
+        type: Sequelize.DOUBLE
+      },
+      codigo: {
+        type: Sequelize.INTEGER(10)
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {
@@ -37,7 +40,6 @@ module.exports = {
       },
       id_tipo_boleta: {
         type: Sequelize.INTEGER,
-        
         references: {
             model: 'Tipo_boleta',
             key: 'id'

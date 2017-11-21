@@ -17,11 +17,11 @@ module.exports = {
       estado: {
         type: Sequelize.BOOLEAN
       },
-      ausr: {
-        type: Sequelize.STRING(50)
-      },
       nivel: {
         type: Sequelize.INTEGER
+      },
+      ausr: {
+        type: Sequelize.STRING(50)
       },
       createdAt: {
         allowNull: false,

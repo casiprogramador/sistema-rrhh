@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "12345",
-    "database": "sistema-rrhh",
+    "password": "123456",
+    "database": "bd_rrhhR",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"

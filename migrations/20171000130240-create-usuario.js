@@ -23,7 +23,7 @@ module.exports = {
             resetpwd: {
                 type: Sequelize.BOOLEAN
             },
-            rol_id: {
+            id_rol: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'Rols',

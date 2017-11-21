@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var modelos = require('../../models/index');
 
+
 /* GET login page. */
 router.get('/',function(req, res, next) {
     modelos.Boleta.findAll({
@@ -30,8 +31,6 @@ router.get('/',function(req, res, next) {
 
 router.post('/buscar', (req, res) => {
   const Op = Sequelize.Op;
-
-
       if(req.body.fecha_inicio<req.body.fecha_fin){
         if(req.body.estado!='todos'){
              modelos.Boleta.findAll({
