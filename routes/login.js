@@ -19,7 +19,7 @@ passport.use(new LocalStrategy((username, password, done) => {
         },
         include: ['rol']
     }).then(function(usuario) {
-        console.log(JSON.stringify(usuario));
+        // console.log(JSON.stringify(usuario));
         if (usuario == null) {
             return done(null, false, { message: 'Usuario o Password incorrecto' });
         }
@@ -44,8 +44,9 @@ passport.deserializeUser((id, done) => {
         where: {
             id: id
         },
-        include: ['rol']
+        include: ['rol','empleado']
     }).then(usuario => {
+        console.log(JSON.stringify(usuario));
         done(null, usuario);
     });
 });
@@ -85,6 +86,7 @@ function ensureAuthentificated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
+        res.clearCookie("connect.sid");
         res.redirect('/');
     }
 }

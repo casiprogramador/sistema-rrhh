@@ -5,9 +5,9 @@ var router = express.Router();
 
 /* GET login page. */
 router.get('/', md_auth.ensureAuth, function(req, res, next) {
-    console.log(JSON.stringify(res.locals.user));
-    var rolData = req.session;
-    rolData.rol = "ADMIN1";
+    //console.log(JSON.stringify(res.locals.user));
+    //var rolData = req.session;
+    //rolData.rol = "ADMIN1";
     res.render('home');
 });
 

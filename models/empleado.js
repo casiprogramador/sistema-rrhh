@@ -48,12 +48,10 @@ module.exports = (sequelize, DataTypes) => {
     estado: DataTypes.BOOLEAN,
     discapacidad: DataTypes.BOOLEAN,
     discapacidad: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Empleado.associate = function (models) {
+    Empleado.belongsTo(models.Usuario,{foreignKey: 'usuario_id', as: 'usuario'});
+    
+  };
   return Empleado;
 };

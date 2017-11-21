@@ -6,7 +6,7 @@ var moment = require('moment');
 
 /* GET login page. */
 router.get('/formulario', function(req, res, next) {
-    
+    console.log(JSON.stringify(res.locals.user.empleado.id));
     modelos.Tipo_boleta.findAll({
         attributes: ['id', 'tipo_boleta']
     }).then(Tipo_boleta => {

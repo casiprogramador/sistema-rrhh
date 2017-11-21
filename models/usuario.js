@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Usuario.associate = function (models) {
     Usuario.belongsTo(models.Rol,{foreignKey: 'rol_id', as: 'rol'});
+    Usuario.hasOne(models.Empleado, {foreignKey: 'usuario_id', as: 'empleado'});
   };
   return Usuario;
 };

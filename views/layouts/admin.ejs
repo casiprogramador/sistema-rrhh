@@ -15,7 +15,12 @@
                     <span class="mdi mdi-menu print-ignore"></span>
                 </button>
                 <div class="nav-profile print-ignore">
-                  <span>Hola, <%= user.username %></span>
+                <%if (user.rol.rol === 'ADMIN' && user.empleado !== 'null') { %>
+                  <span>Hola, <%= user.username%></span>
+                <% } %>
+                <%if (user.rol.rol === 'EMPLEADO' && user.empleado !== 'null') { %>
+                  <span>Hola,<%= user.empleado.nombres %> <%= user.empleado.paterno %> </span>
+                <% } %>
                   <img src="/images/faces/face6.jpg" />
                 </div>
                             <form class="form-inline mt-2 mt-md-0 d-none d-lg-block ml-lg-auto">
