@@ -11,15 +11,6 @@ module.exports = {
       idioma: {
         type: Sequelize.STRING(50)
       },
-      id_empleado: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'Empleados',
-            key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade'
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

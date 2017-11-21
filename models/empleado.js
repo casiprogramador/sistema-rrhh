@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Empleado.associate = function (models) {
     Empleado.belongsTo(models.Usuario,{foreignKey: 'usuario_id', as: 'usuario'});
-    
+    Empleado.hasMany(models.Boleta, {foreignKey: 'id_empleado', as: 'boleta'});
   };
   return Empleado;
 };
