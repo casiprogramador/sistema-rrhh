@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 
 
-    url_servidor = 'http://localhost:3000/';
+    url_servidor = '/';
     $("#fecha-saldo-vacacion").val(getCurrentDate());
     $("#panel-personal").hide();
 
@@ -169,6 +169,51 @@ $(document).ready(function() {
         }
 
 
+        event.preventDefault();
+    });
+
+    $("#form-busqueda-individual").submit(function(event) {
+        ci_persona = $("#ci-empleado").val();
+        //console.log(ci_persona);
+        $.ajax({
+            type: 'GET',
+            contentType: 'application/json',
+            url:'/empleado/' + ci_persona + '/saldovacacionndi',
+            success: function(empleados) {
+                
+                $('#table-saldo > tbody tr').remove();
+                $("#panel-personal").show("slow");
+                area = empleados[0].desc_area;
+                tabla = '<tr>' +
+                '<td colspan="7"><h2>' + area + '</h2></td>' +
+                '</tr>';
+                $('#table-saldo > tbody:last-child').append(tabla);
+                tabla_empleado = '';
+                //console.log(area);
+                saldo_vacaciones_total = 0;
+                $.each(empleados, function(key, empleado) {
+                    saldo_vacaciones_total += empleado.dias
+                });
+                $.each(empleados, function(key, empleado) {
+                    console.log(key);
+                    if(key == 0){
+                        tabla_empleado += '<tr><td>' + empleado.ndi + '</td>' +
+                        '<td>' + empleado.nombres + ' ' + empleado.paterno + ' ' + empleado.materno + '</td>' +
+                        '<td>' + empleado.cargo + '</td>' +
+                        '<td>' + empleado.fecha_inicio + '</td>' +
+                        '<td></td>' +
+                        '<td>' + saldo_vacaciones_total + ' dias</td>' +
+                        '<td>' + '<b>Gestion</b>: ' + empleado.gestion + '- <b>Dias Vacacion</b>: ' + empleado.dias + '</td></tr>';
+    
+                    }else{
+                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td><td></td>' +
+                        '<td>' + '<b>Gestion</b>: ' + empleado.gestion + '- <b>Dias Vacacion</b>: ' + empleado.dias + '</td></tr>';
+                    }
+
+                });
+                $('#table-saldo > tbody:last-child').append(tabla_empleado);
+            }
+        });
         event.preventDefault();
     });
 });
