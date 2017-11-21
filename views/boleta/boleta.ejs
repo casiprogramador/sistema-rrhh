@@ -5,9 +5,19 @@
           <div class="row grid-margin">
               
               <div class="col-lg-10 grid-margin grid-margin-lg-0">
+                    <%if (error_msg.length > 0 ) { %>
+                        <div class="alert alert-warning text-center" role="alert">
+                          <%= error_msg %>
+                        </div>
+                      <% } %>
+            <div class="col-lg-10 grid-margin grid-margin-lg-0">
+                <%if (error_msg1.length > 0 ) { %>
+                    <div class="alert alert-warning text-center" role="alert">
+                        <%= error_msg1 %>
+                    </div>
+                    <% } %>
 
-
-<form method="post" action="/boleta/guardar">
+<form method="post" action="/boleta/reporte">
 
                   <div class="card col-lg-12 col-lg-4   ">
                       <div class="card-body col-8 col-4">
@@ -71,19 +81,16 @@
                                         <label for="fecha reporte" class="col-sm-3 col-form-label">Tiempo Solicitado:</label>
                                         <div class="col-sm-8">
                                             <div>
-                                              <input id="cname" class="form-control p-input col-lg-12" name="Subir" minlength="2" type="text"  required>
+                                              <input id="cname" class="form-control p-input col-lg-4" name="Subir" minlength="1" type="text"  value=0 required>
                                              </div>
-                                            </div>
+                                         </div>
                                         </div>
                                     </div>
                                </div>
                             <div class="card-body btn-demo text-center">
                                 <input class="btn btn-primary" type="submit" value="Submit">
                       </div>
-                  </div>
-
-
+                   </div>
                 </form>
-
               </div>
           </div>

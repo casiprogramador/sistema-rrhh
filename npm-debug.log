@@ -1,14 +1,14 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'start' ]
 2 info using npm@3.10.10
-3 info using node@v6.12.0
+3 info using node@v6.11.4
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle sistema-rrhh@0.0.0~prestart: sistema-rrhh@0.0.0
 6 silly lifecycle sistema-rrhh@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle sistema-rrhh@0.0.0~start: sistema-rrhh@0.0.0
 8 verbose lifecycle sistema-rrhh@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle sistema-rrhh@0.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/reynaldo/DESARROLLO/sistema_rrhh/sistema-rrhh/node_modules/.bin:/home/reynaldo/bin:/home/reynaldo/.local/bin:/opt/OpenPrinting-Gutenprint/sbin:/opt/OpenPrinting-Gutenprint/bin:/home/reynaldo/bin:/home/reynaldo/.local/bin:/opt/OpenPrinting-Gutenprint/sbin:/opt/OpenPrinting-Gutenprint/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-10 verbose lifecycle sistema-rrhh@0.0.0~start: CWD: /home/reynaldo/DESARROLLO/sistema_rrhh/sistema-rrhh
+9 verbose lifecycle sistema-rrhh@0.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/stephanie/Documentos/rh/sistema-rrhh/node_modules/.bin:/home/stephanie/bin:/home/stephanie/.local/bin:/home/stephanie/bin:/home/stephanie/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+10 verbose lifecycle sistema-rrhh@0.0.0~start: CWD: /home/stephanie/Documentos/rh/sistema-rrhh
 11 silly lifecycle sistema-rrhh@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle sistema-rrhh@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle sistema-rrhh@0.0.0~start: Failed to exec start script
@@ -23,10 +23,10 @@
 14 verbose stack     at maybeClose (internal/child_process.js:920:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5)
 15 verbose pkgid sistema-rrhh@0.0.0
-16 verbose cwd /home/reynaldo/DESARROLLO/sistema_rrhh/sistema-rrhh
+16 verbose cwd /home/stephanie/Documentos/rh/sistema-rrhh
 17 error Linux 4.10.0-38-generic
 18 error argv "/usr/bin/node" "/usr/bin/npm" "start"
-19 error node v6.12.0
+19 error node v6.11.4
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error sistema-rrhh@0.0.0 start: `node ./bin/www`
