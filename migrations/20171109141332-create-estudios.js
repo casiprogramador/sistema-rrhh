@@ -43,11 +43,9 @@ module.exports = {
       },
       colegio_prof: {
         type: Sequelize.STRING(50)
-
       },
       nro_registro_prof: {
         type: Sequelize.STRING(50)
-
       },
       id_empleado: {
         type: Sequelize.INTEGER,
