@@ -1,21 +1,24 @@
 
-<h2><%= JSON.stringify(boleta) %></h2>
 <img src="/images/logomdpyep.png" alt="icono logo" width="15%">
 
 <head>
-  <h3><center>Formulario</center></h3>
-  <h3><center>Boleta de salida a/c Vacación (dato que se saca del combo)</center></h3>
+  <h3><center>Formulario<%= JSON.stringify(variable) %> </center></h3>
+  <h3><center><%= JSON.stringify(boleta[0].tipo_boleta) %></center></h3>
   <hr align="left" size="4" width="1830" color="black" />
 </head>
 
-  <table  WIDTH="50%" ><tr><td><h4><u>Datos Personales</u></h4><td>Codigo</td></td><td>168 </td></tr></table>
-
-  <table WIDTH="80%"><tr><td><b>N°.C.I.:</b></td><td>123654</td><td><b>Nombres y Apellidos:</b></td><td><left>Marcelo choque</left></td></td></tr></table> 
-  <h4>Cargo</h4> 
-  <h4>Area</h4> 
+  <table  WIDTH="120%" ><tr><td><h4><u>Datos Personales</u></h4></td><td><b>Codigo:</b><%= JSON.stringify(boleta_insertada.id) %> </td> </tr></table>
+</br>
+  <table WIDTH="80%"><tr><td><b>N°.C.I.:  </b><%= JSON.stringify(boleta[0].ndi)%></td><td><b>Nombres y Apellidos:  </b><%= JSON.stringify(boleta[0].paterno)%> <%= JSON.stringify(boleta[0].materno)%> <%= JSON.stringify(boleta[0].nombres) %></td></tr></table> 
+</br>
+  <b>Cargo:</b><%= JSON.stringify(boleta[0].cargo) %>
+</br>
+</br>
+  <b>Area:</b><%= JSON.stringify(boleta[0].desc_area) %>
+</br>
   <hr align="left" size="4" width="1830" color="black" />
-  <b>Desde Fecha y Hora:</b><%= JSON.stringify(boleta.fecha_inicio) %> 
-  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:</b><%= JSON.stringify(boleta.fecha_fin) %></td><td><b>Tiempo Solicitado:</b>1 dia</td></tr></table>
+  <b>Desde Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_inicio) %> 
+  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_fin) %></td><td><b>Tiempo Solicitado:</b><%= JSON.stringify(variable)%> días</td></tr></table>
 </br>
 </br>
 </br>
@@ -23,6 +26,8 @@
 </br>
 </br>
 </br>
-<table WIDTH="70%"><tr><td><b>    </b></td><td><b>Firma Solicitante</b></td><td><b></b></td><td><b>Firma Autorizada 1</b></td><td><b></b></td><td><b>Firma Autorizada 2</b></td></tr></table>
+<table WIDTH="90%"><center><tr><td><center>________________</center></td><td><center>___________________</center></td><td><center>__________________</center></td></tr></center></table>
+<table WIDTH="90%"><tr><td><center>Firma Solicitante</center></td><td><center>Firma Autorizada 1</center></td><td><center>Firma Autorizada 2</center></td></tr></table>
 
   <hr align="left" size="4" width="1830" color="black" />
+  <small>Estado: <%= JSON.stringify(boleta_insertada.estado) %> al <%= JSON.stringify(boleta_insertada.fecha_inicio) %>- Acción realizada por el Usuario : </small>
