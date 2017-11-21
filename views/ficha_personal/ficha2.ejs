@@ -39,13 +39,13 @@
                                         <div class="form-group">
                                         <input name="id_empleado" type="hidden" class="form-control" value="<%=id%>">
                                         <label for="name">Numero Nit</label>
-                                        <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit">
+                                        <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit" onkeypress="return valida(event)" minlength="2">
                                         </div>
                                         </div>
                                         <div class="col">
                                         <div class="form-group">
                                         <label for="designation">Nombre AFP</label>
-                                        <input name="afp" type="text" class="form-control" id="afp" placeholder="AFP">
+                                        <input name="afp" type="text" class="form-control" id="afp" placeholder="Nombre AFP" minlength="2">
                                         </div>
                                         </div>
                                         </div>
@@ -54,14 +54,14 @@
                                         <div class="row">
                                         <div class="col">
                                         <div class="form-group">
-                                          <label for="mobile">Nombre Seguro Medico</label>
-                                          <input name="seguro_medico" type="text" class="form-control" id="segmedico" placeholder="Seguro Medico">
+                                          <label for="seguro_medico">Nombre Seguro Medico</label>
+                                          <input name="seguro_medico" type="text" class="form-control" id="seguro_medico" placeholder="Seguro Medico" minlength="2">
                                         </div>
                                         </div>
                                         <div class="col">
                                         <div class="form-group">
-                                        <label for="email">Numero de Seguro</label>
-                                        <input name="nro_seguro" class="form-control" id="numsegmedico" placeholder="Numero Seguro medico">
+                                        <label for="nro_seguro">Numero de Seguro</label>
+                                        <input name="nro_seguro" class="form-control" id="num_seguro" placeholder="Numero Seguro medico" onkeypress="return valida(event)" minlength="2">
                                         </div>
                                         </div>
                                         </div>
@@ -70,7 +70,7 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="name">Tipo de Seguro</label>
+                                                <label for="tipo_seguro">Tipo de Seguro</label>
                                                 <select name="tipo_seguro" class="form-control" style="width:100%">
                                                 <option value="Privado">Privado</option>
                                                 <option value="Publico">Publico</option>
@@ -79,8 +79,8 @@
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                  <label for="name">Numero Unico de Afiliado NUA</label>
-                                                  <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado">
+                                                  <label for="name">Numero Unico de Afiliado NUA o CUA</label>
+                                                  <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado" onkeypress="return valida(event)" minlength="2">
                                                 </div>
                                                 </div>
                                                 </div>
@@ -89,14 +89,14 @@
                                                 <div class="row">
                                                         <div class="col">
                                                         <div class="form-group">
-                                                          <label for="name">Numero REN (exclusivo caso rentista)</label>
-                                                          <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN">
+                                                          <label for="ren">Numero REN (exclusivo caso rentista)</label>
+                                                          <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN" onkeypress="return valida(event)" minlength="2">
                                                         </div>
                                                         </div>
                                                         <div class="col">
                                                         <div class="form-group">
-                                                          <label for="name">Numero de Años Calificados</label>
-                                                          <input name="anios_calificados" type="text" class="form-control" id="nacalificados" placeholder="Años Calificados">
+                                                          <label for="anios_calificados">Numero de Años Calificados</label>
+                                                          <input name="anios_calificados" type="text" class="form-control" id="anios_calificados" placeholder="Años Calificados" onkeypress="return valida(event)" required>
                                                         </div>
                                                         </div>
                                                         </div>
@@ -118,14 +118,14 @@
                       <div class="row">
                             <div class="col">
                             <div class="form-group">
-                            <label for="name">N° de Declaracion Jurada</label>
-                            <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada">
+                            <label for="nro_declar_jurada">N° de Declaracion Jurada</label>
+                            <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada" onkeypress="return valida(event)" required>
                           </div>
                           </div>
                           <div class="col">
                           <div class="form-group">
-                            <label for="name">N° de Cuenta Bancaria</label>
-                            <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria">
+                            <label for="nro_cuenta">N° de Cuenta Bancaria</label>
+                            <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria" onkeypress="return valida(event)" minlength="8">
                           </div>
                           </div>
                           </div>
@@ -135,7 +135,7 @@
                           <div class="col">
                           <div class="form-group">
                             <label for="name">Nombre del Banco</label>
-                            <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco">
+                            <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco" minlength="2">
                           </div>
                           </div>
                           <div class="col">
@@ -164,7 +164,7 @@
                         <div class="row">
                                 <div class="col">
                                 <div class="form-group">
-                                  <label for="name">Nivel de Formacion</label>
+                                  <label for="nivel">Nivel de Formacion</label>
                                   <select name="nivel" class="form-control" style="width:100%">
                                         <option value="Bachiller">Bachillerato</option>
                                         <option value="Licenciatura">Licenciatura</option>
@@ -172,13 +172,14 @@
                                         <option value="Doctorado">Doctorado</option>
                                         <option value="Otro">Otro</option>
                                         </select>
-                                        <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion">
+                                        <label for="especificacion">Especificacion</label>
+                                        <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion" minlength="2" required>
                                 </div>
                                 </div>
                                 <div class="col">
                                 <div class="form-group">
-                                  <label for="name">Titulo Obtenido</label>
-                                  <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido">
+                                  <label for="titulo">Titulo Obtenido</label>
+                                  <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido" minlength="2">
                                 </div>
                                 </div>
                                 </div>
@@ -187,13 +188,13 @@
                                 <div class="row">
                                 <div class="col">
                                 <div class="form-group">
-                                  <label for="name">Carrera</label>
-                                  <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera">
+                                  <label for="carrera">Carrera</label>
+                                  <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera" minlength="2">
                                 </div>
                                 </div>
                                 <div class="col"><div class="form-group">
-                                  <label for="name">Institucion</label>
-                                  <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion">
+                                  <label for="institucion">Institucion</label>
+                                  <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion" minlength="2">
                                 </div>
                                 </div>
                                 </div>
@@ -201,7 +202,7 @@
                                 <div class="row">
                                 <div class="col-6">
                                 <div class="form-group">
-                                <label for="name">Concluida?</label>
+                                <label for="concluida">Concluida?</label>
                                   <div class="form-radio">
                                         <label class="form-check-label">
                                           <input name="conluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="si" checked>
@@ -222,14 +223,14 @@
                                 <div class="row">
                                 <div class="col">
                                 <div class="form-group">
-                                <label for="name">Ciudad</label>
-                                <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad">
+                                <label for="ciudad">Ciudad</label>
+                                <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad" minlength="2" required>
                                 </div>
                                 </div>
                                 <div class="col">
                                 <div class="form-group">
-                                <label for="name">Pais</label>
-                                <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais">
+                                <label for="pais">Pais</label>
+                                <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais" minlength="2" required>
                                 </div>
                                 </div>
                                 </div>
@@ -237,15 +238,15 @@
                                 <div class="row">
                                 <div class="col-4">
                                 <div class="form-group">
-                                <label for="name">Años Concluidos</label>
-                                <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin">
+                                <label for="anios_vencidos">Años Concluidos</label>
+                                <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin" required>
                                 </div>
                                 </div>
                                 <div class="col-4">
                                 <div class="form-group">
-                                <label for="name">Fecha Inicio</label>
+                                <label for="fecha_inicio">Fecha Inicio</label>
                                 <div class="input-group date datepicker b-l-blue">
-                                    <input name="feci_nicio" type="text" class="form-control">
+                                    <input name="fecha_inicio" type="text" class="form-control" required>
                                     <div class="input-group-addon">
                                       <span class="mdi mdi-calendar-blank"></span>
                                     </div>
@@ -254,9 +255,9 @@
                                 </div>
                                 <div class="col-4">
                                 <div class="form-group">
-                                <label for="name">Fecha Fin</label>
+                                <label for="fecha_fin">Fecha Fin</label>
                                 <div class="input-group date datepicker b-l-blue">
-                                    <input name="fec_fin" type="text" class="form-control">
+                                    <input name="fecha_fin" type="text" class="form-control" required>
                                     <div class="input-group-addon">
                                       <span class="mdi mdi-calendar-blank"></span>
                                     </div>
@@ -268,14 +269,14 @@
                                 <div class="row">
                                 <div class="col">
                                 <div class="form-group">
-                                <label for="name">Colegio Profesional</label>
-                                <input name="colegio_prof" type="text" class="form-control" id="codprofesional" placeholder="Codigo Profesional">
+                                <label for="col_profesional">Colegio Profesional</label>
+                                <input name="col_profesional" type="text" class="form-control" id="col_profesional" placeholder="Codigo Profesional" minlength="2">
                                 </div>
                                 </div>
                                 <div class="col">
                                 <div class="form-group">
-                                <label for="address">N° Registro Profesional</label>
-                                <input name="nro_registro_prof" name="address" id="regprofesional" rows="6" class="form-control" placeholder="N° Registro Profesional">
+                                <label for="nro_registro_pro">N° Registro Profesional</label>
+                                <input name="nro_registro_pro" name="address" id="nro_registro_pro" rows="6" class="form-control" placeholder="N° Registro Profesional" minlength="2" onkeypress="return valida(event)">
                                 </div>
                                 </div>
                                 </div>
@@ -294,15 +295,15 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Español</td>
-                                                    <td><input name="lecturaesp" id="leeesp" rows="6" class="form-control" placeholder="%"></td>
-                                                    <td><input name="escrituraesp" id="escribeesp" rows="6" class="form-control" placeholder="%"></td>
-                                                    <td><input name="hablaesp" id="hablaesp" rows="6" class="form-control" placeholder="%"></td>
+                                                    <td><input name="lecturaesp" id="leeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                    <td><input name="escrituraesp" id="escribeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                    <td><input name="hablaesp" id="hablaesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
                                                 </tr>
                                                 <tr>
                                                         <td>Ingles</td>
-                                                        <td><input name="lecturaing" id="leeing" rows="6" class="form-control" placeholder="%"></td>
-                                                        <td><input name="escrituraing" id="escribeing" rows="6" class="form-control" placeholder="%"></td>
-                                                        <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="lecturaing" id="leeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                        <td><input name="escrituraing" id="escribeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                        <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
                                                 </tr>
                                                 <tr>
                                                   <td><select name="otro" class="form-control" id="idioma" name="idioma">
@@ -310,9 +311,9 @@
                                                                <option value="<%= Idioma[i].id %>"><%= Idioma[i].idioma %></option>
                                                            <% } %>
                                                       </select></td>
-                                                        <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%"></td>
-                                                        <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%"></td>
-                                                        <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%"></td>
+                                                        <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                        <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
+                                                        <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
                                                 </tr>
                                                 </table>
                                             </div>

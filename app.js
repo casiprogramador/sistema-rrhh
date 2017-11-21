@@ -49,7 +49,11 @@ app.use(session({
 }));
 
 //upload
-//app.use(express.bodyParser({uploaddir:'./uploads'}));
+/*app.use(express.bodyParser({uploaddir:'./uploads'}));
+var body_parser   = require('body-parser')
+app.use(body_parser()) //Express 4
+var multipart = require('connect-multiparty');
+app.use(multipart()) //Express 4*/
 
 
 

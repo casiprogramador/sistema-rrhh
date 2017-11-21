@@ -36,14 +36,14 @@
                                               <div class="row">
                                               <div class="col">
                                               <div class="form-group">
-                                                <label for="name">Primer Nombre</label>
-                                                <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Primer Nombre">
+                                                <label for="nombre">Primer Nombre *</label>
+                                                <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Primer Nombre" minlength="2" required>
                                               </div>
                                               </div>
                                               <div class="col">
                                                 <div class="form-group">
-                                                  <label for="name">Segundo Nombre</label>
-                                                  <input name="segnombre" type="text" class="form-control" id="nombre" placeholder="Segundo Nombre">
+                                                  <label for="segnombre">Segundo Nombre</label>
+                                                  <input name="segnombre" type="text" class="form-control" id="segnombre" placeholder="Segundo Nombre" minlength="2">
                                                 </div>
                                               </div>
                                               </div>
@@ -52,14 +52,14 @@
                                               <div class="row">
                                               <div class="col">
                                               <div class="form-group">
-                                                <label for="mobile">Primer Apellido</label>
-                                                <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido">
+                                                <label for="priapellido">Primer Apellido *</label>
+                                                <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" required>
                                               </div>
                                               </div>
                                               <div class="col">
                                               <div class="form-group">
-                                                <label for="email">Segundo Apellido</label>
-                                                <input name="segapellido" class="form-control" id="segapellido" placeholder="Segundo Apellido">
+                                                <label for="segapellido">Segundo Apellido</label>
+                                                <input name="segapellido" class="form-control" id="segapellido" placeholder="Segundo Apellido" minlength="2">
                                               </div>
                                               </div>
                                               </div>
@@ -68,8 +68,8 @@
                                               <div class="row">
                                               <div class="col-6">
                                               <div class="form-group">
-                                                <label for="name">Apellido de casada</label>
-                                                <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada">
+                                                <label for="casapellido">Apellido de casada</label>
+                                                <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2">
                                               </div>
                                               </div>
                                               </div>
@@ -77,13 +77,13 @@
                                               <div class="row">
                                               <div class="col">
                                               <div class="form-group">
-                                                <label for="name">Numero de Carnet de identidad</label>
-                                                <input name="ci" type="text" class="form-control" id="ci" placeholder="Numero de Carnet de Identidad">
+                                                <label for="ci">Numero de Carnet de identidad *</label>
+                                                <input name="ci" type="number" class="form-control" id="ci" placeholder="Numero de Carnet de Identidad" onkeypress="return valida(event)" minlength="6" required>
                                               </div>
                                               </div>
                                               <div class="col">
-                                              <label for="name">Expedido en</label>
-                                              <select name="expedido" class="form-control" style="width:100%">
+                                              <label for="expedido">Expedido en</label>
+                                              <select name="expedido" class="form-control" style="width:100%" id="expedido">
                                               <option value="lp">La Paz</option>
                                               <option value="cbba">Cochabamba</option>
                                               <option value="stc">Santa Cruz</option>
@@ -100,14 +100,14 @@
                                                 <div class="row">
                                                 <div class="col-6">
                                                 <div class="form-group">
-                                                <label for="name">Pais</label>
-                                                <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais">
+                                                <label for="paisci">Pais</label>
+                                                <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais" minlength="2" required>
                                               </div>
                                               </div>
                                               <div class="col">
                                                   <div class="form-group">
-                                                  <label for="address">Fotografia</label>
-                                                  <input name="foto" type="file" class="dropify" data-max-file-size="1mb" data-height = "120" data-default-file="../../images/faces/silueta.jpeg"/>
+                                                  <label for="foto">Fotografia</label>
+                                                  <input name="foto" id="foto" type="file" class="dropify" data-max-file-size="1mb" data-height = "120" data-default-file="../../images/faces/silueta.jpeg"/>
                                                   </div>
                                                   </div>
                                               </div>
@@ -129,14 +129,14 @@
                                                   <div class="row">
                                                     <div class="col">
                                                       <div class="form-group">
-                                                        <label for="name">Provincia</label>
-                                                        <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia">
+                                                        <label for="provincia">Provincia</label>
+                                                        <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia" minlength="2">
                                                       </div>
                                                       </div>
                                                       <div class="col">
                                                         <div class="form-group">
-                                                          <label for="name">Departamento</label>
-                                                          <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento">
+                                                          <label for="departamento">Departamento</label>
+                                                          <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento" minlength="2">
                                                         </div>
                                                         </div>
                                                   </div>
@@ -145,23 +145,23 @@
                                                   <div class="row">
                                                     <div class="col">
                                                       <div class="form-group">
-                                                        <label for="name">Nacionalidad</label>
-                                                        <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad">
+                                                        <label for="nacionalidad">Nacionalidad</label>
+                                                        <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" minlength="2" required>
                                                       </div>
                                                       </div>
                                                   <div class="col">
                                                   <div class="form-group">
-                                                    <label for="name">Pais</label>
-                                                    <input name="paisnac" type="text" class="form-control" id="Paisnac" placeholder="Pais">
+                                                    <label for="paisnac">Pais</label>
+                                                    <input name="paisnac" type="text" class="form-control" id="paisnac" placeholder="Pais" minlength="2" required>
                                                   </div>
                                                   </div>
                                                   </div>
                 
                                                   <div class="row">
                                                   <div class="col">
-                                                    <label for="name">Fecha de Nacimiento</label>
+                                                    <label for="fecnac">Fecha de Nacimiento</label>
                                                     <div class="input-group date datepicker b-l-blue">
-                                                      <input name="fecnac" type="text" class="form-control">
+                                                      <input name="fecnac" type="text" class="form-control" id="fecnac" required>
                                                       <div class="input-group-addon">
                                                         <span class="mdi mdi-calendar-blank"></span>
                                                       </div>
@@ -184,7 +184,7 @@
                                               <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                    <label for="name">Sexo</label>
+                                                    <label for="sexo">Sexo</label>
                                                     <div class="form-radio">
                                                       <label class="form-check-label">
                                                           <input type="radio" class="form-check-input" name="sexo" id="sexo" value="M" checked>
@@ -200,8 +200,8 @@
                                                 </div>
                                                 </div>
                                                 <div class="col"><div class="form-group">
-                                                  <label for="name">Grupo Sanguineo</label>
-                                                  <input name="sangre" type="text" class="form-control" id="gsanguineo" placeholder="Grupo Sanguineo">
+                                                  <label for="sangre">Grupo Sanguineo</label>
+                                                  <input name="sangre" type="text" class="form-control" id="sangre" placeholder="Grupo Sanguineo" minlength="2">
                                                 </div>
                                                 </div>
                                                 </div>
@@ -209,14 +209,14 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                  <label for="name">Estado Civil</label>
-                                                  <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil">
+                                                  <label for="ecivil">Estado Civil *</label>
+                                                  <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil" minlength="2" required>
                                                 </div>
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                  <label for="name">N° Libreta de Servicio Militar</label>
-                                                  <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar">
+                                                  <label for="lmilitar">N° Libreta de Servicio Militar</label>
+                                                  <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar" minlength="5" onkeypress="return valida(event)">
                                                 </div>
                                                 </div>
                                                 </div>
@@ -228,14 +228,14 @@
                                                 <div class="row">
                                                 <div class="col-8">
                                                 <div class="form-group">
-                                                <label for="name">Calle o Avenida</label>
-                                                <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida">
+                                                <label for="calle">Calle o Avenida *</label>
+                                                <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida" required>
                                                 </div>
                                                 </div>
                                                 <div class="col-3">
                                                 <div class="form-group">
-                                                <label for="name">N°</label>
-                                                <input name="num" type="text" class="form-control" id="num" placeholder="N°">
+                                                <label for="num">N°</label>
+                                                <input name="num" type="text" class="form-control" id="num" placeholder="N°" onkeypress="return valida(event)">
                                                 </div>
                                                 </div>
                                                 </div>
@@ -243,14 +243,14 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="name">Nombre Edificio</label>
-                                                <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio">
+                                                <label for="nedificio">Nombre Edificio</label>
+                                                <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio" minlength="2">
                                                 </div>
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="name">Piso</label>
-                                                <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso">
+                                                <label for="piso">Piso</label>
+                                                <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso" onkeypress="return valida(event)">
                                                 </div>
                                                 </div>
                                                 </div>
@@ -258,14 +258,14 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="name">Depto</label>
+                                                <label for="depto">Depto</label>
                                                 <input name="depto" type="text" class="form-control" id="depto" placeholder="Departamento">
                                                 </div>
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">Zona</label>
-                                                <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona">
+                                                <label for="zona">Zona *</label>
+                                                <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona" minlength="2" required>
                                                 </div>
                                                 </div>
                                                 </div>
@@ -273,14 +273,14 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">Telefono Domicilio</label>
-                                                <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio">
+                                                <label for="tdomicilio">Telefono Domicilio</label>
+                                                <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio" minlength="7" onkeypress="return valida(event)">
                                                 </div>
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">Telefono Celular</label>
-                                                <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular">
+                                                <label for="tcelular">Telefono Celular *</label>
+                                                <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular" minlength="7" onkeypress="return valida(event)" required>
                                                 </div>
                                                 </div>
                                                 </div>
@@ -288,23 +288,24 @@
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">Casilla</label>
-                                                <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla">
+                                                <label for="casilla">Casilla</label>
+                                                <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla"  onkeypress="return valida(event)">
                                                 </div>
                                                 </div>
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">E'mail Personal</label>
-                                                <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal">
+                                                <label for="email">E'mail Personal *</label>
+                                                <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal" type="email" minlength="8" required>
                                                 </div>
                                                 </div>
                                                 </div>
+
               
                                                 <div class="row">
                                                 <div class="col">
                                                 <div class="form-group">
-                                                <label for="address">E'mail Trabajo</label>
-                                                <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo">
+                                                <label for="emailt">E'mail Trabajo</label>
+                                                <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo" type="email" minlength="8">
                                                 </div>
                                                 </div>
                                                 </div>

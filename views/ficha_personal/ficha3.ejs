@@ -24,7 +24,10 @@
                         <td><%= dependientes[i].nombres, dependientes[i].paterno, dependientes[i].materno  %></td>
                         <td><%= dependientes[i].desc_otro %></td>
                         <td><button>Editar</button></td>
-                        <td><button>Eliminar</button></td>
+                        <td><form id="eliminadependiente" method="post" action="/ficha_personal/elimina_dependiente">
+                          <input name="id_dependiente" type="hidden" class="form-control" value='<%= dependientes[i].id %>'>
+                          <button type="submit">Eliminar</button>
+                        </form></td>
                       </tr>
                       <% } %>
                   </table>
@@ -138,7 +141,7 @@
                               <div class="col">
                               <div class="form-group">
                               <label for="name">Descripcion de Relacion de Dependencia</label>
-                              <input name="descripcion"class="form-control" placeholder="Descripcion Relacion de Dependencia">
+                              <input name="desc_otro" class="form-control" placeholder="Descripcion Relacion de Dependencia">
                               </div>
                               </div>
                               </div>

@@ -98,7 +98,7 @@ module.exports = {
         type: Sequelize.STRING(20)
       },
       afp: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(20)
       },
       seguro_medico: {
         type: Sequelize.STRING(50)

@@ -20,7 +20,7 @@ router.get('/identificacion_personal2', function(req, res, next) {
 
 router.get('/identificacion_personal3', function(req, res, next) {
   modelos.Dependiente.findAll({ 
-    attributes: ['paterno', 'materno','nombres','desc_otro'],
+    attributes: ['id','paterno', 'materno','nombres','desc_otro'],
     // añadir id
     where: { id_empleado: 1 } }).then(dependientes => {
     // projects will be an array of Project instances with the specified name
@@ -162,8 +162,8 @@ router.post('/identificacion_personal2', (req, res) => {
     const anios_vencidos = req.body.anios_vencidos;
     const fecha_inicio = req.body.fecha_inicio;
     const fecha_fin = req.body.fecha_fin;
-    const colegio_prof = req.body.colegio_prof;
-    const nro_registro_prof = req.body.nro_registro_prof;
+    const col_profesional = req.body.col_profesional;
+    const nro_registro_pro = req.body.nro_registro_pro;
     // tabla idiomas
     const lecturaesp =req.body.lecturaesp;
     const escrituraesp =req.body.escrituraesp;
@@ -204,8 +204,8 @@ router.post('/identificacion_personal2', (req, res) => {
               pais: pais,
               anios_vencidos: anios_vencidos,
               fecha_inicio: req.body.fecha_inicio,
-              colegio_prof: colegio_prof,
-              nro_registro_prof: nro_registro_prof,
+              col_profesional: col_profesional,
+              nro_registro_pro: nro_registro_pro,
               id_empleado: id_empleado
             })
             .then(newestudios => {
@@ -219,7 +219,7 @@ router.post('/identificacion_personal2', (req, res) => {
                         {lee: lecturaotro, escribe: escrituraotro, habla: hablaotro, id_empleado:id_empleado, id_otro: otro
                         })
                         .then(newempleado_idioma3 => {
-                          res.render('ficha_personal/ficha3');
+                          res.render('ficha_personal/ficha1');
                       })
                   })
               })
@@ -250,11 +250,11 @@ router.post('/identificacion_personal3', (req, res) => {
     tipo_documento: tipo_documento,
     desc_otro: desc_otro,
     num_doc_depen: num_doc_depen,
-    id_empleado: id_empleado
+    id_empleado: 1
   })
     .then(newdependiente => {
       modelos.Dependiente.findAll({ 
-        attributes: ['paterno', 'materno','nombres','desc_otro'],
+        attributes: ['id','paterno', 'materno','nombres','desc_otro'],
         // añadir id
         where: { id_empleado: 1 } }).then(dependientes => {
         // projects will be an array of Project instances with the specified name
@@ -350,5 +350,25 @@ router.post('/identificacion_personal6', (req, res) => {
       })
       })
     })
+
+
+
+    //registro de empleado1
+router.post('/elimina_dependiente', (req, res) => {
+  const id = req.body.id_dependiente
+  modelos.Dependiente.destroy({  
+    where: { id: id }
+  })
+  .then(deletdependiente => {
+    modelos.Dependiente.findAll({ 
+      attributes: ['id','paterno', 'materno','nombres','desc_otro'],
+      // añadir id
+      where: { id_empleado: 1 } }).then(dependientes => {
+      // projects will be an array of Project instances with the specified name
+      res.render('ficha_personal/ficha3',{dependientes:dependientes}); 
+    })
+  });
+});
+
 
 module.exports = router;
