@@ -13,54 +13,153 @@ router.get('/formulario', function(req, res, next) {
     res.render('boleta/boleta',{Tipo_boleta:Tipo_boleta});
   })
   });
-
+/*
+   router.get('/:fecha_ini/:fecha_fin/calcular_dias', function(req, res, next) {
+    
+    const suma_dias1 =  moment(fecha_fin).diff(moment(fecha_inicio),"days");
+    });
+*/
     router.post('/reporte', (req, res) => {
-      console.log(req.body);
       
             const fecha_solicitud = moment().format("YYYY-MM-DD"+" 00:00:00.000 +00:00");
             const observacion = '';
             const estado = 'PENDIENTE';
             const fecha_inicio = req.body.fecha_inicio;
-            const  fecha_fin = req.body.fecha_fin;
+            const fecha_fin = req.body.fecha_fin;
+
+            const hora_inicio = req.body.hora_inicio;
+            const hora_fin = req.body.hora_fin;
+
             const id_empleado = res.locals.user.id;
             const id_tipo_boleta= req.body.tipo_boleta;
-            const suma_dias =  moment(fecha_fin).diff(moment(fecha_inicio),"days")
+            const suma_dias =  moment(fecha_fin).diff(moment(fecha_inicio),"days");
+            const estado_vacacion='f';
 
-if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
-{
-  console.log('dirferencia de dias '+suma_dias);
-  req.flash('error_msg1','El saldo de vacacion no es valido');
-  res.redirect('/boleta/formulario');
+            const inicio = moment(hora_inicio,'HH:mm');
+            const fin = moment(hora_fin,'HH:mm');
+
+            const suma_horas =  moment.duration(fin - inicio).humanize();
+            
+            console.log( moment.duration(fin - inicio).humanize() + ' suma de horas' ) 
+
+if(fecha_inicio<fecha_fin){
+
+  if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
+  {
+         modelos.sequelize.query('SELECT sum(dias)vacacion_dias FROM public."Saldo_Vacacions" WHERE id_empleado='+res.locals.user.empleado.id+'and prescrito_estado = false GROUP BY id_empleado').spread((sumatoria, metadata) => {
+
+          if(suma_dias<=Number(sumatoria[0].vacacion_dias))
+          {
+              modelos.Boleta.create({
+              fecha_solicitud : fecha_solicitud,
+              observacion : observacion,
+              estado :estado,
+              fecha_inicio : fecha_inicio,
+              fecha_fin : fecha_fin,
+              id_empleado : id_empleado,
+              id_tipo_boleta: id_tipo_boleta,
+      
+            })
+            .then(newboleta => { 
+                modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+                res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
+                });
+            })
+          }
+          else
+          {
+              req.flash('error_msg1','No puede pedir ese tiempo de vacación');
+              res.redirect('/boleta/formulario');
+          }
+   
+        });
+  }
+else
+{       modelos.Boleta.create({
+        fecha_solicitud : fecha_solicitud,
+        observacion : observacion,
+        estado :estado,
+        fecha_inicio : fecha_inicio,
+        fecha_fin : fecha_fin,
+        id_empleado : id_empleado,
+        id_tipo_boleta: id_tipo_boleta,
+
+      })
+      .then(newboleta => { 
+          modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+          res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
+          });
+      })
+  }
 }
 else{
-  
-              if(fecha_inicio<fecha_fin){
-       
-                modelos.Boleta.create({
-                  fecha_solicitud : fecha_solicitud,
-                  observacion : observacion,
-                  estado :estado,
-                  fecha_inicio : fecha_inicio,
-                  fecha_fin : fecha_fin,
-                  id_empleado : id_empleado,
-                  id_tipo_boleta: id_tipo_boleta,
-          
-                })
-                  .then(newboleta => {
 
-                    res.render('boleta/reporte',{boleta:newboleta});
+if(fecha_inicio=fecha_fin)
+{
+  if(suma_horas > 4)
+  {
+    //graba como un dia de vacación
+      modelos.Boleta.create({
+      fecha_solicitud : fecha_solicitud,
+      observacion : observacion,
+      estado :estado,
+      fecha_inicio : fecha_inicio,
+      fecha_fin : fecha_fin,
+      id_empleado : id_empleado,
+      id_tipo_boleta: id_tipo_boleta,
 
-                  })
-                
-                }else{
-                  req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
-                  res.redirect('/boleta/formulario');
-            }
-  }
-              //res.json('boleta/boleta');
+    })
+    .then(newboleta => { 
+        modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+        res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
         });
-      
+    })
 
+  }
+  else
+  {
+    //graba como medio dia de vacacion 0.5
+      modelos.Boleta.create({
+      fecha_solicitud : fecha_solicitud,
+      observacion : observacion,
+      estado :estado,
+      fecha_inicio : fecha_inicio,
+      fecha_fin : fecha_fin,
+      id_empleado : id_empleado,
+      id_tipo_boleta: id_tipo_boleta,
+
+    })
+    .then(newboleta => { 
+        modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+        res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
+        });
+    })
+  }
+}
+else{
+
+  req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
+  res.redirect('/boleta/formulario');
+  }
+}         //res.json('boleta/boleta');
+  });
+/*
+  $( "#calcular_dias" ).click(function() {
+      dias = $("#ci-empleado").val();
+      //console.log(ci_persona);
+      $.ajax({
+          type: 'GET',
+          contentType: 'application/json',
+          url:'/boleta/' + dias + '/calcular_dias',
+          success: function(suma_dias1) {
+              console.log(suma_dias1);
+          }
+      });
+      event.preventDefault();
+  });
+
+      
+*/
   module.exports = router;
 
 
