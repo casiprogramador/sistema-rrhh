@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     id_usuario: DataTypes.STRING
   });
   Empleado.associate = function (models) {
-    Empleado.belongsTo(models.Usuario,{foreignKey: 'id_usuario', as: 'usuario'});
+    //Empleado.belongsTo(models.Usuario,{foreignKey: 'id_usuario', as: 'usuario'});
     Empleado.hasMany(models.Boleta, {foreignKey: 'id_empleado', as: 'boleta'});
   };
   return Empleado;

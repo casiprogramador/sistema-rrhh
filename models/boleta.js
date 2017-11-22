@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   
     Boleta.associate = function (models) {
-    Boleta.belongsTo(models.Empleado, {foreignKey: 'id_empleado', as: 'empleado'});
+      Boleta.belongsTo(models.Empleado, {foreignKey: 'id_empleado', as: 'empleado'});
+     // Boleta.belongsTo(models.Tipo_boleta, {foreignKey: 'id_tipo_boleta', as: 'tipo_boleta'});
   };
 
   return Boleta;
