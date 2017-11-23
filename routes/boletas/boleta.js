@@ -46,12 +46,15 @@ router.get('/formulario', function(req, res, next) {
             {
               if(moment(fecha_inicio).day()!=5 || moment(fecha_inicio).day()!=6)
               {
-               dias==dias+1;     
+                dias=dias+1;
+                console.log('incremento de dias'+dias);     
               }
-              moment(fecha_inicio).add(1, 'd');
+              (moment(fecha_inicio).add(1, 'd')).format("YYYY-MM-DD");
+              console.log('salio del if');
+              console.log((moment(fecha_inicio).add(1, 'd')).format("YYYY-MM-DD")+'se aumento la fecha');
               i++
             }    
-
+console.log(dias);
 //Verifica si la fecha inicio es menor a la fecha fin
 if(fecha_inicio1<fecha_fin1)
 {
