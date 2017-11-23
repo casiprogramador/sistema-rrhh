@@ -80,8 +80,8 @@
                                           <% for(var i=0; i< boletas.length; i++) { %>
                                         <tr>
                                             <td><%= boletas[i].id %></td>
-                                            <td><%= boletas[i].id_empleado %></td>
-                                            <td><%= boletas[i].id_empleado %></td>
+                                            <td><%= boletas[i].empleado.ndi %></td>
+                                            <td><%= boletas[i].empleado.nombres%> <%= boletas[i].empleado.paterno%> <%= boletas[i].empleado.materno%></td>
                                             <td><%= boletas[i].id_tipo_boleta %></td>
                                             <td><%= boletas[i].fecha_solicitud %> </td>
                                             <td><%= boletas[i].fecha_inicio %></td>
