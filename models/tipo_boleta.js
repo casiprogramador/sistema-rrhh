@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Tipo_boleta.associate = function (models) {
-    Tipo_boleta.hasMany(models.Boleta, {foreignKey: 'id_tipo_boleta', as: 'boleta'});
+    Tipo_boleta.hasMany(models.Boleta, {foreignKey: 'id_tipo_boleta', as: 'boletas'});
   };
 
   return Tipo_boleta;

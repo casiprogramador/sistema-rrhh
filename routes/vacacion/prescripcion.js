@@ -30,13 +30,13 @@ router.get('/:id_empleado/saldovacacion', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(req.body));
+    
     for (let id_saldo of req.body.saldoid) {
         console.log(id_saldo);
         let updateValue = { prescrito_estado:true };
         modelos.Saldo_Vacacion.update(updateValue, { where: { id: id_saldo } }).then((result) => {
             // here your result is simply an array with number of affected rows
-            console.log(result);
+            //console.log(result);
             req.flash('success_msg','Prescripcion actualizada correctamente');
             res.redirect('/vacacion/prescripcion');
         });

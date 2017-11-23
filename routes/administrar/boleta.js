@@ -2,20 +2,21 @@ var express = require('express');
 var router = express.Router();
 var modelos = require('../../models/index');
 var Sequelize = require('sequelize');
-
+var moment = require('moment');
 
 router.get('/',function(req, res, next) {
   modelos.Boleta.findAll({
-    include: ['empleado']
+    include: ['empleado','tipoboleta']
 
  }).then((boletas) => {
-   console.log(boletas);
-         res.render('administrar/boleta',{boletas:boletas});   
+   //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(boletas));
+         res.render('administrar/boleta',{boletas:boletas, moment:moment});   
        })
 });
     
 
 router.post('/buscar', (req, res) => {
+  /**
   const Op = Sequelize.Op;
       if(req.body.fecha_inicio<req.body.fecha_fin){
         if(req.body.estado!='todos'){
@@ -50,5 +51,21 @@ router.post('/buscar', (req, res) => {
         req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
         res.redirect('/administrar/boleta')
       }
+  **/
+
+  if(req.body.estado == 'Todos'){
+    res.redirect('/administrar/boleta');
+  }else{
+    modelos.Boleta.findAll({
+      where: {
+        estado: req.body.estado,
+      },
+      include: ['empleado','tipoboleta'],
+    }).then((boletas) => {
+      //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(boletas));
+      res.render('administrar/boleta', { boletas: boletas, moment:moment });
+    })
+  }
+
 });
 module.exports = router;
