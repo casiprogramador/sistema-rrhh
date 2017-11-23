@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var modelos = require('../../models/index');
 var moment = require('moment');
+var path = require('path');
 
 /* GET login page. */
 router.get('/identificacion_personal', function(req, res, next) {
@@ -60,7 +61,7 @@ router.get('/identificacion_personal5', function(req, res, next) {
 
 //registro de empleado1
 router.post('/identificacion_personal', (req, res) => {
-    console.log(req);
+  console.log(req.files);
     var nombres = req.body.nombre;
     const segnombre = req.body.segnombre;
     const priapellido = req.body.priapellido;
@@ -69,7 +70,6 @@ router.post('/identificacion_personal', (req, res) => {
     const ci = req.body.ci;
     const expedido = req.body.expedido;
     const paisci = req.body.paisci;
-    //const foto= "req.file.photo.path";
     const provincia = req.body.provincia;
     const departamento = req.body.departamento;
     const paisnac = req.body.paisnac;
@@ -91,6 +91,39 @@ router.post('/identificacion_personal', (req, res) => {
     const casilla = req.body.casilla;
     const emailp = req.body.emailp;
     const emailt = req.body.emailt;
+
+    /*var path = req.files.foto.path;
+    var fs =require('fs');
+    var newPath = req.files.foto.name;
+    var is = fs.createReadStream(path);
+    var os = fs.createWriteStream(newPath);
+    is.pipe(os);
+    is.on('end', function() {
+      //eliminamos el archivo temporal
+      fs.unlinkSync(path)
+   })
+    is.pipe(os)*/
+    var fs =require('fs');
+    console.log(req.files);
+    var tmp_path = req.files.foto.path;
+    // Ruta donde colocaremos las imagenes
+    var target_path = "public/fotos/"+ci+".jpeg";
+    var pathbd="/fotos/"+ci+".jpeg";
+   // Comprobamos que el fichero es de tipo imagen
+    if (req.files.foto.type.indexOf('image')==-1){
+                res.send('El fichero que deseas subir no es una imagen');
+    } else {
+         // Movemos el fichero temporal tmp_path al directorio que hemos elegido en target_path
+        fs.rename(tmp_path, target_path, function(err) {
+            if (err) throw err;
+            // Eliminamos el fichero temporal
+            fs.unlink(tmp_path, function() {
+                if (err) throw err;
+            });
+         });
+     }
+     const foto= target_path;
+
     modelos.Empleado.create({
       nombres: nombres+" "+segnombre,
       paterno: priapellido,
@@ -99,7 +132,7 @@ router.post('/identificacion_personal', (req, res) => {
       ndi: ci,
       expedido: expedido,
       pais_expedido: paisci,
-      //foto: foto,
+      foto: pathbd,
       provincia: provincia,
       departamento: departamento,
       pais_nacimiento: paisnac,

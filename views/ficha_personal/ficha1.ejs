@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="wrapper">
                                   <hr>
-                                  <form class="cmxform" id="registropersonal" method="post" action="/ficha_personal/identificacion_personal">
+                                  <form class="cmxform" id="registropersonal" method="post" action="/ficha_personal/identificacion_personal" enctype="multipart/form-data">
                                   <div class="tab-content" id="myTabContent">
                                     <!-- tab identificacion personal -->
                                     <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
@@ -105,7 +105,7 @@
                                               <div class="col">
                                                   <div class="form-group">
                                                   <label for="foto">Fotografia</label>
-                                                  <input name="foto" id="foto" type="file" class="dropify" data-max-file-size="1mb" data-height = "120" data-default-file="../../images/faces/silueta.jpeg"/>
+                                                  <input type="file" name="foto" class="dropify" data-height = "120">
                                                   </div>
                                                   </div>
                                               </div>

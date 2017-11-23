@@ -28,7 +28,10 @@ var Sequelize = require("sequelize");
 var app = express();
 
 //subida de imagenes
-//var fs =require('fs');
+
+var multipart = require('connect-multiparty');
+app.use(multipart()); //Express 4
+
 
 
 // view engine setup
@@ -115,6 +118,9 @@ app.use('/ficha_personal',ficha_personal_dependientes);
 app.use('/ficha_personal',ficha_personal_experiencia);
 app.use('/ficha_personal',ficha_personal_referencias);
 app.use('/ficha_personal',ficha_personal_reporte);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

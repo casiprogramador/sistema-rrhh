@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style type="text/css">
+      @media all {
+         div.saltopagina{
+            display: none;
+         }
+      }
+       
+      @media print{
+         div.saltopagina{
+            display:block;
+            page-break-before:always;
+         }
+       
+         /*No imprimir*/
+         .oculto {display:none}
+      } 
+    </style>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +29,7 @@
   <!-- endinject -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/style.css">
+  
   <link type="text/css" href="/css/bootstrap-datepicker.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/iconlogo.png" />
@@ -40,7 +58,10 @@
   <script src="/js/dropify.js"></script>
   <script src="/js/dinamico.js"></script>
   <script src="/js/jquery.repeater.min.js"></script>
-  
+
+  <!-- impresion ficha personal -->
+  <script src="/js/impresionficha.js"></script>
+
 
   <script src="/js/script.js"></script>
   <!-- endinject -->
@@ -80,29 +101,29 @@ function valida(e){
 
 
 function generate() {
-        //document.getElementById('tabladatos').rows[i].cells.length ----- numero de columnas de la tabla-
-        //document.getElementById("tabladatos").rows.length  ----- numero de columnas de la tabla |
-        var columns = ["C. I.", "Nombre", "Cargo", "Fecha de Ingreso","Antiguedad","Saldo","Gestiones Pendientes","",""]  ;
-        var col=parseInt(document.getElementById('table').rows[0].cells.length);
-        var fil=parseInt(document.getElementById("table").rows.length);
-        var tabla=document.getElementById("table");
-        var data =new Array(fil);
-        for(var i=1;i<fil;i++){
-            var texto="";
-            var fila=new Array(9);
-            for(var j=1;j<col;j++){
-                fila[j]=document.getElementById('table').rows[i].cells[j].innerText;
-            }
-            data[i]=fila;
-        }
-        var doc = new jsPDF('l','pt','Legal');
-        doc.setFontSize('Arial','B',11);
-        var logo=new Image();
-        logo.src='/images/logo2.jpg';
-        doc.addImage(logo, 'JPEG', 15, 2, 80, 40);
-        doc.autoTable(columns, data);
-        doc.output("dataurlnewwindow");
-    }
+  //document.getElementById('tabladatos').rows[i].cells.length ----- numero de columnas de la tabla-
+  //document.getElementById("tabladatos").rows.length  ----- numero de columnas de la tabla |
+  var columns = ["C. I.", "Nombre", "Cargo", "Fecha de Ingreso","Antiguedad","Saldo","Gestiones Pendientes","",""]  ;
+  var col=parseInt(document.getElementById('table').rows[0].cells.length);
+  var fil=parseInt(document.getElementById("table").rows.length);
+  var tabla=document.getElementById("table");
+  var data =new Array(fil);
+  for(var i=1;i<fil;i++){
+      var texto="";
+      var fila=new Array(9);
+      for(var j=1;j<col;j++){
+          fila[j]=document.getElementById('table').rows[i].cells[j].innerText;
+      }
+      data[i]=fila;
+  }
+  var doc = new jsPDF('l','pt','Legal');
+  doc.setFontSize('Arial','B',11);
+  var logo=new Image();
+  logo.src='/images/logo2.jpg';
+  doc.addImage(logo, 'JPEG', 15, 2, 80, 40);
+  doc.autoTable(columns, data);
+  doc.output("dataurlnewwindow");
+}
 
 
     $(document).ready(function(){
@@ -161,6 +182,10 @@ function generate() {
       var today = dd+'/'+mm+'/'+yyyy;
       return today;
     }
+
+ 
+</script>
+    
   </script>
     <%- block('javascript').toString() %>
 </body>
