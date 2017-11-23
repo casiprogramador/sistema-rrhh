@@ -1,3 +1,8 @@
+<style>
+  @media print { 
+    .print-ignore{ display: none !important; } 
+  }
+</style>
 
 <img src="/images/logomdpyep.png" alt="icono logo" width="15%">
 
@@ -18,7 +23,7 @@
 </br>
   <hr align="left" size="4" width="1830" color="black" />
   <b>Desde Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_inicio) %> 
-  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_fin) %></td><td><b>Tiempo Solicitado:</b><%= JSON.stringify(variable)%> días</td></tr></table>
+  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_fin) %></td><td><b>Tiempo Solicitado:</b><%= JSON.stringify(boleta_insertada.dias)%> días</td></tr></table>
 </br>
 </br>
 </br>
@@ -31,3 +36,9 @@
 
   <hr align="left" size="4" width="1830" color="black" />
   <small>Estado: <%= JSON.stringify(boleta_insertada.estado) %> al <%= JSON.stringify(boleta_insertada.fecha_inicio) %>- Acción realizada por el Usuario : </small>
+  <div class="col-sm" text-center>
+      <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Imprimir</button>
+      <button type="button" class="btn btn-primary print-ignore" id="btnExport" onclick="window.open(pdfUrl)()">Exportar</button>
+      <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Volver</button>
+      
+    </div>
