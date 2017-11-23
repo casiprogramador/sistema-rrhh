@@ -17,6 +17,7 @@ var home = require('./routes/home');
 var area = require('./routes/area');
 var empleado = require('./routes/empleado');
 var vacacion_saldo = require('./routes/vacacion/saldo');
+var vacacion_prescripcion = require('./routes/vacacion/prescripcion');
 var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
 
@@ -103,6 +104,7 @@ app.use('/home', home);
 app.use('/area', area);
 app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
+app.use('/vacacion/prescripcion',vacacion_prescripcion);
 app.use('/boleta',boleta);
 
 app.use('/administrar/boleta',administrar_boleta);

@@ -72,18 +72,17 @@ $(document).ready(function() {
                                                     saldo_vacaciones_total += empleado_saldo.dias
                                                 });
                                                 $.each(empleado_saldos, function(key, empleado_saldo) {
-
-                                                    console.log(area.desc_area);
+                                                    var fecha_ingreso = new Date(empleado_saldo.fecha_ingreso );
+                                                    //console.log(area.desc_area);
                                                     if (ci_empleado !== empleado_saldo.ndi) {
                                                         tabla_empleado += '<tr><td>' + empleado_saldo.ndi + '</td>' +
                                                             '<td>' + empleado_saldo.nombres + ' ' + empleado_saldo.paterno + ' ' + empleado_saldo.materno + '</td>' +
                                                             '<td>' + empleado_saldo.cargo + '</td>' +
-                                                            '<td>' + empleado_saldo.fecha_ingreso + '</td>' +
-                                                            '<td></td>' +
+                                                            '<td>' + getFormattedDate(fecha_ingreso)+ '</td>' +
                                                             '<td>' + saldo_vacaciones_total + ' dias</td>' +
                                                             '<td>' + '<b>Gestion</b>: ' + empleado_saldo.gestion + '- <b>Dias Vacacion</b>: ' + empleado_saldo.dias + '</td></tr>';
                                                     } else {
-                                                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td><td></td>' +
+                                                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td>' +
                                                             '<td>' + '<b>Gestion</b>: ' + empleado_saldo.gestion + '- <b>Dias Vacacion</b>: ' + empleado_saldo.dias + '</td></tr>';
                                                     }
 
@@ -142,13 +141,12 @@ $(document).ready(function() {
                                             '<td>' + empleado_saldo.nombres + ' ' + empleado_saldo.paterno + ' ' + empleado_saldo.materno + '</td>' +
                                             '<td>' + empleado_saldo.cargo + '</td>' +
                                             '<td>' + empleado_saldo.fecha_ingreso + '</td>' +
-                                            '<td></td>' +
                                             '<td>' + saldo_vacaciones_total + ' dias</td>' +
                                             '<td>' + '<b>Gestion</b>: ' + empleado_saldo.gestion + '- <b>Dias Vacacion</b>: ' + empleado_saldo.dias + '</td></tr>';
 
 
                                     } else {
-                                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td><td></td>' +
+                                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td>' +
                                             '<td>' + '<b>Gestion</b>: ' + empleado_saldo.gestion + '- <b>Dias Vacacion</b>: ' + empleado_saldo.dias + '</td></tr>';
 
                                     }
@@ -167,7 +165,6 @@ $(document).ready(function() {
                 }
             });
         }
-
 
         event.preventDefault();
     });
@@ -201,12 +198,11 @@ $(document).ready(function() {
                         '<td>' + empleado.nombres + ' ' + empleado.paterno + ' ' + empleado.materno + '</td>' +
                         '<td>' + empleado.cargo + '</td>' +
                         '<td>' + empleado.fecha_inicio + '</td>' +
-                        '<td></td>' +
                         '<td>' + saldo_vacaciones_total + ' dias</td>' +
                         '<td>' + '<b>Gestion</b>: ' + empleado.gestion + '- <b>Dias Vacacion</b>: ' + empleado.dias + '</td></tr>';
     
                     }else{
-                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td><td></td>' +
+                        tabla_empleado += '<tr><td></td><td></td><td></td><td></td><td></td>' +
                         '<td>' + '<b>Gestion</b>: ' + empleado.gestion + '- <b>Dias Vacacion</b>: ' + empleado.dias + '</td></tr>';
                     }
 
@@ -214,8 +210,10 @@ $(document).ready(function() {
                 $('#table-saldo > tbody:last-child').append(tabla_empleado);
             }
         });
+        
         event.preventDefault();
     });
+    
 });
 
 
@@ -235,36 +233,38 @@ function getCurrentDate() {
     return today;
 }
 
-function fnExcelReport()
-{
-    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-    var textRange; var j=0;
-    tab = document.getElementById('table-saldo'); // id of table
+function fnExcelReport(id, name) {
+    var tab_text = '\uFEFF';
+    tab_text = tab_text + '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+    tab_text = tab_text + '<head>';
+    tab_text = tab_text + '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+    tab_text = tab_text + '<meta name="ProgId" content="Excel.Sheet" />';
+    tab_text = tab_text + '<meta name="Generator" content="Microsoft Excel 11" />';
+    tab_text = tab_text + '<title>Sample</title>';
+    tab_text = tab_text +'<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
+    tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
+    tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+    tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook>';
+    tab_text = tab_text + '</xml><![endif]--></head><body>';
+    tab_text = tab_text + '<table border="1px">';
+    var exportTable = $('#' + id).clone();
+    exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+    tab_text = tab_text + exportTable.html();
+    tab_text = tab_text + '</table></body></html>';
 
-    for(j = 0 ; j < tab.rows.length ; j++) 
-    {     
-        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-        //tab_text=tab_text+"</tr>";
-    }
-
-    tab_text=tab_text+"</table>";
-    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE "); 
-
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-    {
-        txtArea1.document.open("txt/html","replace");
-        txtArea1.document.write(tab_text);
-        txtArea1.document.close();
-        txtArea1.focus(); 
-        sa=txtArea1.document.execCommand("SaveAs",true,"ReporteSaldoVacacion.xls");
-    }  
-    else                 //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
-
-    return (sa);
+    var fileName = name + '_' + parseInt(Math.random() * 10000000000) + '.xls';
+    var blob = new Blob([tab_text], { type: "application/vnd.ms-excel" })
+    window.saveAs(blob, fileName);
 }
+
+function getFormattedDate(date) {
+    var year = date.getFullYear();
+  
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+    
+    return month + '/' + day + '/' + year;
+  }

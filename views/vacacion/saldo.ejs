@@ -107,20 +107,19 @@
                         </div>
                         <div class="col-sm">
                             <button type="button" class="btn btn-primary print-ignore" onClick="window.print()"><i class="mdi mdi-printer btn-label btn-label-left"></i>Imprimir</button>
-                            <button type="button" class="btn btn-primary print-ignore" id="btnExport" onclick="fnExcelReport();"><i class="mdi mdi-file-excel btn-label btn-label-left"></i>Importar</button>
+                            <button type="button" class="btn btn-primary print-ignore" id="btnExport" onclick="javascript:fnExcelReport('table-saldo', 'ReporteSaldoVacacion');"><i class="mdi mdi-file-excel btn-label btn-label-left"></i>Importar</button>
                         </div>
                   </div>
 
                   <table id="table-saldo" class="table table-bordered table-print data-table-print">
                     <thead >
                       <tr>
-                        <th class="table-dark">CI</th>
-                        <th class="table-dark">Nombre</th>
-                        <th class="table-dark">Cargo</th>
-                        <th class="table-dark">Fecha Ingreso</th>
-                        <th class="table-dark">CAS</th>
-                        <th class="table-dark">Saldo</th>
-                        <th class="table-dark">Gestion Pendientes</th>
+                        <th class="table-dark" width="10%">CI</th>
+                        <th class="table-dark" width="20%">Nombre</th>
+                        <th class="table-dark" width="15%">Cargo</th>
+                        <th class="table-dark" width="15%">Fecha Ingreso</th>
+                        <th class="table-dark" width="10%">Saldo</th>
+                        <th class="table-dark" width="30%">Gestion Pendientes</th>
                       </tr>
                     </thead>
                     <tbody>
