@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     id_empleado: DataTypes.INTEGER,
     id_tipo_boleta: DataTypes.INTEGER,
     usuario_anulacion_aprobacion: DataTypes.INTEGER,
-    fecha_anulacion_aprobacio: DataTypes.DATE
+    fecha_anulacion_aprobacion: DataTypes.DATE
 
   });
   
