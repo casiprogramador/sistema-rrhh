@@ -55,6 +55,12 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
+      dias: {
+        type: Sequelize.DOUBLE
+      },
+      codigo: {
+        type: Sequelize.INTEGER(10)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
