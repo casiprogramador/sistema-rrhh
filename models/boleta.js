@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     dias: DataTypes.DOUBLE,
     codigo: DataTypes.INTEGER(10),
     id_empleado: DataTypes.INTEGER,
-    id_tipo_boleta: DataTypes.INTEGER
+    id_tipo_boleta: DataTypes.INTEGER,
+    usuario_anulacion_aprobacion: DataTypes.INTEGER,
+    fecha_anulacion_aprobacio: DataTypes.DATE
+
   });
   
     Boleta.associate = function (models) {

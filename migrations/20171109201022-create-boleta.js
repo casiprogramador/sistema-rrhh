@@ -29,6 +29,14 @@ module.exports = {
       codigo: {
         type: Sequelize.INTEGER(10)
       },
+      usuario_anulacion_aprobacion: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      fecha_anulacion_aprobacion: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW 
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {
