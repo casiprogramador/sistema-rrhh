@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('feriado', {
+    return queryInterface.createTable('Feriado', {
       fecha_feriado:{
         type: Sequelize.DATE
       },
@@ -11,6 +11,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('feriado');
+    return queryInterface.dropTable('Feriado');
   }
 };

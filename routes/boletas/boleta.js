@@ -13,13 +13,22 @@ router.get('/formulario', function(req, res, next) {
     res.render('boleta/boleta',{Tipo_boleta:Tipo_boleta});
   })
   });
-
+  
+  
    router.get('/:fecha_fin/:fecha_inicio/:suma_dias1/:fecha_fin/calcular_dias', function(req, res, next) {
     
     const suma_dias1 =  moment(fecha_fin).diff(moment(fecha_inicio),"days");
     const suma_horas =  moment.duration(fin - inicio).humanize();
     });
-
+/*
+    router.get('/boleta', function(req, res, next) {
+      modelos.Feriado.findAll().then(feriado => {
+        console.log(feriado);
+        res.json(feriado);
+      });
+  
+  });
+*/
     router.post('/reporte', (req, res) => {
       
             const fecha_solicitud = moment().format("YYYY-MM-DD"+" 00:00:00.000 +00:00");
@@ -33,28 +42,46 @@ router.get('/formulario', function(req, res, next) {
             const hora_fin = req.body.hora_fin;
             const id_empleado = res.locals.user.id;
             const id_tipo_boleta= req.body.tipo_boleta;
-            const suma_dias =  moment(fecha_fin).diff(moment(fecha_inicio),"days");
+      
             const estado_vacacion='f';
             const inicio = moment(hora_inicio,'HH:mm');
             const fin = moment(hora_fin,'HH:mm');
+            const hora= '08:30';
 
             const suma_horas =  (moment.duration(fin - inicio))/3600000;
             const semana = moment.duration(fecha_fin - fecha_inicio);
             var dias=0;
-
-            for(i=1;i<=suma_dias;i++)
+            var dias_restados=moment(fecha_fin).diff(moment(fecha_inicio),"days");
+            const dias_total =moment(fecha_fin).diff(moment(fecha_inicio),"days");
+            var fecha_prueba= fecha_inicio;
+            var i=0;
+            while(i!=dias_total)
             {
-              if(moment(fecha_inicio).day()!=5 || moment(fecha_inicio).day()!=6)
+              if((moment(fecha_prueba).day())== 5 || (moment(fecha_prueba).day())== 6)
               {
-                dias=dias+1;
-                console.log('incremento de dias'+dias);     
+                dias_restados=dias_restados-1;          
               }
-              (moment(fecha_inicio).add(1, 'd')).format("YYYY-MM-DD");
-              console.log('salio del if');
-              console.log((moment(fecha_inicio).add(1, 'd')).format("YYYY-MM-DD")+'se aumento la fecha');
-              i++
-            }    
-console.log(dias);
+              else
+              {
+                    
+                modelos.sequelize.query('select * from public."Feriado"').spread((feriado, metadata) => {
+
+                for(var j=0; j < 12; j=j+1)  
+                {       
+                if((moment(feriado[j].fecha_feriado).format("YYYY-MM-DD")) == fecha_prueba)
+                      {
+                        dias_restados=dias_restados-1; 
+                        console.log('entro al feriado');
+                      }
+                    }
+                });
+              }
+              fecha_prueba=(moment(fecha_prueba).add(1, 'd')).format("YYYY-MM-DD");
+              i=i+1;
+            } 
+            
+            const suma_dias =  dias_restados;
+
 //Verifica si la fecha inicio es menor a la fecha fin
 if(fecha_inicio1<fecha_fin1)
 {
@@ -64,7 +91,7 @@ if(fecha_inicio1<fecha_fin1)
     //por verdad le aumenta 1 dia a su permiso y por false le aumenta medio dia
     if(suma_horas > 4)
     {
-      //Verifica si la boleta que esta sacando es a cuenta de vacacion
+       //Verifica si la boleta que esta sacando es a cuenta de vacacion
       if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
       {
         modelos.sequelize.query('SELECT sum(dias)vacacion_dias FROM public."Saldo_Vacacions" WHERE id_empleado='+res.locals.user.empleado.id+'and prescrito_estado = false GROUP BY id_empleado').spread((sumatoria, metadata) => {
@@ -119,7 +146,9 @@ if(fecha_inicio1<fecha_fin1)
       }
     }
     else
-    {
+    { 
+      if(suma_horas > 0.017 )
+      {
       if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
       {
         modelos.sequelize.query('SELECT sum(dias)vacacion_dias FROM public."Saldo_Vacacions" WHERE id_empleado='+res.locals.user.empleado.id+'and prescrito_estado = false GROUP BY id_empleado').spread((sumatoria, metadata) => {
@@ -134,9 +163,8 @@ if(fecha_inicio1<fecha_fin1)
             id_empleado : id_empleado,
             id_tipo_boleta: id_tipo_boleta,
             dias:suma_dias+0.5,
-            codigo:id_tipo_boleta,
-    
-          })
+            codigo:id_tipo_boleta
+            })
           .then(newboleta => { 
               modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
               res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
@@ -170,6 +198,61 @@ if(fecha_inicio1<fecha_fin1)
             });
         })
       }
+    }
+    else
+    {
+
+    
+      if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
+      {
+        modelos.sequelize.query('SELECT sum(dias)vacacion_dias FROM public."Saldo_Vacacions" WHERE id_empleado='+res.locals.user.empleado.id+'and prescrito_estado = false GROUP BY id_empleado').spread((sumatoria, metadata) => {
+        if(suma_dias<=Number(sumatoria[0].vacacion_dias))
+        {
+            modelos.Boleta.create({
+            fecha_solicitud : fecha_solicitud,
+            observacion : observacion,
+            estado :estado,
+            fecha_inicio : fecha_inicio,
+            fecha_fin : fecha_fin,
+            id_empleado : id_empleado,
+            id_tipo_boleta: id_tipo_boleta,
+            dias:suma_dias,
+            codigo:id_tipo_boleta
+            })
+          .then(newboleta => { 
+              modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+              res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
+              });
+          })
+        }
+        else
+        {
+            req.flash('error_msg1','No puede pedir ese tiempo de vacación');
+            res.redirect('/boleta/formulario');
+        }
+        
+            });
+      }
+      else
+      {       
+        modelos.Boleta.create({
+        fecha_solicitud : fecha_solicitud,
+        observacion : observacion,
+        estado :estado,
+        fecha_inicio : fecha_inicio,
+        fecha_fin : fecha_fin,
+        id_empleado : id_empleado,
+        id_tipo_boleta: id_tipo_boleta,
+        dias:suma_dias,
+        codigo:id_tipo_boleta,
+        })
+        .then(newboleta => { 
+            modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id='+id_empleado+' and te.id='+id_tipo_boleta+' and c.id_area=a.id').spread((datos_boleta, metadata) => {
+            res.render('boleta/reporte',{boleta:datos_boleta,boleta_insertada:newboleta,variable:suma_dias});
+            });
+        })
+      }
+    }
     }
   }
   else
@@ -205,8 +288,10 @@ else
             });
           })
       }
+
       else
       {
+        
         //graba como medio dia de vacacion 0.5
         modelos.Boleta.create({
         fecha_solicitud : fecha_solicitud,
@@ -239,8 +324,10 @@ else
     req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
     res.redirect('/boleta/formulario');
   }
-}        
+  }        
+  
 });
+    
 /*
   $( "#calcular_dias" ).click(function() {
       dias = $("#ci-empleado").val();

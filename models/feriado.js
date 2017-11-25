@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const feriado = sequelize.define('feriado', {
+  const Feriado = sequelize.define('Feriado', {
     fecha_feriado: DataTypes.STRING(50),
     desc_feriado: DataTypes.STRING
   });
-   return feriado;
+   return Feriado;
 };
