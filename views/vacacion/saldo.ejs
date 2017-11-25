@@ -119,18 +119,48 @@
                         <th class="table-dark" width="15%">Cargo</th>
                         <th class="table-dark" width="15%">Fecha Ingreso</th>
                         <th class="table-dark" width="10%">Saldo</th>
-                        <th class="table-dark" width="30%">Gestion Pendientes</th>
+                        <th class="table-dark" width="15%">Gestion</th>
+                        <th class="table-dark" width="15%">Dias de Vacacion</th>
                       </tr>
                     </thead>
                     <tbody>
+                        <% var area = '' %>
+                        
+                        <% var saldo = 0 %>
+                        <% var ndi = '' %>
                         <% for(var saldovacacion of saldovacaciones) { %>
+                            
+                            <% if(area != saldovacacion.desc_area ) { %>
+                                <tr>
+                                    <td colspan="6"><h2><%= saldovacacion.desc_area %></h2></td>
+                                </tr>
+                            <% }%>
                             <tr>
+
                                     <td><%= saldovacacion.ndi %></td>
                                     <td><%= saldovacacion.nombres %> <%= saldovacacion.paterno %> <%= saldovacacion.materno %></td>
                                     <td><%= saldovacacion.cargo %></td>
-                                    <td><%= saldovacacion.fecha_inicio %></td>
+                                    <td><%= moment(saldovacacion.fecha_inicio).format( 'DD/MM/YYYY') %></td>
                                     <td><%= saldovacacion.dias %></td>
+                                    
                                     <td><%= saldovacacion.gestion %></td>
+                                    <td><%= saldovacacion.dias %></td>
+                                    <% if(ndi == saldovacacion.ndi ) { %>
+                                        <% var saldo = saldo + saldovacacion.dias %>
+                                    <% }else{%>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total:</td>
+                                            <td><%= saldo %></td>
+                                        </tr>
+                                    <% }%>
+                                    <% var ndi = saldovacacion.ndi %>
+                                    <% var area = saldovacacion.desc_area  %>
+                                    <% var saldo = saldo+saldovacacion.dias %>
                             </tr>
                         <%} %>    
                     </tbody>
