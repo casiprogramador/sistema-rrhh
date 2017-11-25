@@ -148,16 +148,7 @@
                                     <% if(ndi == saldovacacion.ndi ) { %>
                                         <% var saldo = saldo + saldovacacion.dias %>
                                     <% }else{%>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total:</td>
-                                            <td><%= saldo %></td>
-                                        </tr>
-                                        <% var saldo = 0 %>
+
                                     <% }%>
                                     <% var ndi = saldovacacion.ndi %>
                                     <% var area = saldovacacion.desc_area  %>
