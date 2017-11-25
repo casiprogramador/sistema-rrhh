@@ -12,8 +12,8 @@
                     <%= error_msg %>
                   </div>
                 <% } %>
-
-
+          </div>
+        </div>
          <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
            <div class="card">
              <div class="card-body">
@@ -95,7 +95,7 @@
                                               
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-light"><i class="mdi mdi-pencil"></i>Opciones</button>
+                                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#opcionesModal"><i class="mdi mdi-pencil"></i>Opciones</button>
                                               </td>
                                             
                                         </tr>
@@ -108,4 +108,58 @@
              </div>
            </div>
          </div>
+
 </div>
+    <!--default modal-->
+    <div class="modal fade" id="opcionesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                  <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <h2>Datos Empleado</h2>
+                          <form class="forms-sample" id="form-prescripcion" method="post" action="/vacacion/prescripcion">
+                                  <div class="form-group row">
+                                      <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Nombre:</label>
+                                      <div class="col-sm-8">
+                                        <input class="form-control p-input" value="MARCELO PABLO CHOQUE" disabled id="modal-empleado-nombre">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                          <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Boleta:</label>
+                                          <div class="col-sm-8">
+                                            <input class="form-control p-input" value="BOLETA EJEMPLO" disabled id="modal-empleado-area">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row">
+                                              <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Fechas:</label>
+                                              <div class="col-sm-8">
+                                                <input class="form-control p-input" value="10/10/2017 AL 11/20/2018" disabled id="modal-empleado-cargo">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Dias:</label>
+                                            <div class="col-sm-8">
+                                              <input class="form-control p-input" value="5.5 dias" disabled id="modal-empleado-cargo">
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                                  <h2 class="card-title text-center">¿Que gestion desea hacer la PRESCRIPCION?</h2>
+                                                  <div class="row justify-content-md-center">
+                                                  <div class="col col-lg-6" id="modal-check-vacacion">
+                                                     
+                                                  </div>
+                                              </div>
+                              </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary" id="button-prescripcion">Prescribir</button>
+                      </div>
+          </div>
+      </div>
+  </div>

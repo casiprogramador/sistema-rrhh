@@ -123,6 +123,16 @@
                       </tr>
                     </thead>
                     <tbody>
+                        <% for(var saldovacacion of saldovacaciones) { %>
+                            <tr>
+                                    <td><%= saldovacacion.ndi %></td>
+                                    <td><%= saldovacacion.nombres %> <%= saldovacacion.paterno %> <%= saldovacacion.materno %></td>
+                                    <td><%= saldovacacion.cargo %></td>
+                                    <td><%= saldovacacion.fecha_inicio %></td>
+                                    <td><%= saldovacacion.dias %></td>
+                                    <td><%= saldovacacion.gestion %></td>
+                            </tr>
+                        <%} %>    
                     </tbody>
                   </table>
 

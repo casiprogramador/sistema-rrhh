@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     url_servidor = '/';
     $("#fecha-saldo-vacacion").val(getCurrentDate());
-    $("#panel-personal").hide();
+    //$("#panel-personal").hide();
 
     $("#form-saldo-vacacion").submit(function(event) {
         area_form = $("#areas-select-vacacion option:selected").val();
@@ -177,7 +177,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             url:'/empleado/' + ci_persona + '/saldovacacionndi',
             success: function(empleados) {
-                
+                console.log(empleados);
                 $('#table-saldo > tbody tr').remove();
                 $("#panel-personal").show("slow");
                 area = empleados[0].desc_area;
