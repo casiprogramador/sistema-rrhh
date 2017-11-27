@@ -1,21 +1,143 @@
 <% layout('/layouts/admin') -%>
- <!-- partial -->
- <div class="content-wrapper">
-        <h1 class="page-title">Personal</h1>
-        <div class="row grid-margin">
-          <div class="col-12 col-lg-6 grid-margin grid-margin-lg-0">
-            <div class="card">
-              <div class="card-body">
-                <h2 class="card-title">Lista Boletas</h2>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="custom-legend-container small-chart-container">
-                      <div id="sales-chart-legend" class="legend-top"></div>
-                      <canvas id="sales-chart" style="width:100%"></canvas>
+        <!-- partial -->
+        <div class="content-wrapper">
+          <h1 class="page-title">Overview</h1>
+          <div class="row grid-margin">
+                      <div class="col-12 col-lg-6">
+              <div class="row grid-margin">
+                <div class="col-6">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                        <p class="highlight-text">
+                          <i class="mdi mdi-account text-success"></i>
+                          225
+                        </p>
+                        <p class="text-muted">
+                          Personal Registrado
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <p class="highlight-text">
+                        <i class="mdi mdi-trophy text-info"></i>
+                        $450.00
+                      </p>
+                      <p class="text-muted">
+                        Descuento Total Octubre
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <p class="highlight-text">
+                        <i class="mdi mdi-chart-areaspline text-danger"></i>
+                        $18954
+                      </p>
+                      <p class="text-muted">
+                        Lifetime total sales
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-statistics">
+                    <div class="card-body">
+                      <p class="highlight-text">
+                        <i class="mdi mdi-cash-multiple text-warning"></i>
+                        $7841
+                      </p>
+                      <p class="text-muted">
+                        Income amounts
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-12 col-lg-6 grid-margin grid-margin-lg-0">
+                            <!--notification card starts-->
+              <div class="card">
+                <div class="card-body">
+                  <h2 class="card-title">Notificaciones</h2>
+                  <div class="preview-list">
+                    <div class="preview-item">
+                      <div class="preview-thumbnail">
+                        <div class="preview-icon bg-primary">
+                          <i class="mdi mdi-email"></i>
+                        </div>
+                      </div>
+                      <div class="preview-item-content">
+                        <h4 class="preview-subject">You have 3 new messages</h4>
+                        <p class="text-muted">
+                          Hanna giover, Jeffry brown
+                        </p>
+                        <p class="text-muted">
+                          9:30 AM
+                        </p>
+                      </div>
+                    </div>
+                    <div class="preview-item">
+                      <div class="preview-thumbnail">
+                        <div class="preview-icon bg-info">
+                          <i class="mdi mdi-earth"></i>
+                        </div>
+                      </div>
+                      <div class="preview-item-content">
+                        <h4 class="preview-subject">Newsfeed available</h4>
+                        <p class="text-muted">
+                          Hanna giover, Jeffry brown
+                        </p>
+                        <p class="text-muted">
+                          9:30 AM
+                        </p>
+                      </div>
+                    </div>
+                    <div class="preview-item">
+                      <div class="preview-thumbnail">
+                        <div class="preview-icon bg-primary">
+                          <i class="mdi mdi-currency-usd"></i>
+                        </div>
+                      </div>
+                      <div class="preview-item-content">
+                        <h4 class="preview-subject">2 Invoices to pay</h4>
+                        <p class="text-muted">
+                          Hanna giover, Jeffry brown
+                        </p>
+                        <p class="text-muted">
+                          9:30 AM
+                        </p>
+                      </div>
+                    </div>
+                    <div class="preview-item">
+                      <div class="preview-thumbnail">
+                        <div class="preview-icon bg-info">
+                          <i class="mdi mdi-message-text"></i>
+                        </div>
+                      </div>
+                      <div class="preview-item-content">
+                        <h4 class="preview-subject">15 New comments</h4>
+                        <p class="text-muted">
+                          Hanna giover, Jeffry brown
+                        </p>
+                        <p class="text-muted">
+                          9:30 AM
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--notification card ends-->
+            </div>
+
           </div>
-      </div>
+
+        </div>
+        <!-- content-wrapper ends -->

@@ -29,7 +29,7 @@
                           
                         <div id="form-busqueda-individual" class="form-margin-20">
                          <h2 class="">Busqueda por Persona</h2>
-                          <form id="form-saldo-vacacion-individual">
+                          <form id="form-saldo-vacacion-individual" action="/vacacion/saldo/formulario/buscar/individual" method="post">
                                 <div class="form-group row">
                                         <label for="ci reporte" class="col-sm-1 col-form-label">C. I.:</label>
                                         <div class="col-sm-6">
@@ -43,12 +43,12 @@
                         </div>
                         <div id="form-busqueda-area" class="form-margin-20">
                          <h2 class="">Busqueda por Area</h2>
-                          <form id="form-saldo-vacacion">
+                          <form id="form-saldo-vacacion" action="/vacacion/saldo/formulario/buscar"  method="post">
                               <div class="form-group row">
 
                                   <label for="area" class="col-sm-3 col-form-label">Area:</label>
                                   <div class="col-sm-8">
-                                    <select class="form-control" id="areas-select-vacacion">
+                                    <select class="form-control" id="areas-select-vacacion" name="area">
                                        <% for(var i=0; i< areas.length; i++) { %>
                                             <option value="<%= areas[i].id %>"><%= areas[i].desc_area %></option>
                                         <% } %>
@@ -59,7 +59,7 @@
                                   <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha Reporte:</label>
                                   <div class="col-sm-8">
                                     <div class="input-group date datepicker b-l-blue">
-                                        <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion">
+                                        <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion" value="<%= moment().format( 'DD/MM/YYYY') %>">
                                         <div class="input-group-addon">
                                         <span class="mdi mdi-calendar-blank"></span>
                                         </div>
@@ -103,60 +103,93 @@
                   <div class="row">
                         <div class="col-sm"></div>
                         <div class="col-sm">
-                            <h3 class="card-title text-center">Saldo de Vacaciones<br>al <span id="fecha-reporte">10/10/2017</span></h3>
+                             <% if(typeof fecha === 'undefined' ) { %>
+                            <h3 class="card-title text-center">Saldo de Vacaciones<br>al <span id="fecha-reporte"><%= moment().format( 'DD/MM/YYYY') %></span></h3>
+                             <% }else { %>
+                            <h3 class="card-title text-center">Saldo de Vacaciones<br>al <span id="fecha-reporte"><%= fecha %></span></h3>
+                              <% } %>
                         </div>
-                        <div class="col-sm">
-                            <button type="button" class="btn btn-primary print-ignore" onClick="window.print()"><i class="mdi mdi-printer btn-label btn-label-left"></i>Imprimir</button>
-                            <button type="button" class="btn btn-primary print-ignore" id="btnExport" onclick="javascript:fnExcelReport('table-saldo', 'ReporteSaldoVacacion');"><i class="mdi mdi-file-excel btn-label btn-label-left"></i>Importar</button>
-                        </div>
+                        <div class="col-sm"> </div>
                   </div>
 
+                    <% if(saldovacaciones.length != 0 ) { %>
                   <table id="table-saldo" class="table table-bordered table-print data-table-print">
                     <thead >
                       <tr>
                         <th class="table-dark" width="10%">CI</th>
-                        <th class="table-dark" width="20%">Nombre</th>
+                        <th class="table-dark" width="25%">Nombre</th>
                         <th class="table-dark" width="15%">Cargo</th>
                         <th class="table-dark" width="15%">Fecha Ingreso</th>
-                        <th class="table-dark" width="10%">Saldo</th>
-                        <th class="table-dark" width="15%">Gestion</th>
+                        <th class="table-dark" width="10%">Gestion</th>
                         <th class="table-dark" width="15%">Dias de Vacacion</th>
                       </tr>
                     </thead>
                     <tbody>
                         <% var area = '' %>
-                        
+                        <% var ndi = saldovacaciones[0].ndi %>
                         <% var saldo = 0 %>
-                        <% var ndi = '' %>
+                        <% var index = 0 %>
                         <% for(var saldovacacion of saldovacaciones) { %>
-                            
-                            <% if(area != saldovacacion.desc_area ) { %>
+                            <% if(ndi == saldovacacion.ndi ) { %>
+                            <%    saldo = saldo + saldovacacion.dias %>
+                            <% }else{ %>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center"><b>Total:</b></td>
+                                    <td class="text-center"><%= saldo %></td>
+                                </tr>
+                                <% var saldo = saldovacacion.dias %>
+                                
+                            <% }%>
+                            <% if(area != saldovacacion.desc_area) { %>
                                 <tr>
                                     <td colspan="6"><h2><%= saldovacacion.desc_area %></h2></td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
                                 </tr>
                             <% }%>
+                            
                             <tr>
 
                                     <td><%= saldovacacion.ndi %></td>
                                     <td><%= saldovacacion.nombres %> <%= saldovacacion.paterno %> <%= saldovacacion.materno %></td>
                                     <td><%= saldovacacion.cargo %></td>
                                     <td><%= moment(saldovacacion.fecha_inicio).format( 'DD/MM/YYYY') %></td>
-                                    <td><%= saldovacacion.dias %></td>
                                     
-                                    <td><%= saldovacacion.gestion %></td>
-                                    <td><%= saldovacacion.dias %></td>
+                                    <td class="text-center"><%= saldovacacion.gestion %></td>
+                                    <td class="text-center"><%= saldovacacion.dias %></td>
 
                                     <% var ndi = saldovacacion.ndi %>
                                     <% var area = saldovacacion.desc_area  %>
-                                    <% var saldo = saldo+saldovacacion.dias %>
+                                    <% var index=index+1 %>
                             </tr>
+                            
+                             <% if(index == saldovacaciones.length ) { %>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center"><b>Total:</b></td>
+                                    <td class="text-center"><%= saldo %></td>
+                                </tr>
+                            <% }%> 
                         <%} %>    
                     </tbody>
                   </table>
-
+                    <% }else{%>
+                    <div class="alert alert-warning text-center" role="alert">
+                        No se encontraron registros
+                    </div>
+                        <%} %>    
                 </div>
               </div>
             </div>
           </div>
         </div
-        <iframe id="txtArea1" style="display:none"></iframe>
