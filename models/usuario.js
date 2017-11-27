@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     ultingreso: DataTypes.DATE,
     resetpwd: DataTypes.BOOLEAN,
-    rol_id: DataTypes.INTEGER
+    id_rol: DataTypes.INTEGER
   });
   Usuario.associate = function (models) {
-    Usuario.belongsTo(models.Rol,{foreignKey: 'rol_id', as: 'rol'});
+    Usuario.belongsTo(models.Rol,{foreignKey: 'id_rol', as: 'rol'});
     Usuario.hasOne(models.Empleado, {foreignKey: 'id_usuario', as: 'empleado'});
   };
   return Usuario;

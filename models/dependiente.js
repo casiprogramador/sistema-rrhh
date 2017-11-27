@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     fecha_nacimiento: DataTypes.DATE,
     sexo: DataTypes.STRING(1),
     tipo_documento: DataTypes.STRING(50),
-    desc_otro: DataTypes.STRING(50),
+    desc_otro: DataTypes.STRING,
     num_doc_depen: DataTypes.STRING(50),
     id_empleado: DataTypes.INTEGER
   }, {

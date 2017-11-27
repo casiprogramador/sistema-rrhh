@@ -8616,8 +8616,13 @@
     .table-print {
         width: 700px !important;
     }
+    .table-print th {
+        font-size: 12px !important;
+        padding: 5px !important;
+    }
     .table-print td {
         font-size: 12px !important;
+        padding: 5px !important;
     }
     .table-print h2 {
         font-size: 16px !important;
@@ -17381,7 +17386,7 @@ a.text-dark:hover {
 .tt-hint,
 .asColorPicker-input {
     border-radius: 2px;
-    background-color: #ffffff;
+    background-color: #ded9d9;
     border: 1px solid #e7eaf3;
 }
 

@@ -8,12 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     id_tipo_empleado: DataTypes.INTEGER,
     id_cargo: DataTypes.INTEGER
     
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Contrato.associate = function (models) {
+    Contrato.belongsTo(models.Empleado,{foreignKey: 'id_empleado', as: 'empleado'});
+  };
   return Contrato;
 };

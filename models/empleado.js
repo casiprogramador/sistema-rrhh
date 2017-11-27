@@ -47,11 +47,13 @@ module.exports = (sequelize, DataTypes) => {
     ausr: DataTypes.STRING(50),
     estado: DataTypes.BOOLEAN,
     discapacidad: DataTypes.BOOLEAN,
-    discapacidad: DataTypes.STRING
+    nro_carnet_discapacidad: DataTypes.STRING
   });
   Empleado.associate = function (models) {
     Empleado.belongsTo(models.Usuario,{foreignKey: 'id_usuario', as: 'usuario'});
     Empleado.hasMany(models.Boleta, {foreignKey: 'id_empleado', as: 'boleta'});
+    Empleado.hasMany(models.Saldo_Vacacion, {foreignKey: 'id_empleado', as: 'saldovacacion'});
+    Empleado.hasMany(models.Contrato, {foreignKey: 'id_empleado', as: 'contrato'});
   };
   return Empleado;
 };

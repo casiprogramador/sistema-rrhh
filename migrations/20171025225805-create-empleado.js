@@ -151,7 +151,7 @@ module.exports = {
             nro_carnet_discapacidad: {
                 type: Sequelize.STRING
             },
-            usuario_id: {
+            id_usuario: {
                 type: Sequelize.INTEGER,
 
                 references: {
