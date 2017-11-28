@@ -17,6 +17,21 @@
          <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
            <div class="card">
              <div class="card-body">
+
+                <%if (success_msg.length > 0 ) { %>
+                  
+                                          <div class="row">
+                                                  <div class="col align-self-center">
+                                                      <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                                          <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                              </button>
+                                                      </div>
+                                                  </div>
+                          
+                                              </div>
+                                      <% } %>
                <form  method="post" action="/administrar/boleta/buscar">
                    <div class="form-group row">
                       <label for="area" class="col-sm-3 col-form-label">Estado de la licencia:</label>
@@ -95,7 +110,9 @@
                                               
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#opcionesModal"><i class="mdi mdi-pencil"></i>Opciones</button>
+                                                <% if(boletas[i].estado == 'Pendiente') { %>
+                                                <button type="button" class="btn btn-light button-opciones" id-empleado="<%= boletas[i].id_empleado %>" id-boleta="<%= boletas[i].id %>" nombre="<%= boletas[i].empleado.nombres%> <%= boletas[i].empleado.paterno%> <%= boletas[i].empleado.materno%>" boleta="<%= boletas[i].tipoboleta.tipo_boleta %>" fecha="<%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY') %> AL <%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY') %>" dias="<%= boletas[i].dias %>" data-toggle="modal" data-target="#opcionesModal"><i class="mdi mdi-pencil"></i>Opciones</button>
+                                                <% } %>
                                               </td>
                                             
                                         </tr>
@@ -115,14 +132,14 @@
       <div class="modal-dialog" role="document">
           <div class="modal-content">
                   <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Boleta</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                           </button>
                       </div>
                       <div class="modal-body">
                           <h2>Datos Empleado</h2>
-                          <form class="forms-sample" id="form-prescripcion" method="post" action="/vacacion/prescripcion">
+                          <form class="forms-sample" id="form-aprobar-boleta" method="post" action="/administrar/boleta/estado">
                                   <div class="form-group row">
                                       <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Nombre:</label>
                                       <div class="col-sm-8">
@@ -132,33 +149,56 @@
                                   <div class="form-group row">
                                           <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Boleta:</label>
                                           <div class="col-sm-8">
-                                            <input class="form-control p-input" value="BOLETA EJEMPLO" disabled id="modal-empleado-area">
+                                            <input class="form-control p-input" value="BOLETA EJEMPLO" disabled id="modal-empleado-boleta">
                                           </div>
                                       </div>
                                       <div class="form-group row">
                                               <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Fechas:</label>
                                               <div class="col-sm-8">
-                                                <input class="form-control p-input" value="10/10/2017 AL 11/20/2018" disabled id="modal-empleado-cargo">
+                                                <input class="form-control p-input" value="10/10/2017 AL 11/20/2018" disabled id="modal-empleado-fecha">
                                               </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Dias:</label>
                                             <div class="col-sm-8">
-                                              <input class="form-control p-input" value="5.5 dias" disabled id="modal-empleado-cargo">
+                                              <input class="form-control p-input" value="5.5 dias" readonly name="dias_vacacion" id="modal-empleado-dias">
                                             </div>
                                         </div>
                                           <div class="form-group">
-                                                  <h2 class="card-title text-center">¿Que gestion desea hacer la PRESCRIPCION?</h2>
+                                                  <h2 class="card-title text-center">Aprobar o Anular boleta</h2>
                                                   <div class="row justify-content-md-center">
-                                                  <div class="col col-lg-6" id="modal-check-vacacion">
-                                                     
+                                                  <div class="col col-lg-8" id="modal-check-vacacion">
+
+                                                          <div class="form-group">
+                                                              <div class="form-radio">
+                                                                  <label class="form-check-label">
+                                                                    <input type="radio" class="form-check-input" name="estado_boleta" value="Aprobado" checked>
+                                                                    APROBAR BOLETA
+                                                                  <i class="input-helper"></i></label>
+                                                              </div>
+                                                              <div class="form-radio">
+                                                                  <label class="form-check-label">
+                                                                    <input type="radio" class="form-check-input" name="estado_boleta" value="Anulado">
+                                                                    ANULAR BOLETA
+                                                                  <i class="input-helper"></i></label>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label for="Observacion">Observaciones:</label>
+                                                                  <textarea class="form-control p-input" id="text-observacion" rows="4" name="observacion" placeholder="Escriba las razones de la anulacion u observaciones de la aprobacion"></textarea>
+                                                              </div>
+                                                              <input type="hidden" id="input-id-boleta" name="id_boleta" value="0">
+                                                              <input type="hidden" id="input-id-empleado" name="id_empleado" value="0">
+
+                                                          </div>
+
+
                                                   </div>
                                               </div>
                               </form>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-                          <button type="button" class="btn btn-primary" id="button-prescripcion">Prescribir</button>
+                          <button type="button" class="btn btn-primary" id="button-boleta">Aceptar</button>
                       </div>
           </div>
       </div>
