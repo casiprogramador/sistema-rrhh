@@ -19,6 +19,10 @@ var empleado = require('./routes/empleado');
 var vacacion_saldo = require('./routes/vacacion/saldo');
 var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
+var boleta = require('./routes/boletas/boleta');
+var listadoboleta = require('./routes/boletas/listadoboleta');
+
+var consultamarcado = require('./routes/formulario/consultamarcado');
 
 
 var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
@@ -105,9 +109,10 @@ app.use('/area', area);
 app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
 app.use('/boleta',boleta);
+app.use('/listadoboleta',listadoboleta);
 
 app.use('/administrar/boleta',administrar_boleta);
-
+app.use('/formularios/consultamarcado',consultamarcado);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
