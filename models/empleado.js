@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     email_personal: DataTypes.STRING(50),
     email_trabajo: DataTypes.STRING(50),
     nit: DataTypes.STRING(20),
-    afp: DataTypes.STRING(50),
+    afp: DataTypes.STRING(20),
     seguro_medico: DataTypes.STRING(50),
     nro_seguro: DataTypes.STRING(50),
     tipo_seguro: DataTypes.STRING(50),

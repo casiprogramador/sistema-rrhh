@@ -1,0 +1,111 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="content-wrapper">
+      <div class="row user-profile">
+          <div class="col-lg-10 side-right">
+            <div class="card">
+              <div class="card-body">
+                <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+                  <h2 class="card-title">Registro de Ficha Personal</h2>
+                  <ul class="nav nav-tabs flex-column flex-sm-row" id="FichaPersonalTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonalestab" data-toggle="tab" href="
+                      #identificacionpersonal" role="tab" aria-controls="identificacionpersonal">Identificacion Personal</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales1tab" data-toggle="tab" href="#datospersonales1" role="tab" aria-controls="datospersonales1">Datos Personales I</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales2tab" data-toggle="tab" href="#datospersonales2" role="tab" aria-controls="datospersonales2">Datos Personales II</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="wrapper">
+                  <hr>
+                  <form class="cmxform" id="registropersonal" method="post" action="/ficha_personal/identificacion_personal" enctype="multipart/form-data">
+                  <div class="tab-content" id="myTabContent">
+                    <!-- tab identificacion personal -->
+                    <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
+                      <div class="container">
+                      <h1 class="card-title">Identificacion Personal </h1>
+
+                              <div class="row">
+                              <div class="col">
+                              <div class="form-group">
+                                <label for="nombre">Primer Nombre *</label>
+                                <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Primer Nombre" minlength="2" required>
+                              </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label for="segnombre">Segundo Nombre</label>
+                                  <input name="segnombre" type="text" class="form-control" id="segnombre" placeholder="Segundo Nombre" minlength="2">
+                                </div>
+                              </div>
+                              </div>
+
+
+                              <div class="row">
+                              <div class="col">
+                              <div class="form-group">
+                                <label for="priapellido">Primer Apellido *</label>
+                                <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" required>
+                              </div>
+                              </div>
+                              <div class="col">
+                              <div class="form-group">
+                                <label for="segapellido">Segundo Apellido</label>
+                                <input name="segapellido" class="form-control" id="segapellido" placeholder="Segundo Apellido" minlength="2">
+                              </div>
+                              </div>
+                              </div>
+
+
+                              <div class="row">
+                              <div class="col-6">
+                              <div class="form-group">
+                                <label for="casapellido">Apellido de casada</label>
+                                <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2">
+                              </div>
+                              </div>
+                              </div>
+
+                              <div class="row">
+                              <div class="col">
+                              <div class="form-group">
+                                <label for="ci">Numero de Carnet de identidad *</label>
+                                <input name="ci" type="number" class="form-control" id="ci" placeholder="Numero de Carnet de Identidad" onkeypress="return valida(event)" minlength="6" required>
+                              </div>
+                              </div>
+                              <div class="col">
+                              <label for="expedido">Expedido en</label>
+                              <select name="expedido" class="form-control" style="width:100%" id="expedido">
+                              <option value="lp">La Paz</option>
+                              <option value="cbba">Cochabamba</option>
+                              <option value="stc">Santa Cruz</option>
+                              <option value="tj">Tarija</option>
+                              <option value="O">Oruro</option>
+                              <option value="ch">Chuquisaca</option>
+                              <option value="B">Beni</option>
+                              <option value="P">Pando</option>
+                              <option value="Pt">Potosi</option>
+                              </select>
+                              </div>
+                              </div>
+
+                              <br><br><br><br><br><br><br><br><br>
+                        
+                        </div>
+                        </div>
+                    <!-- tab identificacion personal ends -->
+                          </div>
+                  </form>
+            </div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>

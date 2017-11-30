@@ -33,9 +33,19 @@ var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
 
 var scripts = require('./routes/script/cronjob');
+var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_inicio = require('./routes/ficha_personal/identificacion_personal');
+//var marcacion = require('./routes/marcacion/marcacion');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
+
+//subida de imagenes
+
+var multipart = require('connect-multiparty');
+app.use(multipart()); //Express 4
+
+
 
 // view engine setup
 app.engine('ejs', engine);
@@ -54,6 +64,13 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+//upload
+/*app.use(express.bodyParser({uploaddir:'./uploads'}));
+var body_parser   = require('body-parser')
+app.use(body_parser()) //Express 4
+var multipart = require('connect-multiparty');
+app.use(multipart()) //Express 4*/
 
 
 
@@ -120,6 +137,17 @@ app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
 app.use('/formularios/consultamarcado',consultamarcado);
+app.use('/ficha_personal',ficha_personal_identificacion);
+app.use('/ficha_personal',ficha_personal_datoslaborales);
+app.use('/ficha_personal',ficha_personal_dependientes);
+app.use('/ficha_personal',ficha_personal_experiencia);
+app.use('/ficha_personal',ficha_personal_referencias);
+app.use('/ficha_personal',ficha_personal_reporte);
+app.use('/ficha_personal',ficha_personal_inicio);
+//app.use('/marcacion',marcacion);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
