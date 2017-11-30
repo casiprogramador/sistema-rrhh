@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     nro_contrato: DataTypes.STRING,
     id_empleado: DataTypes.INTEGER,
     id_tipo_empleado: DataTypes.INTEGER,
-    id_cargo: DataTypes.INTEGER
-    
+    id_cargo: DataTypes.INTEGER,
+    estado: DataTypes.BOOLEAN
   });
   Contrato.associate = function (models) {
     Contrato.belongsTo(models.Empleado,{foreignKey: 'id_empleado', as: 'empleado'});

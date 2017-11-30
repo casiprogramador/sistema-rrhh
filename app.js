@@ -27,6 +27,8 @@ var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificac
 var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
+
+var scripts = require('./routes/script/cronjob');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
@@ -109,7 +111,7 @@ app.use('/vacacion/prescripcion',vacacion_prescripcion);
 app.use('/boleta',boleta);
 
 app.use('/administrar/boleta',administrar_boleta);
-
+app.use('/cronjob',scripts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

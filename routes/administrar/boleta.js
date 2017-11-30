@@ -102,8 +102,7 @@ router.post('/estado', (req, res) => {
           
           if(req.body.estado_boleta == 'Aprobado'){
             var dias_vacaciones_actualizar = dias_vacacion_saldo-dias_vacacion;
-            console.log('\x1b[33m%s\x1b[0m: ','DIAS:'+dias_vacaciones_actualizar);
-            
+            //console.log('\x1b[33m%s\x1b[0m: ','DIAS:'+dias_vacaciones_actualizar);
           }
           
 

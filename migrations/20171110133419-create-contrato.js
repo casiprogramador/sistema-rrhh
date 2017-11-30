@@ -35,7 +35,10 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
-
+      estado: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false 
+      },
       id_cargo: {
         type: Sequelize.INTEGER,
         references: {
