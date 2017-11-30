@@ -29,12 +29,6 @@ router.get('/calcularvacacion', function(req, res, next) {
                     dias_vacacion = 0; 
                 }
 
-
-
-                //console.log('\x1b[33m%s\x1b[0m: ',empleado.id);
-                //console.log('\x1b[33m%s\x1b[0m: ',antiguedad);
-                //console.log('\x1b[33m%s\x1b[0m: ',dias_vacacion);
-
                 modelos.Saldo_Vacacion.findOne({
                     where: {
                         id_empleado: empleado.id,
@@ -60,6 +54,7 @@ router.get('/calcularvacacion', function(req, res, next) {
                         })
                     }else{
                         //console.log('\x1b[33m%s\x1b[0m: ','Existe registro'+empleado.id);
+
                     }
                 });
                 /*

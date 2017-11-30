@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 var modelos = require('../../models/index');
 var Sequelize = require('sequelize');
+var md_auth = require('../../middleware/authenticated');
 var moment = require('moment');
 /**
  * Vista principal de administracion de boletas 
  * Administrador
  */
-router.get('/',function(req, res, next) {
+router.get('/', md_auth.ensureAuth,function(req, res, next) {
   modelos.Boleta.findAll({
     where: {
       estado: 'Pendiente',

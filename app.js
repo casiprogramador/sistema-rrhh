@@ -21,7 +21,7 @@ var vacacion_prescripcion = require('./routes/vacacion/prescripcion');
 var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
 
-
+var ficha_personal_nuevo = require('./routes/ficha_personal/nuevo_personal');
 var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
@@ -113,12 +113,14 @@ app.use('/boleta',boleta);
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
 
+app.use('/personal',ficha_personal_nuevo);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
-});
+});ficha_personal_nuevo
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -93,6 +93,22 @@
                                     </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-account"></i>
+                            <span class="menu-title">Personal</span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="layoutsPersonal">
+                                <ul class="nav flex-column sub-menu">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/personal/nuevo">Nuevo</a>
+                                        </li>
+                
+                                    </ul>
+                        </div>
+                    </li>
                     <% } %>
                     <%if (user.rol.rol === 'EMPLEADO') { %>
                     <li class="nav-item">
