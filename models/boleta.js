@@ -12,12 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     id_tipo_boleta: DataTypes.INTEGER,
     usuario_anulacion_aprobacion: DataTypes.INTEGER,
     fecha_anulacion_aprobacion: DataTypes.DATE
-
   });
   
-    Boleta.associate = function (models) {
-      Boleta.belongsTo(models.Empleado, {foreignKey: 'id_empleado', as: 'empleado'});
-      Boleta.belongsTo(models.Tipo_boleta, {foreignKey: 'id_tipo_boleta', as: 'tipoboleta'});
+  Boleta.associate = function (models) {
+    Boleta.belongsTo(models.Empleado, {foreignKey: 'id_empleado', as: 'empleado'});
+    Boleta.belongsTo(models.Tipo_boleta, {foreignKey: 'id_tipo_boleta', as: 'tipoboleta'});
   };
 
   return Boleta;
