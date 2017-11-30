@@ -8,22 +8,22 @@
 
 <head>
   <h3><center>Formulario</center></h3>
-  <h3><center><%= JSON.stringify(boleta[0].tipo_boleta) %></center></h3>
+  <h3><center><%= boleta[0].tipo_boleta %></center></h3>
   <hr align="left" size="4" width="1830" color="black" />
 </head>
 
-  <table  WIDTH="120%" ><tr><td><h4><u>Datos Personales</u></h4></td><td><b>Codigo:</b><%= JSON.stringify(boleta_insertada.id) %> </td> </tr></table>
+  <table  WIDTH="120%" ><tr><td><h4><u>Datos Personales</u></h4></td><td><b>Codigo:  </b><%= boleta_insertada.id %> </td> </tr></table>
 </br>
-  <table WIDTH="80%"><tr><td><b>N°.C.I.:  </b><%= JSON.stringify(boleta[0].ndi)%></td><td><b>Nombres y Apellidos:  </b><%= JSON.stringify(boleta[0].paterno)%> <%= JSON.stringify(boleta[0].materno)%> <%= JSON.stringify(boleta[0].nombres) %></td></tr></table> 
+  <table WIDTH="80%"><tr><td><b>N°.C.I.:  </b><%= boleta[0].ndi%></td><td><b>Nombres y Apellidos:  </b><%= boleta[0].paterno%> <%= boleta[0].materno%> <%= boleta[0].nombres %></td></tr></table> 
 </br>
-  <b>Cargo:</b><%= JSON.stringify(boleta[0].cargo) %>
+  <b>Cargo:  </b><%= boleta[0].cargo %>
 </br>
 </br>
-  <b>Area:</b><%= JSON.stringify(boleta[0].desc_area) %>
+  <b>Area:  </b><%= boleta[0].desc_area %>
 </br>
   <hr align="left" size="4" width="1830" color="black" />
-  <b>Desde Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_inicio) %> 
-  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:</b><%= JSON.stringify(boleta_insertada.fecha_fin) %></td><td><b>Tiempo Solicitado:</b><%= JSON.stringify(boleta_insertada.dias)%> días</td></tr></table>
+  <b>Desde Fecha y Hora:  </b><%=variable1 %> 
+  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:  </b><%= variable2%> </td><td><b>Tiempo Solicitado:</b><%= boleta_insertada.dias%> días</td></tr></table>
 </br>
 </br>
 </br>
@@ -35,10 +35,9 @@
 <table WIDTH="90%"><tr><td><center>Firma Solicitante</center></td><td><center>Firma Autorizada 1</center></td><td><center>Firma Autorizada 2</center></td></tr></table>
 
   <hr align="left" size="4" width="1830" color="black" />
-  <small>Estado: <%= JSON.stringify(boleta_insertada.estado) %> al <%= JSON.stringify(boleta_insertada.fecha_inicio) %>- Acción realizada por el Usuario : </small>
+  <small>Estado: <%= boleta_insertada.estado %> al <%=variable1 %> - Acción realizada por el Usuario : </small>
   <div class="col-sm" text-center>
       <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Imprimir</button>
-      <button type="button" class="btn btn-primary print-ignore" id="btnExport" onclick="window.open(pdfUrl)()">Exportar</button>
-      <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Volver</button>
+      <button type="button" class="btn btn-primary print-ignore nav-link" onClick="/boleta/formulario">Volver</button>
       
     </div>
