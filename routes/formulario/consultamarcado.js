@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var modelos = require('../../models/index');
+var moment = require('moment');
 
 /* GET login page. */
 /*router.get('/',function(req, res, next) {
@@ -21,12 +22,21 @@ var modelos = require('../../models/index');
 
 
 router.get('/',function(req, res, next) {
-      modelos.sequelize.query('SELECT * FROM "Boleta" ').spread((boletas, metadata) => {
-        //console.log(boletas);
-        res.render('formularios/consultamarcado', { boletas: boletas });
+      modelos.sequelize.query('SELECT b.id, te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id=2 and te.id=b.id_tipo_boleta and b.id_empleado=e.id ').spread((boletas, metadata) => {
+        console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
+        res.render('formularios/consultamarcado', { boletas: boletas,  moment:moment });
       })
 });
     
+/*
+router.get('/',function(req, res, next) {
+  modelos.sequelize.query('SELECT * from  public."Boleta"  ').spread((boletas, metadata) => {
+    console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
+    res.render('formularios/consultamarcado', { boletas: boletas });
+  })
+});
+
+*/
 
 router.post('/buscar', (req, res) => {
   const Op = Sequelize.Op;

@@ -3,16 +3,20 @@ var router = express.Router();
 var modelos = require('../../models/index');
 var moment = require('moment');
 const bcrypt = require('bcrypt-nodejs');
+var md_auth = require('../../middleware/authenticated');
 
 // Consultas de boletas por empleado
-router.get('/formulario', function(req, res, next) {
+router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
 
   //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
   modelos.sequelize.query('SELECT tb.id, tb.tipo_boleta FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_empleado= te.id and c.id_tipo_empleado=teb.id_tipo_empleado and  teb.id_tipo_boleta=tb.id and c.id_empleado='+res.locals.user.empleado.id).spread((Tipo_boleta, metadata) => {
     console.log(Tipo_boleta);
-    res.render('boleta/boleta',{Tipo_boleta:Tipo_boleta});
+    res.render('boleta/boleta',{Tipo_boleta:Tipo_boleta,dato:0}); 
   })
   });
+
+
+  
 
   router.post('/reporte', (req, res) => {
       
@@ -39,6 +43,9 @@ router.get('/formulario', function(req, res, next) {
             var i=0;
             var j=0;
             var au_horas=0;
+
+
+
    
            //Verifica si la fecha inicio es menor a la fecha fin
             if(fecha_inicio1 > fecha_fin1)
@@ -79,6 +86,10 @@ router.get('/formulario', function(req, res, next) {
             } 
             
             var suma_dias =  dias_restados;
+
+
+
+
  //Verifica si la boleta que esta sacando es a cuenta de vacacion
  if(req.body.tipo_boleta==1 || req.body.tipo_boleta==2)
  {
@@ -180,6 +191,114 @@ router.get('/formulario', function(req, res, next) {
       }) 
      }
   });    
+
+/*
+
+  router.post('/suma', (req, res) => {
+    
+          const fecha_solicitud = moment().format("YYYY-MM-DD"+" 00:00:00.000 +00:00");
+          const observacion = '';
+          const estado = 'PENDIENTE';
+          const fecha_inicio = req.body.fecha_inicio+' '+req.body.hora_inicio+'.000 +00:00';
+          const fecha_fin = req.body.fecha_fin+' '+req.body.hora_fin+'.000 +00:00';
+          const fecha_inicio1 = req.body.fecha_inicio;
+          const fecha_fin1 = req.body.fecha_fin;
+          const hora_inicio = req.body.hora_inicio;
+          const hora_fin = req.body.hora_fin;
+          const id_empleado = res.locals.user.empleado.id;
+          const id_tipo_boleta= req.body.tipo_boleta;
+          const inicio = moment(hora_inicio,'HH:mm');
+          const fin = moment(hora_fin,'HH:mm');
+          const suma_horas =  (moment.duration(fin - inicio))/3600000;
+      
+          var dias_restados=moment(fecha_fin).diff(moment(fecha_inicio),"days");
+          const dias_total =moment(fecha_fin).diff(moment(fecha_inicio),"days");
+          var contador=0;
+          var fecha_prueba= fecha_inicio;
+          var fecha_fer=fecha_inicio;
+          var i=0;
+          var j=0;
+          var au_horas=0;
+
+         //Verifica si la fecha inicio es menor a la fecha fin
+          if(fecha_inicio1 > fecha_fin1)
+          {
+              req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
+              res.redirect('/boleta/formulario');
+          }
+          else
+          {
+            //Verifica si la hora inicio es menor a la hora fin
+            if(hora_fin < hora_inicio)
+            {
+              req.flash('error_msg2','La hora inicio no puede ser mayor a la hora fin');
+              res.redirect('/boleta/formulario');
+            }
+            else
+            {
+              if(suma_horas <= 4)
+              {
+                au_horas=0.5;
+              }
+              else
+              { 
+                au_horas=1;
+              }
+            }
+
+          } 
+          while(i!=dias_total)
+          {
+            if((moment(fecha_prueba).day())== 5 || (moment(fecha_prueba).day())== 6)
+            {
+              dias_restados=dias_restados-1;          
+            }
+            //console.log('\x1b[33m%s\x1b[0m',moment(fecha_prueba).format('YYYY-MM-DD'));
+            fecha_prueba=(moment(fecha_prueba).add(1, 'd')).format("YYYY-MM-DD");
+            i=i+1;
+          } 
+          
+          var suma_dias =  dias_restados;
+
+ 
+    let fecha_vacacion = moment(fecha_fer).format('YYYY-MM-DD');
+    modelos.Feriado.findAll().then(feriados => {
+
+    while(j<=suma_dias)
+    {
+      for (var feriado of feriados) 
+      {
+       // console.log('\x1b[33m%s\x1b[0m', moment(feriado.fecha_feriado).format('YYYY-MM-DD'));
+        if(moment(feriado.fecha_feriado).format('YYYY-MM-DD') == fecha_vacacion)
+        {
+          contador = contador+1;        
+        }
+      }
+      fecha_vacacion=(moment(fecha_vacacion).add(1, 'd')).format("YYYY-MM-DD");
+      j=j+1;
+    };
+    
+    dias:suma_dias - contador+au_horas,
+     res.render('boleta/get',{dato:dias });
+      
+      })   
+});  
+
+  router.get('/hola', md_auth.ensureAuth, function(req, res, next) {
+    
+      //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
+      modelos.sequelize.query('SELECT tb.id, tb.tipo_boleta FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_empleado= te.id and c.id_tipo_empleado=teb.id_tipo_empleado and  teb.id_tipo_boleta=tb.id and c.id_empleado='+res.locals.user.empleado.id).spread((Tipo_boleta, metadata) => {
+        const variable=56;
+      //  console.log(variable +'estos son los datos ');
+        res.render('boleta/boleta',{Tipo_boleta:Tipo_boleta, dato:variable}); 
+      }) 
+    });
+
+   */
+
+
+
+
 
   module.exports = router;
 
