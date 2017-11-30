@@ -23,6 +23,8 @@ var ficha_personal_dependientes = require('./routes/ficha_personal/identificacio
 var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_personal');
+var ficha_personal_inicio = require('./routes/ficha_personal/identificacion_personal');
+var marcacion = require('./routes/marcacion/marcacion');
 // sequelize
 var Sequelize = require("sequelize");
 var app = express();
@@ -118,6 +120,8 @@ app.use('/ficha_personal',ficha_personal_dependientes);
 app.use('/ficha_personal',ficha_personal_experiencia);
 app.use('/ficha_personal',ficha_personal_referencias);
 app.use('/ficha_personal',ficha_personal_reporte);
+app.use('/ficha_personal',ficha_personal_inicio);
+app.use('/marcacion',marcacion);
 
 
 

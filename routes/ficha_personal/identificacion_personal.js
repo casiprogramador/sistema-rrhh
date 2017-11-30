@@ -3,14 +3,38 @@ var router = express.Router();
 var modelos = require('../../models/index');
 var moment = require('moment');
 var path = require('path');
+var md_auth = require('../../middleware/authenticated');
+
 
 /* GET login page. */
-router.get('/identificacion_personal', function(req, res, next) {
-    res.render('ficha_personal/ficha1');
+router.get('/identificacion_personal0',md_auth.ensureAuth, function(req, res, next) {
+  res.render('ficha_personal/ficha0');
+});
+
+router.get('/identificacion_personal',md_auth.ensureAuth, function(req, res, next) {
+  modelos.Empleado.findAll({ 
+    where: { id: 1 } }).then(newempleado => {
+      modelos.Empleado.findAndCountAll({
+        where: { id: 1 } }).then(countempleado => {
+            var sw=0;
+            var x=null;
+            var y=null;
+            if(countempleado.count==1){
+              sw=1;
+              if(newempleado[0].sexo=='M'){
+                x="checked";
+              }
+              else{
+                  y="checked";
+              }
+            }
+            res.render('ficha_personal/ficha1',{newempleado:newempleado,sw:sw,moment:moment,x:x,y:y});
+          })
+});
 });
 
 
-router.get('/identificacion_personal2', function(req, res, next) {
+router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
   modelos.Idioma.findAll({
     attributes: ['id', 'idioma']
     }).then(Idioma => {
@@ -19,7 +43,7 @@ router.get('/identificacion_personal2', function(req, res, next) {
 });
 
 
-router.get('/identificacion_personal3', function(req, res, next) {
+router.get('/identificacion_personal3',md_auth.ensureAuth, function(req, res, next) {
   modelos.Dependiente.findAll({ 
     attributes: ['id','paterno', 'materno','nombres','desc_otro'],
     // añadir id
@@ -29,7 +53,7 @@ router.get('/identificacion_personal3', function(req, res, next) {
   })
 });
 
-router.get('/identificacion_personal4', function(req, res, next) {
+router.get('/identificacion_personal4',md_auth.ensureAuth, function(req, res, next) {
   modelos.Experiencia.findAll({ 
     attributes: ['nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
     // añadir id
@@ -41,7 +65,7 @@ router.get('/identificacion_personal4', function(req, res, next) {
 
 
 
-router.get('/identificacion_personal5', function(req, res, next) {
+router.get('/identificacion_personal5',md_auth.ensureAuth, function(req, res, next) {
   modelos.Referencias_Personales.findAll({ 
     attributes: ['nombre', 'relacion','telefono'],
     // añadir id
@@ -60,10 +84,9 @@ router.get('/identificacion_personal5', function(req, res, next) {
 
 
 //registro de empleado1
-router.post('/identificacion_personal', (req, res) => {
+router.post('/identificacion_personal',md_auth.ensureAuth, (req, res) => {
   console.log(req.files);
-    var nombres = req.body.nombre;
-    const segnombre = req.body.segnombre;
+    const nombres = req.body.nombre;
     const priapellido = req.body.priapellido;
     const segapellido = req.body.segapellido;
     const casapellido = req.body.casapellido;
@@ -125,7 +148,7 @@ router.post('/identificacion_personal', (req, res) => {
      const foto= target_path;
 
     modelos.Empleado.create({
-      nombres: nombres+" "+segnombre,
+      nombres: nombres,
       paterno: priapellido,
       materno: segapellido,
       esposo: casapellido,
@@ -167,7 +190,7 @@ router.post('/identificacion_personal', (req, res) => {
 
 
 
-router.post('/identificacion_personal2', (req, res) => {
+router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
     console.log(req);
     // actualizacion tabla empleado
     console.log(req);
@@ -261,7 +284,7 @@ router.post('/identificacion_personal2', (req, res) => {
     })
 });
 
-router.post('/identificacion_personal3', (req, res) => {
+router.post('/identificacion_personal3',md_auth.ensureAuth, (req, res) => {
   const paterno = req.body.paterno;
   const materno = req.body.materno;
   const nombres = req.body.nombres;
@@ -300,7 +323,7 @@ router.post('/identificacion_personal3', (req, res) => {
 });
 
 
-router.post('/identificacion_personal4', (req, res) => {
+router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
     const nombre_empresa = req.body.nombre_empresa;
     const tipo_empresa = req.body.tipo_empresa;
     const cargo = req.body.cargo;
@@ -329,7 +352,7 @@ router.post('/identificacion_personal4', (req, res) => {
       })
 });
 
-router.post('/identificacion_personal5', (req, res) => {
+router.post('/identificacion_personal5',md_auth.ensureAuth, (req, res) => {
   const nombrep = req.body.nombrep;
   const relacion = req.body.relacion;
   const telefonop = req.body.telefonop;
@@ -357,7 +380,7 @@ router.post('/identificacion_personal5', (req, res) => {
       })
 });
 
-router.post('/identificacion_personal6', (req, res) => {
+router.post('/identificacion_personal6',md_auth.ensureAuth, (req, res) => {
   const nombrei = req.body.nombrei;
   const institucion = req.body.institucion;
   const telefonoi = req.body.telefonoi;
@@ -388,7 +411,7 @@ router.post('/identificacion_personal6', (req, res) => {
 
 
     //registro de empleado1
-router.post('/elimina_dependiente', (req, res) => {
+router.post('/elimina_dependiente',md_auth.ensureAuth, (req, res) => {
   const id = req.body.id_dependiente
   modelos.Dependiente.destroy({  
     where: { id: id }
@@ -409,7 +432,7 @@ router.post('/elimina_dependiente', (req, res) => {
   res.render('ficha_personal/ficha_personal');
 });*/
 
-router.get('/ficha_personal', (req, res) => {
+router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
   const nombrei = req.body.nombrei;
       modelos.Empleado.findAll({
         where: { id: 1 } }).then(newempleado => {
@@ -441,6 +464,113 @@ router.get('/ficha_personal', (req, res) => {
           })
         })
       })
-      })
+    })
+
+
+    //actualizaciones de formularios
+
+    router.post('/identificacion_personal_update',md_auth.ensureAuth, (req, res) => {
+        const nombres = req.body.nombre;
+        const priapellido = req.body.priapellido;
+        const segapellido = req.body.segapellido;
+        const casapellido = req.body.casapellido;
+        const ci = req.body.ci;
+        const expedido = req.body.expedido;
+        const paisci = req.body.paisci;
+        const provincia = req.body.provincia;
+        const departamento = req.body.departamento;
+        const paisnac = req.body.paisnac;
+        const nacionalidad = req.body.nacionalidad;
+        var fecnac = new Date();
+        fecnac = req.body.fecnac;
+        const sexo = req.body.sexo;
+        const sangre = req.body.sangre;
+        const ecivil = req.body.ecivil;
+        const lmilitar = req.body.lmilitar;
+        const calle = req.body.calle;
+        const num = req.body.num;
+        const nedificio = req.body.nedificio;
+        const piso = req.body.piso;
+        const depto = req.body.depto;
+        const zona = req.body.zona;
+        const tdomicilio = req.body.tdomicilio;
+        const tcelular = req.body.tcelular;
+        const casilla = req.body.casilla;
+        const emailp = req.body.emailp;
+        const emailt = req.body.emailt;
+    
+        /*var path = req.files.foto.path;
+        var fs =require('fs');
+        var newPath = req.files.foto.name;
+        var is = fs.createReadStream(path);
+        var os = fs.createWriteStream(newPath);
+        is.pipe(os);
+        is.on('end', function() {
+          //eliminamos el archivo temporal
+          fs.unlinkSync(path)
+       })
+        is.pipe(os)*/
+        var fs =require('fs');
+        console.log(req.files);
+        var tmp_path = req.files.foto.path;
+        // Ruta donde colocaremos las imagenes
+        var target_path = "public/fotos/"+ci+".jpeg";
+        var pathbd="/fotos/"+ci+".jpeg";
+       // Comprobamos que el fichero es de tipo imagen
+        if (req.files.foto.type.indexOf('image')==-1){
+                    res.send('El fichero que deseas subir no es una imagen');
+        } else {
+             // Movemos el fichero temporal tmp_path al directorio que hemos elegido en target_path
+            fs.rename(tmp_path, target_path, function(err) {
+                if (err) throw err;
+                // Eliminamos el fichero temporal
+                fs.unlink(tmp_path, function() {
+                    if (err) throw err;
+                });
+             });
+         }
+         const foto= target_path;
+         const newempleado = {  
+          nombres: nombres,
+          paterno: priapellido,
+          materno: segapellido,
+          esposo: casapellido,
+          ndi: ci,
+          expedido: expedido,
+          pais_expedido: paisci,
+          foto: pathbd,
+          provincia: provincia,
+          departamento: departamento,
+          pais_nacimiento: paisnac,
+          nacionalidad: nacionalidad,
+          fecha_nacimiento: fecnac,
+          sexo: sexo,
+          grupo_sang: sangre,
+          estado_civil: ecivil,
+          num_serv_mil: lmilitar,
+          calle_avenida: calle,
+          nro_direccion: num,
+          nombre_edificio: nedificio,
+          piso_edificio: piso,
+          nro_departamento: depto,
+          zona: zona,
+          telefono: tdomicilio,
+          celular: tcelular,
+          casilla: casilla,
+          email_personal: emailp,
+          email_trabajo: emailt
+        };
+        modelos.Empleado.update(newempleado, {where: { id: 1 } }).then(newempleado => {
+          modelos.Idioma.findAll({
+            attributes: ['id', 'idioma']
+            }).then(Idioma => {
+            res.render('ficha_personal/ficha2',{Idioma:Idioma,id:newempleado.id});
+          });
+          //res.render('/identificacion_personal2',{ci:ci});
+          //res.json(newempleado);
+        })
+}
+);
+    
 
 module.exports = router;
