@@ -6,8 +6,9 @@
             element.before(error);
         },
         rules: {
-            confirm: {
-                equalTo: "#password"
+            paterno: {
+                required: true,
+                minlength: 6,
             }
         }
     });
@@ -15,19 +16,18 @@
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "slideLeft",
-        onStepChanging: function (event, currentIndex, newIndex) {
-            validationForm.val({
-                ignore: [":disabled",":hidden"]
-            })
-            return validationForm.val();
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+            validationForm.validate().settings.ignore = ":disabled,:hidden";
+            return validationForm.valid();
         },
-        onFinishing: function (event, currentIndex) {
-            validationForm.val({
-                ignore: [':disabled']
-            })
-            return validationForm.val();
+        onFinishing: function (event, currentIndex)
+        {
+            validationForm.validate().settings.ignore = ":disabled";
+            return validationForm.valid();
         },
-        onFinished: function (event, currentIndex) {
+        onFinished: function (event, currentIndex)
+        {
             alert("Submitted!");
         }
     });
