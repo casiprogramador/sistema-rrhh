@@ -19,7 +19,6 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
   
 
   router.post('/reporte', (req, res) => {
-
       
             const fecha_solicitud = moment().format("YYYY-MM-DD"+" 00:00:00.000 +00:00");
             const observacion = '';
@@ -39,13 +38,13 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
             var dias_restados=moment(fecha_fin).diff(moment(fecha_inicio),"days");
             const dias_total =moment(fecha_fin).diff(moment(fecha_inicio),"days");
             var contador=0;
-            var fecha_prueba= fecha_inicio1;
+            var fecha_prueba= fecha_inicio;
             var fecha_fer=fecha_inicio;
             var i=0;
             var j=0;
             var au_horas=0;
 
-     
+
 
    
            //Verifica si la fecha inicio es menor a la fecha fin
@@ -75,23 +74,18 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
               }
 
             } 
-
-            console.log('\x1b[33m%s\x1b[0m',dias_total);
-/*
-
-
             while(i!=dias_total)
             {
               if((moment(fecha_prueba).day())== 5 || (moment(fecha_prueba).day())== 6)
               {
                 dias_restados=dias_restados-1;          
               }
-              console.log('\x1b[33m%s\x1b[0m',fecha_prueba);
+              //console.log('\x1b[33m%s\x1b[0m',moment(fecha_prueba).format('YYYY-MM-DD'));
               fecha_prueba=(moment(fecha_prueba).add(1, 'd')).format("YYYY-MM-DD");
               i=i+1;
             } 
-            console.log('\x1b[33m%s\x1b[0m',fecha_prueba+'saliooooo');
-    */        var suma_dias =  dias_restados;
+            
+            var suma_dias =  dias_restados;
 
 
 
