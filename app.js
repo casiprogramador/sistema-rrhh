@@ -134,7 +134,7 @@ app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
 app.use('/vacacion/prescripcion',vacacion_prescripcion);
 app.use('/boleta',boleta);
-app.use('/listadoboleta',listadoboleta);
+app.use('/boleta/listadoboleta',listadoboleta);
 
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
