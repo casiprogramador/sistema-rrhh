@@ -35,6 +35,10 @@ var ficha_personal_referencias = require('./routes/ficha_personal/identificacion
 var scripts = require('./routes/script/cronjob');
 var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_inicio = require('./routes/ficha_personal/identificacion_personal');
+//CAS
+var lista_cas = require('./routes/vacacion/cas');
+
+
 //var marcacion = require('./routes/marcacion/marcacion');
 // sequelize
 var Sequelize = require("sequelize");
@@ -137,6 +141,7 @@ app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
 app.use('/formularios/consultamarcado',consultamarcado);
+//Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);
 app.use('/ficha_personal',ficha_personal_datoslaborales);
 app.use('/ficha_personal',ficha_personal_dependientes);
@@ -144,8 +149,8 @@ app.use('/ficha_personal',ficha_personal_experiencia);
 app.use('/ficha_personal',ficha_personal_referencias);
 app.use('/ficha_personal',ficha_personal_reporte);
 app.use('/ficha_personal',ficha_personal_inicio);
-//app.use('/marcacion',marcacion);
-
+//CAS
+app.use('/vacacion/cas',lista_cas);
 
 
 

@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     mm: DataTypes.INTEGER,
     dd: DataTypes.INTEGER,
     fecha: DataTypes.DATE,
+    estado: DataTypes.BOOLEAN,
+    codigo_verificacion: DataTypes.STRING,
+    cas: DataTypes.STRING,
     id_empleado: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Historico_Cas.associate = function (models) {
+    Historico_Cas.belongsTo(models.Empleado,{foreignKey: 'id_empleado', as: 'empleado'});
+  };
   return Historico_Cas;
 };
