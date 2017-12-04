@@ -44,7 +44,4 @@ res.render('boleta/reportetabla',{boleta:datos_boleta, variable1:fecha_solicitud
  })
 });
 
-
-
-
 module.exports = router;

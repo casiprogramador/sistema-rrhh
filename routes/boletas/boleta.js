@@ -43,10 +43,7 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
             var i=0;
             var j=0;
             var au_horas=0;
-
-
-
-   
+  
            //Verifica si la fecha inicio es menor a la fecha fin
             if(fecha_inicio1 > fecha_fin1)
             {
