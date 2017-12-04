@@ -10,16 +10,6 @@ router.get('/',function(req, res, next) {
         res.render('boleta/listadoboleta', { boletas: boletas,  moment:moment });
       })
 });
-    
-/*
-router.get('/',function(req, res, next) {
-  modelos.sequelize.query('SELECT * from  public."Boleta"  ').spread((boletas, metadata) => {
-    console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
-    res.render('formularios/consultamarcado', { boletas: boletas });
-  })
-});
-
-*/
 
 router.post('/buscar', (req, res) => {
   const Op = Sequelize.Op;
@@ -27,7 +17,7 @@ router.post('/buscar', (req, res) => {
 
       if(req.body.fecha_inicio<req.body.fecha_fin){
 
-        modelos.sequelize.query('SELECT b.id, te.tipo_boleta, e.ndi,e.paterno, e.materno,b.observacion, b.dias, e.nombres, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id=2 and te.id=b.id_tipo_boleta and b.id_empleado=e.id  and b.fecha_solicitud BETWEEN '+ "'"+req.body.fecha_inicio+"'"+' AND '+"'"+req.body.fecha_fin+"'").spread((boletas, metadata) => {
+        modelos.sequelize.query('SELECT b.id, te.tipo_boleta, e.ndi,e.paterno, e.materno,b.observacion, b.dias, e.nombres, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id='+res.locals.user.empleado.id+' and te.id=b.id_tipo_boleta and b.id_empleado=e.id  and b.fecha_solicitud BETWEEN '+ "'"+req.body.fecha_inicio+"'"+' AND '+"'"+req.body.fecha_fin+"'").spread((boletas, metadata) => {
           console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
           res.render('boleta/listadoboleta', { boletas: boletas,  moment:moment });
         })
