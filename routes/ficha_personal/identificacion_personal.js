@@ -13,7 +13,7 @@ router.get('/identificacion_personal0',md_auth.ensureAuth, function(req, res, ne
 
 router.get('/identificacion_personal',md_auth.ensureAuth, function(req, res, next) {
   modelos.Empleado.findAll({ 
-    where: { id: 1 } }).then(newempleado => {
+    where: { id: res.locals.user.empleado.id } }).then(newempleado => {
       modelos.Empleado.findAndCountAll({
         where: { id: 1 } }).then(countempleado => {
             var sw=0;
@@ -187,6 +187,7 @@ router.post('/identificacion_personal',md_auth.ensureAuth, (req, res) => {
         //res.json(newempleado);
       })
 });
+
 
 
 

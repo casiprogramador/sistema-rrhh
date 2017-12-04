@@ -17,8 +17,18 @@ module.exports = {
       dd: {
         type: Sequelize.INTEGER
       },
+      codigo_verificacion: {
+        type: Sequelize.STRING
+      },
+      cas: {
+        type: Sequelize.STRING
+      },
       fecha: {
         type: Sequelize.DATE
+      },
+      estado: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true 
       },
       id_empleado: {
         type: Sequelize.INTEGER,

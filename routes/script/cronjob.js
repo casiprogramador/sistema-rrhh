@@ -6,8 +6,10 @@ var moment = require('moment');
 //Consulta de empleados por area
 router.get('/calcularvacacion', function(req, res, next) {
     modelos.sequelize.query('SELECT public."Empleados".id,public."Historico_Cas".id as id_cas, public."Contratos".fecha_inicio, public."Historico_Cas".aa, public."Historico_Cas".mm, public."Historico_Cas".dd FROM public."Empleados" INNER JOIN  public."Contratos" ON public."Contratos".id_empleado = public."Empleados".id LEFT JOIN  public."Historico_Cas" ON public."Historico_Cas".id_empleado = public."Empleados".id WHERE public."Empleados".estado = true and public."Contratos".estado = true').spread((empleados, metadata) => {
+        console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(empleados));
         for(const empleado of empleados){
             //Obtenemos la antiguedad , en caso de tener CAS lo calculamos segun sus años 
+            
             var antiguedad = 0;
             if(empleado.id_cas == null){
                 antiguedad = moment().diff(empleado.fecha_inicio, 'years');
