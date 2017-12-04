@@ -43,6 +43,26 @@ router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, ne
 });
 
 
+router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
+  modelos.Idioma.findAll({
+    attributes:['id','idioma']
+  }).then(Idioma=>{
+    modelos.Empleado.findAll({
+      where:{id:1}}).then(newempleado=>{
+        modelos.Estudios.findAll({
+          where:{id_empleado:1}}).then({
+            
+          })
+      })
+  })
+});
+
+
+
+
+
+
+
 router.get('/identificacion_personal3',md_auth.ensureAuth, function(req, res, next) {
   modelos.Dependiente.findAll({ 
     attributes: ['id','paterno', 'materno','nombres','desc_otro'],
