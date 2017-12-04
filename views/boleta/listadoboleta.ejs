@@ -18,7 +18,7 @@
            <div class="card">
              <div class="card-body">
                <h2 class="card-title">Listado de Boletas</h2>
-               <form  method="post" action="/administrar/boleta/buscar">
+               <form  method="post" action="/boleta/listadoboleta/buscar">
                              
                         <div class="form-group row"> 
                             <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
@@ -46,11 +46,11 @@
                           <button type="submit" class="btn btn-primary">Recuperar Boletas</button>
                         </div>
                       </form>
-             
+                   
                       
                       <div class="form-group row" id="panel-boletas">
                           <div class="col-12">
-                                    <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%"  name="tabla" id="tabla">
                                       <thead>
                                         <tr>
                                             <th>Num</th>
@@ -67,8 +67,9 @@
                                       </thead>
                                       <tbody>
                                           <% for(var i=0; i< boletas.length; i++) { %>
-                                        <tr>
-                                            <td><%= boletas[i].id %></td>
+                                            <form  method="post" action="/boleta/listadoboleta/imprimir">
+                                            <tr>
+                                            <td id='id' name='id'><%= boletas[i].id %></td>
                                             <td><%= boletas[i].ndi %></td>
                                             <td><%= boletas[i].paterno %><%= boletas[i].materno %><%= boletas[i].nombres %></td>
                                             <td><%= boletas[i].tipo_boleta %></td>
@@ -78,17 +79,19 @@
                                             <td><%= boletas[i].observacion %></td>
                                             <td><%= boletas[i].estado %></td>
                                             <td>
-                                    
-                                              <button class="btn btn-outline-primary nav-link" href="boleta/reporte" >Imprimir</button>
+                                              <button class="btn btn-outline-primary" type="submit" >Imprimir</button>
+                                             
                                             </td>
+                                            <td><input type="hidden" name="id" value= "<%= boletas[i].id %>"></td>
                                             
                                         </tr>
+                                      </form>
                                         <% } %>
                                       </tbody>
                                     </table>
                                   </div>
                   </div>
-
+             
              </div>
            </div>
          </div>
