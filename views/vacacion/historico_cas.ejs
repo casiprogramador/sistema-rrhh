@@ -22,22 +22,35 @@
                     <% } %>
                 
                   <div class="col-sm-12">
-                    <h2 class="card-title text-center">Historico CAS: Nombre </h2>
+                    <h2 class="card-title text-center">Historico CAS: <%= empleado.nombres %></h2>
                   </div>
                   <table id="table-prescripcion" class="table table-bordered">
                         <thead >
                           <tr>
-                            <th class="table-dark" >CI</th>
+                            <th class="table-dark" >CAS</th>
+                            <th class="table-dark" >Codigo Verificacion</th>
+                            <th class="table-dark" >Fecha Registro</th>
                             <th class="table-dark" >Nombre</th>
-                            <th class="table-dark" >Cargo</th>
-                            <th class="table-dark" >Fecha Ingreso</th>
-                            <th class="table-dark" >Area</th>
-                            <th class="table-dark text-center">Gestion a Prescribir</th>
-                            <th class="table-dark text-center">Opciones</th>
+                            <th class="table-dark" >AÑOS</th>
+                            <th class="table-dark" >MESES</th>
+                            <th class="table-dark" >DIAS</th>
                           </tr>
                         </thead>
                         <tbody>
+                            <% for(var cas of empleado.cas) { %>
+                                <% var class_estado = (cas.estado) ? "table-warning" : "" %>
+                                <tr class="<%= class_estado %>">
+                                
+                                    <td><%= cas.cas %></td>
+                                    <td><%= cas.codigo_verificacion %></td>
+                                    <td><%= cas.fecha %></td>
+                                    <td><%= empleado.paterno %> <%= empleado.nombres %></td>
+                                    <td><%= cas.aa %></td>
+                                    <td><%= cas.mm %></td>
+                                    <td><%= cas.dd %></td>
+                                </tr>
 
+                            <% } %>
                         </tbody>
                       </table>
 

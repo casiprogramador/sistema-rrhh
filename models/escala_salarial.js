@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     clase: DataTypes.INTEGER,
     nivel_maestra: DataTypes.INTEGER,
     nivel_correlativo: DataTypes.INTEGER,
-    denominacion_puesto: DataTypes.STRING(50),
+    denominacion_puesto: DataTypes.STRING,
     nro_item: DataTypes.INTEGER,
     sueldo_mensual: DataTypes.DOUBLE
   }, {

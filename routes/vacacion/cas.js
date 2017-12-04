@@ -12,14 +12,14 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
 router.get('/buscar', md_auth.ensureAuth, function(req, res, next) {
 
-    modelos.Empleado.findAll({
+    modelos.Empleado.findOne({
         where: {
             ndi: req.query.ci_empleado
         },
         include: ['cas'],
     }).then(empleado => {
         console.log(JSON.stringify(empleado));
-        res.render('vacacion/historico_cas');
+        res.render('vacacion/historico_cas',{ empleado: empleado });
     });
     
 });

@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       denominacion_puesto: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING
       },
       nro_item: {
         type: Sequelize.INTEGER
