@@ -18,7 +18,6 @@
                       <th>Fecha de inicio</th>
                       <th>Fecha Final</th>
                       <th></th>
-                      <th></th>
                     </tr>
                     <% for(var i=0; i< experiencia.length; i++) { %>
                       <tr>
@@ -26,14 +25,16 @@
                     <td><%= experiencia[i].cargo %></td>
                     <td><%= experiencia[i].fecha_inicio %></td>
                     <td><%= experiencia[i].fecha_fin %></td>
-                    <td><button>Editar</button></td>
-                    <td><button>Eliminar</button></td>
+                    <td><form id="eliminaexperiencia" method="post" action="/ficha_personal/elimina_experiencia">
+                      <input name="id_experiencia" type="hidden" class="form-control" value='<%= experiencia[i].id %>'>
+                      <button type="submit">Eliminar</button>
+                    </form></td>
                   </tr>
                   <% } %>
                   </table>
                   <br><br><br><br>
                   <h2 class="card-title">Registrar Experiencia</h2>
-                  <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal4">
+                  <form class="cmxform" id="registroexperiencia" method="post" action="/ficha_personal/identificacion_personal4">
                     <div>
                                     
                                                                 <div class="row">

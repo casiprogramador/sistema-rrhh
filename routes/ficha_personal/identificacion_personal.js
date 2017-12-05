@@ -6,196 +6,116 @@ var path = require('path');
 var md_auth = require('../../middleware/authenticated');
 
 
-/* GET login page. */
+/* Ruta a la ficha 0. */
 router.get('/identificacion_personal0',md_auth.ensureAuth, function(req, res, next) {
   res.render('ficha_personal/ficha0');
 });
 
+
+// ruta a la ficha 1, pregunta si existe o no para su visualizacion
 router.get('/identificacion_personal',md_auth.ensureAuth, function(req, res, next) {
   modelos.Empleado.findAll({ 
-    where: { id: res.locals.user.empleado.id } }).then(newempleado => {
-      modelos.Empleado.findAndCountAll({
-        where: { id: 1 } }).then(countempleado => {
-            var sw=0;
+    where: { id: res.locals.user.empleado.id } }).then(newempleado =>{ 
             var x=null;
             var y=null;
-            if(countempleado.count==1){
-              sw=1;
               if(newempleado[0].sexo=='M'){
                 x="checked";
               }
               else{
                   y="checked";
               }
-            }
-            res.render('ficha_personal/ficha1',{newempleado:newempleado,sw:sw,moment:moment,x:x,y:y});
+            res.render('ficha_personal/ficha1',{newempleado:newempleado,moment:moment,x:x,y:y});
           })
-});
-});
+})
 
 
-router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
+/*router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
   modelos.Idioma.findAll({
     attributes: ['id', 'idioma']
     }).then(Idioma => {
     res.render('ficha_personal/ficha2',{Idioma:Idioma});
   });  
-});
+});*/
 
+/*
+router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
+  var sw1=0;
+  var sw2=0;
+  var sw3=0;
+  var x=null;
+  var y=null;
+  modelos.Idioma.findAll().then(Idioma=>{
+    modelos.Empleado.findAll({where:{id:res.locals.user.empleado.id}}).then(newempleado=>{
+        modelos.Empleado.findAndCountAll({
+          where:{id:res.locals.user.empleado.id}}).then(countempleado=>{
+            mode/los.Estudios.findAll({where:{id:res.locals.user.empleado.id}
+            }).then(newestudios=>{
+              modelos.Estudios.findAndCountAll({
+                where:{id:res.locals.user.empleado.id}
+              }).then(countestudios=>{
+                if(countempleado<1){sw1=1;}
+                if(countestudios<1){
+                  sw2=1;
+                  if(newestudios[0]==true){x="checked";}
+                  else{y="checked";}
+                }
+                res.render('ficha_personal/ficha2',{newempleado:newempleado,sw1:sw1,sw2:sw2,moment:moment,x:x,y:y});
+              })
+            })
+          })
+      })
+  })
+});
+*/
+
+
+
+
+// Ruta a la ficha 3, dependientes
 
 router.get('/identificacion_personal3',md_auth.ensureAuth, function(req, res, next) {
   modelos.Dependiente.findAll({ 
     attributes: ['id','paterno', 'materno','nombres','desc_otro'],
     // añadir id
-    where: { id_empleado: 1 } }).then(dependientes => {
+    where: { id_empleado: res.locals.user.empleado.id } }).then(dependientes => {
     // projects will be an array of Project instances with the specified name
     res.render('ficha_personal/ficha3',{dependientes:dependientes});
   })
 });
 
+// Ruta a la ficha 4 experiencia laboral
+
 router.get('/identificacion_personal4',md_auth.ensureAuth, function(req, res, next) {
   modelos.Experiencia.findAll({ 
-    attributes: ['nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
+    attributes: ['id','nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
     // añadir id
-    where: { id_empleado: 1 } }).then(experiencia => {
+    where: { id_empleado: res.locals.user.empleado.id } }).then(experiencia => {
     // projects will be an array of Project instances with the specified name
     res.render('ficha_personal/ficha4',{experiencia:experiencia});
   })
 });
 
-
+// Ruta a la ficha 5, referencias personales y referencias de trabajo
 
 router.get('/identificacion_personal5',md_auth.ensureAuth, function(req, res, next) {
   modelos.Referencias_Personales.findAll({ 
-    attributes: ['nombre', 'relacion','telefono'],
-    // añadir id
-    where: { id_empleado: 1 } }).then(referencias_personales => {
-    // projects will be an array of Project instances with the specified name
+    attributes: ['id','nombre', 'relacion','telefono'],
+    where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_personales => {
     modelos.Referencias_Trabajo.findAll({ 
-      attributes: ['nombre', 'institucion','telefono'],
-      // añadir id
-      where: { id_empleado: 1 } }).then(referencias_trabajo => {
-      // projects will be an array of Project instances with the specified name
+      attributes: ['id','nombre', 'institucion','telefono'],
+      where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_trabajo => {
       res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
     })
   })
 });
 
 
-
-//registro de empleado1
-router.post('/identificacion_personal',md_auth.ensureAuth, (req, res) => {
-  console.log(req.files);
-    const nombres = req.body.nombre;
-    const priapellido = req.body.priapellido;
-    const segapellido = req.body.segapellido;
-    const casapellido = req.body.casapellido;
-    const ci = req.body.ci;
-    const expedido = req.body.expedido;
-    const paisci = req.body.paisci;
-    const provincia = req.body.provincia;
-    const departamento = req.body.departamento;
-    const paisnac = req.body.paisnac;
-    const nacionalidad = req.body.nacionalidad;
-    var fecnac = new Date();
-    fecnac = req.body.fecnac;
-    const sexo = req.body.sexo;
-    const sangre = req.body.sangre;
-    const ecivil = req.body.ecivil;
-    const lmilitar = req.body.lmilitar;
-    const calle = req.body.calle;
-    const num = req.body.num;
-    const nedificio = req.body.nedificio;
-    const piso = req.body.piso;
-    const depto = req.body.depto;
-    const zona = req.body.zona;
-    const tdomicilio = req.body.tdomicilio;
-    const tcelular = req.body.tcelular;
-    const casilla = req.body.casilla;
-    const emailp = req.body.emailp;
-    const emailt = req.body.emailt;
-
-    /*var path = req.files.foto.path;
-    var fs =require('fs');
-    var newPath = req.files.foto.name;
-    var is = fs.createReadStream(path);
-    var os = fs.createWriteStream(newPath);
-    is.pipe(os);
-    is.on('end', function() {
-      //eliminamos el archivo temporal
-      fs.unlinkSync(path)
-   })
-    is.pipe(os)*/
-    var fs =require('fs');
-    console.log(req.files);
-    var tmp_path = req.files.foto.path;
-    // Ruta donde colocaremos las imagenes
-    var target_path = "public/fotos/"+ci+".jpeg";
-    var pathbd="/fotos/"+ci+".jpeg";
-   // Comprobamos que el fichero es de tipo imagen
-    if (req.files.foto.type.indexOf('image')==-1){
-                res.send('El fichero que deseas subir no es una imagen');
-    } else {
-         // Movemos el fichero temporal tmp_path al directorio que hemos elegido en target_path
-        fs.rename(tmp_path, target_path, function(err) {
-            if (err) throw err;
-            // Eliminamos el fichero temporal
-            fs.unlink(tmp_path, function() {
-                if (err) throw err;
-            });
-         });
-     }
-     const foto= target_path;
-
-    modelos.Empleado.create({
-      nombres: nombres,
-      paterno: priapellido,
-      materno: segapellido,
-      esposo: casapellido,
-      ndi: ci,
-      expedido: expedido,
-      pais_expedido: paisci,
-      foto: pathbd,
-      provincia: provincia,
-      departamento: departamento,
-      pais_nacimiento: paisnac,
-      nacionalidad: nacionalidad,
-      fecha_nacimiento: fecnac,
-      sexo: sexo,
-      grupo_sang: sangre,
-      estado_civil: ecivil,
-      num_serv_mil: lmilitar,
-      calle_avenida: calle,
-      nro_direccion: num,
-      nombre_edificio: nedificio,
-      piso_edificio: piso,
-      nro_departamento: depto,
-      zona: zona,
-      telefono: tdomicilio,
-      celular: tcelular,
-      casilla: casilla,
-      email_personal: emailp,
-      email_trabajo: emailt
-    })
-      .then(newempleado => {
-        modelos.Idioma.findAll({
-          attributes: ['id', 'idioma']
-          }).then(Idioma => {
-          res.render('ficha_personal/ficha2',{Idioma:Idioma,id:newempleado.id});
-        });
-        //res.render('/identificacion_personal2',{ci:ci});
-        //res.json(newempleado);
-      })
-});
+//res.render('ficha_personal/ficha2',{Idioma:Idioma,id:newempleado.id});
 
 
-
-
+// Registro de datos adicionales del empleado
 router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
-    console.log(req);
     // actualizacion tabla empleado
-    console.log(req);
-    const id_empleado = req.body.id_empleado;
     const nit = req.body.nit;
     const afp = req.body.afp;
     const seguro_medico = req.body.seguro_medico;
@@ -220,8 +140,8 @@ router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
     const anios_vencidos = req.body.anios_vencidos;
     const fecha_inicio = req.body.fecha_inicio;
     const fecha_fin = req.body.fecha_fin;
-    const col_profesional = req.body.col_profesional;
-    const nro_registro_pro = req.body.nro_registro_pro;
+    const colegio_prof = req.body.col_profesional;
+    const nro_registro_prof = req.body.nro_registro_pro;
     // tabla idiomas
     const lecturaesp =req.body.lecturaesp;
     const escrituraesp =req.body.escrituraesp;
@@ -249,41 +169,57 @@ router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
       banco: banco,
       tipo_cuenta: tipo_cuenta
     };
-    modelos.Empleado.update(newempleado, {where: { id: id_empleado } })  
+    console.log(nua,ren);
+    modelos.Empleado.update(newempleado, {where: { id: res.locals.user.empleado.id }})  
           .then(updatedMax => {
-            modelos.Estudios.create({
-              nivel: nivel,
-              especificacion: especificacion,
-              titulo: titulo,
-              carrera: carrera,
-              institucion: institucion,
-              concluida: concluida,
-              ciudad: ciudad,
-              pais: pais,
-              anios_vencidos: anios_vencidos,
-              fecha_inicio: req.body.fecha_inicio,
-              col_profesional: col_profesional,
-              nro_registro_pro: nro_registro_pro,
-              id_empleado: id_empleado
-            })
-            .then(newestudios => {
-              modelos.Empleado_Idioma.create(
-                {lee: lecturaesp, escribe: escrituraesp, habla: hablaesp, id_empleado:id_empleado, id_idioma: 1})
-                .then(newempleado_idioma1 => {
-                  modelos.Empleado_Idioma.create(
-                    {lee: lecturaing, escribe: escrituraing, habla: hablaing, id_empleado: id_empleado, id_idioma: 2})
-                    .then(newempleado_idioma2 => {
-                      modelos.Empleado_Idioma.create(
-                        {lee: lecturaotro, escribe: escrituraotro, habla: hablaotro, id_empleado:id_empleado, id_otro: otro
-                        })
-                        .then(newempleado_idioma3 => {
-                          res.render('ficha_personal/ficha1');
-                      })
+            const newestudios={
+              nivel:nivel,
+              especificacion:especificacion,
+              titulo:titulo,
+              carrera:carrera,
+              institucion:institucion,
+              concluida:concluida,
+              ciudad:ciudad,
+              pais:pais,
+              anios_vencidos:anios_vencidos,
+              fecha_inicio:fecha_inicio,
+              fecha_fin:fecha_fin,
+              colegio_prof:colegio_prof,
+              nro_registro_prof:nro_registro_prof
+            };
+            modelos.Estudios.update(newestudios,{where:{id_empleado:res.locals.user.empleado.id}})
+            .then(updatedMax=>{
+              const newidioma1={
+                lee:lecturaesp,
+                escribe:escrituraesp,
+                habla:hablaesp,
+              };
+              modelos.Empleado_Idioma.update(newidioma1,{where:{id_empleado:res.locals.user.empleado.id,id_idioma:1}})
+              .then(updatedMax=>{
+                const newidioma2={
+                  lee:lecturaing,
+                  escribe:escrituraing,
+                  habla:hablaing,
+                };
+                modelos.Empleado_Idioma.update(newidioma2,{where:{id_empleado:res.locals.user.empleado.id,id_idioma:2}})
+                .then(updatedMax=>{
+                  const newidioma3={
+                    lee:lecturaotro,
+                    escribe:escrituraotro,
+                    habla:hablaotro,
+                    id_idioma:otro
+                  }
+                  modelos.Empleado_Idioma.update(newidioma3,{where:{id_empleado:res.locals.user.empleado.id,id_idioma:otro}})
+                  .then(updatedMax=>{
+                    res.render('home');
                   })
+                })
               })
-          })
+            })
+            })
     })
-});
+
+//registro de Dependientes
 
 router.post('/identificacion_personal3',md_auth.ensureAuth, (req, res) => {
   const paterno = req.body.paterno;
@@ -314,7 +250,7 @@ router.post('/identificacion_personal3',md_auth.ensureAuth, (req, res) => {
       modelos.Dependiente.findAll({ 
         attributes: ['id','paterno', 'materno','nombres','desc_otro'],
         // añadir id
-        where: { id_empleado: 1 } }).then(dependientes => {
+        where: { id_empleado: res.locals.user.empleado.id } }).then(dependientes => {
         // projects will be an array of Project instances with the specified name
         res.render('ficha_personal/ficha3',{dependientes:dependientes});
       })
@@ -324,6 +260,7 @@ router.post('/identificacion_personal3',md_auth.ensureAuth, (req, res) => {
 });
 
 
+// Registro de experiencia
 router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
     const nombre_empresa = req.body.nombre_empresa;
     const tipo_empresa = req.body.tipo_empresa;
@@ -344,14 +281,17 @@ router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
     })
       .then(newexperiencia => {
         modelos.Experiencia.findAll({ 
-          attributes: ['nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
+          attributes: ['id','nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
           // añadir id
-          where: { id_empleado: 1 } }).then(experiencia => {
+          where: { id_empleado: res.locals.user.empleado.id } }).then(experiencia => {
           // projects will be an array of Project instances with the specified name
           res.render('ficha_personal/ficha4',{experiencia:experiencia});
         })
       })
 });
+
+
+//registro de referencias personales
 
 router.post('/identificacion_personal5',md_auth.ensureAuth, (req, res) => {
   const nombrep = req.body.nombrep;
@@ -362,24 +302,26 @@ router.post('/identificacion_personal5',md_auth.ensureAuth, (req, res) => {
     nombre: nombrep,
     relacion: relacion,
     telefono: telefonop,
-    id_empleado: 1
+    id_empleado: res.locals.user.empleado.id
   })
     .then(newreferencias_personales => {
       modelos.Referencias_Personales.findAll({ 
-        attributes: ['nombre', 'relacion','telefono'],
+        attributes: ['id','nombre', 'relacion','telefono'],
         // añadir id
-        where: { id: 1 } }).then(referencias_personales => {
+        where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_personales => {
         // projects will be an array of Project instances with the specified name
         modelos.Referencias_Trabajo.findAll({ 
-          attributes: ['nombre', 'institucion','telefono'],
+          attributes: ['id','nombre', 'institucion','telefono'],
           // añadir id
-          where: { id_empleado: 1 } }).then(referencias_trabajo => {
+          where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_trabajo => {
           // projects will be an array of Project instances with the specified name
           res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
         })
       })
       })
 });
+
+//Registro de referencias de trabajo
 
 router.post('/identificacion_personal6',md_auth.ensureAuth, (req, res) => {
   const nombrei = req.body.nombrei;
@@ -390,18 +332,18 @@ router.post('/identificacion_personal6',md_auth.ensureAuth, (req, res) => {
     nombre: nombrei,
     institucion: institucion,
     telefono: telefonoi,
-    id_empleado: 1
+    id_empleado: res.locals.user.empleado.id
   })
     .then(referencias_trabajo => {
       modelos.Referencias_Personales.findAll({ 
-        attributes: ['nombre', 'relacion','telefono'],
+        attributes: ['id','nombre', 'relacion','telefono'],
         // añadir id
-        where: { id_empleado: 1 } }).then(referencias_personales => {
+        where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_personales => {
         // projects will be an array of Project instances with the specified name
         modelos.Referencias_Trabajo.findAll({ 
-          attributes: ['nombre', 'institucion','telefono'],
+          attributes: ['id','nombre', 'institucion','telefono'],
           // añadir id
-          where: { id_empleado: 1 } }).then(referencias_trabajo => {
+          where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_trabajo => {
           // projects will be an array of Project instances with the specified name
           res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
         })
@@ -410,8 +352,7 @@ router.post('/identificacion_personal6',md_auth.ensureAuth, (req, res) => {
     })
 
 
-
-    //registro de empleado1
+//Eliminacon de dependientes
 router.post('/elimina_dependiente',md_auth.ensureAuth, (req, res) => {
   const id = req.body.id_dependiente
   modelos.Dependiente.destroy({  
@@ -421,40 +362,93 @@ router.post('/elimina_dependiente',md_auth.ensureAuth, (req, res) => {
     modelos.Dependiente.findAll({ 
       attributes: ['id','paterno', 'materno','nombres','desc_otro'],
       // añadir id
-      where: { id_empleado: 1 } }).then(dependientes => {
+      where: { id_empleado: res.locals.user.empleado.id } }).then(dependientes => {
       // projects will be an array of Project instances with the specified name
       res.render('ficha_personal/ficha3',{dependientes:dependientes}); 
     })
   });
 });
 
+router.post('/elimina_experiencia',md_auth.ensureAuth, (req, res) => {
+  const id = req.body.id_experiencia
+  modelos.Experiencia.destroy({  
+    where: { id: id }
+  })
+  .then(deletexperiencia => {
+    modelos.Experiencia.findAll({ 
+      attributes: ['id','nombre_empresa', 'cargo','fecha_inicio','fecha_fin'],
+      // añadir id
+      where: { id_empleado: res.locals.user.empleado.id } }).then(newexperiencia => {
+      // projects will be an array of Project instances with the specified name
+      res.render('ficha_personal/ficha4',{experiencia:newexperiencia}); 
+    })
+  });
+});
+
+router.post('/elimina_referencia_personal',md_auth.ensureAuth, (req, res) => {
+  const id = req.body.id_referencia_personal
+  modelos.Referencias_Personales.destroy({  
+    where: { id: id }
+  })
+  .then(deletereferenciap => {
+    modelos.Referencias_Personales.findAll({ 
+      attributes: ['id','nombre', 'relacion','telefono'],
+      where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_personales => {
+      modelos.Referencias_Trabajo.findAll({ 
+        attributes: ['id','nombre', 'institucion','telefono'],
+        where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_trabajo => {
+        res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
+  });
+});
+})
+})
+
+router.post('/elimina_referencias_trabajo',md_auth.ensureAuth, (req, res) => {
+  const id = req.body.id_referencias_trabajo
+  modelos.Referencias_Trabajo.destroy({  
+    where: { id: id }
+  })
+  .then(deletereferenciat => {
+    modelos.Referencias_Personales.findAll({ 
+      attributes: ['id','nombre', 'relacion','telefono'],
+      where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_personales => {
+      modelos.Referencias_Trabajo.findAll({ 
+        attributes: ['id','nombre', 'institucion','telefono'],
+        where: { id_empleado: res.locals.user.empleado.id } }).then(referencias_trabajo => {
+        res.render('ficha_personal/ficha5',{referencias_personales:referencias_personales, referencias_trabajo:referencias_trabajo});
+  });
+});
+})
+})
 
 /*router.get('/ficha_personal', function(req, res, next) {
   res.render('ficha_personal/ficha_personal');
 });*/
 
+// Reporte de la ficha Personal
+
 router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
   const nombrei = req.body.nombrei;
       modelos.Empleado.findAll({
-        where: { id: 1 } }).then(newempleado => {
+        where: { id: res.locals.user.empleado.id } }).then(newempleado => {
         // projects will be an array of Project instances with the specified name
         modelos.Estudios.findAll({ 
-          where: { id_empleado: 1 } }).then(newestudios => {
+          where: { id_empleado: res.locals.user.empleado.id } }).then(newestudios => {
           // projects will be an array of Project instances with the specified name
           modelos.Empleado_Idioma.findAll({ 
-            where: { id_empleado: 1 } }).then(newempleado_idioma => {
+            where: { id_empleado: res.locals.user.empleado.id } }).then(newempleado_idioma => {
             // projects will be an array of Project instances with the specified name
             modelos.Dependiente.findAll({ 
-              where: { id_empleado: 1 } }).then(newdependiente => {
+              where: { id_empleado: res.locals.user.empleado.id } }).then(newdependiente => {
               // projects will be an array of Project instances with the specified name
               modelos.Experiencia.findAll({ 
-                where: { id_empleado: 1 } }).then(newexperiencia => {
+                where: { id_empleado: res.locals.user.empleado.id } }).then(newexperiencia => {
                 // projects will be an array of Project instances with the specified name
                 modelos.Referencias_Personales.findAll({ 
-                  where: { id_empleado: 1 } }).then(newreferencias_personales => {
+                  where: { id_empleado: res.locals.user.empleado.id } }).then(newreferencias_personales => {
                   // projects will be an array of Project instances with the specified name
                   modelos.Referencias_Trabajo.findAll({ 
-                    where: { id_empleado: 1 } }).then(newreferencias_trabajo => {
+                    where: { id_empleado: res.locals.user.empleado.id } }).then(newreferencias_trabajo => {
                     // projects will be an array of Project instances with the specified name
                     //console.log({newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
                     res.render('ficha_personal/ficha_personal',{newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
@@ -468,37 +462,76 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
     })
 
 
-    //actualizaciones de formularios
+    //actualizaciones de Ficha 1
 
     router.post('/identificacion_personal_update',md_auth.ensureAuth, (req, res) => {
-        const nombres = req.body.nombre;
-        const priapellido = req.body.priapellido;
-        const segapellido = req.body.segapellido;
-        const casapellido = req.body.casapellido;
-        const ci = req.body.ci;
-        const expedido = req.body.expedido;
-        const paisci = req.body.paisci;
-        const provincia = req.body.provincia;
-        const departamento = req.body.departamento;
-        const paisnac = req.body.paisnac;
-        const nacionalidad = req.body.nacionalidad;
-        var fecnac = new Date();
-        fecnac = req.body.fecnac;
-        const sexo = req.body.sexo;
-        const sangre = req.body.sangre;
-        const ecivil = req.body.ecivil;
-        const lmilitar = req.body.lmilitar;
-        const calle = req.body.calle;
-        const num = req.body.num;
-        const nedificio = req.body.nedificio;
-        const piso = req.body.piso;
-        const depto = req.body.depto;
-        const zona = req.body.zona;
-        const tdomicilio = req.body.tdomicilio;
-        const tcelular = req.body.tcelular;
-        const casilla = req.body.casilla;
-        const emailp = req.body.emailp;
-        const emailt = req.body.emailt;
+      const nombres = req.body.nombre;
+      const priapellido = req.body.priapellido;
+      const segapellido = req.body.segapellido;
+      const casapellido = req.body.casapellido;
+      const ci = req.body.ci;
+      const expedido = req.body.expedido;
+      const paisci = req.body.paisci;
+      const provincia = req.body.provincia;
+      const departamento = req.body.departamento;
+      const paisnac = req.body.paisnac;
+      const nacionalidad = req.body.nacionalidad;
+      var fecnac = new Date();
+      fecnac = req.body.fecnac;
+      const sexo = req.body.sexo;
+      const sangre = req.body.sangre;
+      const ecivil = req.body.ecivil;
+      const lmilitar = req.body.lmilitar;
+      const calle = req.body.calle;
+      const num = req.body.num;
+      const nedificio = req.body.nedificio;
+      const piso = req.body.piso;
+      const depto = req.body.depto;
+      const zona = req.body.zona;
+      const tdomicilio = req.body.tdomicilio;
+      const tcelular = req.body.tcelular;
+      const casilla = req.body.casilla;
+      const emailp = req.body.emailp;
+      const emailt = req.body.emailt;
+  
+      //construccion de campos vacios
+      /*const afp = "afp";
+      const seguro_medico = "Seguro Medico";
+      const nro_seguro = "0";
+      const tipo_seguro = "Tipo de Seguro";
+      const nua = "0";
+      const ren = "0";
+      const anios_calificados = "0";
+      const nro_declar_jurada = "0";
+      const nro_cuenta = "0";
+      const banco = "banco";
+      const tipo_cuenta = "Tipo de Cuenta";*/
+      //tabla estudios
+      const nivel = "Nivel";
+      const especificacion = "Especificacion";
+      const titulo = "Titulo";
+      const carrera = "Carrera";
+      const institucion = "Institucion";
+      const concluida = true;
+      const ciudad = "ciudad";
+      const pais = "Pais";
+      const anios_vencidos = "0";
+      const fecha_inicio = Date.now();
+      const fecha_fin = Date.now();
+      const colegio_prof = "Colegio Profesional";
+      const nro_registro_prof = "0";
+      // tabla idiomas
+      const lecturaesp ="0";
+      const escrituraesp ="0";
+      const hablaesp ="0";
+      const lecturaing ="0";
+      const escrituraing ="0";
+      const hablaing ="0";
+      const otro ="Otro";
+      const lecturaotro ="0";
+      const escrituraotro ="0";
+      const hablaotro ="0";
+      const id_idioma=req.body.otro;
     
         /*var path = req.files.foto.path;
         var fs =require('fs');
@@ -559,19 +592,99 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
           celular: tcelular,
           casilla: casilla,
           email_personal: emailp,
-          email_trabajo: emailt
+          email_trabajo: emailt,
+          /*afp:afp,
+          seguro_medico:seguro_medico,
+          nro_seguro:nro_seguro,
+          tipo_seguro:tipo_seguro,
+          nua:nua,
+          ren:ren,
+          anios_calificados:anios_calificados,
+          nro_declar_jurada:nro_declar_jurada,
+          nro_cuenta:nro_cuenta,
+          banco:banco,
+          tipo_cuenta:tipo_cuenta*/
         };
-        modelos.Empleado.update(newempleado, {where: { id: 1 } }).then(newempleado => {
-          modelos.Idioma.findAll({
-            attributes: ['id', 'idioma']
-            }).then(Idioma => {
-            res.render('ficha_personal/ficha2',{Idioma:Idioma,id:newempleado.id});
-          });
-          //res.render('/identificacion_personal2',{ci:ci});
-          //res.json(newempleado);
-        })
-}
-);
+        modelos.Empleado.update(newempleado, {where: { id: res.locals.user.empleado.id } }).then(newempleado => {
+          modelos.Estudios.findAndCountAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newcount=>{
+            console.log(newcount.count);
+            if(newcount.count==0){
+              //asdasd
+              var x=null;
+              var y=null;
+              modelos.Estudios.create({
+                nivel:nivel,
+                especificacion:especificacion,
+                titulo:titulo,
+                carrera:carrera,
+                institucion:institucion,
+                concluida:concluida,
+                ciudad:ciudad,
+                pais:pais,
+                anios_vencidos:anios_vencidos,
+                fecha_inicio:fecha_inicio,
+                fecha_fin:fecha_fin,
+                colegio_prof:colegio_prof,
+                nro_registro_prof:nro_registro_prof,
+                id_empleado:res.locals.user.empleado.id
+              }).then(newestudios=>{
+                modelos.Empleado_Idioma.create({
+                  lee:lecturaesp,
+                  escribe:escrituraesp,
+                  habla:hablaesp,
+                  id_empleado:res.locals.user.empleado.id,
+                  id_idioma:1
+                }).then(newidioma1=>{
+                  modelos.Empleado_Idioma.create({
+                    lee:lecturaing,
+                    escribe:escrituraing,
+                    habla:hablaing,
+                    id_empleado:res.locals.user.empleado.id,
+                    id_idioma:2
+                  }).then(newidioma2=>{
+                  modelos.Empleado_Idioma.create({
+                    otro:otro,
+                    lee:lecturaotro,
+                    escribe:escrituraotro,
+                    habla:hablaotro,
+                    id_empleado:res.locals.user.empleado.id,
+                    id_idioma:id_idioma
+                  }).then(newidioma3=>{
+                    modelos.Idioma.findAll({
+                      attributes: ['id', 'idioma']
+                      }).then(Idioma => {
+                      modelos.Empleado.findAll({where:{id:res.locals.user.empleado.id}}).then(newemp=>{
+                        modelos.Estudios.findAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newest=>{
+                          modelos.Empleado_Idioma.findAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newidioma=>{
+                            x="checked";
+                            res.render('ficha_personal/ficha2',{Idioma:Idioma,newemp:newemp,newest:newest,newidioma:newidioma,x:x,y:y,moment:moment});
+                          })
+                        })
+                      })
+                    });
+                  })
+                })
+              })
+            })
+            }
+            else{
+              modelos.Idioma.findAll({
+                attributes: ['id', 'idioma']
+                }).then(Idioma => {
+                modelos.Empleado.findAll({where:{id:res.locals.user.empleado.id}}).then(newemp=>{
+                  modelos.Estudios.findAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newest=>{
+                    modelos.Empleado_Idioma.findAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newidioma=>{
+                      if(newest[0].concluida==true){x="checked";}
+                      else{y="checked";}
+                      res.render('ficha_personal/ficha2',{Idioma:Idioma,newemp:newemp,newest:newest,newidioma:newidioma,x:x,y:y,moment:moment});
+                    })
+                  })
+                })
+              });
+            }
+          })
+  })
+})
     
 
 module.exports = router;

@@ -33,292 +33,298 @@
                     <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
                       <div class="container">
                       <h1 class="card-title">Datos laborales I </h1>
-
-                                        <div class="row">
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <input name="id_empleado" type="hidden" class="form-control" value="<%=id%>">
-                                        <label for="name">Numero Nit</label>
-                                        <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit" onkeypress="return valida(event)" minlength="2">
-                                        </div>
-                                        </div>
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <label for="designation">Nombre AFP</label>
-                                        <input name="afp" type="text" class="form-control" id="afp" placeholder="Nombre AFP" minlength="2">
-                                        </div>
-                                        </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                        <div class="col">
-                                        <div class="form-group">
-                                          <label for="seguro_medico">Nombre Seguro Medico</label>
-                                          <input name="seguro_medico" type="text" class="form-control" id="seguro_medico" placeholder="Seguro Medico" minlength="2">
-                                        </div>
-                                        </div>
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <label for="nro_seguro">Numero de Seguro</label>
-                                        <input name="nro_seguro" class="form-control" id="num_seguro" placeholder="Numero Seguro medico" onkeypress="return valida(event)" minlength="2">
-                                        </div>
-                                        </div>
-                                        </div>
-
-
-                                                <div class="row">
-                                                <div class="col">
-                                                <div class="form-group">
-                                                <label for="tipo_seguro">Tipo de Seguro</label>
-                                                <select name="tipo_seguro" class="form-control" style="width:100%">
-                                                <option value="Privado">Privado</option>
-                                                <option value="Publico">Publico</option>
-                                                </select>
-                                                </div>
-                                                </div>
-                                                <div class="col">
-                                                <div class="form-group">
-                                                  <label for="name">Numero Unico de Afiliado NUA o CUA</label>
-                                                  <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado" onkeypress="return valida(event)" minlength="2">
-                                                </div>
-                                                </div>
-                                                </div>
-
-
-                                                <div class="row">
-                                                        <div class="col">
-                                                        <div class="form-group">
-                                                          <label for="ren">Numero REN (exclusivo caso rentista)</label>
-                                                          <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN" onkeypress="return valida(event)" minlength="2">
-                                                        </div>
-                                                        </div>
-                                                        <div class="col">
-                                                        <div class="form-group">
-                                                          <label for="anios_calificados">Numero de Años Calificados</label>
-                                                          <input name="anios_calificados" type="text" class="form-control" id="anios_calificados" placeholder="Años Calificados" onkeypress="return valida(event)" required>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-
-                              
-
-                              <br><br><br><br><br><br><br><br><br>
-                        
-                        </div>>
-                        </div>
-                    <!-- tab identificacion personal ends -->
-                    <!-- tab datospersonales1 -->
-
-                    <div class="tab-pane fade" id="datospersonales1" role="tabpanel" aria-labelledby="dropdown1-tab">
-                      <div class="container">
-                      <h1 class="card-title">Datos Laborales II</h1>
-
-
-                      <div class="row">
-                            <div class="col">
-                            <div class="form-group">
-                            <label for="nro_declar_jurada">N° de Declaracion Jurada</label>
-                            <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada" onkeypress="return valida(event)" required>
-                          </div>
-                          </div>
-                          <div class="col">
-                          <div class="form-group">
-                            <label for="nro_cuenta">N° de Cuenta Bancaria</label>
-                            <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria" onkeypress="return valida(event)" minlength="8">
-                          </div>
-                          </div>
-                          </div>
+                        <!-- tab datospersonales1 ends -->
 
 
                           <div class="row">
-                          <div class="col">
-                          <div class="form-group">
-                            <label for="name">Nombre del Banco</label>
-                            <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco" minlength="2">
-                          </div>
-                          </div>
-                          <div class="col">
-                          <div class="form-group">
-                            <label for="name">Tipo de Cuenta</label>
-                            <select name="tipo_cuenta" class="form-control" style="width:100%">
-                                    <option value="CCMN">Cuenta Corriente M/N</option>
-                                    <option value="CCME">Cuenta Corriente M/E</option>
-                                    <option value="CAMN">Caja de Ahorros M/N</option>
-                                    <option value="CAME">Caja de Ahorros M/E</option>
-                                    </select>
-                          </div>
-                          </div>
-                          </div>
+                            <div class="col">
+                            <div class="form-group">
+                            <label for="name">Numero Nit</label>
+                            <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nit%>">
+                            </div>
+                            </div>
+                            <div class="col">
+                            <div class="form-group">
+                            <label for="designation">Nombre AFP</label>
+                            <input name="afp" type="text" class="form-control" id="afp" placeholder="Nombre AFP" minlength="2" value="<%=newemp[0].afp%>">
+                            </div>
+                            </div>
+                            </div>
 
-                          </div>
-                          </div>
-                        <!-- tab datospersonales1 ends -->
+
+                            <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                              <label for="seguro_medico">Nombre Seguro Medico</label>
+                              <input name="seguro_medico" type="text" class="form-control" id="seguro_medico" placeholder="Seguro Medico" minlength="2" value="<%=newemp[0].seguro_medico%>">
+                            </div>
+                            </div>
+                            <div class="col">
+                            <div class="form-group">
+                            <label for="nro_seguro">Numero de Seguro</label>
+                            <input name="nro_seguro" class="form-control" id="num_seguro" placeholder="Numero Seguro medico" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nro_seguro%>">
+                            </div>
+                            </div>
+                            </div>
+
+
+                                    <div class="row">
+                                    <div class="col">
+                                    <div class="form-group">
+                                    <label for="tipo_seguro">Tipo de Seguro</label>
+                                    <select name="tipo_seguro" class="form-control" style="width:100%">
+                                      <option value="<%=newemp[0].tipo_seguro%>"><%=newemp[0].tipo_seguro%></option>>
+                                    <option value="Privado">Privado</option>
+                                    <option value="Publico">Publico</option>
+                                    </select>
+                                    </div>
+                                    </div>
+                                    <div class="col">
+                                    <div class="form-group">
+                                      <label for="name">Numero Unico de Afiliado NUA o CUA</label>
+                                      <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nua%>">
+                                    </div>
+                                    </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                            <div class="col">
+                                            <div class="form-group">
+                                              <label for="ren">Numero REN (exclusivo caso rentista)</label>
+                                              <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].ren%>">
+                                            </div>
+                                            </div>
+                                            <div class="col">
+                                            <div class="form-group">
+                                              <label for="anios_calificados">Numero de Años Calificados</label>
+                                              <input name="anios_calificados" type="text" class="form-control" id="anios_calificados" placeholder="Años Calificados" onkeypress="return valida(event)" value="<%=newemp[0].anios_calificados%>">
+                                            </div>
+                                            </div>
+                                            </div>
+
+                  
+
+                  <br><br><br><br><br><br><br><br><br>
+            
+            </div>
+            </div>
+        <!-- tab identificacion personal ends -->
+        <!-- tab datospersonales1 -->
+
+        <div class="tab-pane fade" id="datospersonales1" role="tabpanel" aria-labelledby="dropdown1-tab">
+          <div class="container">
+          <h1 class="card-title">Datos Laborales II</h1>
+
+
+          <div class="row">
+                <div class="col">
+                <div class="form-group">
+                <label for="nro_declar_jurada">N° de Declaracion Jurada</label>
+                <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada" onkeypress="return valida(event)" value="<%=newemp[0].nro_declar_jurada%>">
+              </div>
+              </div>
+              <div class="col">
+              <div class="form-group">
+                <label for="nro_cuenta">N° de Cuenta Bancaria</label>
+                <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria" onkeypress="return valida(event)" value="<%=newemp[0].nro_cuenta%>">
+              </div>
+              </div>
+              </div>
+
+
+              <div class="row">
+              <div class="col">
+              <div class="form-group">
+                <label for="name">Nombre del Banco</label>
+                <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco" minlength="2" value="<%=newemp[0].banco%>">
+              </div>
+              </div>
+              <div class="col">
+              <div class="form-group">
+                <label for="name">Tipo de Cuenta</label>
+                <select name="tipo_cuenta" class="form-control" style="width:100%">
+                  <option value="<%=newemp[0].tipo_cuenta%>"><%=newemp[0].tipo_cuenta%></option>
+                        <option value="CCMN">Cuenta Corriente M/N</option>
+                        <option value="CCME">Cuenta Corriente M/E</option>
+                        <option value="CAMN">Caja de Ahorros M/N</option>
+                        <option value="CAME">Caja de Ahorros M/E</option>
+                        </select>
+              </div>
+              </div>
+              </div>
+
+              </div>
+              </div>
+            <!-- tab datospersonales1 ends -->
                         <!-- tab datospersonales2 -->
 
                         <div class="tab-pane fade" id="datospersonales2" role="tabpanel" aria-labelledby="dropdown1-tab">
                             <div class="container">
                         <h1 class="card-title">Estudios</h1>
-
-
-                        <div class="row">
-                                <div class="col">
-                                <div class="form-group">
-                                  <label for="nivel">Nivel de Formacion</label>
-                                  <select name="nivel" class="form-control" style="width:100%">
-                                        <option value="Bachiller">Bachillerato</option>
-                                        <option value="Licenciatura">Licenciatura</option>
-                                        <option value="Maestria">Maestria</option>
-                                        <option value="Doctorado">Doctorado</option>
-                                        <option value="Otro">Otro</option>
-                                        </select>
-                                        <label for="especificacion">Especificacion</label>
-                                        <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion" minlength="2" required>
-                                </div>
-                                </div>
-                                <div class="col">
-                                <div class="form-group">
-                                  <label for="titulo">Titulo Obtenido</label>
-                                  <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido" minlength="2">
-                                </div>
-                                </div>
-                                </div>
-    
-    
-                                <div class="row">
-                                <div class="col">
-                                <div class="form-group">
-                                  <label for="carrera">Carrera</label>
-                                  <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera" minlength="2">
-                                </div>
-                                </div>
-                                <div class="col"><div class="form-group">
-                                  <label for="institucion">Institucion</label>
-                                  <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion" minlength="2">
-                                </div>
-                                </div>
-                                </div>
-    
-                                <div class="row">
-                                <div class="col-6">
-                                <div class="form-group">
-                                <label for="concluida">Concluida?</label>
-                                  <div class="form-radio">
-                                        <label class="form-check-label">
-                                          <input name="conluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="si" checked>
-                                          SI
-                                        </label>
-                                    </div>
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                          <input name="concluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="no">
-                                          NO
-                                        </label>
-                                    </div>
-                                </div>
-                                </div>
-                                </div>
-    
-    
-                                <div class="row">
-                                <div class="col">
-                                <div class="form-group">
-                                <label for="ciudad">Ciudad</label>
-                                <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad" minlength="2" required>
-                                </div>
-                                </div>
-                                <div class="col">
-                                <div class="form-group">
-                                <label for="pais">Pais</label>
-                                <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais" minlength="2" required>
-                                </div>
-                                </div>
-                                </div>
-    
-                                <div class="row">
-                                <div class="col-4">
-                                <div class="form-group">
-                                <label for="anios_vencidos">Años Concluidos</label>
-                                <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin" required>
-                                </div>
-                                </div>
-                                <div class="col-4">
-                                <div class="form-group">
-                                <label for="fecha_inicio">Fecha Inicio</label>
-                                <div class="input-group date datepicker b-l-blue">
-                                    <input name="fecha_inicio" type="text" class="form-control" required>
-                                    <div class="input-group-addon">
-                                      <span class="mdi mdi-calendar-blank"></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                </div>
-                                <div class="col-4">
-                                <div class="form-group">
-                                <label for="fecha_fin">Fecha Fin</label>
-                                <div class="input-group date datepicker b-l-blue">
-                                    <input name="fecha_fin" type="text" class="form-control" required>
-                                    <div class="input-group-addon">
-                                      <span class="mdi mdi-calendar-blank"></span>
-                                    </div>
-                                  </div>
-                                </div>
-                                </div>
-                                </div>
-    
-                                <div class="row">
-                                <div class="col">
-                                <div class="form-group">
-                                <label for="col_profesional">Colegio Profesional</label>
-                                <input name="col_profesional" type="text" class="form-control" id="col_profesional" placeholder="Codigo Profesional" minlength="2">
-                                </div>
-                                </div>
-                                <div class="col">
-                                <div class="form-group">
-                                <label for="nro_registro_pro">N° Registro Profesional</label>
-                                <input name="nro_registro_pro" name="address" id="nro_registro_pro" rows="6" class="form-control" placeholder="N° Registro Profesional" minlength="2" onkeypress="return valida(event)">
-                                </div>
-                                </div>
-                                </div>
-
-
-                                            <div class="row">
-                                            <div class="col">
-                                            <div class="form-group">
-                                            <label for="address">Conocimientos</label>
-                                            <table border="0" class="table">
-                                                <tr>
-                                                    <th>IDIOMA</th>
-                                                    <th>LEE 1-100%</th>
-                                                    <th>ESCRIBE</th>
-                                                    <th>HABLA</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>Español</td>
-                                                    <td><input name="lecturaesp" id="leeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                    <td><input name="escrituraesp" id="escribeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                    <td><input name="hablaesp" id="hablaesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                </tr>
-                                                <tr>
-                                                        <td>Ingles</td>
-                                                        <td><input name="lecturaing" id="leeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                        <td><input name="escrituraing" id="escribeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                        <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                </tr>
-                                                <tr>
-                                                  <td><select name="otro" class="form-control" id="idioma" name="idioma">
-                                                          <% for(var i=2; i< Idioma.length; i++) { %>
-                                                               <option value="<%= Idioma[i].id %>"><%= Idioma[i].idioma %></option>
-                                                           <% } %>
-                                                      </select></td>
-                                                        <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                        <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                        <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"></td>
-                                                </tr>
-                                                </table>
+                       
+                                  <div class="row">
+                                          <div class="col">
+                                          <div class="form-group">
+                                            <label for="nivel">Nivel de Formacion</label>
+                                            <select name="nivel" class="form-control" style="width:100%">
+                                              <option value="<%=newest[0].nivel%>"><%=newest[0].nivel%></option>
+                                                  <option value="Bachiller">Bachillerato</option>
+                                                  <option value="Licenciatura">Licenciatura</option>
+                                                  <option value="Maestria">Maestria</option>
+                                                  <option value="Doctorado">Doctorado</option>
+                                                  <option value="Otro">Otro</option>
+                                                  </select>
+                                                  <label for="especificacion">Especificacion</label>
+                                                  <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion" minlength="2" value="<%=newest[0].especificacion%>">
+                                          </div>
+                                          </div>
+                                          <div class="col">
+                                          <div class="form-group">
+                                            <label for="titulo">Titulo Obtenido</label>
+                                            <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido" minlength="2" value="<%=newest[0].titulo%>">
+                                          </div>
+                                          </div>
+                                          </div>
+              
+              
+                                          <div class="row">
+                                          <div class="col">
+                                          <div class="form-group">
+                                            <label for="carrera">Carrera</label>
+                                            <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera" minlength="2" value="<%=newest[0].carrera%>">
+                                          </div>
+                                          </div>
+                                          <div class="col"><div class="form-group">
+                                            <label for="institucion">Institucion</label>
+                                            <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion" minlength="2" value="<%=newest[0].institucion%>">
+                                          </div>
+                                          </div>
+                                          </div>
+              
+                                          <div class="row">
+                                          <div class="col-6">
+                                          <div class="form-group">
+                                          <label for="concluida">Concluida?</label>
+                                            <div class="form-radio">
+                                                  <label class="form-check-label">
+                                                    <input name="conluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="true" <%=x%>>
+                                                    SI
+                                                  </label>
+                                              </div>
+                                              <div class="form-radio">
+                                                  <label class="form-check-label">
+                                                    <input name="concluida" type="radio" class="form-check-input" name="optionsRadios" id="concluida" value="false" <%=y%>>
+                                                    NO
+                                                  </label>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          </div>
+              
+              
+                                          <div class="row">
+                                          <div class="col">
+                                          <div class="form-group">
+                                          <label for="ciudad">Ciudad</label>
+                                          <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad" minlength="2" value="<%=newest[0].ciudad%>">
+                                          </div>
+                                          </div>
+                                          <div class="col">
+                                          <div class="form-group">
+                                          <label for="pais">Pais</label>
+                                          <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais" minlength="2" value="<%=newest[0].pais%>">
+                                          </div>
+                                          </div>
+                                          </div>
+              
+                                          <div class="row">
+                                          <div class="col-4">
+                                          <div class="form-group">
+                                          <label for="anios_vencidos">Años Concluidos</label>
+                                          <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin" value="<%=newest[0].anios_vencidos%>">
+                                          </div>
+                                          </div>
+                                          <div class="col-4">
+                                          <div class="form-group">
+                                          <label for="fecha_inicio">Fecha Inicio</label>
+                                          <div class="input-group date datepicker b-l-blue">
+                                              <input name="fecha_inicio" type="text" class="form-control" value="<%=moment(newest[0].fecha_inicio).format('YYYY/MM/DD')%>">
+                                              <div class="input-group-addon">
+                                                <span class="mdi mdi-calendar-blank"></span>
+                                              </div>
                                             </div>
+                                          </div>
+                                          </div>
+                                          <div class="col-4">
+                                          <div class="form-group">
+                                          <label for="fecha_fin">Fecha Fin</label>
+                                          <div class="input-group date datepicker b-l-blue">
+                                              <input name="fecha_fin" type="text" class="form-control" value="<%=moment(newest[0].fecha_fin).format('YYYY/MM/DD')%>">
+                                              <div class="input-group-addon">
+                                                <span class="mdi mdi-calendar-blank"></span>
+                                              </div>
                                             </div>
-                                            </div>
+                                          </div>
+                                          </div>
+                                          </div>
+              
+                                          <div class="row">
+                                          <div class="col">
+                                          <div class="form-group">
+                                          <label for="col_profesional">Colegio Profesional</label>
+                                          <input name="col_profesional" type="text" class="form-control" id="col_profesional" placeholder="Codigo Profesional" minlength="2" value="<%=newest[0].colegio_prof%>">
+                                          </div>
+                                          </div>
+                                          <div class="col">
+                                          <div class="form-group">
+                                          <label for="nro_registro_pro">N° Registro Profesional</label>
+                                          <input name="nro_registro_pro" id="nro_registro_pro" rows="6" class="form-control" placeholder="N° Registro Profesional" minlength="2" onkeypress="return valida(event)" value="<%=newest[0].nro_registro_prof%>">
+                                          </div>
+                                          </div>
+                                          </div>
+          
+                                  
+
+                                              <div class="row">
+                                                  <div class="col">
+                                                  <div class="form-group">
+                                                  <label for="address">Conocimientos</label>
+                                                  <table border="0" class="table">
+                                                      <tr>
+                                                          <th>IDIOMA</th>
+                                                          <th>LEE 1-100%</th>
+                                                          <th>ESCRIBE</th>
+                                                          <th>HABLA</th>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>Español</td>
+                                                          <td><input name="lecturaesp" id="leeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[1].lee%>"></td>
+                                                          <td><input name="escrituraesp" id="escribeesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[1].escribe%>"></td>
+                                                          <td><input name="hablaesp" id="hablaesp" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[1].habla%>"></td>
+                                                      </tr>
+                                                      <tr>
+                                                              <td>Ingles</td>
+                                                              <td><input name="lecturaing" id="leeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[2].lee%>"></td>
+                                                              <td><input name="escrituraing" id="escribeing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[2].escribe%>"></td>
+                                                              <td><input name="hablaing" id="hablaing" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[2].habla%>"></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td><select name="otro" class="form-control" id="idioma" name="idioma">
+
+                                                                <% for(var i=2; i< newidioma.length; i++) { %>
+                                                                     <option value="<%= newidioma[i].id %>"><%= newidioma[i].idioma %></option>
+                                                                 <% } %>
+                                                            </select></td>
+                                                              <td><input name="lecturaotro" id="leeaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)"value="<%=newidioma[0].lee%>"></td>
+                                                              <td><input name="escrituraotro" id="escribeotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[0].escribe%>"></td>
+                                                              <td><input name="hablaotro" id="hablaotro" rows="6" class="form-control" placeholder="%" onkeypress="return valida(event)" value="<%=newidioma[0].habla%>"></td>
+                                                      </tr>
+                                                      </table>
+                                                  </div>
+                                                  </div>
+                                                  </div>
+                                              
                                             
 
                                 <div class="row">
@@ -334,7 +340,8 @@
               </div>
               </fieldset>
                   </form>
-            </div>
+
+                </div>
           </div>
       </div>
       </div>
