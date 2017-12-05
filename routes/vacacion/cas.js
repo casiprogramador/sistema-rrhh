@@ -18,8 +18,14 @@ router.get('/buscar', md_auth.ensureAuth, function(req, res, next) {
         },
         include: ['cas'],
     }).then(empleado => {
-        console.log(JSON.stringify(empleado));
-        res.render('vacacion/historico_cas',{ empleado: empleado });
+        if(empleado != null){
+            console.log(JSON.stringify(empleado));
+            res.render('vacacion/historico_cas',{ empleado: empleado });
+        }else{
+            res.redirect('/vacacion/cas');
+        }
+        
+        
     });
     
 });
