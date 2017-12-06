@@ -22,6 +22,9 @@ var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
 var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
+var feriado = require('./routes/parametro/feriado');
+
+
 
 var consultamarcado = require('./routes/formulario/consultamarcado');
 
@@ -89,6 +92,7 @@ app.use((req, res, next)=>{
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error_msg1 = req.flash('error_msg1');
   res.locals.error_msg2 = req.flash('error_msg2');
+  res.locals.error_msg3 = req.flash('error_msg3');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   
@@ -135,6 +139,7 @@ app.use('/vacacion/saldo',vacacion_saldo);
 app.use('/vacacion/prescripcion',vacacion_prescripcion);
 app.use('/boleta',boleta);
 app.use('/boleta/listadoboleta',listadoboleta);
+app.use('/feriado',feriado);
 
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
@@ -149,6 +154,7 @@ app.use('/ficha_personal',ficha_personal_experiencia);
 app.use('/ficha_personal',ficha_personal_referencias);
 app.use('/ficha_personal',ficha_personal_reporte);
 app.use('/ficha_personal',ficha_personal_inicio);
+
 //CAS
 app.use('/vacacion/cas',lista_cas);
 

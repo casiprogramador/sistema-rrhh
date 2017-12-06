@@ -1,0 +1,43 @@
+<style>
+  @media print { 
+    .print-ignore{ display: none !important; } 
+  }
+</style>
+
+<img src="/images/logomdpyep.png" alt="icono logo" width="15%">
+
+<head>
+  <h3><center>Formulario</center></h3>
+  <h3><center><%= boleta[0].tipo_boleta %></center></h3>
+  <hr align="left" size="4" width="1830" color="black" />
+</head>
+
+  <table  WIDTH="120%" ><tr><td><h4><u>Datos Personales</u></h4></td><td><b>Codigo:  </b><%= boleta_insertada.id %> </td> </tr></table>
+</br>
+  <table WIDTH="80%"><tr><td><b>N°.C.I.:  </b><%= boleta[0].ndi%></td><td><b>Nombres y Apellidos:  </b><%= boleta[0].paterno%> <%= boleta[0].materno%> <%= boleta[0].nombres %></td></tr></table> 
+</br>
+  <b>Cargo:  </b><%= boleta[0].cargo %>
+</br>
+</br>
+  <b>Area:  </b><%= boleta[0].desc_area %>
+</br>
+  <hr align="left" size="4" width="1830" color="black" />
+  <b>Desde Fecha y Hora:  </b><%=variable1 %> 
+  <table WIDTH="80%"><tr><td><b>Hasta Fecha y Hora:  </b><%= variable2%> </td><td><b>Tiempo Solicitado:</b><%= boleta_insertada.dias%> días</td></tr></table>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<table WIDTH="90%"><center><tr><td><center>________________</center></td><td><center>___________________</center></td><td><center>__________________</center></td></tr></center></table>
+<table WIDTH="90%"><tr><td><center>Firma Solicitante</center></td><td><center>Firma Autorizada 1</center></td><td><center>Firma Autorizada 2</center></td></tr></table>
+
+  <hr align="left" size="4" width="1830" color="black" />
+  <small>Estado: <%= boleta_insertada.estado %> al <%=variable1 %> - Acción realizada por el Usuario : </small>
+  <div class="col-sm" text-center>
+      <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Imprimir</button>
+      <button type="button" class="btn btn-primary print-ignore nav-link" onClick="window.location = '/home'">Volver</button>
+      
+    </div>
