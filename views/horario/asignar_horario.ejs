@@ -1,0 +1,69 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="content-wrapper">
+  <h1 class="page-title">Asignar Horario</h1>
+  <div class="row grid-margin">
+      
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+            <%if (error_msg.length > 0 ) { %>
+                <div class="alert alert-warning text-center" role="alert">
+                  <%= error_msg %>
+                </div>
+              <% } %>
+           <%if (error_msg1.length > 0 ) { %>
+            <div class="alert alert-warning text-center" role="alert">
+                <%= error_msg1 %>
+            </div>
+            <% } %>
+            <%if (error_msg2.length > 0 ) { %>
+                <div class="alert alert-warning text-center" role="alert">
+                    <%= error_msg2 %>
+                </div>
+                <% } %>
+
+        <form method="post" action="/boleta/reporte">
+
+            <div class="card col-lg-12 col-lg-2   ">
+                <div class="card-body col-10 col-2">
+                    <div>
+                                        
+                     <div class="form-group row">
+                           <label for="calculo_dias" class="col-sm-2 col-form-label">Nombre:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="calculo_dias" class="col-sm-2 col-form-label">Area:</label>
+                                     <div class="col-sm-5">
+                                         <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                     </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="calculo_dias" class="col-sm-2 col-form-label">Cargo:</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                    </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="area" class="col-sm-2 col-form-label">Horario:</label>
+                                  <div class="col-sm-5">
+                                <select class="form-control" name="estado" id="estado" >
+                                    <option value="Discontinuo">Discontinuo</option>
+                                    <option value="Continuo">Continuo</option>
+                                    <option value="Lactancia">Lactancia</option>
+                                    <option value="Partido">Partido</option>
+                                </select>
+                            </div>
+                        </div>
+                   
+                    </div>
+                </div>
+                <div class="card-body btn-demo text-center">
+                    <input class="btn btn-primary" type="submit" value="Grabar">
+                </div>
+            </div>
+        </form>
+   </div>
+</div>
+</div>

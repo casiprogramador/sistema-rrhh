@@ -20,8 +20,15 @@ var vacacion_saldo = require('./routes/vacacion/saldo');
 var vacacion_prescripcion = require('./routes/vacacion/prescripcion');
 var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
+//Boletas
 var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
+//Horarios
+var lista_horario = require('./routes/horario/lista_horario');
+var nuevo_horario = require('./routes/horario/nuevo_horario');
+var lista_asignacion_horario = require('./routes/horario/lista_asignacion_horario');
+var asignar_horario = require('./routes/horario/asignar_horario');
+//Feriado
 var feriado = require('./routes/parametro/feriado');
 
 
@@ -137,8 +144,17 @@ app.use('/area', area);
 app.use('/empleado', empleado);
 app.use('/vacacion/saldo',vacacion_saldo);
 app.use('/vacacion/prescripcion',vacacion_prescripcion);
+//Boletas
 app.use('/boleta',boleta);
 app.use('/boleta/listadoboleta',listadoboleta);
+//Horarios
+
+app.use('/horario/lista_horario',lista_horario);
+app.use('/horario/nuevo_horario',nuevo_horario);
+app.use('/horario/lista_asignacion_horario',lista_asignacion_horario);
+app.use('/horario/asignar_horario',asignar_horario);
+
+//Feriado
 app.use('/feriado',feriado);
 
 app.use('/administrar/boleta',administrar_boleta);
