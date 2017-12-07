@@ -1,14 +1,23 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Horario = sequelize.define('Horario', {
-    ingreso: DataTypes.STRING,
-    ingreso_maximo: DataTypes.STRING,
-    ingreso_minimo: DataTypes.STRING,
-    ingreso_tolerancia: DataTypes.STRING,
-    salida: DataTypes.STRING,
-    salida_maxima: DataTypes.STRING,
-    salida_minima: DataTypes.STRING,
-    salida_tolerancia: DataTypes.STRING
+    descripcion: DataTypes.STRING,
+    min_entrada_1: DataTypes.TIME,
+    max_entrada_1: DataTypes.TIME,
+    entrada_1: DataTypes.TIME,
+    tolerancia_entrada_1: DataTypes.INTEGER,
+    min_salida_1: DataTypes.TIME,
+    max_salida_1: DataTypes.TIME,
+    salida_1: DataTypes.TIME,
+    tolerancia_salida_1: DataTypes.INTEGER,
+    min_entrada_2: DataTypes.TIME,
+    max_entrada_2: DataTypes.TIME,
+    entrada_2: DataTypes.TIME,
+    tolerancia_entrada_2: DataTypes.INTEGER,
+    min_salida_2: DataTypes.TIME,
+    max_salida_2: DataTypes.TIME,
+    salida_2: DataTypes.TIME,
+    tolerancia_salida_2: DataTypes.INTEGER,
   }, {
     classMethods: {
       associate: function(models) {
