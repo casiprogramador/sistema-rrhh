@@ -30,4 +30,16 @@ router.get('/buscar', md_auth.ensureAuth, function(req, res, next) {
     
 });
 
+router.post('/guardar', md_auth.ensureAuth, function(req, res, next) {
+    
+        modelos.Empleado.create({ 
+            title: 'foo', 
+            description: 'bar', 
+            deadline: 
+            new Date() }).then(task => {
+
+          })
+        
+    });
+
 module.exports = router;

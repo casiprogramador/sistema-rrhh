@@ -65,10 +65,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: 'clavesecreta',
-  resave: false,
-  rolling: true, 
-  cookie: { maxAge: 30000 }
-  
+  resave: true,
+  saveUninitialized: true
 }));
 
 //upload
