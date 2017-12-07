@@ -1,0 +1,172 @@
+<% layout('/layouts/admin') -%>
+
+
+<!-- partial -->
+<div class="content-wrapper">
+       <h1 class="page-title text-center">Asignar Horarios</h1>
+
+       <div class="row grid-margin">
+
+          <div class="col-lg-12 grid-margin grid-margin-lg-0">
+              <%if (error_msg.length > 0 ) { %>
+                  <div class="alert alert-warning text-center" role="alert">
+                    <%= error_msg %>
+                  </div>
+                <% } %>
+          </div>
+        </div>
+         <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
+           <div class="card">
+             <div class="card-body">
+
+                <%if (success_msg.length > 0 ) { %>
+                  
+                                          <div class="row">
+                                                  <div class="col align-self-center">
+                                                      <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                                          <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                              </button>
+                                                      </div>
+                                                  </div>
+                          
+                                              </div>
+                                      <% } %>
+               <form  method="post" action="/horario/lista_horario/nuevo">
+          
+                        
+              
+                        <div class="col-md-12 text-center"> 
+                          <button type="submit" class="btn btn-primary">Nuevo Horario</button>
+                        </div>
+                      </form>
+                        
+                      <form  method="post" action="/horario/lista_horario/editar">
+                        
+                      <div class="form-group row" id="panel-boletas">
+                          <div class="col-12">
+                                    <table id="table-horarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                      <thead>
+                                        <tr>
+                                            <th>Descripcion</th>
+                                            <th>Entrada 1er periodo</th>
+                                            <th>Salida 1er periodo</th>
+                                            <th>Entrada 2er periodo</th>
+                                            <th>Salida 2er periodo</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          <% for(var i=0; i< boletas.length; i++) { %>
+                                        <tr>
+                                            <td><%= boletas[i].empleado.nombres%> <%= boletas[i].empleado.paterno%> <%= boletas[i].empleado.materno%></td>
+                                            <td><%= boletas[i].tipoboleta.tipo_boleta %></td>
+                                            <td data-order="<%= moment(boletas[i].fecha_solicitud).format( 'YYYY-MM-DD') %>"><%= moment(boletas[i].fecha_solicitud).format( 'DD/MM/YYYY') %> </td>
+                                            <td data-order="<%= moment(boletas[i].fecha_solicitud).format( 'YYYY-MM-DD') %>"><%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY, h:mm a') %> </td>
+                                            <td data-order="<%= moment(boletas[i].fecha_solicitud).format( 'YYYY-MM-DD') %>"><%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY, h:mm a') %> </td>
+                                            <td>
+                                                <% if(boletas[i].estado == 'Pendiente') { %>
+                                                  <span class="badge badge-warning"><%= boletas[i].estado %></span>
+                                                <% } %>
+                                                <% if(boletas[i].estado == 'Aprobado') { %>
+                                                  <span class="badge badge-success"><%= boletas[i].estado %></span>
+                                                <% } %>
+                                                <% if(boletas[i].estado == 'Anulado') { %>
+                                                  <span class="badge badge-danger"><%= boletas[i].estado %></span>
+                                                <% } %>
+                                              
+                                            </td>
+                                            <td class="text-center">
+                                                    <button class="btn btn-outline-primary" type="submit" >Editar</button>
+                                              </td>
+                                            
+                                        </tr>
+                                        <% } %>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                  </div>
+                </form>
+             </div>
+           </div>
+         </div>
+
+</div>
+    <!--default modal-->
+    <div class="modal fade" id="opcionesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                  <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Boleta</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <h2>Datos Empleado</h2>
+                          <form class="forms-sample" id="form-aprobar-boleta" method="post" action="/administrar/boleta/estado">
+                                  <div class="form-group row">
+                                      <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Nombre:</label>
+                                      <div class="col-sm-8">
+                                        <input class="form-control p-input" value="MARCELO PABLO CHOQUE" disabled id="modal-empleado-nombre">
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                          <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Boleta:</label>
+                                          <div class="col-sm-8">
+                                            <input class="form-control p-input" value="BOLETA EJEMPLO" disabled id="modal-empleado-boleta">
+                                          </div>
+                                      </div>
+                                      <div class="form-group row">
+                                              <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Fechas:</label>
+                                              <div class="col-sm-8">
+                                                <input class="form-control p-input" value="10/10/2017 AL 11/20/2018" disabled id="modal-empleado-fecha">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Dias:</label>
+                                            <div class="col-sm-8">
+                                              <input class="form-control p-input" value="5.5 dias" readonly name="dias_vacacion" id="modal-empleado-dias">
+                                            </div>
+                                        </div>
+                                          <div class="form-group">
+                                                  <h2 class="card-title text-center">Aprobar o Anular boleta</h2>
+                                                  <div class="row justify-content-md-center">
+                                                  <div class="col col-lg-8" id="modal-check-vacacion">
+
+                                                          <div class="form-group">
+                                                              <div class="form-radio">
+                                                                  <label class="form-check-label">
+                                                                    <input type="radio" class="form-check-input" name="estado_boleta" value="Aprobado" checked>
+                                                                    APROBAR BOLETA
+                                                                  <i class="input-helper"></i></label>
+                                                              </div>
+                                                              <div class="form-radio">
+                                                                  <label class="form-check-label">
+                                                                    <input type="radio" class="form-check-input" name="estado_boleta" value="Anulado">
+                                                                    ANULAR BOLETA
+                                                                  <i class="input-helper"></i></label>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label for="Observacion">Observaciones:</label>
+                                                                  <textarea class="form-control p-input" id="text-observacion" rows="4" name="observacion" placeholder="Escriba las razones de la anulacion u observaciones de la aprobacion"></textarea>
+                                                              </div>
+                                                              <input type="hidden" id="input-id-boleta" name="id_boleta" value="0">
+                                                              <input type="hidden" id="input-id-empleado" name="id_empleado" value="0">
+
+                                                          </div>
+
+
+                                                  </div>
+                                              </div>
+                              </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary" id="button-boleta">Aceptar</button>
+                      </div>
+          </div>
+      </div>
+  </div>
