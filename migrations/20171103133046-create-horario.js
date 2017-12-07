@@ -8,30 +8,58 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ingreso: {
+      descricion: {
         type: Sequelize.STRING
       },
-      ingreso_maximo: {
+      min_entrada_1: {
+        type: Sequelize.TIME
+      },
+      max_entrada_1: {
+        type: Sequelize.TIME
+      },
+      entrada_1: {
+        type: Sequelize.TIME
+      },
+      tolerancia_entrada_1: {
+        type: Sequelize.INTEGER
+      },
+      min_salida_1: {
+        type: Sequelize.TIME
+      },
+      max_salida_1: {
+        type: Sequelize.TIME
+      },
+      salida_1: {
+        type: Sequelize.TIME
+      },
+      tolerancia_salida_1: {
+        type: Sequelize.INTEGER
+      },
+      min_entrada_2: {
+        type: Sequelize.TIME
+      },
+      max_entrada_2: {
+        type: Sequelize.TIME
+      },
+      entrada_2:{
+        type: Sequelize.TIME
+      },
+      tolerancia_entrada_2: {
+        type: Sequelize.INTEGER
+      }, 
+      min_salida_2: {
         type: Sequelize.STRING
       },
-      ingreso_minimo: {
+      max_salida_2: {
         type: Sequelize.STRING
       },
-      ingreso_tolerancia: {
+      salida_2: {
         type: Sequelize.STRING
       },
-      salida: {
+      tolerancia_salida_2: {
         type: Sequelize.STRING
       },
-      salida_maxima: {
-        type: Sequelize.STRING
-      },
-      salida_minima: {
-        type: Sequelize.STRING
-      },
-      salida_tolerancia: {
-        type: Sequelize.STRING
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
