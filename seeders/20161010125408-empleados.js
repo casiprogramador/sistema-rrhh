@@ -12,6 +12,7 @@ module.exports = {
             fecha_ingreso: '01-01-2015',
             sexo: 'H',
             id_usuario: 2,
+            id_horario: 1,
             estado: true,
             discapacidad: false,
             createdAt: new Date(),
