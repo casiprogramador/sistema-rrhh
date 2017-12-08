@@ -59,6 +59,10 @@ module.exports = {
       tolerancia_salida_2: {
         type: Sequelize.STRING
       },
+      estado: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
 
       createdAt: {
         allowNull: false,

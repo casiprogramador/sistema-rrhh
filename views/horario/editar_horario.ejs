@@ -21,7 +21,7 @@
                 </div>
                 <% } %>
 
-        <form method="post" action="/horario/nuevo_horario/grabar">
+        <form method="post" action="/horario/nuevo_horario/modificar">
 
             <div class="card col-lg-12 col-lg-2   ">
                 <div class="card-body col-10 col-2">
@@ -30,15 +30,22 @@
                      <div class="form-group row">
                            <label for="calculo_dias" class="col-sm-2 col-form-label">Descripcion:</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" placeholder="Ingrese la descripcion" required>
+                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" value="<%= horario[0].descricion %>" required>
                                 </div>
+                                <div class="form-check " >
+                                        <label class="form-check-label ">
+    
+                                          <input type="checkbox" class="form-check-input"  <%= (horario[0].estado) ? "checked" : " "  %> >
+                                          Estado
+                                        </label>
+                                    </div>
                         </div>
                         <h3 class="page-title">1° Periodo Entrada</h3>
                            <div class="form-group row">
                             <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Min Entrada:</label>
                             <div class="col-sm-4">
                                 <div class="input-group clockpicker b-l-blue">
-                                    <input type="text" class="form-control p-input col-lg-4" value="07:00"  name="min_entrada_1" id="min_entrada_1" required>
+                                    <input type="text" class="form-control p-input col-lg-4" value="07:00"  name="min_entrada_1" id="min_entrada_1" value="<%= horario[0].min_entrada_1 %>" required>
                                     <span class="input-group-addon">
                                         <i class="mdi mdi-clock"></i>
                                     </span>
@@ -47,7 +54,7 @@
                              <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Max Entrada:</label>
                             <div class="col-sm-4">
                                 <div class="input-group clockpicker b-l-blue">
-                                    <input type="text" class="form-control p-input col-lg-4" value="9:30"  name="max_entrada_1" id="max_entrada_1" required>
+                                    <input type="text" class="form-control p-input col-lg-4" value="9:30"  name="max_entrada_1" id="max_entrada_1"  value="<%= horario[0].max_entrada_1 %>"  required>
                                     <span class="input-group-addon">
                                         <i class="mdi mdi-clock"></i>
                                     </span>
@@ -59,7 +66,7 @@
                                 <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Entrada:</label>
                                 <div class="col-sm-4">
                                     <div class="input-group clockpicker b-l-blue">
-                                        <input type="text" class="form-control p-input col-lg-4" value="08:30"  name="entrada_1" id="entrada_1" required>
+                                        <input type="text" class="form-control p-input col-lg-4" value="08:30"  name="entrada_1" id="entrada_1"   value="<%= horario[0].entrada_1 %>"  required>
                                         <span class="input-group-addon">
                                             <i class="mdi mdi-clock"></i>
                                         </span>
@@ -67,7 +74,7 @@
                                 </div>
                                 <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Tolerancia:</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" class="form-control" name="tolerancia_1" id="tolerancia_1" placeholder="Minutos" required>
+                                    <input type="text" class="form-control" class="form-control" name="tolerancia_1" id="tolerancia_1" value="<%= horario[0].tolerancia_entrada_1 %>"  required>
                                 </div>
                                 
                             </div>
@@ -76,7 +83,7 @@
                             <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Min Entrada:</label>
                             <div class="col-sm-4">
                                 <div class="input-group clockpicker b-l-blue">
-                                    <input type="text" class="form-control p-input col-lg-4" value="12:30"  name="min_entrada_2" id="min_entrada_2" required>
+                                    <input type="text" class="form-control p-input col-lg-4" value="12:30"  name="min_entrada_2" id="min_entrada_2"  value="<%= horario[0].min_salida_1 %>"  required>
                                     <span class="input-group-addon">
                                         <i class="mdi mdi-clock"></i>
                                     </span>
@@ -85,7 +92,7 @@
                              <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Max Entrada:</label>
                             <div class="col-sm-4">
                                 <div class="input-group clockpicker b-l-blue">
-                                    <input type="text" class="form-control p-input col-lg-4" value="13:30"  name="max_entrada_2" id="max_entrada_2" required>
+                                    <input type="text" class="form-control p-input col-lg-4" value="13:30"  name="max_entrada_2" id="max_entrada_2"  value="<%= horario[0].max_salida_1 %>"  required>
                                     <span class="input-group-addon">
                                         <i class="mdi mdi-clock"></i>
                                     </span>
@@ -97,7 +104,7 @@
                                 <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Entrada:</label>
                                 <div class="col-sm-4">
                                     <div class="input-group clockpicker b-l-blue">
-                                        <input type="text" class="form-control p-input col-lg-4" value="12:30"  name="entrada_2" id="entrada_2" required>
+                                        <input type="text" class="form-control p-input col-lg-4" value="12:30"  name="entrada_2" id="entrada_2"  value="<%= horario[0].salida_1 %>"  required>
                                         <span class="input-group-addon">
                                             <i class="mdi mdi-clock"></i>
                                         </span>
@@ -105,7 +112,7 @@
                                 </div>
                                 <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Tolerancia:</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" class="form-control" name="tolerancia_2" id="tolerancia_2" placeholder="Minutos" required>
+                                    <input type="text" class="form-control" class="form-control" name="tolerancia_2" id="tolerancia_2" placeholder="Minutos"  value="<%= horario[0].tolerancia_salida_1 %>"  required>
                                 </div>
                                 
                             </div>
@@ -116,7 +123,7 @@
                              <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Min Entrada:</label>
                              <div class="col-sm-4">
                                  <div class="input-group clockpicker b-l-blue">
-                                     <input type="text" class="form-control p-input col-lg-4" value="13:31"  name="min_entrada_3" id="min_entrada_3" required>
+                                     <input type="text" class="form-control p-input col-lg-4" value="13:31"  name="min_entrada_3" id="min_entrada_3"  value="<%= horario[0].min_entrada_2 %>"  required>
                                      <span class="input-group-addon">
                                          <i class="mdi mdi-clock"></i>
                                      </span>
@@ -125,7 +132,7 @@
                               <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Max Entrada:</label>
                              <div class="col-sm-4">
                                  <div class="input-group clockpicker b-l-blue">
-                                     <input type="text" class="form-control p-input col-lg-4" value="15:00"  name="max_entrada_3" id="max_entrada_3" required>
+                                     <input type="text" class="form-control p-input col-lg-4" value="15:00"  name="max_entrada_3" id="max_entrada_3"  value="<%= horario[0].max_entrada_2 %>"  required>
                                      <span class="input-group-addon">
                                          <i class="mdi mdi-clock"></i>
                                      </span>
@@ -137,7 +144,7 @@
                                  <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Entrada:</label>
                                  <div class="col-sm-4">
                                      <div class="input-group clockpicker b-l-blue">
-                                         <input type="text" class="form-control p-input col-lg-4" value="14:30"  name="entrada_3" id="entrada_3" required>
+                                         <input type="text" class="form-control p-input col-lg-4" value="14:30"  name="entrada_3" id="entrada_3"   value="<%= horario[0].entrada_2 %>"  required>
                                          <span class="input-group-addon">
                                              <i class="mdi mdi-clock"></i>
                                          </span>
@@ -145,7 +152,7 @@
                                  </div>
                                  <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Tolerancia:</label>
                                  <div class="col-sm-2">
-                                     <input type="text" class="form-control" class="form-control" name="tolerancia_3" id="tolerancia_3" placeholder="Minutos" required>
+                                     <input type="text" class="form-control" class="form-control" name="tolerancia_3" id="tolerancia_3" placeholder="Minutos"  value="<%= horario[0].tolerancia_entrada_2 %>"  required>
                                  </div>
                                  
                              </div>
@@ -155,7 +162,7 @@
                               <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Min Entrada:</label>
                               <div class="col-sm-4">
                                   <div class="input-group clockpicker b-l-blue">
-                                      <input type="text" class="form-control p-input col-lg-4" value="18:30"  name="min_entrada_4" id="min_entrada_4" required>
+                                      <input type="text" class="form-control p-input col-lg-4" value="18:30"  name="min_entrada_4" id="min_entrada_4"  value="<%= horario[0].min_salida_2 %>"  required>
                                       <span class="input-group-addon">
                                           <i class="mdi mdi-clock"></i>
                                       </span>
@@ -164,7 +171,7 @@
                                <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Max Entrada:</label>
                               <div class="col-sm-4">
                                   <div class="input-group clockpicker b-l-blue">
-                                      <input type="text" class="form-control p-input col-lg-4" value="23:00"  name="max_entrada_4" id="max_entrada_4" required>
+                                      <input type="text" class="form-control p-input col-lg-4" value="23:00"  name="max_entrada_4" id="max_entrada_4"   value="<%= horario[0].max_salida_2 %>"  required>
                                       <span class="input-group-addon">
                                           <i class="mdi mdi-clock"></i>
                                       </span>
@@ -176,7 +183,7 @@
                                   <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Entrada:</label>
                                   <div class="col-sm-4">
                                       <div class="input-group clockpicker b-l-blue">
-                                          <input type="text" class="form-control p-input col-lg-4" value="18:30"  name="entrada_4" id="entrada_4" required>
+                                          <input type="text" class="form-control p-input col-lg-4" value="18:30"  name="entrada_4" id="entrada_4"  value="<%= horario[0].salida_2 %>"  required>
                                           <span class="input-group-addon">
                                               <i class="mdi mdi-clock"></i>
                                           </span>
@@ -184,15 +191,16 @@
                                   </div>
                                   <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Tolerancia:</label>
                                   <div class="col-sm-2">
-                                      <input type="text" class="form-control" class="form-control" name="tolerancia_4" id="tolerancia_4" placeholder="Minutos" required>
+                                      <input type="text" class="form-control" class="form-control" name="tolerancia_4" id="tolerancia_4" placeholder="Minutos"  value="<%= horario[0].tolerancia_salida_2 %>"  required>
                                   </div>
                                   
-                              </div>   
-               
+                              </div>     
+                           
+                              <input type="hidden" name="id" value= "<%= horario[0].id %>">                   
                     </div>
                 </div>
                 <div class="card-body btn-demo text-center">
-                    <input class="btn btn-primary" type="submit" value="Grabar">
+                    <input class="btn btn-primary" type="submit" value="Modificar">
                 </div>
             </div>
         </form>
