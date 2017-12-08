@@ -75,7 +75,7 @@
                       </div>
 
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-7">
                                 <label for="address">Cargo </label>
                                 <select class="form-control" id="select-cargo" name="id_cargo">
                                  <% for(var cargo of cargos) { %>
@@ -83,7 +83,7 @@
                                   <% } %>
                                 </select>
                             </div>
-                            <div class="col-4">
+                            <div class="col-5">
                                 <label for="address">Tipo Empleo </label>
                                       <select class="form-control" id="select-tipoempleo" name="id_tipoempleado">
                                           <% for(var tipoempleado of tiposempleado) { %>
@@ -92,6 +92,17 @@
                                        </select>
                                 </div>
                             </div>
+                            <div class="row">
+                              <div class="col-7">
+                                  <label for="address">Horario por Defecto </label>
+                                  <select class="form-control" id="select-cargo" name="id_horario">
+                                   <% for(var horario of horarios) { %>
+                                        <option value="<%= horario.id %>"><%= horario.descripcion %></option>
+                                    <% } %>
+                                  </select>
+                              </div>
+
+                              </div>
                       </section>
                       <h3>Datos Usuario</h3>
                       <section>

@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      descricion: {
+      descripcion: {
         type: Sequelize.STRING
       },
       min_entrada_1: {
@@ -59,7 +59,10 @@ module.exports = {
       tolerancia_salida_2: {
         type: Sequelize.STRING
       },
-
+      estado: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

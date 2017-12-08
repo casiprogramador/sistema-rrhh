@@ -1,9 +1,6 @@
 (function($) {
 
     $('#table-horarios').DataTable({
-        "order": [
-            [3, "desc"]
-        ],
         language: {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -29,25 +26,10 @@
             }
         }
     });
-    $( ".button-opciones" ).on( "click", function() {
-        var id_boleta = $(this).attr('id-boleta');
-        var id_empleado = $(this).attr('id-empleado');
-        var nombre = $(this).attr('nombre');
-        var boleta = $(this).attr('boleta');
-        var fecha = $(this).attr('fecha');
-        var dias = $(this).attr('dias');
-
-        $('#modal-empleado-nombre').val(nombre);
-        $('#modal-empleado-fecha').val(fecha);
-        $('#modal-empleado-boleta').val(boleta);
-        $('#modal-empleado-dias').val(dias);
-        $('#input-id-boleta').val(id_boleta);
-        $('#input-id-empleado').val(id_empleado);
-
-    });
-
-    $( "#button-boleta" ).on( "click", function() {
-        $("#form-aprobar-boleta").submit();
+    $('.clockpicker-horario').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        donetext: 'Aceptar'
     });
 
 })(jQuery);

@@ -159,7 +159,15 @@ module.exports = {
         },
         onUpdate: 'cascade',
         onDelete: 'cascade'
-
+      },
+      id_horario:{
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'Horarios',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,

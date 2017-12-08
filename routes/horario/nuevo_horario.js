@@ -16,240 +16,78 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
   })
   });
 
+  router.post('/grabar', (req, res) => {
 
-router.post('/reporte', (req, res) => {
+  
+    modelos.Horario.create({
 
-    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 +00:00");
-    const observacion = '';
-    const estado = 'Pendiente';
-    const fecha_inicio = req.body.fecha_inicio + ' ' + req.body.hora_inicio + '.000 +00:00';
-    const fecha_fin = req.body.fecha_fin + ' ' + req.body.hora_fin + '.000 +00:00';
-    const fecha_inicio1 = req.body.fecha_inicio;
-    const fecha_fin1 = req.body.fecha_fin;
-    const hora_inicio = req.body.hora_inicio;
-    const hora_fin = req.body.hora_fin;
-    const id_empleado = res.locals.user.empleado.id;
-    const id_tipo_boleta = req.body.tipo_boleta;
-    const inicio = moment(hora_inicio, 'HH:mm');
-    const fin = moment(hora_fin, 'HH:mm');
-    const suma_horas = (moment.duration(fin - inicio)) / 3600000;
+        descripcion:req.body.descripcion,
+        min_entrada_1:req.body.min_entrada_1,
+        max_entrada_1:req.body.max_entrada_1,
+        entrada_1:req.body.entrada_1,
+        tolerancia_entrada_1:req.body.tolerancia_1,
+        min_salida_1:req.body.min_entrada_2,
+        max_salida_1:req.body.max_entrada_2,
+        salida_1:req.body.entrada_2,
+        tolerancia_salida_1:req.body.tolerancia_2,
 
-    var dias_restados = moment(fecha_fin).diff(moment(fecha_inicio), "days");
-    const dias_total = moment(fecha_fin).diff(moment(fecha_inicio), "days");
-    var contador = 0;
-    var fecha_prueba = fecha_inicio;
-    var fecha_fer = fecha_inicio;
-    var i = 0;
-    var j = 0;
-    var au_horas = 0;
+        min_entrada_2:req.body.min_entrada_3,
+        max_entrada_2:req.body.max_entrada_3,
+        entrada_2:req.body.entrada_3,
+        tolerancia_entrada_2:req.body.tolerancia_3,
+        min_salida_2:req.body.min_entrada_4,
+        max_salida_2:req.body.max_entrada_4,
+        salida_2:req.body.entrada_4,
+        tolerancia_salida_2:req.body.tolerancia_4,
+
+    
+        })
+        .then(newhorario => { 
+            res.render('horario/nuevo_horario',{horario:newhorario });
+        });
 
 
+    
+    console.log('\x1b[33m%s\x1b[0m',req.body.min_entrada_1);
+   })
 
-
-    //Verifica si la fecha inicio es menor a la fecha fin
-    if (fecha_inicio1 > fecha_fin1) {
-        req.flash('error_msg', 'La fecha inicio no puede ser mayor a la fecha fin');
-        res.redirect('/boleta/formulario');
-    } else {
-        //Verifica si la hora inicio es menor a la hora fin
-        if (hora_fin < hora_inicio) {
-            req.flash('error_msg2', 'La hora inicio no puede ser mayor a la hora fin');
-            res.redirect('/boleta/formulario');
-        } else {
-            if (suma_horas <= 4) {
-                au_horas = 0.5;
-            } else {
-                au_horas = 1;
-            }
-        }
-
-    }
-    while (i != dias_total) {
-        if ((moment(fecha_prueba).day()) == 5 || (moment(fecha_prueba).day()) == 6) {
-            dias_restados = dias_restados - 1;
-        }
-        //console.log('\x1b[33m%s\x1b[0m',moment(fecha_prueba).format('YYYY-MM-DD'));
-        fecha_prueba = (moment(fecha_prueba).add(1, 'd')).format("YYYY-MM-DD");
-        i = i + 1;
-    }
-
-    var suma_dias = dias_restados;
+router.post('/modificar', (req, res) => {
+    
+      console.log("entrooo"+ req.body.id);
 
 
 
+      for (let id_horario of req.body.id) {
+        console.log(id_horario);
+        let updateHorario = { 
 
-    //Verifica si la boleta que esta sacando es a cuenta de vacacion
-    if (req.body.tipo_boleta == 1 || req.body.tipo_boleta == 2) {
-        modelos.sequelize.query('SELECT sum(dias)vacacion_dias FROM public."Saldo_Vacacions" WHERE id_empleado=' + res.locals.user.empleado.id + 'and prescrito_estado = false GROUP BY id_empleado').spread((sumatoria, metadata) => {
-            //verifica en saldo vacacion si puede pedir permiso  
-            let fecha_vacacion = moment(fecha_fer).format('YYYY-MM-DD');
-            modelos.Feriado.findAll().then(feriados => {
+            descripcion:req.body.descripcion,
+            min_entrada_1:req.body.min_entrada_1,
+            max_entrada_1:req.body.max_entrada_1,
+            entrada_1:req.body.entrada_1,
+            tolerancia_entrada_1:req.body.tolerancia_1,
+            min_salida_1:req.body.min_entrada_2,
+            max_salida_1:req.body.max_entrada_2,
+            salida_1:req.body.entrada_2,
+            tolerancia_salida_1:req.body.tolerancia_2,
+    
+            min_entrada_2:req.body.min_entrada_3,
+            max_entrada_2:req.body.max_entrada_3,
+            entrada_2:req.body.entrada_3,
+            tolerancia_entrada_2:req.body.tolerancia_3,
+            min_salida_2:req.body.min_entrada_4,
+            max_salida_2:req.body.max_entrada_4,
+            salida_2:req.body.entrada_4,
+            tolerancia_salida_2:req.body.tolerancia_4,
+        };
+        modelos.Horario.update(updateHorario, { where: { id: id_horario } }).then((result) => {
+  
+            req.flash('success_msg','Horario modificado correctamente');
+       
+            res.render('horario/nuevo_horario');
 
-                while (j <= suma_dias) {
-                    for (var feriado of feriados) {
-                        console.log('\x1b[33m%s\x1b[0m', moment(feriado.fecha_feriado).format('YYYY-MM-DD'));
-                        console.log(fecha_vacacion);
-                        if (moment(feriado.fecha_feriado).format('YYYY-MM-DD') == fecha_vacacion) {
-                            contador = contador + 1;
-                            //console.log(moment(fecha_prueba).format('YYYY-MM-DD'));
-                            console.log(contador + 'iteracion ennntroooo');
-                        }
-
-                    }
-                    fecha_vacacion = (moment(fecha_vacacion).add(1, 'd')).format("YYYY-MM-DD");
-                    console.log(contador + 'al salir del for');
-                    j = j + 1;
-                };
-                suma_dias = suma_dias - contador;
-
-                if (suma_dias <= Number(sumatoria[0].vacacion_dias)) {
-                    modelos.Boleta.create({
-                            fecha_solicitud: fecha_solicitud,
-                            observacion: observacion,
-                            estado: estado,
-                            fecha_inicio: fecha_inicio,
-                            fecha_fin: fecha_fin,
-                            id_empleado: id_empleado,
-                            id_tipo_boleta: id_tipo_boleta,
-                            dias: suma_dias + au_horas,
-                            codigo: id_tipo_boleta,
-                        })
-                        .then(newboleta => {
-                            modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id').spread((datos_boleta, metadata) => {
-
-                                const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
-                                const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
-
-                                res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor });
-                            });
-                        })
-                }
-                //en caso de que este pidiendo vacaciones y estos sias sobrepasan su saldo sale un mensaje
-                else {
-                    req.flash('error_msg1', 'No puede pedir ese tiempo de vacación');
-                    res.redirect('/boleta/formulario');
-                }
-
-            })
         });
     }
-    //grabado de boletas normales 
-    else {
-        let fecha_vacacion = moment(fecha_fer).format('YYYY-MM-DD');
-        modelos.Feriado.findAll().then(feriados => {
 
-            while (j <= suma_dias) {
-                for (var feriado of feriados) {
-                    // console.log('\x1b[33m%s\x1b[0m', moment(feriado.fecha_feriado).format('YYYY-MM-DD'));
-                    if (moment(feriado.fecha_feriado).format('YYYY-MM-DD') == fecha_vacacion) {
-                        contador = contador + 1;
-                    }
-                }
-                fecha_vacacion = (moment(fecha_vacacion).add(1, 'd')).format("YYYY-MM-DD");
-                j = j + 1;
-            };
-            modelos.Boleta.create({
-                fecha_solicitud: fecha_solicitud,
-                observacion: observacion,
-                estado: estado,
-                fecha_inicio: fecha_inicio,
-                fecha_fin: fecha_fin,
-                id_empleado: id_empleado,
-                id_tipo_boleta: id_tipo_boleta,
-                dias: suma_dias - contador + au_horas,
-                codigo: id_tipo_boleta,
-            }).then(newboleta => {
-                modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id').spread((datos_boleta, metadata) => {
-
-                    const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
-                    const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
-                    res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor });
-                });
-            })
-        })
-    }
-});
-
-router.get('/suma', (req, res) => {
-    console.log(req.query.fecha_inicio);
-    console.log(req.query.hora_inicio);
-    console.log(req.query.fecha_fin);
-    console.log(req.query.hora_fin);
-    console.log(req.query.id_empleado);
-    console.log(req.query.id_tipo_boleta);
-    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 +00:00");
-    const observacion = '';
-    const estado = 'PENDIENTE';
-    const fecha_inicio = req.query.fecha_inicio + ' ' + req.query.hora_inicio + '.000 +00:00';
-    const fecha_fin = req.query.fecha_fin + ' ' + req.query.hora_fin + '.000 +00:00';
-    const fecha_inicio1 = req.query.fecha_inicio;
-    const fecha_fin1 = req.query.fecha_fin;
-    const hora_inicio = req.query.hora_inicio;
-    const hora_fin = req.query.hora_fin;
-    const id_empleado = req.query.id_empleado;
-    const id_tipo_boleta = req.query.id_tipo_boleta;
-    const inicio = moment(hora_inicio, 'HH:mm');
-    const fin = moment(hora_fin, 'HH:mm');
-    const suma_horas = (moment.duration(fin - inicio)) / 3600000;
-
-    var dias_restados = moment(fecha_fin).diff(moment(fecha_inicio), "days");
-
-    var dias_total = moment(fecha_fin).diff(moment(fecha_inicio), "days");
-
-    var contador = 0;
-    var fecha_prueba = fecha_inicio;
-    var fecha_fer = fecha_inicio;
-    var i = 0;
-    var j = 0;
-    var au_horas = 0;
-
-    //Verifica si la fecha inicio es menor a la fecha fin
-    if (fecha_inicio1 > fecha_fin1) {
-        res.json({ dias: 0 });
-    } else {
-
-        if (suma_horas <= 4) {
-            au_horas = 0.5;
-        } else {
-            au_horas = 1;
-        }
-
-
-    }
-    while (i != dias_total) {
-        if ((moment(fecha_prueba).day()) == 5 || (moment(fecha_prueba).day()) == 6) {
-            dias_restados = dias_restados - 1;
-        }
-
-        fecha_prueba = (moment(fecha_prueba).add(1, 'd')).format("YYYY-MM-DD");
-        i = i + 1;
-    }
-
-    var suma_dias = dias_restados;
-
-    modelos.Feriado.findAll().then(feriados => {
-        var fecha_vacacion = moment(fecha_fer).format('YYYY-MM-DD');
-        while (j <= suma_dias) {
-            for (var feriado of feriados) {
-                // console.log('\x1b[33m%s\x1b[0m', moment(feriado.fecha_feriado).format('YYYY-MM-DD'));
-                if (moment(feriado.fecha_feriado).format('YYYY-MM-DD') == fecha_vacacion) {
-                    contador = contador + 1;
-                }
-            }
-            fecha_vacacion = (moment(fecha_vacacion).add(1, 'd')).format("YYYY-MM-DD");
-            j = j + 1;
-        };
-
-        dias = suma_dias - contador + au_horas,
-            res.json({ dias: dias });
-
-    })
-});
-
-
-
-
-
-
-
+        });
 module.exports = router;
