@@ -1,10 +1,6 @@
 (function($) {
 
     $('#table-horarios').DataTable({
-<<<<<<< HEAD
-=======
-
->>>>>>> horarios
         language: {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
