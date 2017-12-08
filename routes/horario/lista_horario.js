@@ -23,22 +23,18 @@ router.post('/nuevo', (req, res) => {
   
 });
 
-router.post('/editar', (req, res) => {
+router.get('/editar/:id_horario', (req, res) => {
 
-    /*  res.render('horario/nuevo_horario')
-  */
-
-  modelos.Horario.findAll({
+  modelos.Horario.findOne({
     where: {
-      id: req.body.id,
+      id: req.params.id_horario,
     },
     
       }).then((horario) => {
-          console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario));
-    
+  console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario));
+
          res.render('horario/editar_horario',{horario:horario});   
             })
-  
     
 });
 

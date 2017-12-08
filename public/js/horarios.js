@@ -1,9 +1,7 @@
 (function($) {
 
     $('#table-horarios').DataTable({
-        "order": [
-            [3, "desc"]
-        ],
+
         language: {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -49,5 +47,6 @@
     $( "#button-boleta" ).on( "click", function() {
         $("#form-aprobar-boleta").submit();
     });
+
 
 })(jQuery);

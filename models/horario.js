@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Horario = sequelize.define('Horario', {
-    descricion: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
     min_entrada_1: DataTypes.TIME,
     max_entrada_1: DataTypes.TIME,
     entrada_1: DataTypes.TIME,

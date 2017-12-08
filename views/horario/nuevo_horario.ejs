@@ -5,21 +5,20 @@
   <div class="row grid-margin">
       
     <div class="col-lg-12 grid-margin grid-margin-lg-0">
-            <%if (error_msg.length > 0 ) { %>
-                <div class="alert alert-warning text-center" role="alert">
-                  <%= error_msg %>
-                </div>
-              <% } %>
-           <%if (error_msg1.length > 0 ) { %>
-            <div class="alert alert-warning text-center" role="alert">
-                <%= error_msg1 %>
-            </div>
+            <%if (success_msg.length > 0 ) { %>
+
+                <div class="row">
+                        <div class="col align-self-center">
+                            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                        </div>
+
+                    </div>
             <% } %>
-            <%if (error_msg2.length > 0 ) { %>
-                <div class="alert alert-warning text-center" role="alert">
-                    <%= error_msg2 %>
-                </div>
-                <% } %>
 
         <form method="post" action="/horario/nuevo_horario/grabar">
 

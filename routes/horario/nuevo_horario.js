@@ -11,7 +11,6 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
   
   //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
   modelos.sequelize.query('SELECT tb.id, tb.tipo_boleta FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_empleado= te.id and c.id_tipo_empleado=teb.id_tipo_empleado and teb.id_tipo_boleta=tb.id and c.id_empleado= 2').spread((Tipo_boleta, metadata) => {
-  console.log(Tipo_boleta);
   res.render('horario/nuevo_horario',{Tipo_boleta:Tipo_boleta,dato:0}); 
   })
   });
@@ -21,7 +20,7 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
   
     modelos.Horario.create({
 
-        descricion:req.body.descripcion,
+        descripcion:req.body.descripcion,
         min_entrada_1:req.body.min_entrada_1,
         max_entrada_1:req.body.max_entrada_1,
         entrada_1:req.body.entrada_1,
@@ -43,25 +42,16 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
     
         })
         .then(newhorario => { 
-        res.render('horario/nuevo_horario',{horario:newhorario });
+        req.flash('success_msg','Horario creado correctamente');
+        res.redirect('/horario/nuevo_horario');
         });
-
-
-    
-    console.log('\x1b[33m%s\x1b[0m',req.body.min_entrada_1);
    })
 
 router.post('/modificar', (req, res) => {
-    
-      console.log("entrooo"+ req.body.id);
 
+    let updateHorario = { 
 
-
-      for (let id_horario of req.body.id) {
-        console.log(id_horario);
-        let updateHorario = { 
-
-            descricion:req.body.descripcion,
+            descripcion:req.body.descripcion,
             min_entrada_1:req.body.min_entrada_1,
             max_entrada_1:req.body.max_entrada_1,
             entrada_1:req.body.entrada_1,
@@ -79,15 +69,15 @@ router.post('/modificar', (req, res) => {
             max_salida_2:req.body.max_entrada_4,
             salida_2:req.body.entrada_4,
             tolerancia_salida_2:req.body.tolerancia_4,
+            estado:(req.body.estado=='on'?'TRUE':'FALSE')
+            
         };
-        modelos.Horario.update(updateHorario, { where: { id: id_horario } }).then((result) => {
+        modelos.Horario.update(updateHorario, { where: { id: req.body.id_hora } }).then((result) => {
   
             req.flash('success_msg','Horario modificado correctamente');
-       
-            res.render('horario/nuevo_horario');
+           res.redirect('/horario/lista_horario');
 
-        });
-    }
+        })
 
         });
 module.exports = router;
