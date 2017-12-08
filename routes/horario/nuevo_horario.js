@@ -81,14 +81,13 @@ router.post('/modificar', (req, res) => {
             tolerancia_salida_2:req.body.tolerancia_4,
         };
         modelos.Horario.update(updateHorario, { where: { id: id_horario } }).then((result) => {
-            // here your result is simply an array with number of affected rows
-            //console.log(result);
+  
             req.flash('success_msg','Horario modificado correctamente');
        
             res.render('horario/nuevo_horario');
+
         });
     }
 
-      //  res.render('horario/nuevo_horario');
         });
 module.exports = router;
