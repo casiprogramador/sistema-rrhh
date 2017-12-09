@@ -21,7 +21,19 @@ router.get('/nuevo', md_auth.ensureAuth, function(req, res, next) {
 });
 
 router.post('/nuevo', md_auth.ensureAuth, function(req, res, next) {
-    console.log(JSON.stringify(req.body));
-   
+    
+    modelos.Usuario.create({ username: req.body.usuario, password: bcrypt.hashSync(req.body.password, salt), estado: true, resetpwd: true, ultingreso: new Date(), id_rol: 2 }).then(usuario => {
+        //console.log(JSON.stringify('\x1b[33m%s\x1b[0m', usuario));
+        console.log('\x1b[33m%s\x1b[0m', JSON.stringify(req.body));
+        modelos.Empleado.create({ paterno: req.body.paterno, materno: req.body.materno, nombres: req.body.nombre, ndi: req.body.ci, expedido: req.body.expendido, sexo: req.body.sexo, id_usuario: usuario.id, id_horario: req.body.id_horario , estado: true }).then(empleado => {
+            //console.log(JSON.stringify('\x1b[33m%s\x1b[0m', empleado));
+            modelos.Contrato.create({ fecha_inicio: req.body.fecha, fecha_fin: null, nro_contrato: req.body.contrato, estado: true, id_empleado: empleado.id, id_cargo: req.body.id_cargo, id_tipo_empleado: req.body.id_tipoempleado }).then(contrato => {
+                //console.log(JSON.stringify('\x1b[33m%s\x1b[0m', empleado));
+                //console.log(JSON.stringify(req.body));
+                res.redirect('/home');
+            })
+        })
+    })
+
 });
 module.exports = router;
