@@ -3,77 +3,40 @@ var router = express.Router();
 var modelos = require('../../models/index');
 var moment = require('moment');
 
-/* GET login page. */
-/*router.get('/',function(req, res, next) {
-    modelos.Boleta.findAll({
-        attributes: ['id', 'fecha_solicitud', 'observacion', 'estado', 'fecha_inicio', 'fecha_fin', 'id_empleado', 'id_tipo_boleta']
-    }).then(boletas => {
-        //console.log(JSON.stringify(boletas));
-        res.render('administrar/boleta', { boletas: boletas });
-    });
-    });
+router.get('/', function (req, res, next) {
 
-
-
-
-
-
-/* GET login page. */
-
-
-router.get('/',function(req, res, next) {
-      modelos.sequelize.query('SELECT b.id, te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id=2 and te.id=b.id_tipo_boleta and b.id_empleado=e.id ').spread((boletas, metadata) => {
-        console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
-        res.render('formularios/consultamarcado', { boletas: boletas,  moment:moment });
-      })
-});
-    
-/*
-router.get('/',function(req, res, next) {
-  modelos.sequelize.query('SELECT * from  public."Boleta"  ').spread((boletas, metadata) => {
-    console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
-    res.render('formularios/consultamarcado', { boletas: boletas });
+  modelos.sequelize.query('SELECT * FROM "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" a, "Areas" r WHERE e.id_usuario=u.id AND u.id=' + res.locals.user.id + ' AND e.id=c.id_empleado AND c.id_cargo=a.id AND a.id_area=r.id').spread((empleado, metadata) => {
+    // console.log('\x1b[33m%s\x1b[0m', JSON.stringify(empleado));
+    modelos.sequelize.query('SELECT * FROM "Asistencia" WHERE id=-1').spread((marcados, metadata) => {
+      //console.log('\x1b[34m%s\x1b[0m', JSON.stringify(marcados));
+      res.render('formularios/consultamarcado', { empleado: empleado, marcados: marcados, moment: moment });
+    })
   })
 });
 
-*/
-
-router.post('/buscar', (req, res) => {
-  const Op = Sequelize.Op;
+router.post('/buscar', function (req, res, next) {
+  // console.log(JSON.stringify("entrooo"));
 
 
-      if(req.body.fecha_inicio<req.body.fecha_fin){
-        if(req.body.estado!='todos'){
-             modelos.Boleta.findAll({
-                  where: {
-                  estado: req.body.estado,
-                  fecha_solicitud: {
-                    [Op.between]: [req.body.fecha_inicio+" 00:00:00.000 +00:00",req.body.fecha_fin+" 00:00:00.000 +00:00"]
-                  },
-                  //include: ['empleado']
-                }
-              }).then((boletas) => {
-
-                      res.render('formularios/consultamarcado',{boletas:boletas});   
-   
-                    })
-        }
-
-        else{
-          modelos.Boleta.findAll({
-            where: {
-              fecha_solicitud: {
-                [Op.between]: [req.body.fecha_inicio+" 00:00:00.000 +00:00",req.body.fecha_fin+" 00:00:00.000 +00:00"]
-              }  
-            }
-          }).then((boletas) => {
-        res.render('formularios/consultamarcado', { boletas: boletas });
-        })
-        }
-      }
-      else{
-        req.flash('error_msg','La fecha inicio no puede ser mayor a la fecha fin');
-        res.redirect('/formularios/consultamarcado')
-      }
+  if (req.body.inicio < req.body.fin) {
+    if (req.body.tipo=='completo') {
+      console.log('\x1b[33m%s\x1b[0m', "comparar");
+      modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
+        //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
+        res.render('formularios/consultamarcado', { marcados: marcados, moment: moment });
+      })
+    }
+    else {
+      modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
+        //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
+        res.render('formularios/consultamarcado', { marcados: marcados, moment: moment, inicio : req.body.inicio, fin : req.body.fin });
+      });
+      console.log('\x1b[33m%s\x1b[0m', "else");
+    }
+  }
+  else {
+    req.flash('error_msg', 'La fecha inicio no puede ser mayor a la fecha fin');
+    res.redirect('/formularios/consultamarcado')
+  }
 });
 module.exports = router;

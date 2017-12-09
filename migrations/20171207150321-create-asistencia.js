@@ -44,7 +44,7 @@ module.exports = {
       observacion_entrada_2: {
         type: Sequelize.STRING
       },
-      observacion_salia_2: {
+      observacion_salida_2: {
         type: Sequelize.STRING
       },
       id_empleado: {
@@ -56,7 +56,17 @@ module.exports = {
         },
         onUpdate: 'cascade',
         onDelete: 'cascade'
-      },       
+      },      
+      id_horario: {
+        type: Sequelize.INTEGER,
+        
+        references: {
+            model: 'Horarios',
+            key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
+      }, 
 
       createdAt: {
         allowNull: false,

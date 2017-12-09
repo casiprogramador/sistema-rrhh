@@ -1,77 +1,161 @@
 <% layout('/layouts/admin') -%>
 
 
-<!-- partial -->
-<div class="content-wrapper">
-       <h1 class="page-title">Consulta de Marcados</h1>
-       <div class="row grid-margin">
+  <!-- partial -->
+  <div class="content-wrapper">
+    <h1 class="page-title">Consulta de Marcados</h1>
+    <div class="row grid-margin">
 
-          <div class="col-lg-12 grid-margin grid-margin-lg-0">
-              <%if (error_msg.length > 0 ) { %>
-                  <div class="alert alert-warning text-center" role="alert">
-                    <%= error_msg %>
-                  </div>
-                <% } %>
+      <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <%if (error_msg.length > 0 ) { %>
+          <div class="alert alert-warning text-center" role="alert">
+            <%= error_msg %>
+          </div>
+          <% } %>
 
+          <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
+              <div class="card">
+                <div class="card-body">
 
-         <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
-           <div class="card">
-             <div class="card-body">
-               <h2 class="card-title">Listado de Boletas</h2>
-               <form  method="post" action="/administrar/boleta/buscar">
-                             
-                        <div class="form-group row"> 
-                            <label for="fecha reporte" class="col-sm-3 col-form-label">Periodo:</label>
-                            <label for="fecha reporte" class="col-sm-1 col-form-label">Del:</label>
-                            <div class="col-sm-3">
-                                
-                              <div class="input-group date datepicker" id="datetimepicker1">
-                                  <input type="text" class="form-control" name="fecha_inicio" id="fecha_inicio" >
-                                  <div class="input-group-addon"> 
-                                  <span class="mdi mdi-calendar-blank"></span>
-                                  </div>
-                              </div>
-                              </div>
-                              <label for="fecha reporte" class="col-sm-1 col-form-label">al:</label>
-                            <div class="col-sm-3">
-                                  <div class="input-group date datepicker" id="datetimepicker2">
-                                      <input type="text" class="form-control" name="fecha_fin" id="fecha_fin" >
-                                      <div class="input-group-addon">  
-                                      <span class="mdi mdi-calendar-blank"></span>
-                                      </div>
-                                  </div>
-                            </div>                      
+                  <h2 class="card-title">Periodo y tipo de reporte</h2>
+                  <form method="post" action="/formularios/consultamarcado/buscar">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Periodo:</label>
+                      <label class="col-sm-1 col-form-label">Del:</label>
+                      <div class="col-sm-2">
+
+                        <div class="input-group date datepicker" id="datetimepicker1">
+                          <input type="text" class="form-control" name="inicio" id="inicio">
+                          <div class="input-group-addon">
+                            <span class="mdi mdi-calendar-blank"></span>
+                          </div>
                         </div>
-                        <div class="col-md-12 text-center"> 
-                          <button type="submit" class="btn btn-primary">Recuperar Boletas</button>
+                      </div>
+                      <label class="col-sm-1 col-form-label">al:</label>
+                      <div class="col-sm-2">
+                        <div class="input-group date datepicker" id="datetimepicker2">
+                          <input type="text" class="form-control" name="fin" id="fin">
+                          <div class="input-group-addon">
+                            <span class="mdi mdi-calendar-blank"></span>
+                          </div>
                         </div>
-                      </form>
-             
-                      
-                      <div class="form-group row" id="panel-boletas">
-                          <div class="col-12">
-                                    <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                      <thead>
-                                        <tr>
-                                            <th>Hora</th>
-                                            <th>Día</th>
-                                            <th>Observaciones</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                          <% for(var i=0; i< boletas.length; i++) { %>
-                                        <tr>
-                                            <td><%= boletas[i].id %></td>
-                                            <td><%= boletas[i].ndi %></td>
-                                            <td><%= boletas[i].paterno %><%= boletas[i].materno %><%= boletas[i].nombres %></td>
-                                        </tr>
-                                        <% } %>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                  </div>
+                      </div>
+                    </div>
 
-             </div>
-           </div>
-         </div>
-</div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Tipo de reporte:</label>
+                      <div class="col-sm-6">
+                        <select class="form-control" name="tipo" id="tipo">
+                          <option value="completo">Reporte completo</option>
+                          <option value="observaciones">Reporte con observaciones</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary" id="boton">Recuperar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+    <% if(marcados.length>0) { %>
+      <div class="row grid-margin" id="panel">
+        <div class="col-10 col-lg-12 grid-margin grid-margin-lg-0">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title" align="center">Reporte de asistencia</h2>
+              <h3 class="card-title" align="center">Correspontiente al periodo</h3>
+              <span id="fecha_inicio" value</span>
+                <h2 class="card-title">
+                  <%= marcados[0].desc_area %>
+                  </h2>
+                    <h2 class="card-title">
+                      <%= marcados[0].ndi %>
+                      <%= marcados[0].paterno%>
+                      <%= marcados[0].materno%>
+                      <%= marcados[0].nombres%>
+                    </h2>
+                              <table id="table-consulta-marcado" class="table table-striped table-bordered" cellspacing="0" width="100%" border="1" align="center">
+                                <thead align="center">
+                                  <tr>
+                                    <th colspan="3"></th>
+                                    <th colspan="2">1er Periodo</th>
+                                    <th colspan="2">2do Periodo</th>
+                                    <th colspan="2">Retraso 1er Periodo</th>
+                                    <th colspan="2">Retraso 2do Periodo</th>
+                                    <th colspan="1">Obs. 1er Periodo</th>
+                                    <th colspan="1">Obs. 2do Periodo</th>
+                                  </tr>
+                                  <tr>
+                                    <th>Día</th>
+                                    <th>Fecha</th>
+                                    <th>horario</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% for(var i=0; i< marcados.length; i++) { %>
+                                    <tr align="center">
+                                      <td>
+                                        <%= moment(marcados[i].fecha).format( 'dddd') %>
+                                      </td>
+                                      <td>
+                                        <%= moment(marcados[i].fecha).format( 'DD/MM/YYYY') %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].descripcion %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].entrada_1 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].salida_1 %>
+                                      </td>
+
+                                      <td>
+                                        <%= marcados[i].entrada_2 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].salida_2 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].retraso_entrada_1 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].retraso_salida_1 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].retraso_entrada_2 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].retraso_salida_2 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].observacion_1 %>
+                                      </td>
+                                      <td>
+                                        <%= marcados[i].observacion_2 %>
+                                      </td>
+
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                               
+                              </table>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
