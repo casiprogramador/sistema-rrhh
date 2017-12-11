@@ -27,7 +27,9 @@ var listadoboleta = require('./routes/boletas/listadoboleta');
 var lista_horario = require('./routes/horario/lista_horario');
 var nuevo_horario = require('./routes/horario/nuevo_horario');
 var lista_asignacion_horario = require('./routes/horario/lista_asignacion_horario');
-var asignar_horario = require('./routes/horario/asignar_horario');
+//Horario Especial
+var lista_horario_especial = require('./routes/horario/lista_horario_especial');
+var asignar_horario_especial = require('./routes/horario/asignar_horario_especial');
 //Feriado
 var feriado = require('./routes/parametro/feriado');
 
@@ -152,7 +154,10 @@ app.use('/boleta/listadoboleta',listadoboleta);
 app.use('/horario/lista_horario',lista_horario);
 app.use('/horario/nuevo_horario',nuevo_horario);
 app.use('/horario/lista_asignacion_horario',lista_asignacion_horario);
-app.use('/horario/asignar_horario',asignar_horario);
+//Horarios Especiales
+app.use('/horario/lista_horario_especial',lista_horario_especial);
+app.use('/horario/asignar_horario_especial',asignar_horario_especial);
+
 
 //Feriado
 app.use('/feriado',feriado);
