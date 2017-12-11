@@ -24,4 +24,5 @@ module.exports = (sequelize, DataTypes) => {
     Horario.hasMany(models.Empleado, { foreignKey: 'id_horario', as: 'empleados' });
   };
   return Horario;
+
 };

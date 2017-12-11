@@ -11,11 +11,16 @@ var moment = require('moment');
 
 router.get('/', md_auth.ensureAuth, function(req, res, next) {
   
-      //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
-      modelos.sequelize.query('select e.id,e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id').spread((Empleado, metadata) => {
-          console.log(Empleado);
-          res.render('horario/lista_asignacion_horario', { Empleado: Empleado});
-      })
+modelos.Horario.findAll({
+             
+        }).then((horario) => {
+        
+            console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario));
+    
+        res.render('horario/lista_asignacion_horario_especial', {horario:horario})
+    
+            })
+
   });
 
 router.post('/modificar', (req, res) => {
@@ -33,7 +38,7 @@ router.post('/modificar', (req, res) => {
           })
   
           });
-
+/*
 router.get('/editar/:id_horario', (req, res) => {
 
   modelos.sequelize.query('select e.id, e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.id='+req.params.id_horario).spread((horario, metadata) => {
@@ -48,6 +53,6 @@ router.get('/editar/:id_horario', (req, res) => {
            })
   })
 
-});
+});*/
 
 module.exports = router;
