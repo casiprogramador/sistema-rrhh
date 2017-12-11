@@ -24,6 +24,10 @@ var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
 
 var consultamarcado = require('./routes/formulario/consultamarcado');
+var marcacion=require('./routes/marcacion/marcacion');
+var marcaciones=require('./routes/marcacion/marcacion');
+
+
 
 var ficha_personal_nuevo = require('./routes/ficha_personal/nuevo_personal');
 var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
@@ -143,6 +147,9 @@ app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
 app.use('/formularios/consultamarcado',consultamarcado);
+app.use('/marcacion',marcacion);
+app.use('/marcacion',marcaciones);
+//app.use('/marcacion',dispositivos);
 //Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);
 app.use('/ficha_personal',ficha_personal_datoslaborales);
