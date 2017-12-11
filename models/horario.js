@@ -19,12 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     salida_2: DataTypes.TIME,
     tolerancia_salida_2: DataTypes.INTEGER,
     estado: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Horario.associate = function(models) {
+    Horario.hasMany(models.Empleado, { foreignKey: 'id_horario', as: 'empleados' });
+  };
   return Horario;
+
 };
