@@ -1,5 +1,6 @@
 (function ($) {
 
+    
     $('#table-consulta-marcado').DataTable({
 
         "ordering": false,
@@ -29,6 +30,9 @@
             }
         }
     });
+    
+    $('#dia')
   
 
 })(jQuery);
+

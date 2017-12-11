@@ -15,10 +15,10 @@
 
           <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body" name="card-body" id="card-body">
 
                   <h2 class="card-title">Periodo y tipo de reporte</h2>
-                  <form method="post" action="/formularios/consultamarcado/buscar">
+                  <form method="post" action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label">Periodo:</label>
                       <label class="col-sm-1 col-form-label">Del:</label>
@@ -67,8 +67,8 @@
           <div class="card">
             <div class="card-body">
               <h2 class="card-title" align="center">Reporte de asistencia</h2>
-              <h3 class="card-title" align="center">Correspontiente al periodo</h3>
-              <span id="fecha_inicio" value</span>
+              <h3 class="card-title" align="center">Correspontiente al periodo <%= fecha_inicio %> al <%= fecha_fin %> </h3>
+              
                 <h2 class="card-title">
                   <%= marcados[0].desc_area %>
                   </h2>
@@ -106,9 +106,15 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <% for(var i=0; i< marcados.length; i++) { %>
+                                  <%  var atrasos=0; 
+                                      var faltas=0;
+                                      var abandonos=0;
+                                      for(var i=0; i< marcados.length; i++) {
+                                        atrasos =atrasos + marcados[i].retraso_entrada_1 + marcados[i].retraso_salida_1+marcados[i].retraso_entrada_2+marcados[i].retraso_salida_2;
+
+                                    %>
                                     <tr align="center">
-                                      <td>
+                                      <td id="dia">
                                         <%= moment(marcados[i].fecha).format( 'dddd') %>
                                       </td>
                                       <td>
@@ -143,15 +149,18 @@
                                         <%= marcados[i].retraso_salida_2 %>
                                       </td>
                                       <td>
-                                        <%= marcados[i].observacion_1 %>
+                                        <%= marcados[i].observacion_1 == null ? "" : marcados[i].observacion_1 %>
                                       </td>
                                       <td>
-                                        <%= marcados[i].observacion_2 %>
+                                        <%= marcados[i].observacion_2 == null ? "" : marcados[i].observacion_2 %>
                                       </td>
 
                                     </tr>
                                     <% } %>
                                 </tbody>
+                                <tr>
+                                  <td colspan="13">Atrasos: <%=atrasos%> min. faltas: Abandonos min </td>
+                                </tr>
                                
                               </table>
             </div>

@@ -22,8 +22,9 @@ var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
 var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
-
-var consultamarcado = require('./routes/formulario/consultamarcado');
+//Reportes de asistencia
+var reporteAsistenciaEmpleado = require('./routes/reportesAsistencia/reporteAsistenciaEmpleado');
+var reporteAsistenciaAdmin = require('./routes/reportesAsistencia/reporteAsistenciaAdmin');
 
 var ficha_personal_nuevo = require('./routes/ficha_personal/nuevo_personal');
 var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
@@ -140,7 +141,10 @@ app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
-app.use('/formularios/consultamarcado',consultamarcado);
+//reportes de Asistencia
+app.use('/reportesAsistencia/reporteAsistenciaEmpleado',reporteAsistenciaEmpleado);
+app.use('/reportesAsistencia/reporteAsistenciaAdmin',reporteAsistenciaAdmin);
+
 //Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);
 app.use('/ficha_personal',ficha_personal_datoslaborales);
