@@ -55,7 +55,7 @@
                       <h2 class="">Busqueda por Area</h2>
                       <form id="form-asistencia-area" action="/reportesAsistencia/reportesAsistenciaAdmin/area" method="post">
                         <div class="form-group row">
-
+                          <% for(var i=0; i< areas.length; i++) { %>
                           <label for="area" class="col-sm-3 col-form-label">Area:</label>
                           <div class="col-sm-8">
                             <select class="form-control" id="areas-select-vacacion" name="area">
