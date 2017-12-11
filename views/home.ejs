@@ -1,6 +1,20 @@
 <% layout('/layouts/admin') -%>
         <!-- partial -->
         <div class="content-wrapper">
+            <%if (success_msg.length > 0 ) { %>
+              
+                                      <div class="row">
+                                              <div class="col align-self-center">
+                                                  <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                                      <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                  </div>
+                                              </div>
+                      
+                                          </div>
+                                  <% } %>
           <h1 class="page-title">Overview</h1>
           <div class="row grid-margin">
                       <div class="col-12 col-lg-6">
@@ -141,3 +155,36 @@
 
         </div>
         <!-- content-wrapper ends -->
+        <div class="modal fade" id="passwordResetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Cambio de Password</h5>
+               
+                </div>
+                <div class="modal-body">
+                  <form id="form-reset-password" method="post" action="/change_password">
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Nuevo password:</label>
+                      <input  id="password" name="password" type="password" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Rescriba su password:</label>
+                        <input id="confirm_password" name="confirm_password" type="password" class="form-control" id="recipient-name">
+                    </div>
+                    <%if (user.rol.rol === 'ADMIN') { %>
+                      <input type="hidden" id="id-usuario" name="id_usuario" value="0">
+                    <% } %>
+                    <%if (user.rol.rol === 'EMPLEADO') { %>
+                      <input type="hidden" id="id-usuario" name="id_usuario" value="<%= user.id %>">
+                      <input type="hidden" id="res-password" name="res_password" value="<%= user.resetpwd %>">
+                    <% } %>
+
+                    <div class="text-center">
+                        <button id="button-form-reset" type="submit" class="btn btn-primary">Guardar Password</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -50,12 +50,11 @@
                       
                       <div class="form-group row" id="panel-boletas">
                           <div class="col-12">
-                                    <table id="order-listing" class="table table-striped table-bordered" cellspacing="0" width="100%"  name="tabla" id="tabla">
+                                    <table id="order-listing" class="table table-responsive table-striped table-bordered" cellspacing="0" width="100%"  name="tabla" id="tabla">
                                       <thead>
                                         <tr>
                                             <th>Num</th>
                                             <th>C.I.</th>
-                                            <th>Nombre del empleado</th>
                                             <th>Tipo de Boleta</th>
                                             <th>Fecha de solicitud</th>
                                             <th>Desde</th>
@@ -71,7 +70,6 @@
                                             <tr>
                                             <td id='id' name='id'><%= boletas[i].id %></td>
                                             <td><%= boletas[i].ndi %></td>
-                                            <td><%= boletas[i].paterno %><%= boletas[i].materno %><%= boletas[i].nombres %></td>
                                             <td><%= boletas[i].tipo_boleta %></td>
                                             <td><%= moment(boletas[i].fecha_solicitud).format( 'DD/MM/YYYY') %></td>
                                             <td><%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY') %></td>
@@ -79,8 +77,10 @@
                                             <td><%= boletas[i].observacion %></td>
                                             <td><%= boletas[i].estado %></td>
                                             <td>
-                                              <button class="btn btn-outline-primary" type="submit" >Imprimir</button>
-                                             
+                                              <button class="btn btn-primary" type="submit" >
+                                                  <i class="mdi mdi-printer" style="font-size: 20px"></i>
+                                                  <span>Ver</span>
+                                              </button> 
                                             </td>
                                             <td><input type="hidden" name="id" value= "<%= boletas[i].id %>"></td>
                                             
