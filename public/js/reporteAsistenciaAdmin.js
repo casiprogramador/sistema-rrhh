@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('.js-example-basic-single').select2();
     $("#asistencia-area").show();
     $("#asistencia-individual").hide();
     $('input[name=tipo_reporte').change(function() {
@@ -13,3 +14,4 @@ $(document).ready(function() {
         }
     });
 });
+
