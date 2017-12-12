@@ -1,17 +1,28 @@
 <% layout('/layouts/admin') -%>
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
-  <div class="row row-offcanvas row-offcanvas-right">
+  <div class="row row-offcanvas row-offcanvas-right"> 
     <div class="content-wrapper">
       <div class="row user-profile">
           <div class="col-lg-10 side-right">
             <div class="card">
               <div class="card-body">
                 <div class="wrapper">
+                    <h1><center>Dispositivos Registrados</center></h1>
+                    
+                    <table class="table">
+                      <tr><th>Direccion IP</th><th>Puerto</th><th>Estado</th><th>Modelo</th><th>Identificador</th><th>Comentarios</th><th></th></tr>
+                      <% for(var i=0; i< newdispositivo.length; i++) { %>
+                        <tr>
+                        <form method="POST" action="/marcacion/marcaciones">
+                          <td><input name="dispositivo" value="<%=newdispositivo[i].DireccionIP%>"/><input name="ip" type="hidden" value="<%=newdispositivo[i].DireccionIP %>"><%=newdispositivo[i].DireccionIP %></td><td><input name="puerto" type="hidden" value="<%=newdispositivo[i].Puerto %>"><%=newdispositivo[i].Puerto %></td><td><%=newdispositivo[i].Cod_Estado %></td><td><%=newdispositivo[i].Modelo %></td><td><%=newdispositivo[i].Identificador %></td><td><%=newdispositivo[i].Comentario %></td><td><button class="button" type="submmit">Ver</button></td>
+                        </form>
+                        </tr>
+                        <%}%>
+                    </table>
             </div>
           </div>
       </div>
-      <a class="btn btn-primary btn-lg" href='javascript:;'  role="button"></a>
       </div>
       </div>
     </div>

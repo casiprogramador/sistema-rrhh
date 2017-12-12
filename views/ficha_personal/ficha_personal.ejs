@@ -54,8 +54,8 @@
                           <tr><td style="font-size:65%"><b>5.2. N° Cuenta Bancaria</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newempleado[0].nro_cuenta %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>5.3. Nombre Banco</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newempleado[0].banco %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>5.4. Tipo de Cuenta</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newempleado[0].tipo_cuenta %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
-                          
                           <tr><td style="font-size:65%"><b><u>VI.- ESTUDIOS</u></b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
+                          <% for(var i=0; i< newestudios.length; i++) { %>
                           <tr><td style="font-size:65%"><b>6.1. Nivel de Formacion</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].nivel %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>6.2. Titulo Obtenido</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].titulo %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>6.3. Carrera</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].carrera %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
@@ -66,13 +66,16 @@
                           <tr><td style="font-size:65%"><b>6.8. Fecha Inicio</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].fecha_inicio %></td><td align=right style="font-size:65%"><b>Fecha Fin:&nbsp</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].fecha_fin %></td></tr>
                           <tr><td style="font-size:65%"><b>6.9. Colegio Profesional</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].colegio_prof %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>6.10. N° Registro Profesional</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newestudios[0].nro_registro_prof %></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
+                          <% } %>
                           <tr><td style="font-size:65%"><b><u>VII.- CONOCIMIENTOS</u></b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
                           <tr><td style="font-size:65%"><b>7.1. Idiomas</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
+                          <% if(newempleado_idioma.length>0) { %>
                           <tr><td style="font-size:65%;border: 1px solid #ccc"><b>IDIOMA</b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><b>LEE</b></td><td style="font-size:65%;border: 1px solid #ccc;"><b>ESCRIBE</b></td><td style="font-size:65%;border: 1px solid #ccc;"><b>HABLA</b></td></tr>
                           <tr><td style="font-size:65%;border: 1px solid #ccc"><b>Español</b></td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[0].lee %> %</td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[0].escribe %> %</td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[0].habla %> %</td></tr>
                           <tr><td style="font-size:65%;border: 1px solid #ccc"><b>Ingles</b></td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[1].lee %> %</td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[1].escribe %> %</td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[1].habla %> %</td></tr>
                           <tr><td style="font-size:65%; border: 1px solid #ccc"><b><%= newempleado_idioma[2].id_idioma %></b></td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[2].lee %> %</td><td style="font-size:65%;border-bottom: 1px solid #ccc;"><%= newempleado_idioma[2].escribe %> %</td><td style="font-size:65%;border: 1px solid #ccc;"><%= newempleado_idioma[2].habla %> %</td></tr>
-                          <tr><td style="font-size:65%"><b><u> DEPENDIENTES</u></b></td><td style="font-size:65%"></td><td style="font-size:65%"></td><td style="font-size:65%"></td></tr>
+                          <% } %>
+                          <tr><td style="font-size:65%"><b><u>VII. DEPENDIENTES</u></b></td><td style="font-size:65%"></td><td style="font-size:65%"></td><td style="font-size:65%"></td></tr>
 
                           <% for(var i=0; i< newdependiente.length; i++) { %>
                             <tr><td style="font-size:65%"><b>8.<%= i+1 %>. Dependiente <%= i+1 %></b></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td><td style="font-size:65%;border-bottom: 1px solid #ccc;"></td></tr>
@@ -112,4 +115,3 @@
       </div>
     </div>
 </div>
-/

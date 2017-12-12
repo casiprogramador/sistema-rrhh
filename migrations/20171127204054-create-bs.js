@@ -1,0 +1,39 @@
+'use strict';
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('BS', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      UserID: {
+        type: Sequelize.INTEGER
+      },
+      eventTime: {
+        type: Sequelize.INTEGER
+      },
+      tnaEvent: {
+        type: Sequelize.INTEGER
+      },
+      Code: {
+        type: Sequelize.STRING(20)
+      },
+      IP: {
+        type: Sequelize.STRING(15)
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Bs');
+  }
+};

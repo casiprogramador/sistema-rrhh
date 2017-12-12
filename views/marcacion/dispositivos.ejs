@@ -1,0 +1,61 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="content-wrapper">
+      <div class="row user-profile">
+          <div class="col-lg-10 side-right">
+            <div class="card">
+              <div class="card-body">
+                <div class="wrapper">
+                    <h1><center>Registrar Nuevos Dispositivos</center></h1>
+                    <form method="POST" action="/marcacion/registro_dispositivo">
+                      <table class="table">
+                        <tr>
+                          <td><label for="ip">Direccion IP</label><input name="ip" placeholder="Direccion Ip"></td>
+                          <td><label for="puerto">Puerto</label><input name="puerto" placeholder="Puerto"></td>
+                          <td><label for="estado">Estado</label>
+                            <select name="estado">
+                                <option value="1">Habilitado</option>
+                                <option value="0">Inhabilitado</option>
+                                </select>
+                              </td>
+                          <td><label for="modelo">Modelo</label>
+                            <select name="modelo">
+                                <option value="zk Software (TFT)">zk Software (TFT)</option>
+                                <option value="Suprema BioStation">Suprema BioStation</option>
+                                <option value="zk Software (BW)">zk Software (BW)</option>
+                                <option value="zk Software DB">zk Software DB</option>
+                                <option value="ZKS Access DB">ZKS Access DB</option>
+                                <option value="AET63">AET63</option>
+                                </select></td>
+                          <td><label for="identificador">Identificador</label>
+                            <select name="identificador">
+                              <option value="ndi">NDI</option>
+                              <option value="codigo">Codigo</option>
+                            </select>
+                          </td>
+                          <td><label for="comentario">Comentarios</label><input name="comentario" placeholder="Comentario"></td>
+                          <td><button type="submmit">Agregar</button></td>
+                        </tr>
+                      </table>
+                    </form>
+                    <br><br>
+                    <h1><center>Dispositivos Registrados</center></h1>
+                        <table class="table">
+                          <tr><th>Direccion IP</th><th>Puerto</th><th>Estado</th><th>Modelo</th><th>Identificador</th><th>Comentarios</th></tr>
+                          <% for(var i=0; i< newdispositivo.length; i++) { %>
+                            <form method="POST" action="/marcacion/elimina_dispositivo">
+                            <tr><td><input name="id" type="hidden" value="<%=newdispositivo[i].id %>"><%=newdispositivo[i].DireccionIP %></td><td><%=newdispositivo[i].Puerto %></td><td><%=newdispositivo[i].Cod_Estado %></td><td><%=newdispositivo[i].Modelo %></td><td><%=newdispositivo[i].Identificador %></td><td><%=newdispositivo[i].Comentario %></td><td><button type="submit">Eliminar</button></td></tr>
+                          </form>
+                            <%}%>
+                        </table>
+                      <br><br><br>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    </div>
