@@ -91,7 +91,6 @@ function ensureAuthentificated(req, res, next) {
     }
 }
 
-
 router.post('/change_password', (req, res, next) => {
     var actualizar_datos = { password: bcrypt.hashSync(req.body.password, salt), resetpwd: false }
     modelos.Usuario.update(

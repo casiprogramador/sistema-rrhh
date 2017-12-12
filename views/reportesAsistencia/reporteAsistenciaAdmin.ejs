@@ -1,0 +1,115 @@
+<% layout('/layouts/admin') -%>
+
+
+  <!-- partial -->
+  <div class="content-wrapper">
+
+    <div class="row grid-margin">
+
+      <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <%if (error_msg.length > 0 ) { %>
+          <div class="alert alert-warning text-center" role="alert">
+            <%= error_msg %>
+          </div>
+          <% } %>
+            <div class="row justify-content-md-center">
+              <div class="col-sm-12 col-lg-10 grid-margin print-ignore">
+                <div class="card margin-top-30">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-7">
+                        <h2 class="card-title">Reporte de asistencia</h2>
+                      </div>
+
+                      <div class="col-sm-4">
+
+                        <div class="form-radio">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="tipo_reporte" value="area" checked> Reporte por Area
+                          </label>
+                        </div>
+                        <div class="form-radio">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="tipo_reporte" value="persona"> Reporte por Persona
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="asistencia-individual" class="form-margin-20">
+                      <h2 class="">Busqueda por Persona</h2>
+                      <form id="form-asistencia-individual" action="/reportesAsistencia/reportesAsistenciaAdmin/individual" method="post">
+                        <div class="form-group row">
+                          <label for="ci reporte" class="col-sm-1 col-form-label">C. I.:</label>
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci-empleado" placeholder="Ingrese el CI del empleado">
+                          </div>
+                          <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary">Busca persona</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+  
+                    <div id="asistencia-area" class="form-margin-20">
+                      <h2 class="">Busqueda por Area</h2>
+                      <form id="form-asistencia-area" action="/reportesAsistencia/reportesAsistenciaAdmin/area" method="post">
+                        <div class="form-group row">
+                          <% for(var i=0; i< areas.length; i++) { %>
+                          <label for="area" class="col-sm-3 col-form-label">Area:</label>
+                          <div class="col-sm-8">
+                            <select class="form-control" id="areas-select-vacacion" name="area">
+
+                              <option value="">
+
+                              </option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha Reporte:</label>
+                          <div class="col-sm-8">
+                            <div class="input-group date datepicker b-l-blue">
+                              <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion" value="">
+                              <div class="input-group-addon">
+                                <span class="mdi mdi-calendar-blank"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="fecha reporte" class="col-sm-3 col-form-label">Tipo Personal:</label>
+                          <div class="col-sm-8">
+                            <div class="form-radio">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="tipo_personal" value="activo" checked> Personal Activo
+                              </label>
+                            </div>
+                            <div class="form-radio">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="tipo_personal" value="inactivo"> Personal Inactivo
+                              </label>
+                            </div>
+                            <div class="form-radio">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="tipo_personal" value="todos"> Personal Activo/Inactivo
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 text-center">
+                          <button type="submit" class="btn btn-primary">Buscar Personal</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>

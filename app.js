@@ -23,7 +23,6 @@ var administrar_boleta = require('./routes/administrar/boleta');
 //Boletas
 var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
-//Horarios
 var lista_horario = require('./routes/horario/lista_horario');
 var nuevo_horario = require('./routes/horario/nuevo_horario');
 var lista_asignacion_horario = require('./routes/horario/lista_asignacion_horario');
@@ -33,9 +32,10 @@ var asignar_horario_especial = require('./routes/horario/asignar_horario_especia
 //Feriado
 var feriado = require('./routes/parametro/feriado');
 
+//Reportes de asistencia
+var reporteAsistenciaEmpleado = require('./routes/reportesAsistencia/reporteAsistenciaEmpleado');
+var reporteAsistenciaAdmin = require('./routes/reportesAsistencia/reporteAsistenciaAdmin');
 
-
-var consultamarcado = require('./routes/formulario/consultamarcado');
 
 var ficha_personal_nuevo = require('./routes/ficha_personal/nuevo_personal');
 var ficha_personal_identificacion = require('./routes/ficha_personal/identificacion_personal');
@@ -43,6 +43,7 @@ var ficha_personal_datoslaborales = require('./routes/ficha_personal/identificac
 var ficha_personal_dependientes = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_experiencia = require('./routes/ficha_personal/identificacion_personal');
 var ficha_personal_referencias = require('./routes/ficha_personal/identificacion_personal');
+
 
 var scripts = require('./routes/script/cronjob');
 var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_personal');
@@ -166,7 +167,10 @@ app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
-app.use('/formularios/consultamarcado',consultamarcado);
+//reportes de Asistencia
+app.use('/reportesAsistencia/reporteAsistenciaEmpleado',reporteAsistenciaEmpleado);
+app.use('/reportesAsistencia/reporteAsistenciaAdmin',reporteAsistenciaAdmin);
+
 //Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);
 app.use('/ficha_personal',ficha_personal_datoslaborales);
