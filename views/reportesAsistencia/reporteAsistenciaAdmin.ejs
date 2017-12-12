@@ -18,7 +18,7 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-7">
-                        <h2 class="card-title">Reporte de asistencia</h2>
+                        <h1 class="card-title">Reporte de asistencia</h1>
                       </div>
 
                       <div class="col-sm-4">
@@ -37,7 +37,7 @@
                     </div>
 
                     <div id="asistencia-individual" class="form-margin-20">
-                      <h2 class="">Busqueda por Persona</h2>
+                      <h2 class="card-title">Busqueda por Persona</h2>
                       <form id="form-asistencia-individual" action="/reportesAsistencia/reportesAsistenciaAdmin/individual" method="post">
                         <div class="form-group row">
                           <label for="ci reporte" class="col-sm-1 col-form-label">C. I.:</label>
@@ -50,34 +50,25 @@
                         </div>
                       </form>
                     </div>
-  
+
                     <div id="asistencia-area" class="form-margin-20">
-                      <h2 class="">Busqueda por Area</h2>
+                      <h2 class="card-title">Busqueda por Area</h2>
                       <form id="form-asistencia-area" action="/reportesAsistencia/reportesAsistenciaAdmin/area" method="post">
                         <div class="form-group row">
-                          <% for(var i=0; i< areas.length; i++) { %>
+
                           <label for="area" class="col-sm-3 col-form-label">Area:</label>
                           <div class="col-sm-8">
-                            <select class="form-control" id="areas-select-vacacion" name="area">
-
-                              <option value="">
-
-                              </option>
+                            <select class="js-example-basic-single">
+                              <% for(var i=0; i< areas.length; i++) { %>
+                                <option value="<%= areas[i].id %>">
+                                  <%= areas[i].desc_area %>
+                                </option>
+                                <% } %>
 
                             </select>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <label for="fecha reporte" class="col-sm-3 col-form-label">Fecha Reporte:</label>
-                          <div class="col-sm-8">
-                            <div class="input-group date datepicker b-l-blue">
-                              <input type="text" class="form-control" name="fecha" id="fecha-saldo-vacacion" value="">
-                              <div class="input-group-addon">
-                                <span class="mdi mdi-calendar-blank"></span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                         <div class="form-group row">
                           <label for="fecha reporte" class="col-sm-3 col-form-label">Tipo Personal:</label>
                           <div class="col-sm-8">
@@ -98,18 +89,170 @@
                             </div>
                           </div>
                         </div>
+
+
+                        <h2 class="card-title">Periodo y tipo de reporte</h2>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Periodo:</label>
+                          <label class="col-sm-1 col-form-label">Del:</label>
+                          <div class="col-sm-2">
+
+                            <div class="input-group date datepicker" id="datetimepicker1">
+                              <input type="text" class="form-control" name="inicio" id="inicio">
+                              <div class="input-group-addon">
+                                <span class="mdi mdi-calendar-blank"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <label class="col-sm-1 col-form-label">al:</label>
+                          <div class="col-sm-2">
+                            <div class="input-group date datepicker" id="datetimepicker2">
+                              <input type="text" class="form-control" name="fin" id="fin">
+                              <div class="input-group-addon">
+                                <span class="mdi mdi-calendar-blank"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Tipo de reporte:</label>
+                          <div class="col-sm-6">
+                            <select class="form-control" name="tipo" id="tipo">
+                              <option value="completo">Reporte completo</option>
+                              <option value="observaciones">Reporte con observaciones</option>
+                            </select>
+                          </div>
+                        </div>
+
+
+
                         <div class="col-md-12 text-center">
-                          <button type="submit" class="btn btn-primary">Buscar Personal</button>
+                          <button type="submit" class="btn btn-primary">Recuperar</button>
                         </div>
                       </form>
                     </div>
 
                   </div>
+
                 </div>
               </div>
             </div>
       </div>
-    </div>
-  </div>
-  </div>
-  </div>
+
+      <div class="col-lg-12 grid-margin grid-margin-lg-0" id="panel-personal">
+        <div class="card margin-top-30">
+          <div class="card-body">
+            
+                <h2 class="card-title text-center">Reporte de asistencia por area</h2>
+                <h3 class="card-title" align="center">Correspontiente al periodo al </h3>
+                <h3 class="card-title">Tipo personal: Activo </h3>
+      
+                <% if(saldovacaciones.length != 0 ) { %>
+                  <table id="table-saldo" class="table table-bordered table-print data-table-print">
+                    <thead>
+                      <tr>
+                        <th class="table-dark" width="10%">CI</th>
+                        <th class="table-dark" width="25%">Nombre</th>
+                        <th class="table-dark" width="15%">Cargo</th>
+                        <th class="table-dark" width="15%">Fecha Ingreso</th>
+                        <th class="table-dark" width="10%">Gestion</th>
+                        <th class="table-dark" width="15%">Dias de Vacacion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% var area = '' %>
+                        <% var ndi = saldovacaciones[0].ndi %>
+                          <% var saldo = 0 %>
+                            <% var index = 0 %>
+                              <% for(var saldovacacion of saldovacaciones) { %>
+                                <% if(ndi == saldovacacion.ndi ) { %>
+                                  <%    saldo = saldo + saldovacacion.dias %>
+                                    <% }else{ %>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">
+                                          <b>Total:</b>
+                                        </td>
+                                        <td class="text-center">
+                                          <%= saldo %>
+                                        </td>
+                                      </tr>
+                                      <% var saldo = saldovacacion.dias %>
+
+                                        <% }%>
+                                          <% if(area != saldovacacion.desc_area) { %>
+                                            <tr>
+                                              <td colspan="6">
+                                                <h2>
+                                                  <%= saldovacacion.desc_area %>
+                                                </h2>
+                                              </td>
+                                              <td style="display: none;"></td>
+                                              <td style="display: none;"></td>
+                                              <td style="display: none;"></td>
+                                              <td style="display: none;"></td>
+                                              <td style="display: none;"></td>
+                                            </tr>
+                                            <% }%>
+
+                                              <tr>
+
+                                                <td>
+                                                  <%= saldovacacion.ndi %>
+                                                </td>
+                                                <td>
+                                                  <%= saldovacacion.nombres %>
+                                                    <%= saldovacacion.paterno %>
+                                                      <%= saldovacacion.materno %>
+                                                </td>
+                                                <td>
+                                                  <%= saldovacacion.cargo %>
+                                                </td>
+                                                <td>
+                                                  <%= moment(saldovacacion.fecha_inicio).format( 'DD/MM/YYYY') %>
+                                                </td>
+
+                                                <td class="text-center">
+                                                  <%= saldovacacion.gestion %>
+                                                </td>
+                                                <td class="text-center">
+                                                  <%= saldovacacion.dias %>
+                                                </td>
+
+                                                <% var ndi = saldovacacion.ndi %>
+                                                  <% var area = saldovacacion.desc_area  %>
+                                                    <% var index=index+1 %>
+                                              </tr>
+
+                                              <% if(index == saldovacaciones.length ) { %>
+                                                <tr>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td class="text-center">
+                                                    <b>Total:</b>
+                                                  </td>
+                                                  <td class="text-center">
+                                                    <%= saldo %>
+                                                  </td>
+                                                </tr>
+                                                <% }%>
+                                                  <%} %>
+                    </tbody>
+                  </table>
+                  <% }else{%>
+                    <div class="alert alert-warning text-center" role="alert">
+                      No se encontraron registros
+                    </div>
+                    <%} %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
