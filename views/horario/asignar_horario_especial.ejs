@@ -9,7 +9,27 @@
         <form method="post" action="/horario/asignar_horario_especial/grabar_unico">
 
             <div class="card col-lg-12 col-lg-2   ">
+             
                 <div class="card-body col-10 col-2 text-center">
+                <div class="form-group row">
+                <label for="calculo_dias" class="col-sm-2 col-form-label">Nombre:</label>
+                        <div class="col-sm-5">
+                                <input type="text" class="form-control" class="form-control"  value= "<%= horario[0].nombres %>"  readonly="readonly">
+                        </div>
+                </div>
+                <div class="form-group row">
+                        <label for="calculo_dias" class="col-sm-2 col-form-label">Area:</label>
+                                <div class="col-sm-5">
+                                <input type="text" class="form-control"  value= "<%= horario[0].cargo %>"  readonly="readonly" >
+                                </div>
+                </div>
+                <div class="form-group row">
+                        <label for="calculo_dias" class="col-sm-2 col-form-label">Cargo:</label>
+                                <div class="col-sm-5">
+                                <input type="text" class="form-control" class="form-control"  value= "<%= horario[0].desc_area %>"  readonly="readonly">
+                                </div>
+                </div>
+
                     <h2 class="page-title">Horario Unico</h2>
                     <div class="form-group row">
                             <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha:</label>
@@ -27,11 +47,12 @@
                             <label for="fecha reporte" class="col-sm-2 col-form-label" >Horario:</label>
                             <div class="col-sm-4">
                                 <select class="form-control" id="horario" name="horario">
-                                        <% for(var i=0; i< horario.length; i++) { %>
-                                                <option value="<%= horario[i].id %>"><%= horario[i].descripcion %></option>
+                                        <% for(var i=0; i< combo_horario.length; i++) { %>
+                                                <option value="<%= combo_horario[i].id %>"><%= combo_horario[i].descripcion %></option>
                                         <% } %>
                                 </select>
                             </div>
+                            <input type="hidden" name="id" value= "<%= horario[0].id %>">  
                     </div>  
                         
                     <input class="btn btn-primary  col-sm-1  " type="submit" value="Grabar ">
@@ -67,7 +88,7 @@
                                 <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha Fin:</label>
                                 <div class="col-sm-3">
                                       <div class="input-group date datepicker b-l-blue">
-                                          <input type="text" class="form-control" name="fecha_inicio" id="fecha-inicio"  required>
+                                          <input type="text" class="form-control" name="fecha_fin" id="fecha-fin"  required>
                                           <div class="input-group-addon">
                                             <span class="mdi mdi-calendar-blank"></span>
                                           </div>
@@ -81,8 +102,8 @@
                               <div class="col-sm-4">
                                   <select class="form-control" id="horario_especial" name="horario_especial">
                                 
-                                        <% for(var i=0; i< horario.length; i++) { %>
-                                                <option value="<%= horario[i].id %>"><%= horario[i].descripcion %></option>
+                                        <% for(var i=0; i< combo_horario.length; i++) { %>
+                                                <option value="<%= combo_horario[i].id %>"><%= combo_horario[i].descripcion %></option>
                                         <% } %>
                                      
                                   </select>
@@ -93,37 +114,38 @@
                       <div class="form-group row ">
                             <div class="form-check col-lg-4 " >
                                     <label class="form-check-label col-sm-4">
-                                            <input type="checkbox" class="form-check-input"   >
+                                            <input type="checkbox" class="form-check-input" name="lunes"  >
                                             Lunes
                                     </label>
                             </div>
                             <div class="form-check col-lg-4 " >
                                     <label class="form-check-label col-sm-4">
-                                            <input type="checkbox" class="form-check-input"   >
+                                            <input type="checkbox" class="form-check-input" name="martes"  >
                                             Martes
                                     </label>
                             </div>
                             <div class="form-check col-lg-4 " >
                                     <label class="form-check-label col-sm-4">
-                                            <input type="checkbox" class="form-check-input"   >
+                                            <input type="checkbox" class="form-check-input" name="miercoles"  >
                                             Miercoles
                                     </label>
                             </div>
                             <div class="form-check col-lg-4 " >
                                     <label class="form-check-label col-sm-4">
-                                            <input type="checkbox" class="form-check-input"   >
+                                            <input type="checkbox" class="form-check-input"  name="jueves" >
                                             Jueves
                                     </label>
                             </div>
                             <div class="form-check col-lg-4 " >
                                     <label class="form-check-label col-sm-4">
-                                            <input type="checkbox" class="form-check-input"   >
+                                            <input type="checkbox" class="form-check-input" name="viernes"  >
                                             Viernes
                                     </label>
                             </div>
                 </div>
+                <input type="hidden" name="id" value= "<%= horario[0].id %>">  
             </div>
-                      <input class="btn btn-primary  col-sm-1  " type="submit" value="Grabar ">
+                      <input class="btn btn-primary  col-sm-1  " type="submit" value="Grabar " name="estado">
                   </div>
                          
                  

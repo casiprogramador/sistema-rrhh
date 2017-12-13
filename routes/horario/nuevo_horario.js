@@ -43,7 +43,7 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
         })
         .then(newhorario => { 
         req.flash('success_msg','Horario creado correctamente');
-        res.redirect('/horario/nuevo_horario');
+        res.redirect('/horario/lista_horario');
         });
    })
 
