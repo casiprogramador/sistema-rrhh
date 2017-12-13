@@ -32,6 +32,8 @@ var asignar_horario_especial = require('./routes/horario/asignar_horario_especia
 //var asignar_horario_especial_usuario = require('./routes/horario/asignar_horario_especial_usuario');
 //Feriado
 var feriado = require('./routes/parametro/feriado');
+var cargo = require('./routes/parametro/cargo');
+var area = require('./routes/parametro/area');
 
 //Reportes de asistencia
 var reporteAsistenciaEmpleado = require('./routes/reportesAsistencia/reporteAsistenciaEmpleado');
@@ -169,6 +171,8 @@ app.use('/horario/asignar_horario_especial',asignar_horario_especial);
 
 //Feriado
 app.use('/feriado',feriado);
+app.use('/cargo',cargo);
+app.use('/area',area);
 
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
