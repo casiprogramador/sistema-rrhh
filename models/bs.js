@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var BS = sequelize.define('BS', {
     UserID: DataTypes.INTEGER,
-    eventTime: DataTypes.INTEGER,
+    eventTime: DataTypes.DATE,
     tnaEvent: DataTypes.INTEGER,
     Code: DataTypes.STRING(20),
     IP: DataTypes.STRING(15)

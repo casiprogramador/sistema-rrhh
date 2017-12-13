@@ -47,7 +47,7 @@
                                                   <div class="col">
                                                   <div class="form-group">
                                                     <label for="priapellido">Primer Apellido *</label>
-                                                    <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" value="<%= newempleado[0].paterno %>">
+                                                    <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" value="<%=(newempleado[0].paterno!=null) ? newempleado[0].paterno:'' %>">
                                                   </div>
                                                   </div>
                                                   <div class="col">
@@ -63,7 +63,7 @@
                                                   <div class="col-6">
                                                   <div class="form-group">
                                                     <label for="casapellido">Apellido de casada</label>
-                                                    <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2" value="<%= newempleado[0].esposo %>">
+                                                    <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2" value="<%=(newempleado[0].esposo!=null) ? newempleado[0].esposo:'' %>">
                                                   </div>
                                                   </div>
                                                   </div>
@@ -96,7 +96,7 @@
                                                     <div class="col-6">
                                                     <div class="form-group">
                                                     <label for="paisci">Pais</label>
-                                                    <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais" minlength="2" value="<%= newempleado[0].pais_expedido %>">
+                                                    <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais" minlength="2" value="<%=(newempleado[0].pais_expedido!=null) ? newempleado[0].pais_expedido:'' %>">
                                                   </div>
                                                   </div>
                                                   <div class="col">
@@ -127,13 +127,13 @@
                                                         <div class="col">
                                                           <div class="form-group">
                                                             <label for="provincia">Provincia</label>
-                                                            <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia" minlength="2" value="<%=newempleado[0].provincia%>">
+                                                            <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia" minlength="2" value="<%=(newempleado[0].provincia!=null) ? newempleado[0].provincia:'' %>">
                                                           </div>
                                                           </div>
                                                           <div class="col">
                                                             <div class="form-group">
                                                               <label for="departamento">Departamento</label>
-                                                              <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento" minlength="2" value="<%=newempleado[0].departamento%>">
+                                                              <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento" minlength="2" value="<%=(newempleado[0].departamento!=null) ? newempleado[0].departamento:'' %>">
                                                             </div>
                                                             </div>
                                                       </div>
@@ -143,13 +143,13 @@
                                                         <div class="col">
                                                           <div class="form-group">
                                                             <label for="nacionalidad">Nacionalidad</label>
-                                                            <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" minlength="2" value="<%=newempleado[0].nacionalidad%>">
+                                                            <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" minlength="2" value="<%=(newempleado[0].nacionalidad!=null) ? newempleado[0].nacionalidad:'' %>">
                                                           </div>
                                                           </div>
                                                       <div class="col">
                                                       <div class="form-group">
                                                         <label for="paisnac">Pais</label>
-                                                        <input name="paisnac" type="text" class="form-control" id="paisnac" placeholder="Pais" minlength="2" value="<%=newempleado[0].pais_nacimiento%>">
+                                                        <input name="paisnac" type="text" class="form-control" id="paisnac" placeholder="Pais" minlength="2" value="pais_nacimiento">
                                                       </div>
                                                       </div>
                                                       </div>
@@ -198,7 +198,7 @@
                                                     </div>
                                                     <div class="col"><div class="form-group">
                                                       <label for="sangre">Grupo Sanguineo</label>
-                                                      <input name="sangre" type="text" class="form-control" id="sangre" placeholder="Grupo Sanguineo" minlength="2" value="<%=newempleado[0].grupo_sang%>">
+                                                      <input name="sangre" type="text" class="form-control" id="sangre" placeholder="Grupo Sanguineo" minlength="2" value="<%=(newempleado[0].grupo_sang!=null) ? newempleado[0].grupo_sang:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -207,13 +207,13 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                       <label for="ecivil">Estado Civil *</label>
-                                                      <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil" minlength="2" value="<%=newempleado[0].estado_civil%>">
+                                                      <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil" minlength="2" value="<%=(newempleado[0].estado_civil!=null) ? newempleado[0].estado_civil:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col">
                                                     <div class="form-group">
                                                       <label for="lmilitar">N° Libreta de Servicio Militar</label>
-                                                      <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar" minlength="5" onkeypress="return valida(event)" value="<%=newempleado[0].num_serv_mil%>">
+                                                      <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar" minlength="5" onkeypress="return valida(event)" value="<%=(newempleado[0].num_serv_mil!=null) ? newempleado[0].num_serv_mil:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -226,13 +226,13 @@
                                                     <div class="col-8">
                                                     <div class="form-group">
                                                     <label for="calle">Calle o Avenida *</label>
-                                                    <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida" value="<%=newempleado[0].calle_avenida%>">
+                                                    <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida" value="<%=(newempleado[0].calle_avenida!=null) ? newempleado[0].calle_avenida:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col-3">
                                                     <div class="form-group">
                                                     <label for="num">N°</label>
-                                                    <input name="num" type="text" class="form-control" id="num" placeholder="N°" onkeypress="return valida(event)" value="<%=newempleado[0].nro_direccion%>">
+                                                    <input name="num" type="text" class="form-control" id="num" placeholder="N°" onkeypress="return valida(event)" value="<%=(newempleado[0].nro_direccion!=null) ? newempleado[0].nro_direccion:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -241,13 +241,13 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="nedificio">Nombre Edificio</label>
-                                                    <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio" minlength="2" value="<%=newempleado[0].nombre_edificio%>">
+                                                    <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio" minlength="2" value="<%=(newempleado[0].nombre_edificio!=null) ? newempleado[0].nombre_edificio:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="piso">Piso</label>
-                                                    <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso" onkeypress="return valida(event)" value="<%=newempleado[0].piso_edificio%>">
+                                                    <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso" onkeypress="return valida(event)" value="<%=(newempleado[0].piso_edificio!=null) ? newempleado[0].piso_edificio:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -256,13 +256,13 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="depto">Depto</label>
-                                                    <input name="depto" type="text" class="form-control" id="depto" placeholder="Departamento" value="<%=newempleado[0].nro_departamento%>">
+                                                    <input name="depto" type="text" class="form-control" id="depto" placeholder="Departamento" value="<%=(newempleado[0].nro_departamento!=null) ? newempleado[0].nro_departamento:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="zona">Zona *</label>
-                                                    <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona" minlength="2" required value="<%=newempleado[0].zona%>">
+                                                    <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona" minlength="2" required value="<%=(newempleado[0].zona!=null) ? newempleado[0].zona:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -271,13 +271,13 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="tdomicilio">Telefono Domicilio</label>
-                                                    <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio" minlength="7" onkeypress="return valida(event)" value="<%=newempleado[0].telefono%>">
+                                                    <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio" minlength="7" onkeypress="return valida(event)" value="<%=(newempleado[0].telefono!=null) ? newempleado[0].telefono:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="tcelular">Telefono Celular *</label>
-                                                    <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular" minlength="7" onkeypress="return valida(event)" value="<%=newempleado[0].celular%>">
+                                                    <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular" minlength="7" onkeypress="return valida(event)" value="<%=(newempleado[0].celular!=null) ? newempleado[0].celular:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -286,13 +286,13 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="casilla">Casilla</label>
-                                                    <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla"  onkeypress="return valida(event)" value="<%=newempleado[0].casilla%>">
+                                                    <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla"  onkeypress="return valida(event)" value="<%=(newempleado[0].casilla!=null) ? newempleado[0].casilla:'' %>">
                                                     </div>
                                                     </div>
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="email">E'mail Personal *</label>
-                                                    <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal" type="email" minlength="8" value="<%=newempleado[0].email_personal%>">
+                                                    <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal" type="email" minlength="8" value="<%=(newempleado[0].email_personal!=null) ? newempleado[0].email_personal:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>
@@ -302,7 +302,7 @@
                                                     <div class="col">
                                                     <div class="form-group">
                                                     <label for="emailt">E'mail Trabajo</label>
-                                                    <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo" type="email" minlength="8" value="<%=newempleado[0].email_trabajo%>">
+                                                    <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo" type="email" minlength="8" value="<%=(newempleado[0].email_trabajo!=null) ? newempleado[0].email_trabajo:'' %>">
                                                     </div>
                                                     </div>
                                                     </div>

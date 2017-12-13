@@ -15,11 +15,30 @@
                       <% for(var i=0; i< newdispositivo.length; i++) { %>
                         <tr>
                         <form method="POST" action="/marcacion/marcaciones">
-                          <td><input name="dispositivo" value="<%=newdispositivo[i].DireccionIP%>"/><input name="ip" type="hidden" value="<%=newdispositivo[i].DireccionIP %>"><%=newdispositivo[i].DireccionIP %></td><td><input name="puerto" type="hidden" value="<%=newdispositivo[i].Puerto %>"><%=newdispositivo[i].Puerto %></td><td><%=newdispositivo[i].Cod_Estado %></td><td><%=newdispositivo[i].Modelo %></td><td><%=newdispositivo[i].Identificador %></td><td><%=newdispositivo[i].Comentario %></td><td><button class="button" type="submmit">Ver</button></td>
+                          <td><input type="hidden" name="dispositivo" value="<%=newdispositivo[i].DireccionIP%>"/><input name="ip" type="hidden" value="<%=newdispositivo[i].DireccionIP %>"><%=newdispositivo[i].DireccionIP %></td><td><input name="puerto" type="hidden" value="<%=newdispositivo[i].Puerto %>"><%=newdispositivo[i].Puerto %></td><td><%=newdispositivo[i].Cod_Estado %></td><td><%=newdispositivo[i].Modelo %></td><td><%=newdispositivo[i].Identificador %></td><td><%=newdispositivo[i].Comentario %></td><td><button class="button" type="submmit">Ver</button></td>
                         </form>
                         </tr>
                         <%}%>
                     </table>
+                    <% if(x.length > 0) { %>
+                    <form method="POST" action="/marcacion/guardar_marcacion">
+                    <h1><center>Registros</center></h1>
+                    <input type="text" value="<%=ip%>" name="ip">
+                    <button type="submmit" class="button">Guardar y limpiar</button>
+                    <table class="table">
+                    <tr>
+                        <th></th><th>N°</th><th>NDI</th><th>No se</th><th>Fecha y Hora de Marcacion</th>
+                    </tr>
+                    <% for(var i=0; i< x.length; i++) { %>
+                      <tr>
+                        <td><%= i+1%></td><td>
+                          <!--<input type="text" value="<%=x[i]%>" name="registros">-->
+                          <%=x[i][0]%></td><td><%=x[i][1]%></td><td><%=x[i][2]%></td><td><%=x[i][3]%></td>
+                      </tr>
+                    <% } %>
+                  </table>
+                </form>
+                <% } %>
             </div>
           </div>
       </div>

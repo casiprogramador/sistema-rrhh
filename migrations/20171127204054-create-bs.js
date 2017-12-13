@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       eventTime: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       tnaEvent: {
         type: Sequelize.INTEGER
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Bs');
+    return queryInterface.dropTable('BS');
   }
 };
