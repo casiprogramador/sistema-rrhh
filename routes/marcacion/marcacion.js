@@ -136,7 +136,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     var options = {
       host: "localhost",
       port: 8080,
-      path: '/usr?'+"ip="+ip+"&puerto="+puerto,
+      path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
     http.request(options, function(res) {
@@ -146,39 +146,30 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       res.on('data', function (chunk) {
         var x = JSON.parse(chunk);
         var array2=new Array();
-        for(var i=0;i<x.length;i++){
-          array2[0]=x[i][1];
-          array2[1]=x[i][3];
-          array2[2]="-10";
-          array2[3]=x[i][1];
-          array2[4]=ip;
-          array1[i]=array2;
-        }
-        for(var j=0;j<array1.length;j++){
-          if(j!=array1-1){
-          modelos.BS.create({
-            UserID:array1[j][0],
-            eventTime:array1[j][1],
-            tnaEvent:array1[j][2],
-            Code:array1[j][3],
-            IP:array1[j][4],
-            })
-          }
-          else{
+        for(var j=0;j<x.length;j++){
+          if(j!=x.length-1){
             modelos.BS.create({
-              UserII:array1[j][0],
-              eventTime:array1[j][1],
-              tnaEvent:array1[j][2],
-              Code:array1[j][3],
-              IP:array1[j][4],
-              }).then(newBS => {
-                console.log("Hola estoy aca");
+              UserID:x[j][1],
+              eventTime:x[j][3],
+              tnaEvent:x[j][2],
+              Code:x[j][3],
+              IP:ip,
+              }).then()
+          }else{
+            modelos.BS.create({
+              UserID:x[j][1],
+              eventTime:x[j][3],
+              tnaEvent:x[j][2],
+              Code:x[j][3],
+              IP:ip,
+              }).then(newbs=>{
                 modelos.Dispositivo.findAll({
                 }).then(newdispositivos => {
                   res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
                 })
-            })
-          }}
+              })
+          }
+        }
         })
     }).end();
   })

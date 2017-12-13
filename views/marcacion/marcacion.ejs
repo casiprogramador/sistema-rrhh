@@ -23,11 +23,12 @@
                     <% if(x.length > 0) { %>
                     <form method="POST" action="/marcacion/guardar_marcacion">
                     <h1><center>Registros</center></h1>
-                    <input type="text" value="<%=ip%>" name="ip">
-                    <button type="submmit" class="button">Guardar y limpiar</button>
+                    <input type="hidden" value="<%=ip%>" name="ip">
+                    <center><button type="submmit" class="btn btn-primary">Guardar y limpiar</button></center>
+                    <br><br><br>
                     <table class="table">
                     <tr>
-                        <th></th><th>N°</th><th>NDI</th><th>No se</th><th>Fecha y Hora de Marcacion</th>
+                        <th>N°</th><th>N° de marcacion</th><th>NDI</th><th>No se</th><th>Fecha y Hora de Marcacion</th>
                     </tr>
                     <% for(var i=0; i< x.length; i++) { %>
                       <tr>
