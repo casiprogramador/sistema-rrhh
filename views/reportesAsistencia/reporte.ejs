@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <style>
+        @media print {
+            .print-ignore {
+                display: none !important;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <img src="/images/logomdpyep.png" alt="icono logo" width="15%">
+    <h1 align="center">Reporte de asistencia</h1>
+    <h2 align="center">Correspondiente al periodo del <%= moment(fecha_inicio).format( 'DD/MM/YYYY') %> al <%= moment(fecha_fin).format( 'DD/MM/YYYY') %> </h2>
+    <%var area=''%>
+    <%var empleado=''%>
+
+  
+        <table cellspacing="0" width="100%" border="1" align="center">
+
+                <thead align="center">
+                        <tr>
+                          <th colspan="5"></th>
+                          <th colspan="2">1er Periodo</th>
+                          <th colspan="2">2do Periodo</th>
+                          <th colspan="2">Retraso 1er Periodo</th>
+                          <th colspan="2">Retraso 2do Periodo</th>
+                          <th colspan="2">Observaciones</th>
+                        </tr>
+                        <tr>
+                          <th>Area</th>
+                          <th>Empleado</th>  
+                          <th>Día</th>
+                          <th>Fecha</th>
+                          <th>horario</th>
+                          <th>Entrada</th>
+                          <th>Salida</th>
+                          <th>Entrada</th>
+                          <th>Salida</th>
+                          <th>Entrada</th>
+                          <th>Salida</th>
+                          <th>Entrada</th>
+                          <th>Salida</th>
+                          <th>1er periodo</th>
+                          <th>2do periodo</th>
+                        </tr>
+                      </thead>
+
+                    <% for(var reporte of reporteAsistencia) { %>
+                        <td><%=reporte.desc_area%></td>
+                        <td><%=reporte.nombres%></td>
+                       <td>
+                        <% if(moment(reporte.fecha).format( 'dddd') == 'Monday' ) { %>
+                        <%='Lunes'%>
+                        <%}%>
+                         <% if(moment(reporte.fecha).format( 'dddd') == 'Tuesday' ) { %>
+                         <%='Martes'%>
+                        <%}%>
+                         <% if(moment(reporte.fecha).format( 'dddd') == 'Wednesday' ) { %>
+                        <%='Miércoles'%>
+                         <%}%>
+                        <% if(moment(reporte.fecha).format( 'dddd') == 'Thursday' ) { %>
+                        <%='Jueves'%>
+                        <%}%>
+                        <% if(moment(reporte.fecha).format( 'dddd') == 'Friday' ) { %>
+                         <%='Viernes'%>
+                        <%}%>
+                        <% if(moment(reporte.fecha).format( 'dddd') == 'Saturday' ) { %>
+                        <%='Sábado'%>
+                        <%}%>
+                        <% if(moment(reporte.fecha).format( 'dddd') == 'Sunday' ) { %>
+                        <%='Domingo'%>
+                        <%}%>
+                        </td>
+                        <td>
+                          <%= moment(reporte.fecha).format( 'DD/MM/YYYY') %>
+                        </td>
+                        <td>
+                          <%= reporte.descripcion %>
+                        </td>
+                        <td>
+                          <%= reporte.entrada_1 %>
+                        </td>
+                        <td>
+                          <%= reporte.salida_1 %>
+                        </td>
+  
+                        <td>
+                          <%= reporte.entrada_2 %>
+                        </td>
+                        <td>
+                          <%= reporte.salida_2 %>
+                        </td>
+                        <td>
+                          <%= reporte.retraso_entrada_1 %>
+                        </td>
+                        <td>
+                          <%= reporte.retraso_salida_1 %>
+                        </td>
+                        <td>
+                          <%= reporte.retraso_entrada_2 %>
+                        </td>
+                        <td>
+                          <%= reporte.retraso_salida_2 %>
+                        </td>
+                        <td>
+                          <%= reporte.observacion_1 == null ? "" : reporte.observacion_1 %>
+                        </td>
+                        <td>
+                          <%= reporte.observacion_2 == null ? "" : reporte.observacion_2 %>
+                        </td>
+  
+                      </tr>
+                    <%}%>
+
+</body>
+
+</html>
