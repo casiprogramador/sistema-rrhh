@@ -29,6 +29,7 @@ var lista_asignacion_horario = require('./routes/horario/lista_asignacion_horari
 //Horario Especial
 var lista_horario_especial = require('./routes/horario/lista_horario_especial');
 var asignar_horario_especial = require('./routes/horario/asignar_horario_especial');
+//var asignar_horario_especial_usuario = require('./routes/horario/asignar_horario_especial_usuario');
 //Feriado
 var feriado = require('./routes/parametro/feriado');
 
@@ -163,6 +164,7 @@ app.use('/horario/lista_asignacion_horario',lista_asignacion_horario);
 //Horarios Especiales
 app.use('/horario/lista_horario_especial',lista_horario_especial);
 app.use('/horario/asignar_horario_especial',asignar_horario_especial);
+//app.use('/horario/asignar_horario_especial',asignar_horario_especial_usuario);
 
 
 //Feriado
