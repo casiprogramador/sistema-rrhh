@@ -40,13 +40,13 @@
                             <div class="col">
                             <div class="form-group">
                             <label for="name">Numero Nit</label>
-                            <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nit%>">
+                            <input name="nit" type="text" class="form-control" id="nit" placeholder="Nit" onkeypress="return valida(event)" minlength="2" value="<%=(newemp[0].nit!=null) ? newemp[0].nit:'' %>">
                             </div>
                             </div>
                             <div class="col">
                             <div class="form-group">
                             <label for="designation">Nombre AFP</label>
-                            <input name="afp" type="text" class="form-control" id="afp" placeholder="Nombre AFP" minlength="2" value="<%=newemp[0].afp%>">
+                            <input name="afp" type="text" class="form-control" id="afp" placeholder="Nombre AFP" minlength="2" value="<%=(newemp[0].afp!=null) ? newemp[0].afp:'' %>">
                             </div>
                             </div>
                             </div>
@@ -56,13 +56,13 @@
                             <div class="col">
                             <div class="form-group">
                               <label for="seguro_medico">Nombre Seguro Medico</label>
-                              <input name="seguro_medico" type="text" class="form-control" id="seguro_medico" placeholder="Seguro Medico" minlength="2" value="<%=newemp[0].seguro_medico%>">
+                              <input name="seguro_medico" type="text" class="form-control" id="seguro_medico" placeholder="Seguro Medico" minlength="2" value="<%=(newemp[0].seguro_medico!=null) ? newemp[0].seguro_medico:'' %>">
                             </div>
                             </div>
                             <div class="col">
                             <div class="form-group">
                             <label for="nro_seguro">Numero de Seguro</label>
-                            <input name="nro_seguro" class="form-control" id="num_seguro" placeholder="Numero Seguro medico" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nro_seguro%>">
+                            <input name="nro_seguro" class="form-control" id="num_seguro" placeholder="Numero Seguro medico" onkeypress="return valida(event)" minlength="2" value="<%=(newemp[0].nro_seguro!=null) ? newemp[0].nro_seguro:'' %>">
                             </div>
                             </div>
                             </div>
@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                     <label for="tipo_seguro">Tipo de Seguro</label>
                                     <select name="tipo_seguro" class="form-control" style="width:100%">
-                                      <option value="<%=newemp[0].tipo_seguro%>"><%=newemp[0].tipo_seguro%></option>>
+                                      <option value="<%=(newemp[0].tipo_seguro!=null) ? newemp[0].tipo_seguro:'' %>"><%=(newemp[0].tipo_seguro!=null) ? newemp[0].tipo_seguro:'' %></option>>
                                     <option value="Privado">Privado</option>
                                     <option value="Publico">Publico</option>
                                     </select>
@@ -82,7 +82,7 @@
                                     <div class="col">
                                     <div class="form-group">
                                       <label for="name">Numero Unico de Afiliado NUA o CUA</label>
-                                      <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].nua%>">
+                                      <input name="nua" type="text" class="form-control" id="nua" placeholder="Numero Unico de Afiliado" onkeypress="return valida(event)" minlength="2" value="<%=(newemp[0].nua!=null) ? newemp[0].nua:'' %>">
                                     </div>
                                     </div>
                                     </div>
@@ -92,13 +92,13 @@
                                             <div class="col">
                                             <div class="form-group">
                                               <label for="ren">Numero REN (exclusivo caso rentista)</label>
-                                              <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN" onkeypress="return valida(event)" minlength="2" value="<%=newemp[0].ren%>">
+                                              <input name="ren" type="text" class="form-control" id="ren" placeholder="Numero REN" onkeypress="return valida(event)" minlength="2" value="<%=(newemp[0].ren!=null) ? newemp[0].ren:'' %>">
                                             </div>
                                             </div>
                                             <div class="col">
                                             <div class="form-group">
                                               <label for="anios_calificados">Numero de Años Calificados</label>
-                                              <input name="anios_calificados" type="text" class="form-control" id="anios_calificados" placeholder="Años Calificados" onkeypress="return valida(event)" value="<%=newemp[0].anios_calificados%>">
+                                              <input name="anios_calificados" type="text" class="form-control" id="anios_calificados" placeholder="Años Calificados" onkeypress="return valida(event)" value="<%=(newemp[0].anios_calificados!=null) ? newemp[0].anios_calificados:'' %>">
                                             </div>
                                             </div>
                                             </div>
@@ -121,13 +121,13 @@
                 <div class="col">
                 <div class="form-group">
                 <label for="nro_declar_jurada">N° de Declaracion Jurada</label>
-                <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada" onkeypress="return valida(event)" value="<%=newemp[0].nro_declar_jurada%>">
+                <input name="nro_declar_jurada" type="text" class="form-control" id="ndecjurada" placeholder="N° Dde Declaracion Jurada" onkeypress="return valida(event)" value="<%=(newemp[0].nro_declar_jurada!=null) ? newemp[0].nro_declar_jurada:'' %>">
               </div>
               </div>
               <div class="col">
               <div class="form-group">
                 <label for="nro_cuenta">N° de Cuenta Bancaria</label>
-                <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria" onkeypress="return valida(event)" value="<%=newemp[0].nro_cuenta%>">
+                <input name="nro_cuenta" type="text" class="form-control" id="ncbancaria" placeholder="N° de Cuenta Bancaria" onkeypress="return valida(event)" value="<%=(newemp[0].nro_cuenta!=null) ? newemp[0].nro_cuenta:'' %>">
               </div>
               </div>
               </div>
@@ -137,14 +137,14 @@
               <div class="col">
               <div class="form-group">
                 <label for="name">Nombre del Banco</label>
-                <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco" minlength="2" value="<%=newemp[0].banco%>">
+                <input name="banco" type="text" class="form-control" id="nbanco" placeholder="Nombre del Banco" minlength="2" value="<%=(newemp[0].banco!=null) ? newemp[0].banco:'' %>">
               </div>
               </div>
               <div class="col">
               <div class="form-group">
                 <label for="name">Tipo de Cuenta</label>
                 <select name="tipo_cuenta" class="form-control" style="width:100%">
-                  <option value="<%=newemp[0].tipo_cuenta%>"><%=newemp[0].tipo_cuenta%></option>
+                  <option value="<%=(newemp[0].tipo_cuenta!=null) ? newemp[0].tipo_cuenta:'' %>"><%=(newemp[0].tipo_cuenta!=null) ? newemp[0].tipo_cuenta:'' %></option>
                         <option value="CCMN">Cuenta Corriente M/N</option>
                         <option value="CCME">Cuenta Corriente M/E</option>
                         <option value="CAMN">Caja de Ahorros M/N</option>
@@ -168,7 +168,7 @@
                                           <div class="form-group">
                                             <label for="nivel">Nivel de Formacion</label>
                                             <select name="nivel" class="form-control" style="width:100%">
-                                              <option value="<%=newest[0].nivel%>"><%=newest[0].nivel%></option>
+                                              <option value="<%=(newest[0].nivel!=null) ? newest[0].nivel:'' %>"><%=(newest[0].nivel!=null) ? newest[0].nivel:'' %></option>
                                                   <option value="Bachiller">Bachillerato</option>
                                                   <option value="Licenciatura">Licenciatura</option>
                                                   <option value="Maestria">Maestria</option>
@@ -176,13 +176,13 @@
                                                   <option value="Otro">Otro</option>
                                                   </select>
                                                   <label for="especificacion">Especificacion</label>
-                                                  <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion" minlength="2" value="<%=newest[0].especificacion%>">
+                                                  <input name="especificacion" type="text" class="form-control" id="especificar" placeholder="especificacion" minlength="2" value="<%=(newest[0].especificacion!=null) ? newest[0].especificacion:'' %>">
                                           </div>
                                           </div>
                                           <div class="col">
                                           <div class="form-group">
                                             <label for="titulo">Titulo Obtenido</label>
-                                            <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido" minlength="2" value="<%=newest[0].titulo%>">
+                                            <input name="titulo" type="text" class="form-control" id="tobtenido" placeholder="Titulo Obtenido" minlength="2" value="<%=(newest[0].titulo!=null) ? newest[0].titulo:'' %>">
                                           </div>
                                           </div>
                                           </div>
@@ -192,12 +192,12 @@
                                           <div class="col">
                                           <div class="form-group">
                                             <label for="carrera">Carrera</label>
-                                            <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera" minlength="2" value="<%=newest[0].carrera%>">
+                                            <input name="carrera" type="text" class="form-control" id="carrera" placeholder="Carrera" minlength="2" value="<%=(newest[0].carrera!=null) ? newest[0].carrera:'' %>">
                                           </div>
                                           </div>
                                           <div class="col"><div class="form-group">
                                             <label for="institucion">Institucion</label>
-                                            <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion" minlength="2" value="<%=newest[0].institucion%>">
+                                            <input name="institucion" type="text" class="form-control" id="institucion" placeholder="Institucion" minlength="2" value="<%=(newest[0].institucion!=null) ? newest[0].institucion:'' %>">
                                           </div>
                                           </div>
                                           </div>
@@ -227,13 +227,13 @@
                                           <div class="col">
                                           <div class="form-group">
                                           <label for="ciudad">Ciudad</label>
-                                          <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad" minlength="2" value="<%=newest[0].ciudad%>">
+                                          <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad" minlength="2" value="<%=(newest[0].ciudad!=null) ? newest[0].ciudad:'' %>">
                                           </div>
                                           </div>
                                           <div class="col">
                                           <div class="form-group">
                                           <label for="pais">Pais</label>
-                                          <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais" minlength="2" value="<%=newest[0].pais%>">
+                                          <input name="pais" type="text" class="form-control" id="Pais" placeholder="Pais" minlength="2" value="<%=(newest[0].pais!=null) ? newest[0].pais:'' %>">
                                           </div>
                                           </div>
                                           </div>
@@ -242,7 +242,7 @@
                                           <div class="col-4">
                                           <div class="form-group">
                                           <label for="anios_vencidos">Años Concluidos</label>
-                                          <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin" value="<%=newest[0].anios_vencidos%>">
+                                          <input name="anios_vencidos" type="text" class="form-control" id="ffin" placeholder="Fecha Fin" value="<%=(newest[0].anios_vencidos!=null) ? newest[0].anios_vencidos:'' %>">
                                           </div>
                                           </div>
                                           <div class="col-4">
@@ -273,13 +273,13 @@
                                           <div class="col">
                                           <div class="form-group">
                                           <label for="col_profesional">Colegio Profesional</label>
-                                          <input name="col_profesional" type="text" class="form-control" id="col_profesional" placeholder="Codigo Profesional" minlength="2" value="<%=newest[0].colegio_prof%>">
+                                          <input name="col_profesional" type="text" class="form-control" id="col_profesional" placeholder="Codigo Profesional" minlength="2" value="<%=(newest[0].colegio_prof!=null) ? newest[0].colegio_prof:'' %>">
                                           </div>
                                           </div>
                                           <div class="col">
                                           <div class="form-group">
                                           <label for="nro_registro_pro">N° Registro Profesional</label>
-                                          <input name="nro_registro_pro" id="nro_registro_pro" rows="6" class="form-control" placeholder="N° Registro Profesional" minlength="2" onkeypress="return valida(event)" value="<%=newest[0].nro_registro_prof%>">
+                                          <input name="nro_registro_pro" id="nro_registro_pro" rows="6" class="form-control" placeholder="N° Registro Profesional" minlength="2" onkeypress="return valida(event)" value="<%=(newest[0].nro_registro_prof!=null) ? newest[0].nro_registro_prof:'' %>">
                                           </div>
                                           </div>
                                           </div>
@@ -312,7 +312,7 @@
                                                       <tr>
                                                         <td><select name="otro" class="form-control" id="idioma" name="idioma">
 
-                                                                <% for(var i=2; i< newidioma.length; i++) { %>
+                                                                <% for(var i=0; i< newidioma.length; i++) { %>
                                                                      <option value="<%= newidioma[i].id %>"><%= newidioma[i].idioma %></option>
                                                                  <% } %>
                                                             </select></td>

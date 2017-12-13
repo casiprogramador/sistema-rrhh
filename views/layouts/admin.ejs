@@ -171,6 +171,26 @@
                                         </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#layoutsmarcado" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="mdi mdi-file-document"></i>
+                                <span class="menu-title">Marcación</span>
+                                <i class="mdi mdi-chevron-down"></i>
+                            </a>
+                            <div class="collapse" id="layoutsmarcado">
+                                    <ul class="nav flex-column sub-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Consultar Marcacion</a>
+                                            </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/marcacion/marcacion">Marcaciones</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/marcacion/dispositivos">Dispositivo</a>
+                                                </li>
+                                        </ul>
+                            </div>
+                     </li>
                     <% } %>
                     <%if (user.rol.rol === 'EMPLEADO') { %>
                     <li class="nav-item">
@@ -190,27 +210,6 @@
                                 </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#layoutsmarcado" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="mdi mdi-file-document"></i>
-                                <span class="menu-title">Marcación</span>
-                                <i class="mdi mdi-chevron-down"></i>
-                            </a>
-                            <div class="collapse" id="layoutsmarcado">
-                                    <ul class="nav flex-column sub-menu">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Consultar Marcacion</a>
-                                            </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/marcacion/marcacion">Marcaciones</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/marcacion/dispositivos">Dispositivo</a>
-                                                </li>
-                                            </li>
-                                        </ul>
-                            </div>
-                     </li>
  
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">

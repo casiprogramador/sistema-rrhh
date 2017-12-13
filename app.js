@@ -40,6 +40,10 @@ var reporteAsistenciaAdmin = require('./routes/reportesAsistencia/reporteAsisten
 //var consultamarcado = require('./routes/formulario/consultamarcado');
 var marcacion = require('./routes/marcacion/marcacion');
 var marcaciones = require('./routes/marcacion/marcacion');
+//var consultamarcado = require('./routes/formulario/consultamarcado');
+var marcacion=require('./routes/marcacion/marcacion');
+var marcaciones=require('./routes/marcacion/marcacion');
+var guardar_marcacion=require('./routes/marcacion/marcacion');
 
 
 
@@ -181,6 +185,7 @@ app.use('/reportesAsistencia/reporteAsistenciaAdmin',reporteAsistenciaAdmin);
 //app.use('/formularios/consultamarcado',consultamarcado);
 app.use('/marcacion',marcacion);
 app.use('/marcacion',marcaciones);
+app.use('/marcacion',guardar_marcacion);
 //app.use('/marcacion',dispositivos);
 //Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);
