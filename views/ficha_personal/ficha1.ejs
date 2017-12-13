@@ -103,7 +103,9 @@
                                                       <div class="form-group">
                                                       <label for="foto">Fotografia</label>
                                                       <input type="file" name="foto" class="dropify" data-height = "120" data-default-file="<%= newempleado[0].foto%>" value="<%= newempleado[0].foto%>"/>
-                                                      </div>
+                                                      <input type="hidden" name="path_foto" value="<%= newempleado[0].foto%>"/>
+                                                      
+                                                    </div>
                                                       </div>
                                                   </div>
                                                   

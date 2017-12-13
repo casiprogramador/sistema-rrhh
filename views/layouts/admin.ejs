@@ -17,11 +17,17 @@
                 <div class="nav-profile print-ignore">
                 <%if (user.rol.rol === 'ADMIN' && user.empleado !== 'null') { %>
                   <span>Hola, <%= user.username%></span>
+
                 <% } %>
                 <%if (user.rol.rol === 'EMPLEADO' && user.empleado !== 'null') { %>
                   <span>Hola,<%= user.empleado.nombres %> <%= user.empleado.paterno %> </span>
+                  <%if ( user.empleado.foto ) { %>
+                    <img src="<%= user.empleado.foto %> " />
+                  <% }else{ %>
+                    <img src="/images/user-default.png" />
+                  <% } %>
                 <% } %>
-                  <img src="/images/faces/face6.jpg" />
+                  
                 </div>
                             <form class="form-inline mt-2 mt-md-0 d-none d-lg-block ml-lg-auto">
                 <input class="form-control search" type="text" placeholder="Buscar">

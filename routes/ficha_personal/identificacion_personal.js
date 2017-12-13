@@ -29,48 +29,6 @@ router.get('/identificacion_personal',md_auth.ensureAuth, function(req, res, nex
 })
 
 
-/*router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
-  modelos.Idioma.findAll({
-    attributes: ['id', 'idioma']
-    }).then(Idioma => {
-    res.render('ficha_personal/ficha2',{Idioma:Idioma});
-  });  
-});*/
-
-/*
-router.get('/identificacion_personal2',md_auth.ensureAuth, function(req, res, next) {
-  var sw1=0;
-  var sw2=0;
-  var sw3=0;
-  var x=null;
-  var y=null;
-  modelos.Idioma.findAll().then(Idioma=>{
-    modelos.Empleado.findAll({where:{id:res.locals.user.empleado.id}}).then(newempleado=>{
-        modelos.Empleado.findAndCountAll({
-          where:{id:res.locals.user.empleado.id}}).then(countempleado=>{
-            mode/los.Estudios.findAll({where:{id:res.locals.user.empleado.id}
-            }).then(newestudios=>{
-              modelos.Estudios.findAndCountAll({
-                where:{id:res.locals.user.empleado.id}
-              }).then(countestudios=>{
-                if(countempleado<1){sw1=1;}
-                if(countestudios<1){
-                  sw2=1;
-                  if(newestudios[0]==true){x="checked";}
-                  else{y="checked";}
-                }
-                res.render('ficha_personal/ficha2',{newempleado:newempleado,sw1:sw1,sw2:sw2,moment:moment,x:x,y:y});
-              })
-            })
-          })
-      })
-  })
-});
-*/
-
-
-
-
 // Ruta a la ficha 3, dependientes
 
 router.get('/identificacion_personal3',md_auth.ensureAuth, function(req, res, next) {
@@ -169,7 +127,7 @@ router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
       banco: banco,
       tipo_cuenta: tipo_cuenta
     };
-    console.log(nua,ren);
+    //console.log(nua,ren);
     modelos.Empleado.update(newempleado, {where: { id: res.locals.user.empleado.id }})  
           .then(updatedMax => {
             const newestudios={
@@ -211,7 +169,7 @@ router.post('/identificacion_personal2',md_auth.ensureAuth, (req, res) => {
                   }
                   modelos.Empleado_Idioma.update(newidioma3,{where:{id_empleado:res.locals.user.empleado.id,id_idioma:otro}})
                   .then(updatedMax=>{
-                    res.render('home');
+                    res.redirect('/home');
                   })
                 })
               })
@@ -244,7 +202,7 @@ router.post('/identificacion_personal3',md_auth.ensureAuth, (req, res) => {
     tipo_documento: tipo_documento,
     desc_otro: desc_otro,
     num_doc_depen: num_doc_depen,
-    id_empleado: 1
+    id_empleado: id_empleado
   })
     .then(newdependiente => {
       modelos.Dependiente.findAll({ 
@@ -269,6 +227,7 @@ router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
     const ciudad = req.body.ciudad;
     const fecha_inicio = req.body.fecha_inicio;
     const fecha_fin = req.body.fecha_fin;
+    const id_empleado = req.body.id_empleado;
     modelos.Experiencia.create({
       nombre_empresa: nombre_empresa,
       tipo_empresa: tipo_empresa,
@@ -277,7 +236,7 @@ router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
       ciudad: ciudad,
       fecha_inicio: fecha_inicio,
       fecha_fin: fecha_fin,
-      id_empleado:1
+      id_empleado: id_empleado
     })
       .then(newexperiencia => {
         modelos.Experiencia.findAll({ 
@@ -493,20 +452,7 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
       const casilla = req.body.casilla;
       const emailp = req.body.emailp;
       const emailt = req.body.emailt;
-  
-      //construccion de campos vacios
-      /*const afp = "afp";
-      const seguro_medico = "Seguro Medico";
-      const nro_seguro = "0";
-      const tipo_seguro = "Tipo de Seguro";
-      const nua = "0";
-      const ren = "0";
-      const anios_calificados = "0";
-      const nro_declar_jurada = "0";
-      const nro_cuenta = "0";
-      const banco = "banco";
-      const tipo_cuenta = "Tipo de Cuenta";*/
-      //tabla estudios
+
       const nivel = "Nivel";
       const especificacion = "Especificacion";
       const titulo = "Titulo";
@@ -545,14 +491,14 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
        })
         is.pipe(os)*/
         var fs =require('fs');
-        console.log(req.files);
+        console.log('\x1b[33m%s\x1b[0m',JSON.stringify(req.files.foto.originalFilename));
         var tmp_path = req.files.foto.path;
         // Ruta donde colocaremos las imagenes
         var target_path = "public/fotos/"+ci+".jpeg";
         var pathbd="/fotos/"+ci+".jpeg";
        // Comprobamos que el fichero es de tipo imagen
         if (req.files.foto.type.indexOf('image')==-1){
-                    res.send('El fichero que deseas subir no es una imagen');
+          pathbd = req.body.path_foto;
         } else {
              // Movemos el fichero temporal tmp_path al directorio que hemos elegido en target_path
             fs.rename(tmp_path, target_path, function(err) {
@@ -593,21 +539,11 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
           casilla: casilla,
           email_personal: emailp,
           email_trabajo: emailt,
-          /*afp:afp,
-          seguro_medico:seguro_medico,
-          nro_seguro:nro_seguro,
-          tipo_seguro:tipo_seguro,
-          nua:nua,
-          ren:ren,
-          anios_calificados:anios_calificados,
-          nro_declar_jurada:nro_declar_jurada,
-          nro_cuenta:nro_cuenta,
-          banco:banco,
-          tipo_cuenta:tipo_cuenta*/
+
         };
         modelos.Empleado.update(newempleado, {where: { id: res.locals.user.empleado.id } }).then(newempleado => {
           modelos.Estudios.findAndCountAll({where:{id_empleado:res.locals.user.empleado.id}}).then(newcount=>{
-            console.log(newcount.count);
+
             if(newcount.count==0){
               //asdasd
               var x=null;
