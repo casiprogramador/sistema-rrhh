@@ -13,7 +13,7 @@
        
 
 
-                <form method="post" action="/area/grabar">
+                <form method="post" action="/lista_area/modificar">
 
                   
 
@@ -33,7 +33,7 @@
                                     <div class="form-check col-sm-4 " >
                                             <label class="form-check-label ">
         
-                                              <input type="checkbox" class="form-check-input"  name="estado" >
+                                              <input type="checkbox" class="form-check-input"  name="estado"  <%= (area[0].estado) ? "checked" : " "  %> >
                                               Estado
                                             </label>
                                     </div>    
@@ -41,15 +41,16 @@
                             <div class="form-group row">
                                 <label for="calculo_dias" class="col-sm-3 col-form-label">Descricion:</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" required>
+                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" value="<%= area[0].desc_area %> " required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                     <label for="calculo_dias" class="col-sm-3 col-form-label">Nivel area:</label>
                                         <div class="col-sm-2">
-                                            <input class="form-control" name="nivel" id="nivel" type="number" required>
+                                            <input class="form-control" name="nivel" id="nivel" value="<%= area[0].nivel %> " required>
                                         </div>
                                                </div>
+                                               <input type="hidden" name="id_area" value= "<%= area[0].id %>">    
                             
                     </div>
                     <div class="card-body btn-demo text-center">

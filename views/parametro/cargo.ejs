@@ -10,29 +10,39 @@
                          <%= error_msg3 %>
                     </div>
                 <% } %>
-                <form method="post" action="/feriado/grabar">
+                <form method="post" action="/cargo/grabar">
 
                 <div class="card col-lg-12 col-lg-4 ">
                     <div class="card-body col-8 col-4">
-                        <div>
-                                <div class="form-group row">
-                                        <label for="fecha reporte" class="col-sm-3 col-form-label" >Areas:</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control" id="tipo-boleta" name="tipo_boleta">
-                                                <% for(var i=0; i< Tipo_boleta.length; i++) { %>
-                                                    <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                </div>  
+                            
+                                    <div class="form-group row">
+                                            <label for="fecha reporte" class="col-sm-3 col-form-label" >Areas:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="tipo-area" name="tipo_area">
+                                                    <% for(var i=0; i< Area.length; i++) { %>
+                                                        <option value="<%= Area[i].id %>"><%= Area[i].desc_area %></option>
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                    </div> 
+                                    <div class="form-group row">
+                                            <label for="fecha reporte" class="col-sm-3 col-form-label" >Escala Salarial:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" id="tipo-escala" name="tipo_escala">
+                                                    <% for(var i=0; i< Escala.length; i++) { %>
+                                                        <option value="<%= Escala[i].id %>"><%= Escala[i].categoria %></option>
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                    </div> 
                                 
-                            <div class="form-group row">
+                                <div class="form-group row">
                                 <label for="calculo_dias" class="col-sm-3 col-form-label">Descricion:</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" >
                                 </div>
-                            </div>
-                        </div>
+                       
+                        
                     </div>
                     <div class="card-body btn-demo text-center">
                         <input class="btn btn-primary" type="submit" value="Grabar">
