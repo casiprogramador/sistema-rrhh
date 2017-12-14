@@ -23,8 +23,9 @@
     <h2 align="center">Correspondiente al periodo del <%= moment(fecha_inicio).format( 'DD/MM/YYYY') %> al <%= moment(fecha_fin).format( 'DD/MM/YYYY') %> </h2>
     <%var area=''%>
     <%var empleado=''%>
+    <% for(var reporte of reporteAsistencia) { %>
 
-  
+        <% if(empleado != reporte.empleado.id){%>
         <table cellspacing="0" width="100%" border="1" align="center">
 
                 <thead align="center">
@@ -54,8 +55,10 @@
                           <th>2do periodo</th>
                         </tr>
                       </thead>
-
-                    <% for(var reporte of reporteAsistencia) { %>
+                        
+                      <%}%>
+                      
+                    
                         <td><%=reporte.desc_area%></td>
                         <td><%=reporte.nombres%></td>
                        <td>
@@ -120,8 +123,12 @@
                         </td>
   
                       </tr>
+                      <% if(area != reporte.desc_area){%>
+                            </table>
+                        <%}%>
+                    <% empleado = reporte.empleado.id; %>
                     <%}%>
-
+                    
 </body>
 
 </html>
