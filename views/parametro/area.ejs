@@ -1,0 +1,33 @@
+
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="content-wrapper">
+    <h1 class="page-title">Areas</h1>
+        <div class="row grid-margin">
+            <div class="col-lg-10 grid-margin grid-margin-lg-0">
+                <%if (error_msg3.length > 0 ) { %>
+                    <div class="alert alert-warning text-center" role="alert">
+                         <%= error_msg3 %>
+                    </div>
+                <% } %>
+                <form method="post" action="/area/grabar">
+
+                <div class="card col-lg-12 col-lg-4 ">
+                    <div class="card-body col-8 col-4">
+                        <div>
+                            <div class="form-group row">
+                                <label for="calculo_dias" class="col-sm-3 col-form-label">Descricion:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body btn-demo text-center">
+                        <input class="btn btn-primary" type="submit" value="Grabar">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+</div>

@@ -17,6 +17,9 @@ module.exports = {
       tnaEvent: {
         type: Sequelize.INTEGER
       },
+      bandera: {
+        type: Sequelize.INTEGER
+      },
       Code: {
         type: Sequelize.STRING(20)
       },

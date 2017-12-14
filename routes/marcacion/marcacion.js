@@ -7,7 +7,7 @@ var request = require('request');
 var http= require("http");
 var md_auth = require('../../middleware/authenticated');
 var moment = require('moment');
-
+var param = require('../../config/param.json');
 
 // options for GET
 /*router.get('/marcaciones', function(req,res2, next) {
@@ -39,14 +39,15 @@ var moment = require('moment');
 })*/
 
 router.post('/marcaciones', function(req,res2, next) {
+
   var ip=req.body.dispositivo;
   var puerto= "4370";
   ip=ip.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, '');
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
       path: '/usr?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
@@ -134,8 +135,8 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
       path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
