@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       eventTime: {
-        type: Sequelize.Date
+        type: Sequelize.DATE
       },
       tnaEvent: {
         type: Sequelize.INTEGER
