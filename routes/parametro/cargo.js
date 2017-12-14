@@ -10,7 +10,7 @@ var md_auth = require('../../middleware/authenticated');
 router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
 //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
-modelos.sequelize.query('SELECT tb.id, tb.tipo_boleta FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_empleado= te.id and c.id_tipo_empleado=teb.id_tipo_empleado and teb.id_tipo_boleta=tb.id and c.id_empleado= 2').spread((Tipo_boleta, metadata) => {
+modelos.sequelize.query('SELECT * FROM public."Areas" WHERE  e.id = c.id_empleado and c.id_empleado= te.id and c.id_tipo_empleado=teb.id_tipo_empleado and teb.id_tipo_boleta=tb.id and c.id_empleado= 2').spread((Tipo_boleta, metadata) => {
 console.log(Tipo_boleta);
 res.render('parametro/cargo',{Tipo_boleta:Tipo_boleta,dato:0}); 
 })
