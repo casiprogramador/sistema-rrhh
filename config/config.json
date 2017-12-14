@@ -1,8 +1,13 @@
 {
     "development": {
       "username": "postgres",
+<<<<<<< HEAD
       "password": "123456",
       "database": "bd_rrhh6",
+=======
+      "password": "12345",
+      "database": "bd_rrhh1",
+>>>>>>> 4053bc65404672fe4c67c2c2e4a335137fc2f234
       "host": "127.0.0.1",
       "port": 5432,
       "dialect": "postgres"

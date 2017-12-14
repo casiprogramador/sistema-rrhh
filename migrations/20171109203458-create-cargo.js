@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cargo: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING
       },
       id_area: {
         type: Sequelize.INTEGER,

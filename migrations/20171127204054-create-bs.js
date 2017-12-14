@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('BS', {
+    return queryInterface.createTable('Bs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       eventTime: {
-        type: Sequelize.INTEGER
+        type: Sequelize.Date
       },
       tnaEvent: {
         type: Sequelize.INTEGER

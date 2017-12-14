@@ -37,11 +37,15 @@ var area = require('./routes/parametro/area');
 
 //Reportes de asistencia
 var reporteAsistenciaEmpleado = require('./routes/reportesAsistencia/reporteAsistenciaEmpleado');
-var reporteAsistenciaAdmin = require('./routes/reportesAsistencia/reporteAsistenciaAdmin');
+var reporteAsistenciaArea = require('./routes/reportesAsistencia/reporteAsistenciaArea');
 
 //var consultamarcado = require('./routes/formulario/consultamarcado');
 var marcacion = require('./routes/marcacion/marcacion');
 var marcaciones = require('./routes/marcacion/marcacion');
+//var consultamarcado = require('./routes/formulario/consultamarcado');
+var marcacion=require('./routes/marcacion/marcacion');
+var marcaciones=require('./routes/marcacion/marcacion');
+var guardar_marcacion=require('./routes/marcacion/marcacion');
 
 
 
@@ -180,11 +184,12 @@ app.use('/cronjob',scripts);
 app.use('/personal',ficha_personal_nuevo);
 //reportes de Asistencia
 app.use('/reportesAsistencia/reporteAsistenciaEmpleado',reporteAsistenciaEmpleado);
-app.use('/reportesAsistencia/reporteAsistenciaAdmin',reporteAsistenciaAdmin);
+app.use('/reportesAsistencia/reporteAsistenciaArea',reporteAsistenciaArea);
 
 //app.use('/formularios/consultamarcado',consultamarcado);
 app.use('/marcacion',marcacion);
 app.use('/marcacion',marcaciones);
+app.use('/marcacion',guardar_marcacion);
 //app.use('/marcacion',dispositivos);
 //Ficha personal
 app.use('/ficha_personal',ficha_personal_identificacion);

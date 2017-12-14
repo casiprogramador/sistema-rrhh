@@ -158,6 +158,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/personal/nuevo">Nuevo</a>
                                         </li>
+                                        
                 
                                     </ul>
                         </div>
@@ -165,18 +166,41 @@
                     <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#layoutsReportesAsistencia" aria-expanded="false" aria-controls="collapseExample">
                                 <i class="mdi mdi-file"></i>
-                                <span class="menu-title">Reportes</span>
+                                <span class="menu-title">Reportes de asistencia</span>
                                 <i class="mdi mdi-chevron-down"></i>
                             </a>
                             <div class="collapse" id="layoutsReportesAsistencia">
                                     <ul class="nav flex-column sub-menu">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaAdmin">Reporte de asistencia</a>
+                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaArea">Reporte por Area</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Reporte individual</a>
                                             </li>
                     
                                         </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#layoutsmarcado" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="mdi mdi-file-document"></i>
+                                <span class="menu-title">Marcación</span>
+                                <i class="mdi mdi-chevron-down"></i>
+                            </a>
+                            <div class="collapse" id="layoutsmarcado">
+                                    <ul class="nav flex-column sub-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Consultar Marcacion</a>
+                                            </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/marcacion/marcacion">Marcaciones</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/marcacion/dispositivos">Dispositivo</a>
+                                                </li>
+                                        </ul>
+                            </div>
+                     </li>
                     <% } %>
                     <%if (user.rol.rol === 'EMPLEADO') { %>
                     <li class="nav-item">
@@ -196,27 +220,6 @@
                                 </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#layoutsmarcado" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="mdi mdi-file-document"></i>
-                                <span class="menu-title">Marcación</span>
-                                <i class="mdi mdi-chevron-down"></i>
-                            </a>
-                            <div class="collapse" id="layoutsmarcado">
-                                    <ul class="nav flex-column sub-menu">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Consultar Marcacion</a>
-                                            </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/marcacion/marcacion">Marcaciones</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/marcacion/dispositivos">Dispositivo</a>
-                                                </li>
-                                            </li>
-                                        </ul>
-                            </div>
-                     </li>
  
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">
