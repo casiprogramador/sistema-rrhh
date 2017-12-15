@@ -9,9 +9,10 @@ var md_auth = require('../../middleware/authenticated');
 // Consultas de boletas por empleado
 router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
-//cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
-
-res.render('parametro/area'); 
+    modelos.sequelize.query('SELECT * FROM public."Areas" WHERE   estado= true').spread((Area, metadata) => {
+        console.log(Area);
+        res.render('parametro/area',{Area:Area}); 
+        })
 });
 
 router.post('/grabar', (req, res) => {
@@ -20,14 +21,18 @@ router.post('/grabar', (req, res) => {
     
     modelos.Area.create({
     
-    id_area_superior: 1, 
+    id_area_superior: req.body.tipo_area, 
     desc_area : descripcion,
-    estado : true,
-    nivel: 1,
+    estado : (req.body.estado=='on'?'TRUE':'FALSE'),
+    nivel: req.body.nivel,
     ausr:'',
     })
     .then(newarea => { 
-    res.render('parametro/area',{feriado:newarea });
+    
+        modelos.sequelize.query('SELECT * FROM public."Areas" WHERE   estado= true').spread((Area, metadata) => {
+     
+            res.render('parametro/area',{Area:Area}); 
+            })
     });
     
 })

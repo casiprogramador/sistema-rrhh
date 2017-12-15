@@ -1,0 +1,99 @@
+<% layout('/layouts/admin') -%>
+        <!-- partial -->
+        <div class="content-wrapper">
+          <h1 class="page-title">Solicitud de Boletas</h1>
+          <div class="row grid-margin">
+              
+            <div class="col-lg-12 grid-margin grid-margin-lg-0">
+                    <%if (error_msg.length > 0 ) { %>
+                        <div class="alert alert-warning text-center" role="alert">
+                          <%= error_msg %>
+                        </div>
+                      <% } %>
+                   <%if (error_msg1.length > 0 ) { %>
+                    <div class="alert alert-warning text-center" role="alert">
+                        <%= error_msg1 %>
+                    </div>
+                    <% } %>
+                    <%if (error_msg2.length > 0 ) { %>
+                        <div class="alert alert-warning text-center" role="alert">
+                            <%= error_msg2 %>
+                        </div>
+                        <% } %>
+
+                <form method="post" action="/boleta/reporte">
+
+                    <div class="card col-lg-12 col-lg-4   ">
+                        <div class="card-body col-12 col-4">
+                            <div class="form-group row">
+                                    <label for="fecha reporte" class="col-sm-2 col-form-label" >Tipo de Boleta:</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="tipo-boleta" name="tipo_boleta">
+                                            <% for(var i=0; i< Tipo_boleta.length; i++) { %>
+                                                <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                            </div>  
+                            <div>
+                                <div class="form-group row">
+                                    <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha Inicio:</label>
+                                    <div class="col-sm-3">
+                                          <div class="input-group date datepicker b-l-blue">
+                                              <input type="text" class="form-control" name="fecha_inicio" id="fecha-inicio"  required>
+                                              <div class="input-group-addon">
+                                                <span class="mdi mdi-calendar-blank"></span>
+                                              </div>
+                                            </div>
+                                    </div>
+                                     <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora Inicio:</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group clockpicker b-l-blue">
+                                            <input type="text" class="form-control p-input col-lg-3" value="08:29"  name="hora_inicio" id="hora-inicio">
+                                            <span class="input-group-addon">
+                                                <i class="mdi mdi-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha fin:</label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group date datepicker b-l-blue">
+                                            <input type="text" class="form-control" name="fecha_fin" id="fecha-fin"  required>
+                                                <div class="input-group-addon">
+                                                    <span class="mdi mdi-calendar-blank"></span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora fin:</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group clockpicker b-l-blue">
+                                                <input type="text" class="form-control p-input col-lg-3" value="08:30" name="hora_fin" id="hora-fin">
+                                                <span class="input-group-addon">
+                                                    <i class="mdi mdi-clock"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="calculo_dias" class="col-sm-2 col-form-label">Tiempo Solicitado:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                        </div>
+                                        <div class="col-sm-2">
+                                             <a class="btn btn-primary" id="calcular-dias"  >Calcular</a>
+                                        </div>
+                                </div>
+                                <input type="hidden" id="id-empleado" name="id_empleado" value="<%= user.empleado.id %>">
+                            </div>
+                        </div>
+                        <div class="card-body btn-demo text-center">
+                            <input class="btn btn-primary" type="submit" value="Solicitar">
+                        </div>
+                    </div>
+                </form>
+           </div>
+    </div>
+</div>
