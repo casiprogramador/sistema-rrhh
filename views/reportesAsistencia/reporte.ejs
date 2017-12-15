@@ -17,19 +17,43 @@
 </head>
 
 <body>
+
+   
+      <div class="alert alert-warning text-center" role="alert"></div>
+          <%= error_msg %>
+        </div>
+
     
     <img src="/images/logomdpyep.png" alt="icono logo" width="15%">
+    <div align="right">
+        <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Imprimir</button>
+        <button type="button" class="btn btn-primary print-ignore nav-link" onClick="window.location = '/reportesAsistencia/reporteAsistenciaArea'"> Volver </button>
+        
+      </div>
+      <%if(reporteAsistencia.length != 0){%>
     <h1 align="center">Reporte de asistencia</h1>
     <h2 align="center">Correspondiente al periodo del <%= moment(fecha_inicio).format( 'DD/MM/YYYY') %> al <%= moment(fecha_fin).format( 'DD/MM/YYYY') %> </h2>
-    <%var area=''%>
-    <%var empleado=''%>
+    <%var area='';%>
+    <%var empleado='';%>
+    <%var atrasos=0;%>
 
-  
+    
+      <h2><%=reporteAsistencia[0].desc_area%></h2>
+    <% for(var i=0; i< reporteAsistencia.length ; i++) { %>
+
+        <% if(empleado != reporteAsistencia[i].ndi){%>
+          
+        <%if(i!=0){%>
+          </table>
+          <p align="right">Atrasos: <%=atrasos%> min. Faltas: Abandonos: </p>
+        <%}%>
+        <%atrasos=0;%>
+        <h3><%=reporteAsistencia[i].ndi+' '+reporteAsistencia[i].nombres+' '+reporteAsistencia[i].paterno+' '+reporteAsistencia[i].materno%></h3>
         <table cellspacing="0" width="100%" border="1" align="center">
 
                 <thead align="center">
                         <tr>
-                          <th colspan="5"></th>
+                          <th colspan="3"></th>
                           <th colspan="2">1er Periodo</th>
                           <th colspan="2">2do Periodo</th>
                           <th colspan="2">Retraso 1er Periodo</th>
@@ -37,8 +61,7 @@
                           <th colspan="2">Observaciones</th>
                         </tr>
                         <tr>
-                          <th>Area</th>
-                          <th>Empleado</th>  
+
                           <th>Día</th>
                           <th>Fecha</th>
                           <th>horario</th>
@@ -54,74 +77,80 @@
                           <th>2do periodo</th>
                         </tr>
                       </thead>
-
-                    <% for(var reporte of reporteAsistencia) { %>
-                        <td><%=reporte.desc_area%></td>
-                        <td><%=reporte.nombres%></td>
+                     <%}%>               
                        <td>
-                        <% if(moment(reporte.fecha).format( 'dddd') == 'Monday' ) { %>
+                        <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Monday' ) { %>
                         <%='Lunes'%>
                         <%}%>
-                         <% if(moment(reporte.fecha).format( 'dddd') == 'Tuesday' ) { %>
+                         <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Tuesday' ) { %>
                          <%='Martes'%>
                         <%}%>
-                         <% if(moment(reporte.fecha).format( 'dddd') == 'Wednesday' ) { %>
+                         <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Wednesday' ) { %>
                         <%='Miércoles'%>
                          <%}%>
-                        <% if(moment(reporte.fecha).format( 'dddd') == 'Thursday' ) { %>
+                        <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Thursday' ) { %>
                         <%='Jueves'%>
                         <%}%>
-                        <% if(moment(reporte.fecha).format( 'dddd') == 'Friday' ) { %>
+                        <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Friday' ) { %>
                          <%='Viernes'%>
                         <%}%>
-                        <% if(moment(reporte.fecha).format( 'dddd') == 'Saturday' ) { %>
+                        <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Saturday' ) { %>
                         <%='Sábado'%>
                         <%}%>
-                        <% if(moment(reporte.fecha).format( 'dddd') == 'Sunday' ) { %>
+                        <% if(moment(reporteAsistencia[i].fecha).format( 'dddd') == 'Sunday' ) { %>
                         <%='Domingo'%>
                         <%}%>
                         </td>
                         <td>
-                          <%= moment(reporte.fecha).format( 'DD/MM/YYYY') %>
+                          <%= moment(reporteAsistencia[i].fecha).format( 'DD/MM/YYYY') %>
                         </td>
                         <td>
-                          <%= reporte.descripcion %>
+                          <%= reporteAsistencia[i].descripcion %>
                         </td>
                         <td>
-                          <%= reporte.entrada_1 %>
+                          <%= reporteAsistencia[i].entrada_1 %>
                         </td>
                         <td>
-                          <%= reporte.salida_1 %>
+                          <%= reporteAsistencia[i].salida_1 %>
                         </td>
   
                         <td>
-                          <%= reporte.entrada_2 %>
+                          <%= reporteAsistencia[i].entrada_2 %>
                         </td>
                         <td>
-                          <%= reporte.salida_2 %>
+                          <%= reporteAsistencia[i].salida_2 %>
                         </td>
                         <td>
-                          <%= reporte.retraso_entrada_1 %>
+                          <%= reporteAsistencia[i].retraso_entrada_1 %>
                         </td>
                         <td>
-                          <%= reporte.retraso_salida_1 %>
+                          <%= reporteAsistencia[i].retraso_salida_1 %>
                         </td>
                         <td>
-                          <%= reporte.retraso_entrada_2 %>
+                          <%= reporteAsistencia[i].retraso_entrada_2 %>
                         </td>
                         <td>
-                          <%= reporte.retraso_salida_2 %>
+                          <%= reporteAsistencia[i].retraso_salida_2 %>
                         </td>
                         <td>
-                          <%= reporte.observacion_1 == null ? "" : reporte.observacion_1 %>
+                          <%= reporteAsistencia[i].observacion_1 == null ? "" : reporteAsistencia[i].observacion_1 %>
                         </td>
                         <td>
-                          <%= reporte.observacion_2 == null ? "" : reporte.observacion_2 %>
+                          <%= reporteAsistencia[i].observacion_2 == null ? "" : reporteAsistencia[i].observacion_2 %>
                         </td>
   
                       </tr>
-                    <%}%>
+                      
+                        <% atrasos=atrasos+reporteAsistencia[i].retraso_entrada_1 + reporteAsistencia[i].retraso_salida_1 + reporteAsistencia[i].retraso_entrada_2 + reporteAsistencia[i].retraso_salida_2 %>
+                        <% empleado = reporteAsistencia[i].ndi; %>
+             
+       
 
-</body>
+                    <%}%>
+                  </table>
+                  <p align="right">Atrasos: <%=atrasos%> min. Faltas: Abandonos: </p>
+                  <%}else{%>
+                    <h1 align="center">No existen rergistros</h1>
+                  <%}%>
 
 </html>

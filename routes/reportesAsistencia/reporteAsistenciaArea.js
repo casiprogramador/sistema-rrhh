@@ -31,9 +31,11 @@ router.post('/reporte', function (req, res, next) {
 
         switch (req.body.tipo_personal) {
           case 'activo':
-            console.log('\x1b[33m%s\x1b[0m', "activooooo");
+            
             modelos.sequelize.query('SELECT * FROM "Areas" a, "Cargos" c, "Contratos" o, "Empleados" e, "Asistencia" s, "Horarios" h WHERE a.id=c.id_area and c.id=o.id_cargo AND o.id_empleado =e.id AND e.id = s.id_empleado  AND s.id_horario=h.id AND  e.estado=true AND  s.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' and a.id=" + req.body.area + ' ORDER BY e.id, s.id').spread((results, metadata) => {
+              console.log('\x1b[33m%s\x1b[0m',JSON.stringify(results));
               res.render('reportesAsistencia/reporte', { areas: areas, reporteAsistencia: results, moment: moment, fecha_inicio: fecha_inicio, fecha_fin: fecha_fin });
+              
             })
             break;
           case 'inactivo':
