@@ -23,6 +23,9 @@ module.exports = {
       IP: {
         type: Sequelize.STRING(15)
       },
+      bandera: {
+        type: Sequelize.STRING(15)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

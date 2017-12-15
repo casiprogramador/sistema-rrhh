@@ -154,6 +154,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               tnaEvent:x[j][2],
               Code:x[j][3],
               IP:ip,
+              bandera:0,
               }).then()
           }else{
             modelos.BS.create({
@@ -162,6 +163,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               tnaEvent:x[j][2],
               Code:x[j][3],
               IP:ip,
+              bandera:0,
               }).then(newbs=>{
                 modelos.Dispositivo.findAll({
                 }).then(newdispositivos => {
@@ -172,6 +174,90 @@ router.post('/guardar_marcacion', function(req,res2, next) {
         }
         })
     }).end();
+  })
+
+
+  router.get('/guardar_asistencia', function(req,res, next) {
+    /*var fechaini=req.body.fechaini;
+    var fechafin=req.body.fechafin;*/
+    /*var fechaini="2017/12/13 00:00:00";
+    var fechafin="2017/12/13 23:59:59";
+    var query = 'select * from "Bs" where "eventTime" between "'+fechaini+" and "+fechafin+"'";*/
+    var fecha;
+    var entrada_1;
+    var salida_1;
+    var entrada_2;
+    var salida_2;
+    var id_empleado;
+    var id_horario;
+    var fecha="2017-12-14";
+    modelos.Empleado.findAll({
+    }).then(newempleado=>{
+      for(var i=0;i<newempleado.length;i++){
+        modelos.BS.findAll({
+          where:{UserID:newempleado[i].ndi}
+        }).then(newbs=>{
+          for(var j=0;j<newbs.length;j++){
+            var fec =moment(newbs[j].eventTime).format('YYYY-MM-DD');
+            var hora=moment(newbs[j].eventTime).format('HH:mm');
+            var x1=moment().format("YYYY-MM-DD" + " 00:00");
+            var x2=moment().format("YYYY-MM-DD" + " 12:29");
+            var x3=moment().format("YYYY-MM-DD" + " 12:30");
+            var x4=moment().format("YYYY-MM-DD" + " 13:29");
+            var x5=moment().format("YYYY-MM-DD" + " 13:30");
+            var x6=moment().format("YYYY-MM-DD" + " 18:29");
+            var x7=moment().format("YYYY-MM-DD" + " 18:30");
+            var x8=moment().format("YYYY-MM-DD" + " 23:59");
+            x1=moment(x1).format("HH:mm");
+            x2=moment(x2).format("HH:mm");
+            x3=moment(x3).format("HH:mm");
+            x4=moment(x4).format("HH:mm");
+            x5=moment(x5).format("HH:mm");
+            x6=moment(x6).format("HH:mm");
+            x7=moment(x7).format("HH:mm");
+            x8=moment(x8).format("HH:mm");
+            console.log(hora+"---"+x1);
+            if(fec==fecha){
+              if(hora>x1 || hora<x2)
+              {
+                entrada_1=newbs[j].eventTime;
+              }
+              if(hora>x3 || hora<x4)
+              {
+                salida_1=newbs[j].eventTime;
+              }
+              if(hora>x5 || hora<x6)
+              {
+                entrada_2=newbs[j].eventTime;
+              }
+              if(hora>x7 || hora<x8)
+              {
+                salida_2=newbs[j].eventTime;
+              }
+            }
+          }
+          /*id_empleado=newempleado[i].ndi;
+          modelos.Asistencia.create({
+            fecha:fecha,
+            entrada_1:entrada_1,
+            salida_1,salida_1,
+            entrada_2:entrada_2,
+            salida_2:salida_2,
+            id_empleado:id_empleado
+          }).then();*/
+          })
+          id_empleado=newempleado[i].ndi;
+          modelos.Asistencia.create({
+            fecha:fecha,
+            entrada_1:entrada_1,
+            salida_1,salida_1,
+            entrada_2:entrada_2,
+            salida_2:salida_2,
+            id_empleado:id_empleado
+          }).then();
+      }//fin for i
+      res.render("/home");
+    })
   })
 
 

@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     eventTime: DataTypes.DATE,
     tnaEvent: DataTypes.INTEGER,
     Code: DataTypes.STRING(20),
-    IP: DataTypes.STRING(15)
+    IP: DataTypes.STRING(15),
+    bandera: DataTypes.STRING(15)
   }, {
     classMethods: {
       associate: function(models) {
