@@ -1,0 +1,6 @@
+{
+    "webservice_marcacion": {
+        "ip": "192.168.20.26",
+        "puerto": "8080"
+    }
+}
