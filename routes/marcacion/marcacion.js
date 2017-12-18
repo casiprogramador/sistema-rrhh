@@ -199,38 +199,38 @@ router.post('/guardar_marcacion', function(req,res2, next) {
         }).then(newbs=>{
           for(var j=0;j<newbs.length;j++){
             var fec =moment(newbs[j].eventTime).format('YYYY-MM-DD');
-            var hora=moment(newbs[j].eventTime).format('HH:mm');
-            var x1=moment().format("YYYY-MM-DD" + " 00:00");
-            var x2=moment().format("YYYY-MM-DD" + " 12:29");
-            var x3=moment().format("YYYY-MM-DD" + " 12:30");
-            var x4=moment().format("YYYY-MM-DD" + " 13:29");
-            var x5=moment().format("YYYY-MM-DD" + " 13:30");
-            var x6=moment().format("YYYY-MM-DD" + " 18:29");
-            var x7=moment().format("YYYY-MM-DD" + " 18:30");
-            var x8=moment().format("YYYY-MM-DD" + " 23:59");
-            x1=moment(x1).format("HH:mm");
+            var hora=moment(newbs[j].eventTime).format("1900-01-01"+"HH:mm");
+            var x1=moment().format("1900-01-01 00:00");
+            var x2=moment().format("1900-01-01 12:29");
+            var x3=moment().format("1900-01-01 12:30");
+            var x4=moment().format("1900-01-01 13:29");
+            var x5=moment().format("1900-01-01 13:30");
+            var x6=moment().format("1900-01-01 18:29");
+            var x7=moment().format("1900-01-01 18:30");
+            var x8=moment().format("1900-01-01 23:59");
+            /*x1=moment(x1).format("HH:mm");
             x2=moment(x2).format("HH:mm");
             x3=moment(x3).format("HH:mm");
             x4=moment(x4).format("HH:mm");
             x5=moment(x5).format("HH:mm");
             x6=moment(x6).format("HH:mm");
             x7=moment(x7).format("HH:mm");
-            x8=moment(x8).format("HH:mm");
-            console.log(hora+"---"+x1);
+            x8=moment(x8).format("HH:mm");*/
+            console.log(hora+"---"+x1+"------"+x2+"--------"+x3);
             if(fec==fecha){
-              if(hora>x1 || hora<x2)
+              if(hora>moment.utc(x1).format("HH:mm") || hora<moment(x2).format("HH:mm"))
               {
                 entrada_1=newbs[j].eventTime;
               }
-              if(hora>x3 || hora<x4)
+              if(hora>moment(x3).format("HH:mm") || hora<moment(x4).format("HH:mm"))
               {
                 salida_1=newbs[j].eventTime;
               }
-              if(hora>x5 || hora<x6)
+              if(hora>moment(x5).format("HH:mm") || hora<moment(x6).format("HH:mm"))
               {
                 entrada_2=newbs[j].eventTime;
               }
-              if(hora>x7 || hora<x8)
+              if(hora>moment(x7).format("HH:mm") || hora<moment(x8).format("HH:mm"))
               {
                 salida_2=newbs[j].eventTime;
               }
