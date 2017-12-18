@@ -126,45 +126,81 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       //console.log('HEADERS: ' + JSON.stringify(res.headers));
       let data = '';
       res.setEncoding('utf8');
-      
       res.on('data', function (chunk) {
+        //console.log('\x1b[33m%s\x1b[0m',chunk);
         data += chunk;
       });
-
       res.on('end', function () {
-          var x = JSON.parse(data);
-          console.log('\x1b[33m%s\x1b[0m',x);
-          
-          /*
-          var array2=new Array();
-          for(var j=0;j<x.length;j++){
-            if(j!=x.length-1){
-              modelos.BS.create({
-                UserID:x[j][1],
-                eventTime:x[j][3],
-                tnaEvent:x[j][2],
-                Code:x[j][3],
-                IP:ip,
-                }).then()
-            }else{
-              modelos.BS.create({
-                UserID:x[j][1],
-                eventTime:x[j][3],
-                tnaEvent:x[j][2],
-                Code:x[j][3],
-                IP:ip,
-                }).then(newbs=>{
-                  modelos.Dispositivo.findAll({
-                  }).then(newdispositivos => {
-                    res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
-                  })
+        var x = JSON.parse(data);
+        var array2=new Array();
+        for(var j=0;j<x.length;j++){
+          if(j!=x.length-1){
+            modelos.BS.create({
+              UserID:x[j][1],
+              eventTime:x[j][3],
+              tnaEvent:x[j][2],
+              Code:x[j][3],
+              IP:ip,
+              bandera:0,
+              }).then()
+          }else{
+            modelos.BS.create({
+              UserID:x[j][1],
+              eventTime:x[j][3],
+              tnaEvent:x[j][2],
+              Code:x[j][3],
+              IP:ip,
+              bandera:0,
+              }).then(newbs=>{
+                modelos.Dispositivo.findAll({
+                }).then(newdispositivos => {
+                  res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
                 })
-            }
-          }
-          */
-      });
-    }).end();
+            })}
+      }
+    })
+  }).end();
   })
+
+
+  router.get('/guardar_asistencia', function(req,res, next) {
+    var fecha;
+    var entrada_1;
+    var salida_1;
+    var entrada_2;
+    var salida_2;
+    var id_empleado;
+    var id_horario;
+    var fecha="2017-12-18";
+    var x1=moment().format("HHmm","00:00");
+    console.log("Hora ------------------>"+x1);
+    var x2=moment().format("HH:mm","12:29");
+    console.log("Hora ------------------>"+x2);
+    var x3=moment().format("HH:mm"+"12:30");
+    console.log("Hora ------------------>"+x3);
+    var x4=moment().format("HH:mm","13:29");
+    console.log("Hora ------------------>"+x4);
+    var x5=moment().format("HH:mm","13:30");
+    console.log("Hora ------------------>"+x5);
+    var x6=moment().format("HH:mm","18:29");
+    console.log("Hora ------------------>"+x6);
+    var x7=moment().format("HH:mm","18:30");
+    console.log("Hora ------------------>"+x7);
+    var x8=moment().format("HH:mm","23:59");
+    console.log("Hora ------------------>"+x8);
+    modelos.Empleados.findAll({}).then(newempleado=>{
+      for(var i=0;i<=newempleado.length;i++){
+        var ci=newempleado[i].ndi;
+        modelos.BS.findAll({
+          where:{UserID:ci}
+        }).then(newbs=>{
+          for(var j=0;j<newbs.length;j++){
+            var hora=moment(newbs[j].eventTime).format("HH:mm");
+          }
+        })//fin newbs
+      }//end for i
+    })//fin newempleado
+  })//inicio
 
 
 module.exports = router;
