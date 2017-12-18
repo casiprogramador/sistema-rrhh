@@ -9,36 +9,8 @@ var md_auth = require('../../middleware/authenticated');
 var moment = require('moment');
 var param = require('../../config/param.json');
 
-// options for GET
-/*router.get('/marcaciones', function(req,res2, next) {
-  console.log(req.query.dispositivos);
-  console.log(req.query.dispositivos.length);
-  var ips=req.query.dispositivos;
-  console.log("prueba",ips);
-  console.log("num",ips.length);
-  var ip= "192.168.130.33";
-  var puerto= "4370";
-    var options = {
-      host: "localhost",
-      port: 8080,
-      path: '/usr?'+"ip="+ip+"&puerto="+puerto,
-      method: 'GET',
-      params: {
-          ips: JSON.stringify(t) // ids is [1, 2, 3, 4]
-        }
-    };
-    http.request(options, function(res) {
-      console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
-        res2.json(x);
-      });
-    }).end(); 
-})*/
 
-router.post('/marcaciones', function(req,res2, next) {
+router.post('/marcaciones', md_auth.ensureAuth, function(req,res2, next) {
 
   var ip=req.body.dispositivo;
   var puerto= "4370";
@@ -54,9 +26,18 @@ router.post('/marcaciones', function(req,res2, next) {
     http.request(options, function(res) {
       console.log('STATUS: ' + res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(res.headers));
+
       res.setEncoding('utf8');
+
+      let data = '';
+
       res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
+        //console.log('\x1b[33m%s\x1b[0m',chunk);
+        data += chunk;
+      });
+
+      res.on('end', function () {
+        var x = JSON.parse(data);
         //console.log("--"+x.length+"--"+x[0]+"--"+x[0][0]);
         modelos.Dispositivo.findAll({
         }).then(newdispositivos => {
@@ -141,37 +122,47 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       method: 'GET'
     }
     http.request(options, function(res) {
-      console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      //console.log('STATUS: ' + res.statusCode);
+      //console.log('HEADERS: ' + JSON.stringify(res.headers));
+      let data = '';
       res.setEncoding('utf8');
+      
       res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
-        var array2=new Array();
-        for(var j=0;j<x.length;j++){
-          if(j!=x.length-1){
-            modelos.BS.create({
-              UserID:x[j][1],
-              eventTime:x[j][3],
-              tnaEvent:x[j][2],
-              Code:x[j][3],
-              IP:ip,
-              }).then()
-          }else{
-            modelos.BS.create({
-              UserID:x[j][1],
-              eventTime:x[j][3],
-              tnaEvent:x[j][2],
-              Code:x[j][3],
-              IP:ip,
-              }).then(newbs=>{
-                modelos.Dispositivo.findAll({
-                }).then(newdispositivos => {
-                  res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
+        data += chunk;
+      });
+
+      res.on('end', function () {
+          var x = JSON.parse(data);
+          console.log('\x1b[33m%s\x1b[0m',x);
+          
+          /*
+          var array2=new Array();
+          for(var j=0;j<x.length;j++){
+            if(j!=x.length-1){
+              modelos.BS.create({
+                UserID:x[j][1],
+                eventTime:x[j][3],
+                tnaEvent:x[j][2],
+                Code:x[j][3],
+                IP:ip,
+                }).then()
+            }else{
+              modelos.BS.create({
+                UserID:x[j][1],
+                eventTime:x[j][3],
+                tnaEvent:x[j][2],
+                Code:x[j][3],
+                IP:ip,
+                }).then(newbs=>{
+                  modelos.Dispositivo.findAll({
+                  }).then(newdispositivos => {
+                    res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
+                  })
                 })
-              })
+            }
           }
-        }
-        })
+          */
+      });
     }).end();
   })
 

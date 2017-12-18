@@ -4,41 +4,57 @@
   <div class="row row-offcanvas row-offcanvas-right">
     <div class="content-wrapper">
       <div class="row user-profile">
-          <div class="col-lg-10 side-right">
+          <div class="col-lg-12 side-right">
             <div class="card">
               <div class="card-body">
                 <div class="wrapper">
                     <h1><center>Registrar Nuevos Dispositivos</center></h1>
                     <form method="POST" action="/marcacion/registro_dispositivo">
-                      <table class="table">
-                        <tr>
-                          <td><label for="ip">Direccion IP</label><input name="ip" placeholder="Direccion Ip"></td>
-                          <td><label for="puerto">Puerto</label><input name="puerto" placeholder="Puerto"></td>
-                          <td><label for="estado">Estado</label>
-                            <select name="estado">
-                                <option value="1">Habilitado</option>
-                                <option value="0">Inhabilitado</option>
-                                </select>
-                              </td>
-                          <td><label for="modelo">Modelo</label>
-                            <select name="modelo">
-                                <option value="zk Software (TFT)">zk Software (TFT)</option>
-                                <option value="Suprema BioStation">Suprema BioStation</option>
-                                <option value="zk Software (BW)">zk Software (BW)</option>
-                                <option value="zk Software DB">zk Software DB</option>
-                                <option value="ZKS Access DB">ZKS Access DB</option>
-                                <option value="AET63">AET63</option>
-                                </select></td>
-                          <td><label for="identificador">Identificador</label>
-                            <select name="identificador">
-                              <option value="ndi">NDI</option>
-                              <option value="codigo">Codigo</option>
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="inputEmail4">Direccion IP</label>
+                          <input type="text" name="ip" class="form-control" placeholder="192.168.0.1">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="puerto">Puerto</label>
+                          <input type="text" class="form-control" name="puerto" id="input-puerto" placeholder="4350">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="estado">Estado</label>
+                          <select name="estado" class="form-control">
+                            <option value="1">Habilitado</option>
+                            <option value="0">Inhabilitado</option>
+                        </select>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="modelo">Modelo</label>
+                          <select name="modelo" class="form-control">
+                            <option value="zk Software (TFT)">zk Software (TFT)</option>
+                            <option value="Suprema BioStation">Suprema BioStation</option>
+                            <option value="zk Software (BW)">zk Software (BW)</option>
+                            <option value="zk Software DB">zk Software DB</option>
+                            <option value="ZKS Access DB">ZKS Access DB</option>
+                            <option value="AET63">AET63</option>
                             </select>
-                          </td>
-                          <td><label for="comentario">Comentarios</label><input name="comentario" placeholder="Comentario"></td>
-                          <td><button type="submmit">Agregar</button></td>
-                        </tr>
-                      </table>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="identificador">Identificador</label>
+                          <select name="identificador" class="form-control">
+                            <option value="ndi">NDI</option>
+                            <option value="codigo">Codigo</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="comentario">Comentarios</label>
+                          <input name="comentario" class="form-control" placeholder="Comentario">
+                        </div>
+                        <div class="col-md-12 text-center">
+                          <button class="btn btn-primary" type="submit">Agregar</button>
+                        </div>
+                      </div>
+                      
                     </form>
                     <br><br>
                     <h1><center>Dispositivos Registrados</center></h1>
