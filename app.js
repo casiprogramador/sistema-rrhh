@@ -32,10 +32,14 @@ var asignar_horario_especial = require('./routes/horario/asignar_horario_especia
 //var asignar_horario_especial_usuario = require('./routes/horario/asignar_horario_especial_usuario');
 //Feriado
 var feriado = require('./routes/parametro/feriado');
+var cargo = require('./routes/parametro/cargo');
+var area = require('./routes/parametro/area');
+var lista_area = require('./routes/parametro/lista_area');
+
 
 //Reportes de asistencia
 var reporteAsistenciaEmpleado = require('./routes/reportesAsistencia/reporteAsistenciaEmpleado');
-var reporteAsistenciaAdmin = require('./routes/reportesAsistencia/reporteAsistenciaAdmin');
+var reporteAsistenciaArea = require('./routes/reportesAsistencia/reporteAsistenciaArea');
 
 //var consultamarcado = require('./routes/formulario/consultamarcado');
 var marcacion = require('./routes/marcacion/marcacion');
@@ -173,6 +177,10 @@ app.use('/horario/asignar_horario_especial',asignar_horario_especial);
 
 //Feriado
 app.use('/feriado',feriado);
+app.use('/cargo',cargo);
+app.use('/area',area);
+app.use('/lista_area',lista_area);
+
 
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/cronjob',scripts);
@@ -180,7 +188,7 @@ app.use('/cronjob',scripts);
 app.use('/personal',ficha_personal_nuevo);
 //reportes de Asistencia
 app.use('/reportesAsistencia/reporteAsistenciaEmpleado',reporteAsistenciaEmpleado);
-app.use('/reportesAsistencia/reporteAsistenciaAdmin',reporteAsistenciaAdmin);
+app.use('/reportesAsistencia/reporteAsistenciaArea',reporteAsistenciaArea);
 
 //app.use('/formularios/consultamarcado',consultamarcado);
 app.use('/marcacion',marcacion);
