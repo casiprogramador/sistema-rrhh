@@ -10,8 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     retraso_salida_1: DataTypes.INTEGER,
     retraso_entrada_2: DataTypes.INTEGER,
     retraso_salida_2: DataTypes.INTEGER,
-    observacion_1: DataTypes.STRING,
-    observacion_2: DataTypes.STRING, 
+    observacion_entrada_1: DataTypes.STRING,
+    observacion_salida_1: DataTypes.STRING, 
+    observacion_entrada_2: DataTypes.STRING,
+    observacion_salida_2: DataTypes.STRING, 
     id_empleado: DataTypes.INTEGER,
     id_horario: DataTypes.INTEGER,
   }, {

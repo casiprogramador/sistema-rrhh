@@ -35,13 +35,18 @@ module.exports = {
       retraso_salida_2: {
         type: Sequelize.INTEGER
       },
-      observacion_1: {
+      observacion_entrada_1: {
         type: Sequelize.STRING
       },
-      observacion_2: {
+      observacion_salida_1: {
         type: Sequelize.STRING
       },
-      
+      observacion_entrada_2: {
+        type: Sequelize.STRING
+      },
+      observacion_salida_2: {
+        type: Sequelize.STRING
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         
