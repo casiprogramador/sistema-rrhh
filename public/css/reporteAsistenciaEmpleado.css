@@ -1,0 +1,27 @@
+.profile-user {
+    width: 100%;
+    overflow: hidden;
+    padding: 40px;
+    background-color: white;
+    margin-bottom: 16px;
+}
+
+.profile-user:hover{
+    background-color: #ecf0f1;
+}
+
+.profile-user img{
+    max-height: 80px;
+    max-width: 80px;
+}
+
+.profile-user .info{
+    padding-left: 40px;
+}
+
+.left {
+    float: left;
+    padding: 60px;
+}
+
+th { white-space: nowrap; }

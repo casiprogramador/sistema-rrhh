@@ -5,7 +5,7 @@
   <div class="content-wrapper">
     <h1 class="page-title">Consulta de Marcados</h1>
     <div class="row grid-margin">
-
+        
       <div class="col-lg-12 grid-margin grid-margin-lg-0 ">
         <%if (error_msg.length > 0 ) { %>
           <div class="alert alert-warning text-center" role="alert">
@@ -16,12 +16,13 @@
 
 
 
-
-            <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
+          <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-10 grid-margin grid-margin-lg-0">
               <div class="card">
                 <div class="card-body" name="card-body" id="card-body">
-                  <form method="post" action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">
+                    <form method="post" action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">
                     <%if (user.rol.rol === 'ADMIN') { %>
+                 
                       <h2 class="card-title">Busqueda del empleado por C.I.</h2>
                       <div class="form-group row">
                         <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
@@ -30,21 +31,38 @@
                         </div>
  
                       <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary">Busca persona</button>
+                        <button type="button" class="btn btn-primary" onclick="buscaEmpleado()">Busca persona</button>
                       </div>
                       </div>
 
-                      <%}%>
+
+                      
+                      <div id="empleado-profile"  style="display:none">
+                          <article class="profile-user">
+                            <div class="left">
+                              <img  src="/images/user-default.png" alt="">
+                            </div>
+                            <div class"left info">
+
+                              <p></p>
+                            </div>
+                          </article>
+                      </div>
+            <%}%>
 
 
 
 
-                        <h2 class="card-title">Periodo y tipo de reporte</h2>
-
+                      <div class="form-group row">
+                          <h2 class="card-title">Periodo y tipo de reporte</h2>
+                      </div>
+                     
                         <div class="form-group row">
+
+                            
                           <label class="col-sm-2 col-form-label">Periodo:</label>
                           <label class="col-sm-1 col-form-label">Del:</label>
-                          <div class="col-sm-2">
+                          <div class="col-sm-4">
 
                             <div class="input-group date datepicker" id="datetimepicker1">
                               <input type="text" class="form-control" name="inicio" id="inicio">
@@ -54,7 +72,7 @@
                             </div>
                           </div>
                           <label class="col-sm-1 col-form-label">al:</label>
-                          <div class="col-sm-2">
+                          <div class="col-sm-4">
                             <div class="input-group date datepicker" id="datetimepicker2">
                               <input type="text" class="form-control" name="fin" id="fin">
                               <div class="input-group-addon">
@@ -81,6 +99,7 @@
                 </div>
               </div>
             </div>
+      </div>
       </div>
     </div>
     <% if(marcados.length != 0 ) { %>
@@ -130,6 +149,12 @@
                     <th>2do periodo</th>
                   </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" style="text-align:right">Total:</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                   <%  var atrasos=0; 
                                       var faltas=0;
@@ -139,7 +164,7 @@
 
                                     %>
                     <tr align="center">
-                      <td id="dia">
+                      <td>
                       <% if(moment(marcados[i].fecha).format( 'dddd') == 'Monday' ) { %>
                       <%='Lunes'%>
                       <%}%>
@@ -202,11 +227,10 @@
 
                     </tr>
                     <% } %>
+
                 </tbody>
-                <tr>
-                  <td colspan="13">Atrasos:
-                    <%=atrasos%> min. faltas: Abandonos min </td>
-                </tr>
+
+
 
               </table>
             </div>

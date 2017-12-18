@@ -14,6 +14,18 @@ router.get('/', function (req, res, next) {
   })
 });
 
+router.post('/buscarEmpleado', function (req, res, next) {
+  
+    modelos.sequelize.query('SELECT * FROM "Empleados" e WHERE e.ndi = ' + req.body.ci_empleado ).spread((empleado, metadata) => {
+      // console.log('\x1b[33m%s\x1b[0m', JSON.stringify(empleado));
+      
+        res.render('reportesAsistencia/reporteAsistenciaEmpleado', { empleado: empleado });
+    })
+  });
+
+
+
+
 router.post('/buscar', function (req, res, next) {
   // console.log(JSON.stringify("entrooo"));
 
