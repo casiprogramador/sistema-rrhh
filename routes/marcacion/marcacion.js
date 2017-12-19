@@ -10,35 +10,24 @@ var moment = require('moment');
 var param = require('../../config/param.json');
 
 
-router.post('/marcaciones', md_auth.ensureAuth, function(req,res2, next) {
-
+router.post('/marcaciones', function(req,res2, next) {
   var ip=req.body.dispositivo;
   var puerto= "4370";
   ip=ip.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, '');
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
+      host: "localhost",
+      port: 8080,
       path: '/usr?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
     http.request(options, function(res) {
       console.log('STATUS: ' + res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(res.headers));
-
       res.setEncoding('utf8');
-
-      let data = '';
-
       res.on('data', function (chunk) {
-        //console.log('\x1b[33m%s\x1b[0m',chunk);
-        data += chunk;
-      });
-
-      res.on('end', function () {
-        var x = JSON.parse(data);
-        //console.log("--"+x.length+"--"+x[0]+"--"+x[0][0]);
+        var x = JSON.parse(chunk);
         modelos.Dispositivo.findAll({
         }).then(newdispositivos => {
           res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
@@ -46,6 +35,8 @@ router.post('/marcaciones', md_auth.ensureAuth, function(req,res2, next) {
       });
     }).end();
 })
+
+
 
 
 router.get('/dispositivos',md_auth.ensureAuth, function(req,res, next) {
@@ -116,22 +107,17 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
+      host: "localhost",
+      port: 8080,
       path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
     http.request(options, function(res) {
-      //console.log('STATUS: ' + res.statusCode);
-      //console.log('HEADERS: ' + JSON.stringify(res.headers));
-      let data = '';
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
-        //console.log('\x1b[33m%s\x1b[0m',chunk);
-        data += chunk;
-      });
-      res.on('end', function () {
-        var x = JSON.parse(data);
+        var x = JSON.parse(chunk);
         var array2=new Array();
         for(var j=0;j<x.length;j++){
           if(j!=x.length-1){
@@ -139,7 +125,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               UserID:x[j][1],
               eventTime:x[j][3],
               tnaEvent:x[j][2],
-              Code:x[j][3],
+              Code:x[j][1],
               IP:ip,
               bandera:0,
               }).then()
@@ -148,7 +134,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               UserID:x[j][1],
               eventTime:x[j][3],
               tnaEvent:x[j][2],
-              Code:x[j][3],
+              Code:x[j][1],
               IP:ip,
               bandera:0,
               }).then(newbs=>{
@@ -164,43 +150,123 @@ router.post('/guardar_marcacion', function(req,res2, next) {
 
 
   router.get('/guardar_asistencia', function(req,res, next) {
-    var fecha;
     var entrada_1;
     var salida_1;
     var entrada_2;
     var salida_2;
     var id_empleado;
     var id_horario;
-    var fecha="2017-12-18";
-    var x1=moment().format("HHmm","00:00");
+    var fecha="2017-12-19";
+    var fec;
+    var x1=moment().format(fecha+" 00:00:00");
     console.log("Hora ------------------>"+x1);
-    var x2=moment().format("HH:mm","12:29");
+    var x2=moment().format(fecha+" 12:29:00");
     console.log("Hora ------------------>"+x2);
-    var x3=moment().format("HH:mm"+"12:30");
+    var x3=moment().format(fecha+" 12:30:00");
     console.log("Hora ------------------>"+x3);
-    var x4=moment().format("HH:mm","13:29");
+    var x4=moment().format(fecha+" 13:29:00");
     console.log("Hora ------------------>"+x4);
-    var x5=moment().format("HH:mm","13:30");
+    var x5=moment().format(fecha+" 13:30:00");
     console.log("Hora ------------------>"+x5);
-    var x6=moment().format("HH:mm","18:29");
+    var x6=moment().format(fecha+" 18:29:00");
     console.log("Hora ------------------>"+x6);
-    var x7=moment().format("HH:mm","18:30");
+    var x7=moment().format(fecha+" 18:30:00");
     console.log("Hora ------------------>"+x7);
-    var x8=moment().format("HH:mm","23:59");
+    var x8=moment().format(fecha+" 23:59:00");
     console.log("Hora ------------------>"+x8);
-    modelos.Empleados.findAll({}).then(newempleado=>{
-      for(var i=0;i<=newempleado.length;i++){
-        var ci=newempleado[i].ndi;
+    modelos.Empleado.findAll({}).then(newempleado=>{
+      for(i=0;i<newempleado.length;i++){
         modelos.BS.findAll({
-          where:{UserID:ci}
+          where:{UserID:newempleado[i].ndi}
         }).then(newbs=>{
+          if(newbs.length>0){
+            //var ci=newbs[0].UserID;
+            //var ci=newempleado[i].id;
           for(var j=0;j<newbs.length;j++){
-            var hora=moment(newbs[j].eventTime).format("HH:mm");
-          }
+            //console.log("ndi hallados en bs"+newbs[j].UserID);
+            fec=moment(newbs[j].eventTime).format("YYYY-MM-DD HH:mm:ss");
+            //console.log("Hora-->"+fec);
+            if(moment(fec).isBetween(x1,x2,null,'[]')){
+              //entrada_1=moment(newbs[j].eventTime).format("HH:mm")
+              entrada_1=moment(newbs[j].eventTime).format("HH:mm:ss");
+              const bsnew={bandera:1};
+              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              .then({});
+            }
+            if(moment(fec).isBetween(x3,x4,null,'[]')){
+              //moment(salida_1=newbs[j].eventTime).format("HH:mm")
+              salida_1=moment(newbs[j].eventTime).format("HH:mm:ss");
+              const bsnew={bandera:1};
+              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              .then({});
+            }
+            if(moment(fec).isBetween(x5,x6,null,'[]')){
+              //moment(entrada_2=newbs[j].eventTime).format("HH:mm")
+              entrada_2=moment(newbs[j].eventTime).format("HH:mm:ss");
+              const bsnew={bandera:1};
+              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              .then({});
+            }
+            if(moment(fec).isBetween(x7,x8,null,'[]')){
+              //moment(salida_2=newbs[j].eventTime).format("HH:mm")
+              salida_2=moment(newbs[j].eventTime).format("HH:mm:ss");
+              const bsnew={bandera:1};
+              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              .then({});
+            }
+          }//end for j
+          modelos.Asistencia.create({
+              fecha:fecha,
+              entrada_1:entrada_1,
+              salida_1,salida_1,
+              entrada_2:entrada_2,
+              salida_2:salida_2,
+              id_empleado:ci,
+          }).then();
+        }
+        else{console.log("sin marcaciones");}
         })//fin newbs
       }//end for i
-    })//fin newempleado
+      res.render("/home");
+    });
   })//inicio
+
+  router.get('/actualizar_asistencia', function(req,res, next) {
+    var ci;
+    var fecha;
+    modelos.Asistencia.findAll({
+      where:{id_horario:null}
+    }).then(newasistencia=>{
+      for(var i=0;i<newasistencia.length;i++){
+        ci=newasistencia[i].id_empleado;
+        fecha=newasistencia[i].fecha;
+        modelos.Horario_especial.findAll({
+          where:{fecha:fecha,id_empleado:ci}
+        }).then(newhorarioesp=>{
+          if(newhorarioesp.length!=0){
+            for(var j=0;j<newhorarioesp.length;j++){
+            const asist_modificado = {
+              id_horario:newhorarioesp[j].id_horario,
+            }
+            modelos.Asistencia.update(asist_modificado, {where: { id: newasistencia[i].id }}).then({});
+            }
+          }
+          else{
+            modelos.Empleado.findAll({
+              where:{id:ci}
+            }).then(newemp=>{
+              for(var j=0;j<newemp.length;j++){
+                const asist_modificado = {
+                  id_horario:newemp[j].id_horario,
+                }
+                modelos.Asistencia.update(asist_modificado, {where: { id: newasistencia[i].id }}).then({});
+                }   
+            });
+          }
+        });
+      }
+    });
+  })
 
 
 module.exports = router;
