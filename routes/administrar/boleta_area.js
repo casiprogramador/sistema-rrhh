@@ -11,9 +11,12 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
     //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
     modelos.sequelize.query('SELECT * FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_tipo_empleado=te.id and teb.id_tipo_empleado=te.id and teb.id_tipo_boleta=tb.id and c.id_empleado=' + res.locals.user.empleado.id).spread((Tipo_boleta, metadata) => {
         console.log(Tipo_boleta);
-        res.render('boleta/boleta', { Tipo_boleta: Tipo_boleta, dato: 0 });
+        res.render('/administrar/boleta_area', { Tipo_boleta: Tipo_boleta, dato: 0 });
     })
 });
+
+
+
 
 router.post('/reporte', (req, res) => {
 
@@ -36,30 +39,14 @@ router.post('/reporte', (req, res) => {
     const dias_total = moment(fecha_fin).diff(moment(fecha_inicio), "days");
     var contador = 0;
     var fecha_prueba = fecha_inicio;
-    var fecha_pruebas= moment().format("YYYY-MM-DD");
     var fecha_fer = fecha_inicio;
     var i = 0;
     var j = 0;
-    var k = 0;
-    
     var au_horas = 0;
-    const solicitud_boleta =  (moment(fecha_inicio).diff(moment(), "days"))+1;
-    var fecha_solicitud_boleta = moment().format("YYYY-MM-DD");
-    var contador1=solicitud_boleta;
-        while (k <= solicitud_boleta) {
-           if ((moment(fecha_pruebas).day()) == 6 || (moment(fecha_pruebas).day()) == 0) {
-        
-            contador1 = contador1-1;
-            }
 
-            fecha_pruebas = (moment(fecha_pruebas).add(1, 'd')).format("YYYY-MM-DD");
-            k = k + 1;
-        }
-        if(contador1 < 4)
-        {
-            req.flash('error_msg', 'Debe solicitar su boleta 5 días antes como mínimo');
-            res.redirect('/boleta/formulario');
-        }
+
+
+
     //Verifica si la fecha inicio es menor a la fecha fin
     if (fecha_inicio1 > fecha_fin1) {
         req.flash('error_msg', 'La fecha inicio no puede ser mayor a la fecha fin');
@@ -78,8 +65,8 @@ router.post('/reporte', (req, res) => {
         }
 
     }
-    while (i <= dias_total) {
-        if ((moment(fecha_prueba).day()) == 6 || (moment(fecha_prueba).day()) == 0) {
+    while (i != dias_total) {
+        if ((moment(fecha_prueba).day()) == 5 || (moment(fecha_prueba).day()) == 6) {
             dias_restados = dias_restados - 1;
         }
         //console.log('\x1b[33m%s\x1b[0m',moment(fecha_prueba).format('YYYY-MM-DD'));
@@ -88,6 +75,9 @@ router.post('/reporte', (req, res) => {
     }
 
     var suma_dias = dias_restados;
+
+
+
 
     //Verifica si la boleta que esta sacando es a cuenta de vacacion
     if (req.body.tipo_boleta == 1 || req.body.tipo_boleta == 2) {
@@ -98,7 +88,8 @@ router.post('/reporte', (req, res) => {
 
                 while (j <= suma_dias) {
                     for (var feriado of feriados) {
-             
+                        console.log('\x1b[33m%s\x1b[0m', moment(feriado.fecha_feriado).format('YYYY-MM-DD'));
+                        console.log(fecha_vacacion);
                         if (moment(feriado.fecha_feriado).format('YYYY-MM-DD') == fecha_vacacion) {
                             contador = contador + 1;
                             //console.log(moment(fecha_prueba).format('YYYY-MM-DD'));
@@ -107,11 +98,11 @@ router.post('/reporte', (req, res) => {
 
                     }
                     fecha_vacacion = (moment(fecha_vacacion).add(1, 'd')).format("YYYY-MM-DD");
+                    console.log(contador + 'al salir del for');
                     j = j + 1;
                 };
                 suma_dias = suma_dias - contador;
-                console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(sumatoria));
-                console.log('\x1b[33m%s\x1b[0m', sumatoria.vacacion_dias);
+
                 if (suma_dias <= Number(sumatoria[0].vacacion_dias)) {
                     modelos.Boleta.create({
                             fecha_solicitud: fecha_solicitud,
@@ -227,7 +218,7 @@ router.get('/suma', (req, res) => {
 
     }
     while (i != dias_total) {
-        if ((moment(fecha_prueba).day()) == 6 || (moment(fecha_prueba).day()) == 0) {
+        if ((moment(fecha_prueba).day()) == 5 || (moment(fecha_prueba).day()) == 6) {
             dias_restados = dias_restados - 1;
         }
 
