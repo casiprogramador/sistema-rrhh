@@ -20,6 +20,7 @@ var vacacion_saldo = require('./routes/vacacion/saldo');
 var vacacion_prescripcion = require('./routes/vacacion/prescripcion');
 var boleta = require('./routes/boletas/boleta');
 var administrar_boleta = require('./routes/administrar/boleta');
+var administrar_boleta_area = require('./routes/administrar/boleta_area');
 //Boletas
 var boleta = require('./routes/boletas/boleta');
 var listadoboleta = require('./routes/boletas/listadoboleta');
@@ -183,6 +184,7 @@ app.use('/lista_area',lista_area);
 
 
 app.use('/administrar/boleta',administrar_boleta);
+app.use('/administrar/boleta_area',administrar_boleta_area);
 app.use('/cronjob',scripts);
 
 app.use('/personal',ficha_personal_nuevo);
