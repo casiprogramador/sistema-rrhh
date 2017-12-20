@@ -35,7 +35,7 @@
 <table WIDTH="90%"><tr><td><center>Firma Solicitante</center></td><td><center>Firma Autorizada 1</center></td><td><center>Firma Autorizada 2</center></td></tr></table>
 
   <hr align="left" size="4" width="1830" color="black" />
-  <small>Estado: <%= boleta_insertada.estado %> al <%=variable1 %> - Acción realizada por el Usuario : </small>
+  <small>Estado: <%= boleta_insertada.estado %> al <%=variable3 %> - Acción realizada por el Usuario :<%= user.username%>  </small>
   <div class="col-sm" text-center>
       <button type="button" class="btn btn-primary print-ignore" onClick="window.print()">Imprimir</button>
       <button type="button" class="btn btn-primary print-ignore nav-link" onClick="window.location = '/boleta/listadoboleta'">Volver</button>

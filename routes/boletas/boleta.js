@@ -129,9 +129,9 @@ router.post('/reporte', (req, res) => {
 
                                 const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
                                 const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
-
-                                console.log();
-                                res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor });
+                                const fecha_solicitud1 = moment(fecha_solicitud).format("YYYY-MM-DD" +' '+ 'HH:mm');
+     
+                                res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor, variable3: fecha_solicitud1});
                             });
                         })
                 }
@@ -174,7 +174,8 @@ router.post('/reporte', (req, res) => {
 
                     const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
                     const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
-                    res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor });
+                    const fecha_solicitud1 = moment(fecha_solicitud).format("YYYY-MM-DD" +' '+ 'HH:mm');
+                    res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor, variable3: fecha_solicitud1 });
                 });
             })
         })
