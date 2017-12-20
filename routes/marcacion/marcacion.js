@@ -180,7 +180,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
           where:{UserID:newempleado[i].ndi}
         }).then(newbs=>{
           if(newbs.length>0){
-            //var ci=newbs[0].UserID;
+            var ci=newbs[0].UserID;
             //var ci=newempleado[i].id;
           for(var j=0;j<newbs.length;j++){
             //console.log("ndi hallados en bs"+newbs[j].UserID);
@@ -237,7 +237,10 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     modelos.Asistencia.findAll({
       where:{id_horario:null}
     }).then(newasistencia=>{
-      for(var i=0;i<newasistencia.length;i++){
+      var count=newasistencia.length;
+      for(var i=0;i<count;i++){
+        console.log("bucle"+i);
+        var id=newasistencia[i].id;
         ci=newasistencia[i].id_empleado;
         fecha=newasistencia[i].fecha;
         modelos.Horario_especial.findAll({
@@ -259,14 +262,26 @@ router.post('/guardar_marcacion', function(req,res2, next) {
                 const asist_modificado = {
                   id_horario:newemp[j].id_horario,
                 }
-                modelos.Asistencia.update(asist_modificado, {where: { id: newasistencia[i].id }}).then({});
+                modelos.Asistencia.update(asist_modificado, {where: { id:id }}).then({});
                 }   
             });
           }
         });
       }
+      res.render("/home");
     });
   })
 
+
+
+  router.get('/actualizar_asistencia2', function(req,res, next) {
+    modelos.Asistencia.findAll({where:{id_horario:null}}).then(asistencias=>{
+      for(i=0;i<asistencias.length;i++){
+        modelos.Horario_especial.findAll({where:{id_empleado:asistencias[i].id_empleado}}).then(horarios=>{
+          console.log("-->"+i);
+        })
+      }
+    });
+  })
 
 module.exports = router;
