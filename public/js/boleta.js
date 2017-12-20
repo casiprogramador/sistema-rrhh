@@ -6,12 +6,6 @@
         var hora_fin = $('#hora-fin').val();
         var id_empleado = $('#id-empleado').val();
         var id_tipo_boleta = $("#tipo-boleta option:selected").val();
-        console.log(fecha_inicio);
-        console.log(hora_inicio);
-        console.log(fecha_fin);
-        console.log(hora_fin);
-        console.log(id_empleado);
-        console.log(id_tipo_boleta);
         $.ajax({
             // la URL para la petición
             url: '/boleta/suma',
