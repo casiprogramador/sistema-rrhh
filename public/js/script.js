@@ -6,7 +6,7 @@
         autoclose: true,
     });
     $('.clockpicker').clockpicker({
-        placement: 'top',
+        placement: 'bottom',
         align: 'left',
         donetext: 'Aceptar'
     });
