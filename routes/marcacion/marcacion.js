@@ -154,13 +154,15 @@ router.post('/guardar_marcacion', function(req,res2, next) {
 
 
   router.get('/guardar_asistencia', function(req,res, next) {
+    console.log(req.query.fecha);
+
     var entrada_1;
     var salida_1;
     var entrada_2;
     var salida_2;
     var id_empleado;
     var id_horario;
-    var fecha="2017-12-19";
+    var fecha=req.query.fecha;
     var fec;
     var x1=moment().format(fecha+" 00:00:00");
     console.log("Hora ------------------>"+x1);
@@ -179,12 +181,14 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     var x8=moment().format(fecha+" 23:59:00");
     console.log("Hora ------------------>"+x8);
     modelos.Empleado.findAll({}).then(newempleado=>{
+      
       for(i=0;i<newempleado.length;i++){
+        var ci=newempleado[i].id;
         modelos.BS.findAll({
-          where:{UserID:newempleado[i].ndi,bandera:0}
+          where:{UserID:newempleado[i].ndi}
         }).then(newbs=>{
           if(newbs.length>0){
-            var ci=newbs[0].UserID;
+            
             //var ci=newempleado[i].id;
           for(var j=0;j<newbs.length;j++){
             //console.log("ndi hallados en bs"+newbs[j].UserID);
@@ -233,6 +237,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       }//end for i
       res.render("/home");
     });
+    
   })//inicio
 
 
