@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt-nodejs');
 var md_auth = require('../../middleware/authenticated');
 
 // Grabado de horario unico
-router.post('/grabar_unico', (req, res) => {
+router.post('/grabar_unico',md_auth.ensureAuth, (req, res) => {
     
       
         modelos.Horario_especial.create({
