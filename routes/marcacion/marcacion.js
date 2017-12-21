@@ -17,8 +17,8 @@ router.post('/marcaciones', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
       path: '/usr?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
@@ -26,13 +26,17 @@ router.post('/marcaciones', function(req,res2, next) {
       console.log('STATUS: ' + res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
+      let data = '';
       res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
+        data += chunk;
+      });
+      res.on('end',()=>{
+        var x = JSON.parse(data);
         modelos.Dispositivo.findAll({
         }).then(newdispositivos => {
           res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
         })
-      });
+      })
     }).end();
 })
 
@@ -107,8 +111,8 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
       path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }

@@ -1,0 +1,57 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="content-wrapper">
+  <div class="row justify-content-md-center">
+        <div class="col-sm-12 col-lg-12 grid-margin print-ignore">
+          <div class="card">
+              <div class="card-body">
+
+                    <%if (success_msg.length > 0 ) { %>
+
+                        <div class="row">
+                                <div class="col align-self-center">
+                                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                        <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>
+                                </div>
+        
+                            </div>
+                    <% } %>
+                
+                  <div class="col-sm-12">
+                    <h2 class="card-title text-center">Lista de Usuarios</h2>
+                  </div>
+                  <table id="table-prescripcion" class="table table-bordered">
+                        <thead >
+                          <tr>
+                            <th class="table-dark" >Usuario</th>
+                            <th class="table-dark" >Empleado</th>
+                            <th class="table-dark" >C.I.</th>
+                            <th class="table-dark text-center">Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var usuario of usuarios) { %>
+                                <tr>
+                                    <td><%= usuario.username %></td>
+                                    <td><%= usuario.empleado.paterno %> <%= usuario.empleado.materno %> <%= usuario.empleado.nombres %></td>
+                                    <td><%= usuario.empleado.ndi %> <%= usuario.empleado.expedido %></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-primary btn-sm btn-resetpass" id-usuario="<%= usuario.id %>" onclick="showSwal('warning-message-and-cancel',<%= usuario.id %>)">
+                                                <i class="mdi mdi-backup-restore"></i> Reset Password
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                      </table>
+
+
+          </div>
+      </div>
+  </div>
+</div>
+</div>
