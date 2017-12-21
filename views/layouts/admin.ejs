@@ -65,73 +65,62 @@
                     </li>
                     <%if (user.rol.rol === 'ADMIN') { %>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#layoutsVacacion" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="mdi mdi-beach"></i>
-                            <span class="menu-title">Vacacion</span>
+                        <a class="nav-link" data-toggle="collapse" href="#layoutsparametros" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-pencil"></i>
+                                <span class="menu-title">Parametros</span>
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
-                        <div class="collapse" id="layoutsVacacion">
+                        <div class="collapse" id="layoutsparametros">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/feriado">Feriado</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cargo">Cargo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/area">Area</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/lista_area">Lista Areas</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-account"></i>
+                            <span class="menu-title">Personal</span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="layoutsPersonal">
+                                <ul class="nav flex-column sub-menu">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/personal/nuevo">Nuevo</a>
+                                        </li>
+                                        
+                
+                                    </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#layoutsReportesAsistencia" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-file"></i>
+                            <span class="menu-title">Reportes de asistencia</span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="layoutsReportesAsistencia">
                                 <ul class="nav flex-column sub-menu">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/vacacion/prescripcion">Prescribir Vacaciones</a>
+                                            <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaArea">Reporte por Area</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/vacacion/saldo/formulario">Saldo de Vacaciones</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/vacacion/cas">Registro CAS</a>
+                                            <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Reporte individual</a>
                                         </li>
                 
                                     </ul>
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#layoutsparametros" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="mdi mdi-pencil"></i>
-                                    <span class="menu-title">Parametros</span>
-                                <i class="mdi mdi-chevron-down"></i>
-                            </a>
-                            <div class="collapse" id="layoutsparametros">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/feriado">Feriado</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/cargo">Cargo</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/area">Area</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/lista_area">Lista Areas</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link" data-toggle="collapse" href="#layoutshorarios" aria-expanded="false" aria-controls="collapseExample">
-                                    <i class="mdi mdi-calendar"></i>
-                                        <span class="menu-title">Horarios</span>
-                                    <i class="mdi mdi-chevron-down"></i>
-                                </a>
-                                <div class="collapse" id="layoutshorarios">
-                                    <ul class="nav flex-column sub-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/horario/lista_horario">Lista de Horarios</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/horario/nuevo_horario">Nuevo Horario</a>
-                                        </li>
-                                        <li class="nav-item">
-                                                <a class="nav-link" href="/horario/lista_asignacion_horario">Horarios por Empleado</a>
-                                        </li>
-                                        <li class="nav-item">
-                                                <a class="nav-link" href="/horario/lista_horario_especial">Horarios Especiales</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                            </li>
-                         
-
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#layoutsAdministrar" aria-expanded="false" aria-controls="collapseExample">
@@ -153,40 +142,51 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#layoutsPersonal" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="mdi mdi-account"></i>
-                            <span class="menu-title">Personal</span>
+                        <a class="nav-link" data-toggle="collapse" href="#layoutshorarios" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-calendar"></i>
+                                <span class="menu-title">Horarios</span>
                             <i class="mdi mdi-chevron-down"></i>
                         </a>
-                        <div class="collapse" id="layoutsPersonal">
-                                <ul class="nav flex-column sub-menu">
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/personal/nuevo">Nuevo</a>
-                                        </li>
-                                        
-                
-                                    </ul>
+                        <div class="collapse" id="layoutshorarios">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/horario/lista_horario">Lista de Horarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/horario/nuevo_horario">Nuevo Horario</a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="/horario/lista_asignacion_horario">Horarios por Empleado</a>
+                                </li>
+                                <li class="nav-item">
+                                        <a class="nav-link" href="/horario/lista_horario_especial">Horarios Especiales</a>
+                                </li>
+                                </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#layoutsReportesAsistencia" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="mdi mdi-file"></i>
-                                <span class="menu-title">Reportes de asistencia</span>
-                                <i class="mdi mdi-chevron-down"></i>
-                            </a>
-                            <div class="collapse" id="layoutsReportesAsistencia">
-                                    <ul class="nav flex-column sub-menu">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaArea">Reporte por Area</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/reportesAsistencia/reporteAsistenciaEmpleado">Reporte individual</a>
-                                            </li>
-                    
-                                        </ul>
-                            </div>
-                        </li>
+                        <a class="nav-link" data-toggle="collapse" href="#layoutsVacacion" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="mdi mdi-beach"></i>
+                            <span class="menu-title">Vacacion</span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="layoutsVacacion">
+                                <ul class="nav flex-column sub-menu">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/vacacion/prescripcion">Prescribir Vacaciones</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/vacacion/saldo/formulario">Saldo de Vacaciones</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/vacacion/cas">Registro CAS</a>
+                                        </li>
+                
+                                    </ul>
+                        </div>                 
+
+                    </li>
+               
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#layoutsmarcado" aria-expanded="false" aria-controls="collapseExample">
                                 <i class="mdi mdi-file-document"></i>
