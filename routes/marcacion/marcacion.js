@@ -153,6 +153,17 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   })
 
 
+
+  var marcaciones=function(req,res, next) {
+    modelos.Empleado.findAll({}).then(newempleado=>{
+      modelos.BS.findAll({where:{bandera:'0'}}).then(newbs=>{
+        req.newempleado=newempleado;
+        req.newbs=newbs;
+        next()
+      })
+    });
+  }
+router.use(marcaciones);
   router.get('/guardar_asistencia', function(req,res, next) {
     console.log(req.query.fecha);
 
@@ -164,6 +175,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     var id_horario;
     var fecha=req.query.fecha;
     var fec;
+    var sw=0;
     var x1=moment().format(fecha+" 00:00:00");
     console.log("Hora ------------------>"+x1);
     var x2=moment().format(fecha+" 12:29:00");
@@ -180,64 +192,54 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     console.log("Hora ------------------>"+x7);
     var x8=moment().format(fecha+" 23:59:00");
     console.log("Hora ------------------>"+x8);
-    modelos.Empleado.findAll({}).then(newempleado=>{
-      
-      for(i=0;i<newempleado.length;i++){
-        var ci=newempleado[i].id;
-        modelos.BS.findAll({
-          where:{UserID:newempleado[i].ndi, bandera:0}
-        }).then(newbs=>{
-          if(newbs.length>0){
-            
-            //var ci=newempleado[i].id;
-          for(var j=0;j<newbs.length;j++){
-            //console.log("ndi hallados en bs"+newbs[j].UserID);
-            fec=moment(newbs[j].eventTime).format("YYYY-MM-DD HH:mm:ss");
-            //console.log("Hora-->"+fec);
-            if(moment(fec).isBetween(x1,x2,null,'[]')){
-              //entrada_1=moment(newbs[j].eventTime).format("HH:mm")
-              entrada_1=moment(newbs[j].eventTime).format("HH:mm:ss");
+    
+      for(i=0;i<req.newempleado.length;i++){
+        sw=0;
+          for(var j=0;j<req.newbs.length;j++){
+            fec=moment(req.newbs[j].eventTime).format("YYYY-MM-DD HH:mm:ss");
+            if(req.newempleado[i].ndi==req.newbs[j].Code && moment(fec).isBetween(x1,x2,null,'[]')){
+              entrada_1=moment(req.newbs[j].eventTime).format("HH:mm:ss");
+              sw=1;
               const bsnew={bandera:1};
-              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              modelos.BS.update(bsnew,{where:{id:req.newbs[j].id}})
               .then({});
             }
-            if(moment(fec).isBetween(x3,x4,null,'[]')){
-              //moment(salida_1=newbs[j].eventTime).format("HH:mm")
-              salida_1=moment(newbs[j].eventTime).format("HH:mm:ss");
+            if(req.newempleado[i].ndi==req.newbs[j].Code && moment(fec).isBetween(x3,x4,null,'[]')){
+              salida_1=moment(req.newbs[j].eventTime).format("HH:mm:ss");
+              sw=1;
               const bsnew={bandera:1};
-              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              modelos.BS.update(bsnew,{where:{id:req.newbs[j].id}})
               .then({});
             }
-            if(moment(fec).isBetween(x5,x6,null,'[]')){
-              //moment(entrada_2=newbs[j].eventTime).format("HH:mm")
-              entrada_2=moment(newbs[j].eventTime).format("HH:mm:ss");
+            if(req.newempleado[i].ndi==req.newbs[j].Code && moment(fec).isBetween(x5,x6,null,'[]')){
+              entrada_2=moment(req.newbs[j].eventTime).format("HH:mm:ss");
+              sw=1;
               const bsnew={bandera:1};
-              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              modelos.BS.update(bsnew,{where:{id:req.newbs[j].id}})
               .then({});
             }
-            if(moment(fec).isBetween(x7,x8,null,'[]')){
-              //moment(salida_2=newbs[j].eventTime).format("HH:mm")
-              salida_2=moment(newbs[j].eventTime).format("HH:mm:ss");
+            if(req.newempleado[i].ndi==req.newbs[j].Code && moment(fec).isBetween(x7,x8,null,'[]')){
+              salida_2=moment(req.newbs[j].eventTime).format("HH:mm:ss");
+              sw=1;
               const bsnew={bandera:1};
-              modelos.BS.update(bsnew,{where:{id:newbs[j].id}})
+              modelos.BS.update(bsnew,{where:{id:req.newbs[j].id}})
               .then({});
             }
           }//end for j
+          if(sw==1){
+            sw=0;
+            var date=moment().format(fecha+" 00:00:00");
           modelos.Asistencia.create({
-              fecha:fecha,
+              fecha:date,
               entrada_1:entrada_1,
               salida_1,salida_1,
               entrada_2:entrada_2,
               salida_2:salida_2,
-              id_empleado:ci,
+              id_empleado:req.newempleado[i].ndi,
           }).then();
         }
-        else{console.log("sin marcaciones");}
-        })//fin newbs
       }//end for i
-      res.render("/home");
-    });
-    
+      res.JSON({fecha:{fecha}});    
   })//inicio
 
 
