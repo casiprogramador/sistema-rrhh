@@ -240,57 +240,156 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     
   })//inicio
 
-  router.get('/actualizar_asistencia', function(req,res, next) {
-    var ci;
-    var fecha;
-    modelos.Asistencia.findAll({
-      where:{id_horario:null}
-    }).then(newasistencia=>{
-      var count=newasistencia.length;
-      for(var i=0;i<count;i++){
-        console.log("bucle"+i);
-        var id=newasistencia[i].id;
-        ci=newasistencia[i].id_empleado;
-        fecha=newasistencia[i].fecha;
-        modelos.Horario_especial.findAll({
-          where:{fecha:fecha,id_empleado:ci}
-        }).then(newhorarioesp=>{
-          if(newhorarioesp.length!=0){
-            for(var j=0;j<newhorarioesp.length;j++){
-            const asist_modificado = {
-              id_horario:newhorarioesp[j].id_horario,
-            }
-            modelos.Asistencia.update(asist_modificado, {where: { id: newasistencia[i].id }}).then({});
-            }
+
+
+  var datos=function(req,res, next) {
+    modelos.Asistencia.findAll({where:{id_horario:null}}).then(newasistencias=>{
+      modelos.Horario_especial.findAll({}).then(newhorarioesp=>{
+        modelos.Horario.findAll({}).then(newhorario=>{
+          modelos.Empleado.findAll({}).then(newempleado=>{
+            req.newasistencia=newasistencias;
+            req.newhorarioesp=newhorarioesp;
+            req.newhorario=newhorario;
+            req.newempleado=newempleado;
+            next();
+            //res.send("./routes/marcacion/marcacion/proceso_datos",{newasistencias:newasistencias,newhorarioesp:newhorarioesp,newhorario:newhorario,newempleado:newempleado});
+          })
+        })
+      })
+    });
+  }
+router.use(datos);
+  router.get('/proceso_datos', function(req,res, next) {
+    var idhorario;
+    var sw;
+    var cont1;
+    var cont2;
+    for(var i=0;i<req.newasistencia.length;i++){
+      idhorario=0;
+      sw=0;
+      cont1=0;
+      cont2=0;
+      if(req.newasistencia[i].id_horario==null){
+      while(sw==0 && cont1!=req.newhorarioesp.length){
+        if(req.newasistencia[i].id_empleado==req.newhorarioesp[cont1].id_empleado && req.newasistencia[i].fecha==req.newhorarioesp[cont1].fecha){
+          idhorario=req.newhorarioesp[cont1].id_horario;
+          sw=1;
+        }else{
+          cont1=cont1+1;
+        }
+      }
+      if(sw==0){
+        while(sw==0 && cont2!=req.newempleado.length){
+          if(req.newasistencia[i].id_empleado==req.newempleado[cont2].ndi){
+            idhorario=req.newempleado[cont2].id_horario;
+            sw=1;
+          }else{
+            cont2=cont2+1;
           }
-          else{
-            modelos.Empleado.findAll({
-              where:{id:ci}
-            }).then(newemp=>{
-              for(var j=0;j<newemp.length;j++){
-                const asist_modificado = {
-                  id_horario:newemp[j].id_horario,
-                }
-                modelos.Asistencia.update(asist_modificado, {where: { id:id }}).then({});
-                }   
-            });
-          }
+        } 
+      }
+      }
+      if(sw==1){
+        const asist_modificado = {
+          id_horario:idhorario,
+        }
+        modelos.Asistencia.update(asist_modificado, {where: { id:req.newasistencia[i].id }}).then(modificados=>{
         });
       }
-      res.render("/home");
-    });
+    }
   })
 
 
-
-  router.get('/actualizar_asistencia2', function(req,res, next) {
-    modelos.Asistencia.findAll({where:{id_horario:null}}).then(asistencias=>{
-      for(i=0;i<asistencias.length;i++){
-        modelos.Horario_especial.findAll({where:{id_empleado:asistencias[i].id_empleado}}).then(horarios=>{
-          console.log("-->"+i);
+  var horarios=function(req,res, next) {
+    modelos.Asistencia.findAll({where:{retraso_entrada_1:null,retraso_salida_1:null,retraso_entrada_2:null,retraso_salida_2:null}}).then(newasistencias=>{
+        modelos.Horario.findAll({}).then(newhorario=>{
+            req.newasistencia=newasistencias;
+            req.newhorario=newhorario;
+            next();
+            //res.send("./routes/marcacion/marcacion/proceso_datos",{newasistencias:newasistencias,newhorarioesp:newhorarioesp,newhorario:newhorario,newempleado:newempleado});
         })
-      }
     });
-  })
+  }
+router.use(horarios);
+router.get('/calculo_datos', function(req,res, next) {
+  var retraso_entrada_1;
+  var retraso_salida_1;
+  var retraso_entrada_2;
+  var retraso_salida_2;
+  var observacion_entrada_1;
+  var observacion_salida_1;
+  var observacion_entrada_2;
+  var observacion_salida_2;
+  var sw=0;
+  var cont=0;
+  for(var i=0;i<req.newasistencia.length;i++){
+    while(sw==0 || cont<req.newhorario.lenght){
+      if(req.newasistencia[i].id_horario==req.newhorario[cont].id){
+        var calcent1=moment().format("YYYY-MM-DD "+req.newhorario[cont].entrada_1);
+        var calcent1=moment(calcent1).add(req.newhorario[cont].tolerancia_entrada_1,"minutes").format('HH:mm');
+        var calcent2=moment().format("YYYY-MM-DD "+req.newhorario[cont].entrada_2);
+        var calcent2=moment(calcent2).add(req.newhorario[cont].tolerancia_entrada_1,"minutes").format('HH:mm');
+        var calc1=0;
+        var calc2=0;
+        var calc3=0;
+        var calc4=0;
+        observacion_entrada_1=null,
+        observacion_entrada_2=null,
+        observacion_salida_1=null,
+        observacion_salida_2=null,
+        console.log("registros-->"+calcent1+"->>"+calcent2);
+        if(req.newasistencia[i].entrada_1>calcent1){
+          var tiempo_inicio=moment(req.newasistencia[i].entrada_1,'HH:mm');
+          var tiempo_fin=moment(calcent1,'HH:mm');
+          //calcent1=(moment().format("YYYY-MM-DD "+req.newasistencia[i].entrada_1)) - (moment().format("YYYY-MM-DD "+calcent1));
+          calc1=(moment.duration(tiempo_inicio - tiempo_fin))/3600000;
+          calc1=calc1*60;
+          console.log("atraso primera entrada->"+calcent1+"otra hora--->"+req.newasistencia[i].entrada_1+"->"+calc1);
+        }
+        if(req.newasistencia[i].entrada_2>calcent2){
+          var tiempo_inicio=moment(req.newasistencia[i].entrada_2,'HH:mm');
+          var tiempo_fin=moment(calcent2,'HH:mm');
+          //calcent1=(moment().format("YYYY-MM-DD "+req.newasistencia[i].entrada_2)) - (moment().format("YYYY-MM-DD "+calcent2));
+          calc2=(moment.duration(tiempo_inicio - tiempo_fin))/3600000;
+          calc2=calc2*60;
+          console.log("atraso segunda entrada->"+calcent2+"otra hora--->"+req.newasistencia[i].entrada_2+"->"+calc2);
+        }
+        if(req.newasistencia[i].entrada_1==null){
+          calc1=null;
+          observacion_entrada_1="ABANDONO";
+        }
+        if(req.newasistencia[i].entrada_2==null){
+          calc2=null;
+          observacion_entrada_2="ABANDONO";
+        }
+        if(req.newasistencia[i].salida_1==null){
+          calc3=null;
+          observacion_salida_1="ABANDONO";
+        }
+        if(req.newasistencia[i].salida_2==null){
+          calc4=null;
+          observacion_salida_2="ABANDONO";
+        }
+        const asist_modificado = {
+          retraso_entrada_1:calc1,
+          retraso_entrada_2:calc2,
+          retraso_salida_1:calc3,
+          retraso_salida_2:calc4,
+          observacion_entrada_1:observacion_entrada_1,
+          observacion_entrada_2:observacion_entrada_2,
+          observacion_salida_1:observacion_salida_1,
+          observacion_salida_2:observacion_salida_2,
+        }
+        modelos.Asistencia.update(asist_modificado, {where: { id:req.newasistencia[i].id }}).then({})
+        sw=1;
+        }else{
+        cont=cont+1;
+        }
+    }
+    cont=0;
+    sw=0;
+  }
+})
 
 module.exports = router;
+
