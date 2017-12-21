@@ -177,7 +177,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
     modelos.Empleado.findAll({}).then(newempleado=>{
       for(i=0;i<newempleado.length;i++){
         modelos.BS.findAll({
-          where:{UserID:newempleado[i].ndi}
+          where:{UserID:newempleado[i].ndi,bandera:0}
         }).then(newbs=>{
           if(newbs.length>0){
             var ci=newbs[0].UserID;
@@ -384,14 +384,3 @@ router.get('/calculo_datos', function(req,res, next) {
 
 module.exports = router;
 
-
-/*if(req.newasistencia[i].id_empleado==req.newhorarioesp[j].id_empleado && req.newasistencia[i].fecha==req.newhorarioesp[j].fecha){
-  console.log("existe horario especial");
-  idhorario=req.newhorarioesp[j].id_horario;
-}else{
-  for(var j=0;j<req.newempleado.length;j++){
-    if(req.newasistencia[i].id_empleado==req.newempleado[j].id_empleado){
-      idhorario=req.newempleado[j].id_horario;
-    }
-  }
-}*/
