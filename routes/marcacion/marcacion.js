@@ -237,7 +237,6 @@ router.use(marcaciones);
               salida_2:salida_2,
               id_empleado:req.newempleado[i].ndi,
           }).then();
-          console.log("fecha---------------------------------------------------------------------------------------->"+fecha)
         }
       }//end for i
       res.JSON({fecha:{fecha}});    
