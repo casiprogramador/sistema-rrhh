@@ -31,9 +31,9 @@ router.post('/buscar', (req, res) => {
       }
 });
 
-router.post('/imprimir', (req, res) => {
+router.get('/imprimir/:id', (req, res) => {
 
- modelos.sequelize.query('select b.id, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.dias, e.ndi, e.paterno, e.materno, e.nombres, tb.tipo_boleta, ca.cargo, a.desc_area from public."Boleta" b, public."Empleados" e, public."Tipo_boleta" tb, public."Contratos" c, public."Cargos" ca, public."Areas" a where b.id='+req.body.id+'and e.id = b.id_empleado and tb.id= b.id_tipo_boleta and e.id= c.id_empleado and c.id_cargo= ca.id and ca.id_area= a.id limit 1').spread((datos_boleta, metadata) => {
+ modelos.sequelize.query('select b.id, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.dias, e.ndi, e.paterno, e.materno, e.nombres, tb.tipo_boleta, ca.cargo, a.desc_area from public."Boleta" b, public."Empleados" e, public."Tipo_boleta" tb, public."Contratos" c, public."Cargos" ca, public."Areas" a where b.id='+req.params.id+'and e.id = b.id_empleado and tb.id= b.id_tipo_boleta and e.id= c.id_empleado and c.id_cargo= ca.id and ca.id_area= a.id limit 1').spread((datos_boleta, metadata) => {
   
   console.log('\x1b[33m%s\x1b[0m',JSON.stringify(datos_boleta));
   const fecha_solicitud = moment(datos_boleta[0].fecha_solicitud).format("YYYY-MM-DD" +' '+ 'HH:mm');
