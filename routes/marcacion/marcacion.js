@@ -185,7 +185,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       for(i=0;i<newempleado.length;i++){
         var ci=newempleado[i].id;
         modelos.BS.findAll({
-          where:{UserID:newempleado[i].ndi}
+          where:{UserID:newempleado[i].ndi, bandera:0}
         }).then(newbs=>{
           if(newbs.length>0){
             
