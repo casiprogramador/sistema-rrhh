@@ -47,20 +47,6 @@ router.post('/reporte', (req, res) => {
     var contador1=solicitud_boleta;
 //Verifica que saque la boleta antes de 5 dias
 
-     while (k <= solicitud_boleta) {
-           if ((moment(fecha_pruebas).day()) == 6 || (moment(fecha_pruebas).day()) == 0) {
-        
-            contador1 = contador1-1;
-            }
-
-            fecha_pruebas = (moment(fecha_pruebas).add(1, 'd')).format("YYYY-MM-DD");
-            k = k + 1;
-        }
-        if(contador1 < 4)
-        {
-            req.flash('error_msg', 'Debe solicitar su boleta 5 días antes como mínimo');
-            res.redirect('/boleta/formulario');
-        }
     //Verifica si la fecha inicio es menor a la fecha fin
     if (fecha_inicio1 > fecha_fin1) {
         req.flash('error_msg', 'La fecha inicio no puede ser mayor a la fecha fin');
@@ -79,6 +65,21 @@ router.post('/reporte', (req, res) => {
         }
 
     }
+     while (k <= solicitud_boleta) {
+           if ((moment(fecha_pruebas).day()) == 6 || (moment(fecha_pruebas).day()) == 0) {
+        
+            contador1 = contador1-1;
+            }
+
+            fecha_pruebas = (moment(fecha_pruebas).add(1, 'd')).format("YYYY-MM-DD");
+            k = k + 1;
+        }
+        if(contador1 < 4)
+        {
+            req.flash('error_msg4', 'Debe solicitar su boleta 5 días antes como mínimo');
+            res.redirect('/boleta/formulario');
+        }
+
 //Proibe sacar la boleta en la misma fecha que otra boleta
   modelos.sequelize.query('select fecha_inicio, fecha_fin from public."Boleta" where id_empleado =' + res.locals.user.empleado.id).spread((total, metadata) => {
             

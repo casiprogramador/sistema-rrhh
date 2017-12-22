@@ -62,10 +62,16 @@
                                                 <%= Empleado[i].descripcion %>
                                             </td>
                                             <td class="text-left" width="10%">
-                                                 <a href="/horario/lista_horario_especial/editar/<%= Empleado[i].id %>" class="btn btn-outline-primary" type="submit" >Crear</a>
+                                                 <a href="/horario/lista_horario_especial/editar/<%= Empleado[i].id %>" class="btn btn-primary" type="submit" >
+                                                  <i class="mdi mdi-pencil" style="font-size: 20px"></i>
+                                                  <span> Crear</span>  
+                                                </a>
                                             </td>
                                             <td class="text-left" width="10%">
-                                                <a href="/horario/lista_horario_especial/ver/<%= Empleado[i].id %>" class="btn btn-outline-primary" type="submit" >Ver</a>
+                                                <a href="/horario/lista_horario_especial/ver/<%= Empleado[i].id %>" class="btn btn-primary" type="submit" >
+                                                  <i class="mdi mdi-eye" style="font-size: 20px"></i>
+                                                  <span> Ver</span> 
+                                                </a>
                                            </td>
                                           </tr>
                                         <% } %>

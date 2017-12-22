@@ -20,6 +20,11 @@
                             <%= error_msg2 %>
                         </div>
                         <% } %>
+                    <%if (error_msg4.length > 0 ) { %>
+                        <div class="alert alert-warning text-center" role="alert">
+                            <%= error_msg4 %>
+                        </div>
+                    <% } %>
 
                 <form method="post" action="/boleta/reporte">
 
