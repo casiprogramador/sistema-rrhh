@@ -10,7 +10,7 @@
                          <%= error_msg3 %>
                     </div>
                 <% } %>
-                <form method="post" action="/lista_cargo/modificar">
+                <form method="post" action="/cargo_nuevo/grabar">
 
                 <div class="card col-lg-12 col-lg-4 ">
                     <div class="card-body col-8 col-4">
@@ -20,7 +20,7 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="tipo-area" name="tipo_area">
                                                 <% for(var i=0; i< Area.length; i++) { %>
-                                                    <option value="<%= Area[i].id %>" <%= (cargo[0].id_area == Area[i].id)? 'selected' : '' %>><%= Area[i].desc_area %> </option>
+                                                    <option value="<%= Area[i].id %>"><%= Area[i].desc_area %></option>
                                                 <% } %>
                                                         
                                                 </select>
@@ -31,7 +31,7 @@
                                             <div class="col-sm-8">
                                                 <select class="form-control" id="tipo-escala" name="tipo_escala">
                                                     <% for(var i=0; i< Escala.length; i++) { %>
-                                                        <option value="<%= Escala[i].id %>" <%= (cargo[0].id_escala_salarial == Escala[i].id) ? 'selected' : '' %> ><%= Escala[i].denominacion_puesto %> (Sueldo " <%= Escala[i].sueldo_mensual%> ")</option>
+                                                        <option value="<%= Escala[i].id %>"><%= Escala[i].denominacion_puesto %> (Sueldo " <%= Escala[i].sueldo_mensual%> ")</option>
                                                         <% } %>
                                                         
                                                 </select>
@@ -41,13 +41,13 @@
                                 <div class="form-group row">
                                 <label for="calculo_dias" class="col-sm-3 col-form-label">Descricion:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" value="<%= cargo[0].cargo %>" >
+                                    <input type="text" class="form-control" class="form-control" name="descripcion" id="descripcion" >
                                 </div>
-                                <input type="hidden" name="id" value= "<%= cargo[0].id%>">    
+                       
                         
                     </div>
                     <div class="card-body btn-demo text-center">
-                        <input class="btn btn-primary" type="submit" value="Modificar">
+                        <input class="btn btn-primary" type="submit" value="Grabar">
                     </div>
                 </div>
                 </form>

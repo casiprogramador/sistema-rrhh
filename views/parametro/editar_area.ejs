@@ -25,7 +25,7 @@
                                     <div class="col-sm-5">
                                         <select class="form-control" id="tipo-area" name="tipo_area">
                                             <% for(var i=0; i< Area.length; i++) { %>
-                                                <option value="<%= Area[i].id %>"><%= Area[i].desc_area %></option>
+                                                <option value="<%= Area[i].id %>"  <%= (area[0].id == Area[i].id)? 'selected' : '' %> > <%= Area[i].desc_area %></option>
                                             <% } %>
                                         </select>
                                     </div>

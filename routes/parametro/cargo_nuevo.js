@@ -13,7 +13,7 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
 modelos.sequelize.query('SELECT * FROM public."Areas" WHERE   estado= true').spread((Area, metadata) => {
 modelos.sequelize.query('SELECT * FROM public."Escala_Salarials" ').spread((Escala, metadata) => {
 
-res.render('parametro/cargo',{Area:Area, Escala:Escala}); 
+res.render('parametro/cargo_nuevo',{Area:Area, Escala:Escala}); 
 
 })
 
@@ -37,7 +37,7 @@ router.post('/grabar', (req, res) => {
     .then(newcargo => { 
         modelos.sequelize.query('SELECT * FROM public."Areas" WHERE   estado= true').spread((Area, metadata) => {
             modelos.sequelize.query('SELECT * FROM public."Escala_Salarials" ').spread((Escala, metadata) => {  
-            res.render('parametro/cargo',{Area:Area, Escala:Escala}); 
+            res.render('parametro/cargo_nuevo',{Area:Area, Escala:Escala}); 
             
             })
             
