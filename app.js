@@ -118,6 +118,7 @@ app.use((req, res, next)=>{
   res.locals.error_msg1 = req.flash('error_msg1');
   res.locals.error_msg2 = req.flash('error_msg2');
   res.locals.error_msg3 = req.flash('error_msg3');
+  res.locals.error_msg4 = req.flash('error_msg4');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   
