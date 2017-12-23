@@ -41,7 +41,7 @@
                                   <div class="col-sm-5">
                                     <select class="form-control" id="tipo-horario" name="tipo_horario">
                                         <% for(var i=0; i< combo_horario.length; i++) { %>
-                                            <option value="<%= combo_horario[i].id%>"><%= combo_horario[i].descripcion%></option>
+                                            <option value="<%= combo_horario[i].id%>"  <%= (horario[0].id == combo_horario[i].id)? 'selected' : '' %> ><%= combo_horario[i].descripcion%></option>
                                         <% } %>
                                     </select>
                             </div>
