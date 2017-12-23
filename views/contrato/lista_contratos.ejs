@@ -1,0 +1,71 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="content-wrapper">
+  <div class="row justify-content-md-center">
+        <div class="col-sm-12 col-lg-12 grid-margin print-ignore">
+          <div class="card">
+              <div class="card-body">
+
+                    <%if (success_msg.length > 0 ) { %>
+
+                        <div class="row">
+                                <div class="col align-self-center">
+                                    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                        <strong><i class="mdi mdi-check"></i></strong>  <%= success_msg %>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>
+                                </div>
+        
+                            </div>
+                    <% } %>
+                
+                  <div class="col-sm-12">
+                    <h2 class="card-title text-center">Contratos de Empleados</h2>
+                  </div>
+                  <table id="table-contratos" class="table table-bordered">
+                        <thead >
+                          <tr>
+                            <th class="table-dark" >Nro</th>
+                            <th class="table-dark" >Empleado</th>
+                            <th class="table-dark" >Cargo</th>
+                            <th class="table-dark" >Fecha Inicio</th>
+                            <th class="table-dark" >Fecha Final</th>
+                            <th class="table-dark" >Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var contrato of contratos) { %>
+                                <tr>
+                                    <td><%= contrato.nro_contrato %></td>
+                                    <%if ( contrato.empleado ) { %>
+                                        <td><%= contrato.empleado.nombres %> <%= contrato.empleado.paterno %></td>
+                                    <% }else{ %>
+                                        <td></td>
+                                    <% } %>
+                                    
+
+                                    <%if ( contrato.cargo ) { %>
+                                        <td><%= contrato.cargo.cargo %></td>
+                                    <% }else{ %>
+                                        <td></td>
+                                    <% } %>
+                                    <td><%= moment(contrato.fecha_inicio ).format( 'DD/MM/YYYY') %> </td>
+                                    <%if ( contrato.fecha_fin != null ) { %>    
+                                    <td><%= moment(contrato.fecha_fin).format( 'DD/MM/YYYY') %></td>
+                                    <% }else{ %>
+                                        <td></td>
+                                    <% } %>
+                                    <td></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                      </table>
+
+
+          </div>
+      </div>
+  </div>
+</div>
+</div>

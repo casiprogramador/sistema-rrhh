@@ -65,7 +65,8 @@ var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_per
 var ficha_personal_inicio = require('./routes/ficha_personal/identificacion_personal');
 //CAS
 var lista_cas = require('./routes/vacacion/cas');
-
+//Contratos
+var contratos = require('./routes/contrato/contrato');
 
 //var marcacion = require('./routes/marcacion/marcacion');
 // sequelize
@@ -209,8 +210,8 @@ app.use('/ficha_personal',ficha_personal_inicio);
 
 //CAS
 app.use('/vacacion/cas',lista_cas);
-
-
+//Contrato
+app.use('/contrato',contratos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -28,7 +28,6 @@ router.get('/:id_empleado/saldovacacion', function(req, res, next) {
 
 //saldo vacaciones por empleado por dni
 router.get('/:ndi/saldovacacionndi', function(req, res, next) {
-
     modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE e.ndi=' + "'" + Number(req.params.ndi) + "'" + ' and  e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id').spread((results, metadata) => {
         res.json(results);
     })

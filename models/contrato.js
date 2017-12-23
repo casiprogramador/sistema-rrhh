@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Contrato.associate = function (models) {
     Contrato.belongsTo(models.Empleado,{foreignKey: 'id_empleado', as: 'empleado'});
+    Contrato.belongsTo(models.Cargo,{foreignKey: 'id_cargo', as: 'cargo'});
   };
   return Contrato;
 };

@@ -4,12 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     cargo: DataTypes.STRING,
     id_area: DataTypes.INTEGER,
     id_escala_salarial: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Cargo.associate = function (models) {
+    Cargo.hasMany(models.Contrato,{foreignKey: 'id_cargo', as: 'contratos'});
+  };
   return Cargo;
 };
