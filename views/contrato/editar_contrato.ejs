@@ -1,0 +1,75 @@
+<% layout('/layouts/admin') -%>
+<!-- partial -->
+<div class="content-wrapper">
+  <h1 class="page-title">Editar Contrato</h1>
+  <div class="row grid-margin">
+      
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        
+
+        <form method="post" action="/contrato/editar">
+
+            <div class="card col-lg-12 col-lg-2   ">
+                <div class="card-body col-10 col-2">
+                    <div>
+                                        
+                     <div class="form-group row">
+                           <label for="nro contrato" class="col-sm-2 col-form-label">Nro Contrato:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" name="nro" class="form-control" class="form-control"  value= "<%= contrato.nro_contrato %>" >
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="Area" class="col-sm-2 col-form-label">Fecha Inicio:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" name="fecha_inicio" class="form-control" value= "<%= moment( contrato.fecha_inicio ).format( 'YYYY-MM-DD') %>" >
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="calculo_dias" name="fecha_fin" class="col-sm-2 col-form-label">Fecha Fin:</label>
+                            <%if (contrato.fecha_fin != null ) { %>
+                                <div class="col-sm-5">
+                                    <input type="text" name="fecha_fin" class="form-control" value= "<%= contrato.fecha_fin %>" >
+                                </div>
+                            <% }else{%>
+                                <div class="col-sm-5">
+                                    <input type="text" name="fecha_fin" class="form-control" value= "" >
+                                </div>
+                            <% } %>
+                            
+
+                        </div>
+
+                
+                        <div class="form-group row">
+
+
+                                <label for="area" class="col-sm-2 col-form-label">Cargo:</label>
+                                
+                                  <div class="col-sm-5">
+                                    <select class="form-control" id="cargo" name="cargo">
+                                        <% for(var i=0; i< cargos.length; i++) { %>
+                                            <option value="<%= cargos[i].id%>"  <%= (contrato.id_cargo == cargos[i].id)? 'selected' : '' %> ><%= cargos[i].cargo %></option>
+                                        <% } %>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="id_contrato" value= "<%= contrato.id %>">  
+                   
+                    </div>
+                </div>
+                <div class="form-group row  text-right">
+                 
+                    <input class="btn btn-primary " type="submit" value="Grabar ">
+             
+            <div>
+                    <a class="nav-link"  type="button" href="/contrato">Volver</a>
+                </div>         
+            </div>
+            </div>
+        </form>
+
+   </div>
+</div>
+</div>
