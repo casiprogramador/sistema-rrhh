@@ -235,7 +235,7 @@ router.use(marcaciones);
               salida_1,salida_1,
               entrada_2:entrada_2,
               salida_2:salida_2,
-              id_empleado:req.newempleado[i].ndi,
+              id_empleado:req.newempleado[i].id,
           }).then();
         }
       }//end for i
@@ -282,7 +282,7 @@ router.use(datos);
       }
       if(sw==0){
         while(sw==0 && cont2!=req.newempleado.length){
-          if(req.newasistencia[i].id_empleado==req.newempleado[cont2].ndi){
+          if(req.newasistencia[i].id_empleado==req.newempleado[cont2].id){
             idhorario=req.newempleado[cont2].id_horario;
             sw=1;
           }else{
