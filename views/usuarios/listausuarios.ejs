@@ -24,7 +24,7 @@
                   <div class="col-sm-12">
                     <h2 class="card-title text-center">Lista de Usuarios</h2>
                   </div>
-                  <table id="table-prescripcion" class="table table-bordered">
+                  <table id="table-usuarios" class="table table-bordered">
                         <thead >
                           <tr>
                             <th class="table-dark" >Usuario</th>
@@ -37,8 +37,13 @@
                             <% for(var usuario of usuarios) { %>
                                 <tr>
                                     <td><%= usuario.username %></td>
+                                    <% if(usuario.empleado){ %>
                                     <td><%= usuario.empleado.paterno %> <%= usuario.empleado.materno %> <%= usuario.empleado.nombres %></td>
                                     <td><%= usuario.empleado.ndi %> <%= usuario.empleado.expedido %></td>
+                                    <% }else{ %>
+                                        <td></td>
+                                        <td></td>
+                                    <% } %>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-primary btn-sm btn-resetpass" id-usuario="<%= usuario.id %>" onclick="showSwal('warning-message-and-cancel',<%= usuario.id %>)">
                                                 <i class="mdi mdi-backup-restore"></i> Reset Password

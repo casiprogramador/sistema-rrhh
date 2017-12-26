@@ -5,7 +5,7 @@
   <div class="content-wrapper">
     <h1 class="page-title">Consulta de Marcados</h1>
     <div class="row grid-margin">
-
+        
       <div class="col-lg-12 grid-margin grid-margin-lg-0 ">
         <%if (error_msg.length > 0 ) { %>
           <div class="alert alert-warning text-center" role="alert">
@@ -16,35 +16,68 @@
 
 
 
-
-            <div class="col-12 col-lg-12 grid-margin grid-margin-lg-0">
+          <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-10 grid-margin grid-margin-lg-0">
               <div class="card">
                 <div class="card-body" name="card-body" id="card-body">
-                  <form method="post" action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">
+                    <form method="post" action="">
                     <%if (user.rol.rol === 'ADMIN') { %>
-                      <h2 class="card-title">Busqueda del empleado por C.I.</h2>
+                 
+                      
+                      <div class="form-group row">
+                        <h2 class="card-title">Busqueda del empleado por C.I.</h2>
+                      </div>
                       <div class="form-group row">
                         <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
                         <div class="col-sm-6">
-                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado">
+                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado" value="<%= ( typeof empleado  === 'undefined') ? '' : empleado[0].ndi  %>">
                         </div>
  
                       <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary">Busca persona</button>
+                        <button   id="btnBuscaEmpleado" type="submit" class="btn btn-primary" onclick=this.form.action="/reportesAsistencia/reporteAsistenciaEmpleado/buscarEmpleado">Busca persona</button>
                       </div>
                       </div>
 
-                      <%}%>
 
-
-
-
-                        <h2 class="card-title">Periodo y tipo de reporte</h2>
-
+                      <%if( typeof empleado  !== 'undefined' ){%>
                         <div class="form-group row">
+                          <h2 class="card-title">Datos Generales</h2>
+                      </div>
+                   
+                      <div id="empleado-profile" align="left">
+                          <article class="profile-user">
+                            <div class="left">
+                              <img  src="/images/user-default.png" alt="">
+                            </div>
+                            
+                            <div class"left info">
+                                <label class="col-sm-2 col-form-label"><b>Nombres y apellidos:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].nombres+' '+empleado[0].paterno+' '+empleado[0].materno%> </label>
+
+                                <label class="col-sm-2 col-form-label"><b>Número de C.I.:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].ndi%> </label>
+
+                                <label class="col-sm-2 col-form-label"><b>Dependencia:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].desc_area%> </label>
+                                 
+                                <label class="col-sm-2 col-form-label"><b>Puesto/Cargo:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].cargo%> </label>   
+                            </div>                     
+                          </article>
+                      </div>                 
+                      <%}%>
+            <%}%>
+
+                      <div class="form-group row">
+                          <h2 class="card-title">Periodo y tipo de reporte</h2>
+                      </div>
+                     
+                        <div class="form-group row">
+
+                            
                           <label class="col-sm-2 col-form-label">Periodo:</label>
                           <label class="col-sm-1 col-form-label">Del:</label>
-                          <div class="col-sm-2">
+                          <div class="col-sm-4">
 
                             <div class="input-group date datepicker" id="datetimepicker1">
                               <input type="text" class="form-control" name="inicio" id="inicio">
@@ -54,7 +87,7 @@
                             </div>
                           </div>
                           <label class="col-sm-1 col-form-label">al:</label>
-                          <div class="col-sm-2">
+                          <div class="col-sm-4">
                             <div class="input-group date datepicker" id="datetimepicker2">
                               <input type="text" class="form-control" name="fin" id="fin">
                               <div class="input-group-addon">
@@ -75,12 +108,13 @@
                         </div>
 
                         <div class="col-md-12 text-center">
-                          <button type="submit" class="btn btn-primary" id="boton">Recuperar</button>
+                          <button type="submit" class="btn btn-primary" onclick=this.form.action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">Recuperar</button>
                         </div>
                   </form>
                 </div>
               </div>
             </div>
+      </div>
       </div>
     </div>
     <% if(marcados.length != 0 ) { %>
@@ -111,7 +145,8 @@
                     <th colspan="2">2do Periodo</th>
                     <th colspan="2">Retraso 1er Periodo</th>
                     <th colspan="2">Retraso 2do Periodo</th>
-                    <th colspan="2">Observaciones</th>
+                    <th colspan="2">Observaciones 1er Periodo</th>
+                    <th colspan="2">Observaciones 2do Periodo</th>
                   </tr>
 
                   <tr>
@@ -126,10 +161,19 @@
                     <th>Salida</th>
                     <th>Entrada</th>
                     <th>Salida</th>
-                    <th>1er periodo</th>
-                    <th>2do periodo</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+
                   </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" style="text-align:right">Total:</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
                 <tbody>
                   <%  var atrasos=0; 
                                       var faltas=0;
@@ -139,7 +183,7 @@
 
                                     %>
                     <tr align="center">
-                      <td id="dia">
+                      <td>
                       <% if(moment(marcados[i].fecha).format( 'dddd') == 'Monday' ) { %>
                       <%='Lunes'%>
                       <%}%>
@@ -194,27 +238,29 @@
                         <%= marcados[i].retraso_salida_2 %>
                       </td>
                       <td>
-                        <%= marcados[i].observacion_1 == null ? "" : marcados[i].observacion_1 %>
+                        <%= marcados[i].observacion_entrada_1 == null ? "" : marcados[i].observacion_entrada_1 %>
                       </td>
                       <td>
-                        <%= marcados[i].observacion_2 == null ? "" : marcados[i].observacion_2 %>
+                        <%= marcados[i].observacion_salida_1 == null ? "" : marcados[i].observacion_salida_1 %>
                       </td>
+                      <td>
+                        <%= marcados[i].observacion_entrada_2 == null ? "" : marcados[i].observacion_entrada_2 %>
+                      </td>
+                      <td>
+                        <%= marcados[i].observacion_salida_2 == null ? "" : marcados[i].observacion_salida_2 %>
+                      </td>
+
 
                     </tr>
                     <% } %>
+
                 </tbody>
-                <tr>
-                  <td colspan="13">Atrasos:
-                    <%=atrasos%> min. faltas: Abandonos min </td>
-                </tr>
+
+
 
               </table>
             </div>
           </div>
-          <% }else{%>
-            <div class="alert alert-warning text-center" role="alert">
-                No se encontraron registros
-            </div>
-          <%} %>    
+          <% }%>
         </div>
       </div>
