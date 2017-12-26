@@ -6,6 +6,7 @@ module.exports = {
       fecha_inicio: '2016-06-20 12:06:31.246-04',
       fecha_fin : null,
       nro_contrato : '167943',
+      estado: true,
       id_empleado : 1,
       id_tipo_empleado: 1,
       id_cargo: 1,

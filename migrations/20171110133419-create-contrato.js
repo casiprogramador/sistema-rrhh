@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      descripcion: {
+        type: Sequelize.TEXT
+      },
       fecha_inicio: {
         type: Sequelize.DATE
       },

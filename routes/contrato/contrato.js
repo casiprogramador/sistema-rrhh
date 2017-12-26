@@ -16,4 +16,16 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/editar/:id_contrato', function(req, res, next) {
+
+    modelos.Contrato.findById(req.params.id_contrato).then(contrato => {
+        res.render('contrato/editar_contrato.ejs',{contrato: contrato, moment:moment });
+    })
+
+});
+
+router.get('/nuevo/:id_empleado', function(req, res, next) {
+    res.render('contrato/nuevo_contrato.ejs',{id_empleado: id_empleado, moment:moment });
+});
+
 module.exports = router;

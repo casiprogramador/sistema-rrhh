@@ -31,10 +31,8 @@ router.get('/editar/:id_horario', (req, res) => {
     },
     
       }).then((horario) => {
- // console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario));
-
          res.render('horario/editar_horario',{horario:horario});   
-            })
+      })
     
 });
 

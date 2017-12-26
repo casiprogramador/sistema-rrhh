@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Contrato = sequelize.define('Contrato', {
+    descripcion: DataTypes.TEXT,
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
     nro_contrato: DataTypes.STRING,

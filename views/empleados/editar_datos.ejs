@@ -1,13 +1,13 @@
 <% layout('/layouts/admin') -%>
 <!-- partial -->
 <div class="content-wrapper">
-  <h1 class="page-title">Asignar Horario</h1>
+  <h1 class="page-title">Editar Datos</h1>
   <div class="row grid-margin">
       
     <div class="col-lg-12 grid-margin grid-margin-lg-0">
         
 
-        <form method="post" action="/horario/lista_asignacion_horario/modificar">
+        <form method="post" action="/empleado/editar">
 
             <div class="card col-lg-12 col-lg-2   ">
                 <div class="card-body col-10 col-2">
@@ -16,19 +16,19 @@
                      <div class="form-group row">
                            <label for="calculo_dias" class="col-sm-2 col-form-label">Nombre:</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" class="form-control"  value= "<%= horario[0].nombres %>"  readonly="readonly">
+                                    <input type="text" class="form-control" class="form-control"  value= "<%= empleado[0].nombres %>"  readonly="readonly">
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <label for="calculo_dias" class="col-sm-2 col-form-label">Area:</label>
                                      <div class="col-sm-5">
-                                         <input type="text" class="form-control"  value= "<%= horario[0].cargo %>"  readonly="readonly" >
+                                         <input type="text" class="form-control"  value= "<%= empleado[0].cargo %>"  readonly="readonly" >
                                      </div>
                         </div>
                         <div class="form-group row">
                             <label for="calculo_dias" class="col-sm-2 col-form-label">Cargo:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" class="form-control"  value= "<%= horario[0].desc_area %>"  readonly="readonly">
+                                        <input type="text" class="form-control" class="form-control"  value= "<%= empleado[0].desc_area %>"  readonly="readonly">
                                     </div>
                         </div>
 
@@ -39,15 +39,28 @@
                                 <label for="area" class="col-sm-2 col-form-label">Horario:</label>
                                 
                                   <div class="col-sm-5">
-                                    <select class="form-control" id="tipo-horario" name="tipo_horario">
+                                    <select class="form-control" id="tipo-horario" name="id_horario">
                                         <% for(var i=0; i< combo_horario.length; i++) { %>
-                                            <option value="<%= combo_horario[i].id%>"  <%= (horario[0].id_horario == combo_horario[i].id)? 'selected' : '' %> ><%= combo_horario[i].descripcion%></option>
+                                            <option value="<%= combo_horario[i].id%>"  <%= (empleado[0].id_horario == combo_horario[i].id)? 'selected' : '' %> ><%= combo_horario[i].descripcion%></option>
                                         <% } %>
                                     </select>
                             </div>
                         </div>
+                        <div class="form-group row">
 
-                        <input type="hidden" name="ndi" value= "<%= horario[0].ndi %>">  
+
+                            <label for="area" class="col-sm-2 col-form-label">Contrato:</label>
+                            
+                              <div class="col-sm-10">
+                                <select class="form-control" id="tipo-horario" name="id_contrato">
+                                    <% for(var i=0; i< combo_contrato.length; i++) { %>
+                                        <option value="<%= combo_contrato[i].id%>"  <%= (empleado[0].id_contrato == combo_contrato[i].id)? 'selected' : '' %> ><%= combo_contrato[i].descripcion %></option>
+                                    <% } %>
+                                </select>
+                        </div>
+                    </div>
+
+                        <input type="hidden" name="id_empleado" value= "<%= empleado[0].id %>">  
                    
                     </div>
                 </div>

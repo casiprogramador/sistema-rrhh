@@ -31,11 +31,11 @@ router.post('/modificar', (req, res) => {
   
           })
   
-          });
+});
 
 router.get('/editar/:id_horario', (req, res) => {
 
-  modelos.sequelize.query('select e.id, e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.id='+req.params.id_horario).spread((horario, metadata) => {
+  modelos.sequelize.query('select e.id, e.ndi , e.paterno, e.materno, e.nombres, e.id_horario, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.id='+req.params.id_horario).spread((horario, metadata) => {
    
       modelos.Horario.findAll({
         where: {
