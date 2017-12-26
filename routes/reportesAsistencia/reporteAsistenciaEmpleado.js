@@ -43,26 +43,26 @@ router.post('/buscar', function (req, res, next) {
     if ( typeof req.body.ci_empleado  === 'undefined') {
       if (req.body.tipo == 'completo') {
         console.log('\x1b[33m%s\x1b[0m', "comparar");
-        modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
+        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
           //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
 
           if(marcados.length >0){
             res.render('reportesAsistencia/reporteAsistenciaEmpleado', { marcados: marcados, moment: moment, fecha_inicio: fecha_inicio, fecha_fin: fecha_fin });
           }
           else{
-            req.flash('error_msg', 'No existe el empleado');
+            req.flash('error_msg', 'No existen marcados');
             res.redirect('/reportesAsistencia/reporteAsistenciaEmpleado')
           }
         })
       }
       else {
-        modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND (a.observacion_entrada_1 IS NOT NULL OR a.observacion_salida_1 IS NOT NULL OR a.observacion_entrada_2 IS NOT NULL OR a.observacion_salida_2 IS NOT NULL) AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
+        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND (a.observacion_entrada_1 IS NOT NULL OR a.observacion_salida_1 IS NOT NULL OR a.observacion_entrada_2 IS NOT NULL OR a.observacion_salida_2 IS NOT NULL) AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
           //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
           if(marcados.length >0){
             res.render('reportesAsistencia/reporteAsistenciaEmpleado', { marcados: marcados, moment: moment, fecha_inicio: fecha_inicio, fecha_fin: fecha_fin });
           }
           else{
-            req.flash('error_msg', 'No existe el empleado');
+            req.flash('error_msg', 'No existem marcados');
             res.redirect('/reportesAsistencia/reporteAsistenciaEmpleado')
           }
           
@@ -76,25 +76,25 @@ router.post('/buscar', function (req, res, next) {
     else {
       if (req.body.tipo == 'completo') {
         console.log('\x1b[33m%s\x1b[0m', "comparar");
-        modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND  a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND e.ndi=" + "'" + req.body.ci_empleado + "' ORDER BY fecha").spread((marcados, metadata) => {
+        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND  a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND e.ndi=" + "'" + req.body.ci_empleado + "' ORDER BY fecha").spread((marcados, metadata) => {
           //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
           if(marcados.length >0){
            res.render('reportesAsistencia/reporteAsistenciaEmpleado', { marcados: marcados, moment: moment, fecha_inicio: fecha_inicio, fecha_fin: fecha_fin });
           }
           else{
-            req.flash('error_msg', 'No existe el empleado');
+            req.flash('error_msg', 'No existen registros');
             res.redirect('/reportesAsistencia/reporteAsistenciaEmpleado')
           }
           })
       }
       else {
-        modelos.sequelize.query('SELECT * FROM "Asistencia" a, "Empleados" e,  "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND  (a.observacion_entrada_1 IS NOT NULL OR a.observacion_salida_1 IS NOT NULL OR a.observacion_entrada_2 IS NOT NULL OR a.observacion_salida_2 IS NOT NULL) AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND e.ndi=" + "'" + req.body.ci_empleado + "' ORDER BY fecha").spread((marcados, metadata) => {
+        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e,  "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND  (a.observacion_entrada_1 IS NOT NULL OR a.observacion_salida_1 IS NOT NULL OR a.observacion_entrada_2 IS NOT NULL OR a.observacion_salida_2 IS NOT NULL) AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND e.ndi=" + "'" + req.body.ci_empleado + "' ORDER BY fecha").spread((marcados, metadata) => {
           //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
           if(marcados.length >0){
             res.render('reportesAsistencia/reporteAsistenciaEmpleado', { marcados: marcados, moment: moment, fecha_inicio: fecha_inicio, fecha_fin: fecha_fin });
           }
           else{
-            req.flash('error_msg', 'No existe el empleado');
+            req.flash('error_msg', 'No existen registros');
             res.redirect('/reportesAsistencia/reporteAsistenciaEmpleado')
           }
         });

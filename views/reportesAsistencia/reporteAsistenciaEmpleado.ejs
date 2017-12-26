@@ -30,7 +30,7 @@
                       <div class="form-group row">
                         <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
                         <div class="col-sm-6">
-                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado" value="<%= (empleado.length != 0 && ) ? empleado[0].ndi : '' %>">
+                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado" value="<%= ( typeof empleado  === 'undefined') ? '' : empleado[0].ndi  %>">
                         </div>
  
                       <div class="col-sm-2">
@@ -39,7 +39,7 @@
                       </div>
 
 
-                      <%if( empleado.length != 0 ){%>
+                      <%if( typeof empleado  !== 'undefined' ){%>
                         <div class="form-group row">
                           <h2 class="card-title">Datos Generales</h2>
                       </div>
@@ -145,7 +145,8 @@
                     <th colspan="2">2do Periodo</th>
                     <th colspan="2">Retraso 1er Periodo</th>
                     <th colspan="2">Retraso 2do Periodo</th>
-                    <th colspan="2">Observaciones</th>
+                    <th colspan="2">Observaciones 1er Periodo</th>
+                    <th colspan="2">Observaciones 2do Periodo</th>
                   </tr>
 
                   <tr>
@@ -160,8 +161,11 @@
                     <th>Salida</th>
                     <th>Entrada</th>
                     <th>Salida</th>
-                    <th>1er periodo</th>
-                    <th>2do periodo</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+
                   </tr>
                 </thead>
                 <tfoot>
