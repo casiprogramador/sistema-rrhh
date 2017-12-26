@@ -133,10 +133,16 @@
                           <%= reporteAsistencia[i].retraso_salida_2 %>
                         </td>
                         <td>
-                          <%= reporteAsistencia[i].observacion_1 == null ? "" : reporteAsistencia[i].observacion_1 %>
+                          <%= reporteAsistencia[i].observacion_entrada_1 == null ? "" : reporteAsistencia[i].observacion_entrada_1 %>
                         </td>
                         <td>
-                          <%= reporteAsistencia[i].observacion_2 == null ? "" : reporteAsistencia[i].observacion_2 %>
+                          <%= reporteAsistencia[i].observacion_salida_1 == null ? "" : reporteAsistencia[i].observacion_salida_1 %>
+                        </td>
+                        <td>
+                          <%= reporteAsistencia[i].observacion_entrada_2 == null ? "" : reporteAsistencia[i].observacion_entrada_2 %>
+                        </td>
+                        <td>
+                          <%= reporteAsistencia[i].observacion_salida_2 == null ? "" : reporteAsistencia[i].observacion_salida_2 %>
                         </td>
   
                       </tr>
@@ -150,7 +156,7 @@
                   </table>
                   <p align="right">Atrasos: <%=atrasos%> min. Faltas: Abandonos: </p>
                   <%}else{%>
-                    <h1 align="center">No existen rergistros</h1>
+                    <h1 align="center">No existen registros</h1>
                   <%}%>
 
 </html>

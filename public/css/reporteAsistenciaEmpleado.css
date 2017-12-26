@@ -1,9 +1,10 @@
 .profile-user {
     width: 100%;
     overflow: hidden;
-    padding: 40px;
+    padding: 10px;
     background-color: white;
-    margin-bottom: 16px;
+    margin-bottom: 66px;
+
 }
 
 .profile-user:hover{
@@ -11,17 +12,14 @@
 }
 
 .profile-user img{
-    max-height: 80px;
-    max-width: 80px;
+    max-height: 100px;
+    max-width: 100px;
 }
 
-.profile-user .info{
-    padding-left: 40px;
-}
 
 .left {
     float: left;
-    padding: 60px;
+    padding: 10px;
 }
 
 th { white-space: nowrap; }

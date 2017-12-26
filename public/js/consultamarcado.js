@@ -1,5 +1,13 @@
 $(document).ready(function() {
     fecha_reporte = $('#fecha-reporte').text();
+    $( "#btnBuscaEmpleado" ).click(function() {
+        var x = document.getElementById("empleado-profile");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    });
     $('#table-consulta-marcado').DataTable({
         dom: 'Bfrtip',
         bSort: false,
@@ -105,32 +113,5 @@ $(document).ready(function() {
 });
 
 
-function infoClick(field)
-{ 
-  
-   $(".contact").removeClass("showClick");
- $(".contact").addClass("hideClick");
-  $(".infoLabel").slideToggle();
-  $(".contactLabel").slideToggle();
-  $(".info").addClass("showClick");
-
-}
-function contactClick(field) 
-{
-  
-   $(".info").removeClass("showClick");
-   $(".info").addClass("hideClick");
-  $(".infoLabel").slideToggle();
-  $(".contactLabel").slideToggle();
-  $(".contact").addClass("showClick"); 
-}
 
 
-function buscaEmpleado() {
-    var x = document.getElementById("empleado-profile");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-} 

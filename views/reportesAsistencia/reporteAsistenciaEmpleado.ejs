@@ -20,38 +20,53 @@
             <div class="col-12 col-lg-10 grid-margin grid-margin-lg-0">
               <div class="card">
                 <div class="card-body" name="card-body" id="card-body">
-                    <form method="post" action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">
+                    <form method="post" action="">
                     <%if (user.rol.rol === 'ADMIN') { %>
                  
-                      <h2 class="card-title">Busqueda del empleado por C.I.</h2>
+                      
+                      <div class="form-group row">
+                        <h2 class="card-title">Busqueda del empleado por C.I.</h2>
+                      </div>
                       <div class="form-group row">
                         <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
                         <div class="col-sm-6">
-                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado">
+                          <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado" value="<%= (empleado.length != 0 && ) ? empleado[0].ndi : '' %>">
                         </div>
  
                       <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" onclick="buscaEmpleado()">Busca persona</button>
+                        <button   id="btnBuscaEmpleado" type="submit" class="btn btn-primary" onclick=this.form.action="/reportesAsistencia/reporteAsistenciaEmpleado/buscarEmpleado">Busca persona</button>
                       </div>
                       </div>
 
 
-                      
-                      <div id="empleado-profile"  style="display:none">
+                      <%if( empleado.length != 0 ){%>
+                        <div class="form-group row">
+                          <h2 class="card-title">Datos Generales</h2>
+                      </div>
+                   
+                      <div id="empleado-profile" align="left">
                           <article class="profile-user">
                             <div class="left">
                               <img  src="/images/user-default.png" alt="">
                             </div>
+                            
                             <div class"left info">
+                                <label class="col-sm-2 col-form-label"><b>Nombres y apellidos:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].nombres+' '+empleado[0].paterno+' '+empleado[0].materno%> </label>
 
-                              <p></p>
-                            </div>
+                                <label class="col-sm-2 col-form-label"><b>Número de C.I.:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].ndi%> </label>
+
+                                <label class="col-sm-2 col-form-label"><b>Dependencia:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].desc_area%> </label>
+                                 
+                                <label class="col-sm-2 col-form-label"><b>Puesto/Cargo:</b></label>
+                                <label class="col-sm-8 col-form-label"> <%=empleado[0].cargo%> </label>   
+                            </div>                     
                           </article>
-                      </div>
+                      </div>                 
+                      <%}%>
             <%}%>
-
-
-
 
                       <div class="form-group row">
                           <h2 class="card-title">Periodo y tipo de reporte</h2>
@@ -93,7 +108,7 @@
                         </div>
 
                         <div class="col-md-12 text-center">
-                          <button type="submit" class="btn btn-primary" id="boton">Recuperar</button>
+                          <button type="submit" class="btn btn-primary" onclick=this.form.action="/reportesAsistencia/reporteAsistenciaEmpleado/buscar">Recuperar</button>
                         </div>
                   </form>
                 </div>
@@ -219,11 +234,18 @@
                         <%= marcados[i].retraso_salida_2 %>
                       </td>
                       <td>
-                        <%= marcados[i].observacion_1 == null ? "" : marcados[i].observacion_1 %>
+                        <%= marcados[i].observacion_entrada_1 == null ? "" : marcados[i].observacion_entrada_1 %>
                       </td>
                       <td>
-                        <%= marcados[i].observacion_2 == null ? "" : marcados[i].observacion_2 %>
+                        <%= marcados[i].observacion_salida_1 == null ? "" : marcados[i].observacion_salida_1 %>
                       </td>
+                      <td>
+                        <%= marcados[i].observacion_entrada_2 == null ? "" : marcados[i].observacion_entrada_2 %>
+                      </td>
+                      <td>
+                        <%= marcados[i].observacion_salida_2 == null ? "" : marcados[i].observacion_salida_2 %>
+                      </td>
+
 
                     </tr>
                     <% } %>
@@ -235,10 +257,6 @@
               </table>
             </div>
           </div>
-          <% }else{%>
-            <div class="alert alert-warning text-center" role="alert">
-                No se encontraron registros
-            </div>
-          <%} %>    
+          <% }%>
         </div>
       </div>

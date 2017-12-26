@@ -1,9 +1,9 @@
 {
     "development": {
       "username": "postgres",
-      "password": "12345",
-      "database": "bd_rrhh1",
-      "host": "127.0.0.1",
+      "password": "123456",
+      "database": "bdrrhhbs",
+      "host": "localhost",
       "port": 5432,
       "dialect": "postgres"
     },
@@ -22,4 +22,5 @@
       "dialect": "postgres"
     }
   }
+  
   
