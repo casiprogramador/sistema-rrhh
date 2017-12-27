@@ -120,9 +120,12 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       console.log('STATUS: ' + res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
+      let data = '';
       res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
-        var array2=new Array();
+        data += chunk;
+      });
+      res.on('end',()=>{
+        var x = JSON.parse(data);
         for(var j=0;j<x.length;j++){
           if(j!=x.length-1){
             modelos.BS.create({
@@ -131,7 +134,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               tnaEvent:x[j][2],
               Code:x[j][1],
               IP:ip,
-              bandera:0,
+              bandera:'0',
               }).then()
           }else{
             modelos.BS.create({
@@ -148,7 +151,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
                 })
             })}
       }
-    })
+      })
   }).end();
   })
 
@@ -393,5 +396,64 @@ router.get('/calculo_datos', function(req,res, next) {
   }
 })
 
-module.exports = router;
 
+
+var boletas=function(req,res, next) {
+  modelos.Boleta.findAll({}).then(newboletas=>{
+      modelos.Tipo_boleta.findAll({}).then(newtipo_boleta=>{
+        modelos.Asistencia.findAll({}).then(newasistencia=>{
+          req.newasistencia=newasistencia;
+          req.newboletas=newboletas;
+          req.newtipo_boleta=newtipo_boleta;
+          next();
+          //res.send("./routes/marcacion/marcacion/proceso_datos",{newasistencias:newasistencias,newhorarioesp:newhorarioesp,newhorario:newhorario,newempleado:newempleado});
+      })
+  })
+})
+}
+router.use(boletas);
+router.get('/calculo_boletas', function(req,res, next) {
+/*var fechaini=req.query.fechaini;
+var fechafin=req.query.fechafin;
+var id_empleado=req.query.id_empleado;*/
+var fechaini=moment("2017-12-20", "YYYY-MM-DD");
+var fechafin=moment("2017-12-20", "YYYY-MM-DD");
+fechaini=fechaini.format("YYYY-MM-DD");
+fechafin=fechafin.format("YYYY-MM-DD");
+/*console.log(fechaini);
+console.log(fechafin);*/
+var id_empleado="6036979";
+for(var i=0;i<req.newasistencia.length;i++){
+  var x=moment(req.newasistencia[i].fecha).format("YYYY-MM-DD");
+    if (moment(x).isBetween(fechaini, fechafin,'days', '[]') && id_empleado==req.newasistencia[i].id_empleado) {
+      for(var j=0;j<req.newboletas.length;j++){
+        var fec_ini_boleta=moment(req.newboletas[j].fecha_inicio).format("YYYY-MM-DD");
+        var fec_fin_boleta=moment(req.newboletas[j].fecha_fin).format("YYYY-MM-DD");
+        var n=moment(req.newboletas[j].fecha_inicio).format("HH:mm:ss")
+        if (moment(x).isBetween(fec_ini_boleta, fec_fin_boleta,'days', '[]') && id_empleado==req.newasistencia[i].id_empleado) {
+          for(var k=0;k<req.newtipo_boleta.length;k++){
+            if(req.newboletas[j].id_tipo_boleta==req.newtipo_boleta[k].id){
+              var observacion_entrada_1=req.newtipo_boleta[k].Tipo_boleta;
+              var observacion_entrada_2=req.newtipo_boleta[k].Tipo_boleta;
+              var observacion_salida_1=req.newtipo_boleta[k].Tipo_boleta;
+               var observacion_salida_2=req.newtipo_boleta[k].Tipo_boleta;
+               if(req.newboletas[j]){}
+              const asist_modificado = {
+                observacion_entrada_1:observacion_entrada_1,
+                observacion_entrada_2:observacion_entrada_2,
+                observacion_salida_1:observacion_salida_1,
+                observacion_salida_2:observacion_salida_2,
+              }
+              modelos.Asistencia.update(asist_modificado, {where: { id:req.newasistencia[i].id }}).then({})              
+            }
+          }
+        }
+      }
+    }else {
+        console.log('is not between')
+      }
+}
+//res.render();
+})
+
+module.exports = router;
