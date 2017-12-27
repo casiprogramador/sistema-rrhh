@@ -120,9 +120,12 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       console.log('STATUS: ' + res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
+      let data = '';
       res.on('data', function (chunk) {
-        var x = JSON.parse(chunk);
-        var array2=new Array();
+        data += chunk;
+      });
+      res.on('end',()=>{
+        var x = JSON.parse(data);
         for(var j=0;j<x.length;j++){
           if(j!=x.length-1){
             modelos.BS.create({
@@ -131,7 +134,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
               tnaEvent:x[j][2],
               Code:x[j][1],
               IP:ip,
-              bandera:0,
+              bandera:'0',
               }).then()
           }else{
             modelos.BS.create({
@@ -148,7 +151,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
                 })
             })}
       }
-    })
+      })
   }).end();
   })
 
