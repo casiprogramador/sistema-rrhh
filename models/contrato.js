@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Contrato = sequelize.define('Contrato', {
+    descripcion: DataTypes.TEXT,
     fecha_inicio: DataTypes.DATE,
     fecha_fin: DataTypes.DATE,
     nro_contrato: DataTypes.STRING,
@@ -11,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Contrato.associate = function (models) {
     Contrato.belongsTo(models.Empleado,{foreignKey: 'id_empleado', as: 'empleado'});
+    Contrato.belongsTo(models.Cargo,{foreignKey: 'id_cargo', as: 'cargo'});
   };
   return Contrato;
 };

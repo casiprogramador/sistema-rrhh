@@ -33,9 +33,10 @@ var asignar_horario_especial = require('./routes/horario/asignar_horario_especia
 //var asignar_horario_especial_usuario = require('./routes/horario/asignar_horario_especial_usuario');
 //Feriado
 var feriado = require('./routes/parametro/feriado');
-var cargo = require('./routes/parametro/cargo');
+var cargo_nuevo = require('./routes/parametro/cargo_nuevo');
 var area = require('./routes/parametro/area');
 var lista_area = require('./routes/parametro/lista_area');
+var lista_cargo = require('./routes/parametro/lista_cargo');
 
 
 //Reportes de asistencia
@@ -65,7 +66,8 @@ var ficha_personal_reporte = require('./routes/ficha_personal/identificacion_per
 var ficha_personal_inicio = require('./routes/ficha_personal/identificacion_personal');
 //CAS
 var lista_cas = require('./routes/vacacion/cas');
-
+//Contratos
+var contratos = require('./routes/contrato/contrato');
 
 //var marcacion = require('./routes/marcacion/marcacion');
 // sequelize
@@ -118,6 +120,7 @@ app.use((req, res, next)=>{
   res.locals.error_msg1 = req.flash('error_msg1');
   res.locals.error_msg2 = req.flash('error_msg2');
   res.locals.error_msg3 = req.flash('error_msg3');
+  res.locals.error_msg4 = req.flash('error_msg4');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   
@@ -178,10 +181,10 @@ app.use('/horario/asignar_horario_especial',asignar_horario_especial);
 
 //Feriado
 app.use('/feriado',feriado);
-app.use('/cargo',cargo);
+app.use('/cargo_nuevo',cargo_nuevo);
 app.use('/area',area);
 app.use('/lista_area',lista_area);
-
+app.use('/lista_cargo',lista_cargo);
 
 app.use('/administrar/boleta',administrar_boleta);
 app.use('/administrar/boleta_area',administrar_boleta_area);
@@ -208,8 +211,8 @@ app.use('/ficha_personal',ficha_personal_inicio);
 
 //CAS
 app.use('/vacacion/cas',lista_cas);
-
-
+//Contrato
+app.use('/contrato',contratos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
