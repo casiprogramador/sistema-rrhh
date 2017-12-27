@@ -5,7 +5,7 @@ var md_auth = require('../middleware/authenticated');
 var moment = require('moment');
 
 /* GET principal page. */
-router.get('/', md_auth.ensureAuth, md_auth.ensureAuth, function(req, res, next) {
+router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
     modelos.sequelize.query('select e.id,e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=true').spread((Empleado, metadata) => {
         res.render('empleados/lista_empleados', { Empleado: Empleado});

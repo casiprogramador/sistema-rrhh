@@ -29,10 +29,13 @@ router.get('/editar/:id_contrato', function(req, res, next) {
 
 router.post('/editar', function(req, res, next) {
 
+
+    let fecha_final = (req.body.fecha_fin) ? req.body.fecha_fin : null ;
+
     let updateContrato = {
         nro_contrato: req.body.nro, 
         fecha_inicio : req.body.fecha_inicio,
-        fecha_fin: req.body.fecha_fin,
+        fecha_fin: fecha_final,
         id_cargo: req.body.cargo
     };
     modelos.Contrato.update(updateContrato, { where: { id: req.body.id_contrato } }).then((result) => {
