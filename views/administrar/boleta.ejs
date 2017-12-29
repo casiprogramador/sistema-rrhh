@@ -111,7 +111,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <% if(boletas[i].estado == 'Pendiente') { %>
-                                                <button type="button" class="btn btn-light button-opciones" id-empleado="<%= boletas[i].id_empleado %>" id-boleta="<%= boletas[i].id %>" nombre="<%= boletas[i].empleado.nombres%> <%= boletas[i].empleado.paterno%> <%= boletas[i].empleado.materno%>" boleta="<%= boletas[i].tipoboleta.tipo_boleta %>" fecha="<%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY') %> AL <%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY') %>" dias="<%= boletas[i].dias %>" data-toggle="modal" data-target="#opcionesModal"><i class="mdi mdi-pencil"></i>Opciones</button>
+                                                <button type="button" class="btn btn-light button-opciones" id-tipo-boleta="<%= boletas[i].id_tipo_boleta %>" id-empleado="<%= boletas[i].id_empleado %>" id-boleta="<%= boletas[i].id %>" nombre="<%= boletas[i].empleado.nombres%> <%= boletas[i].empleado.paterno%> <%= boletas[i].empleado.materno%>" boleta="<%= boletas[i].tipoboleta.tipo_boleta %>" fecha="<%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY') %> AL <%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY') %>" dias="<%= boletas[i].dias %>" data-toggle="modal" data-target="#opcionesModal"><i class="mdi mdi-pencil"></i>Opciones</button>
                                                 <% } %>
                                               </td>
                                             
@@ -161,7 +161,7 @@
                                           <div class="form-group row">
                                             <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Dias:</label>
                                             <div class="col-sm-8">
-                                              <input class="form-control p-input" value="5.5 dias" readonly name="dias_vacacion" id="modal-empleado-dias">
+                                              <input class="form-control p-input" value="5.5 dias" name="dias_vacacion" id="modal-empleado-dias">
                                             </div>
                                         </div>
                                           <div class="form-group">
@@ -188,6 +188,7 @@
                                                               </div>
                                                               <input type="hidden" id="input-id-boleta" name="id_boleta" value="0">
                                                               <input type="hidden" id="input-id-empleado" name="id_empleado" value="0">
+                                                              <input type="hidden" id="input-id-tipo-boleta" name="id_tipo_boleta" value="0">
 
                                                           </div>
 

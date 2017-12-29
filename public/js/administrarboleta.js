@@ -1,5 +1,27 @@
 (function($) {
+    $( ".button-opciones" ).on( "click", function() {
+        console.log('boton precionado');
+        var id_boleta = $(this).attr('id-boleta');
+        var id_tipo_boleta = $(this).attr('id-tipo-boleta');
+        var id_empleado = $(this).attr('id-empleado');
+        var nombre = $(this).attr('nombre');
+        var boleta = $(this).attr('boleta');
+        var fecha = $(this).attr('fecha');
+        var dias = $(this).attr('dias');
 
+        $('#modal-empleado-nombre').val(nombre);
+        $('#modal-empleado-fecha').val(fecha);
+        $('#modal-empleado-boleta').val(boleta);
+        $('#modal-empleado-dias').val(dias);
+        $('#input-id-boleta').val(id_boleta);
+        $('#input-id-tipo-boleta').val(id_tipo_boleta);
+        $('#input-id-empleado').val(id_empleado);
+
+    });
+
+    $( "#button-boleta" ).on( "click", function() {
+        $("#form-aprobar-boleta").submit();
+    });
     $('#table-administracion-boletas').DataTable({
         "order": [
             [3, "desc"]
@@ -29,25 +51,4 @@
             }
         }
     });
-    $( ".button-opciones" ).on( "click", function() {
-        var id_boleta = $(this).attr('id-boleta');
-        var id_empleado = $(this).attr('id-empleado');
-        var nombre = $(this).attr('nombre');
-        var boleta = $(this).attr('boleta');
-        var fecha = $(this).attr('fecha');
-        var dias = $(this).attr('dias');
-
-        $('#modal-empleado-nombre').val(nombre);
-        $('#modal-empleado-fecha').val(fecha);
-        $('#modal-empleado-boleta').val(boleta);
-        $('#modal-empleado-dias').val(dias);
-        $('#input-id-boleta').val(id_boleta);
-        $('#input-id-empleado').val(id_empleado);
-
-    });
-
-    $( "#button-boleta" ).on( "click", function() {
-        $("#form-aprobar-boleta").submit();
-    });
-
 })(jQuery);
