@@ -7,11 +7,11 @@ var md_auth = require('../../middleware/authenticated');
 
 // Grabado de horario unico
 router.post('/grabar_unico',md_auth.ensureAuth, (req, res) => {
-    
+    console.log('\x1b[33m%s\x1b[0m',req.body.fecha+'fecha que graba');
       
         modelos.Horario_especial.create({
     
-            fecha:req.body.fecha,
+            fecha:req.body.fecha_unica+' '+'23:59:00.000 +00:00',
             id_empleado:req.body.id,
             id_horario:req.body.horario
         
