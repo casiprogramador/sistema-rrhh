@@ -80,10 +80,10 @@ router.post('/marcaciones', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      //host: param.webservice_marcacion.ip,
-      //port: param.webservice_marcacion.puerto,
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
+      //host: "localhost",
+      //port: 8080,
       path: '/usr?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
@@ -176,10 +176,10 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      //host: param.webservice_marcacion.ip,
-      //port: param.webservice_marcacion.puerto,
-      host: "localhost",
-      port: 8080,
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
+      //host: "localhost",
+      //port: 8080,
       path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
