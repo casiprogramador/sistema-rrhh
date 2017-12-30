@@ -9,6 +9,69 @@ var md_auth = require('../../middleware/authenticated');
 var moment = require('moment');
 var param = require('../../config/param.json');
 
+router.get('/llenar_mes', function(req, res, next){
+  modelos.Empleado.findAll({
+    where: {
+        estado: true
+    }
+ }).then((empleados) => {
+
+    for(empleado of empleados){
+      console.log(JSON.stringify(empleado));
+      var a = moment('2017-12-26');
+      var b = moment('2018-01-02');
+
+      for (var m = moment(a); m.isBefore(b); m.add('days', 1)) {
+          modelos.Asistencia.create({
+            fecha:m.format('YYYY-MM-DD'),
+            entrada_1: null,
+            salida_1: null,
+            entrada_2: null,
+            salida_2: null,
+            retraso_entrada_1: null,
+            retraso_salida_1: null,
+            retraso_entrada_2: null,
+            retraso_salida_2: null,
+            observacion_entrada_1 : 'abandono',
+            observacion_salida_1: 'abandono',
+            observacion_entrada_2: 'abandono',
+            observacion_salida_2:'abandono',
+            id_empleado: empleado.id,
+            id_horario: null,
+          }).then();
+      }
+       res.json('creacion de asistencias');
+    }
+
+  })
+})
+
+router.get('/actualizar_asistencia', function(req, res, next){
+  var fecha_dia = moment().format("DD-MM-YYYY");
+  modelos.BS.findAll({
+    where: {
+        bandera : '0'
+    }
+  }).then((marcaciones) => {
+    for(marcacion of marcaciones){
+      console.log(marcacion.UserID);
+      modelos.Empleado.findOne({
+        where:{
+          ndi: marcacion.Code
+        },
+        include: [
+          'horario'
+        ]
+      }).then( empleado =>{
+
+        console.log(JSON.stringify(empleado));
+
+      })
+    }
+  })
+})
+
+
 
 router.post('/marcaciones', function(req,res2, next) {
   var ip=req.body.dispositivo;

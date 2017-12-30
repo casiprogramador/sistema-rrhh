@@ -73,8 +73,8 @@
                                             <td><%= boletas[i].ndi %></td>
                                             <td><%= boletas[i].tipo_boleta %></td>
                                             <td><%= moment(boletas[i].fecha_solicitud).format( 'DD/MM/YYYY') %></td>
-                                            <td><%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY') %></td>
-                                            <td><%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY') %> </td>
+                                            <td><%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY HH:mm') %></td>
+                                            <td><%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY HH:mm') %> </td>
                                             <td><%= boletas[i].observacion %></td>
                                             <td><%= boletas[i].estado %></td>
                                             <td>

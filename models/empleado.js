@@ -55,7 +55,8 @@ module.exports = (sequelize, DataTypes) => {
         Empleado.hasMany(models.Saldo_Vacacion, { foreignKey: 'id_empleado', as: 'saldovacacion' });
         Empleado.hasMany(models.Contrato, { foreignKey: 'id_empleado', as: 'contrato' });
         Empleado.hasMany(models.Historico_Cas, { foreignKey: 'id_empleado', as: 'cas' });
-        Empleado.belongsToMany(models.Horario, { foreignKey: 'id_horario', as: 'horario', through: 'HorarioEmpleado'  });
+        Empleado.belongsTo(models.Horario, { foreignKey: 'id_horario', as: 'horario'  });
+        Empleado.hasMany(models.Horario_especial, { foreignKey: 'id_empleado', as: 'horarioespecial' });
     };
     return Empleado;
 };
