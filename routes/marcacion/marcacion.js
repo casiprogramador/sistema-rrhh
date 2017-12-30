@@ -80,8 +80,10 @@ router.post('/marcaciones', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
+      //host: param.webservice_marcacion.ip,
+      //port: param.webservice_marcacion.puerto,
+      host: "localhost",
+      port: 8080,
       path: '/usr?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
@@ -174,8 +176,10 @@ router.post('/guardar_marcacion', function(req,res2, next) {
   /*var ips="192.168.130.33";
   console.log(ip);*/
     var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
+      //host: param.webservice_marcacion.ip,
+      //port: param.webservice_marcacion.puerto,
+      host: "localhost",
+      port: 8080,
       path: '/usr2?'+"ip="+ip+"&puerto="+puerto,
       method: 'GET'
     }
@@ -189,6 +193,7 @@ router.post('/guardar_marcacion', function(req,res2, next) {
       });
       res.on('end',()=>{
         var x = JSON.parse(data);
+        console.log("longitud"+x.length);
         for(var j=0;j<x.length;j++){
           if(j!=x.length-1){
             modelos.BS.create({
