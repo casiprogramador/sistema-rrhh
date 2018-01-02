@@ -69,16 +69,22 @@ router.post('/login', (req, res, next) => {
         modelos.Usuario.findOne({ 
             where: {'username': req.body.username } 
         }).then(usuario => {
-            if(usuario.estado == true){
-                passport.authenticate('local', {
-                    successRedirect: '/home',
-                    failureRedirect: '/',
-                    failureFlash: true
-                })(req, res, next)
+            if(usuario){
+                if(usuario.estado == true){
+                    passport.authenticate('local', {
+                        successRedirect: '/home',
+                        failureRedirect: '/',
+                        failureFlash: true
+                    })(req, res, next)
+                }else{
+                    req.flash('success_msg', 'Usuario inactivo');
+                    res.redirect('/');
+                }
             }else{
-                req.flash('success_msg', 'Usuario inactivo');
+                req.flash('success_msg', 'Usuario no existente');
                 res.redirect('/');
             }
+
         })
 
     }
