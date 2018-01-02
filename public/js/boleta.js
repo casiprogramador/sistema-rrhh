@@ -17,8 +17,13 @@
             dataType: 'json',
 
             success: function(json) {
-                console.log(json);
+                console.log(json.dias);
                 $('#suma_dias_empleado').val(json.dias);
+                if(json.dias == 0){
+                    $('#submit-boleta').prop('disabled', true);
+                }else{
+                    $('#submit-boleta').prop('disabled', false);
+                }
             },
 
             error: function(xhr, status) {

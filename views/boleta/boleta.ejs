@@ -27,77 +27,88 @@
                     <% } %>
 
                 <form method="post" action="/boleta/reporte">
-
-                    <div class="card col-lg-12 col-lg-4   ">
-                        <div class="card-body col-12 col-4">
-                            <div class="form-group row">
-                                    <label for="fecha reporte" class="col-sm-2 col-form-label" >Tipo de Boleta:</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" id="tipo-boleta" name="tipo_boleta">
-                                            <% for(var i=0; i< Tipo_boleta.length; i++) { %>
-                                                <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
-                                            <% } %>
-                                        </select>
-                                    </div>
-                            </div>  
-                            <div>
+                    <div class="row">
+                        <div class="card col-lg-9">
+                            <div class="card-body col-12 col-4">
                                 <div class="form-group row">
-                                    <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha Inicio:</label>
-                                    <div class="col-sm-3">
-                                          <div class="input-group date datepicker b-l-blue">
-                                              <input type="text" class="form-control" name="fecha_inicio" id="fecha-inicio"  required>
-                                              <div class="input-group-addon">
-                                                <span class="mdi mdi-calendar-blank"></span>
-                                              </div>
-                                            </div>
-                                    </div>
-                                     <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora Inicio:</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-group clockpicker b-l-blue">
-                                            <input type="text" class="form-control p-input col-lg-3" value="08:30"  name="hora_inicio" id="hora-inicio">
-                                            <span class="input-group-addon">
-                                                <i class="mdi mdi-clock"></i>
-                                            </span>
+                                        <label for="fecha reporte" class="col-sm-2 col-form-label" >Tipo de Boleta:</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="tipo-boleta" name="tipo_boleta">
+                                                <% for(var i=0; i< Tipo_boleta.length; i++) { %>
+                                                    <option value="<%= Tipo_boleta[i].id %>"><%= Tipo_boleta[i].tipo_boleta %></option>
+                                                <% } %>
+                                            </select>
                                         </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="form-group row">
-                                    <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha fin:</label>
-                                    <div class="col-sm-3">
-                                        <div class="input-group date datepicker b-l-blue">
-                                            <input type="text" class="form-control" name="fecha_fin" id="fecha-fin"  required>
-                                                <div class="input-group-addon">
+                                </div>  
+                                <div>
+                                    <div class="form-group row">
+                                        <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha Inicio:</label>
+                                        <div class="col-sm-4">
+                                              <div class="input-group date datepicker b-l-blue">
+                                                  <input type="text" class="form-control" name="fecha_inicio" id="fecha-inicio" value="<%= moment().format('YYYY-MM-DD') %>" required>
+                                                  <div class="input-group-addon">
                                                     <span class="mdi mdi-calendar-blank"></span>
+                                                  </div>
                                                 </div>
                                         </div>
-                                    </div>
-                                    <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora fin:</label>
+                                         <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora Inicio:</label>
                                         <div class="col-sm-4">
                                             <div class="input-group clockpicker b-l-blue">
-                                                <input type="text" class="form-control p-input col-lg-3" value="18:30" name="hora_fin" id="hora-fin">
+                                                <input type="text" class="form-control p-input col-lg-4" value="08:30"  name="hora_inicio" id="hora-inicio">
                                                 <span class="input-group-addon">
                                                     <i class="mdi mdi-clock"></i>
                                                 </span>
                                             </div>
                                         </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="calculo_dias" class="col-sm-2 col-form-label">Tiempo Solicitado:</label>
-                                        <div class="col-sm-3">
-                                            <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                        
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="fecha reporte" class="col-sm-2 col-form-label">Fecha fin:</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group date datepicker b-l-blue">
+                                                <input type="text" class="form-control" name="fecha_fin" id="fecha-fin" value="<%= moment().format('YYYY-MM-DD') %>" required>
+                                                    <div class="input-group-addon">
+                                                        <span class="mdi mdi-calendar-blank"></span>
+                                                    </div>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                             <a class="btn btn-primary" id="calcular-dias"  >Calcular</a>
-                                        </div>
+                                        <label for="fecha reporte" class="col-sm-2 col-form-label text-right">Hora fin:</label>
+                                            <div class="col-sm-4">
+                                                <div class="input-group clockpicker b-l-blue">
+                                                    <input type="text" class="form-control p-input col-lg-4" value="18:30" name="hora_fin" id="hora-fin">
+                                                    <span class="input-group-addon">
+                                                        <i class="mdi mdi-clock"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="calculo_dias" class="col-sm-3 col-form-label">Tiempo Solicitado:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" class="form-control" name="suma_dias_empleado" id="suma_dias_empleado" >
+                                            </div>
+                                            <div class="col-sm-2">
+                                                 <a class="btn btn-primary" id="calcular-dias"  >Calcular</a>
+                                            </div>
+                                    </div>
+                                    <input type="hidden" id="id-empleado" name="id_empleado" value="<%= user.empleado.id %>">
                                 </div>
-                                <input type="hidden" id="id-empleado" name="id_empleado" value="<%= user.empleado.id %>">
+                            </div>
+                            <div class="card-body btn-demo text-center">
+                                <input class="btn btn-primary" type="submit" id="submit-boleta" value="Solicitar" disabled>
                             </div>
                         </div>
-                        <div class="card-body btn-demo text-center">
-                            <input class="btn btn-primary" type="submit" value="Solicitar">
+                        <div class="col-lg-3">
+                            <div class="alert alert-secondary" role="alert">
+                                <h4 class="alert-heading">INSTRUCCIONES</h4>
+                                <p>- Antes de obtener su boleta por favor Calcular los dias solicitados haciendo click en el boton de  <kbd>Calcular</kbd></kbd>.</p>
+                                <hr>
+                                <p class="mb-0">* Solo se puede sacar boletas de licencia o vacacion cinco dias antes de su fecha de solicitud</p>
+                              </div>
                         </div>
                     </div>
+
+                    
                 </form>
            </div>
     </div>

@@ -30,6 +30,7 @@
                             <th class="table-dark" >Usuario</th>
                             <th class="table-dark" >Empleado</th>
                             <th class="table-dark" >C.I.</th>
+                            <th class="table-dark">Estado</th>
                             <th class="table-dark text-center">Opciones</th>
                           </tr>
                         </thead>
@@ -44,9 +45,27 @@
                                         <td></td>
                                         <td></td>
                                     <% } %>
+                                    <td>
+                                        <% if(usuario.estado){ %>
+                                            ACTIVO
+                                        <% }else{ %>
+                                            INACTIVO
+                                        <% } %>
+                                    </td>
                                     <td class="text-center">
+                                            <% if(usuario.estado){ %>
+                                                <button type="button" class="btn btn-danger btn-sm btn-resetpass">
+                                                        <i class="mdi mdi-close"></i> Desactivar
+                                                </button>
+
+                                            <% }else{ %>
+                                                <button type="button" class="btn btn-success btn-sm btn-resetpass">
+                                                        <i class="mdi mdi-check"></i> Activar
+                                                </button>       
+                                            <% } %>
+                                        
                                         <button type="button" class="btn btn-primary btn-sm btn-resetpass" id-usuario="<%= usuario.id %>" onclick="showSwal('warning-message-and-cancel',<%= usuario.id %>)">
-                                                <i class="mdi mdi-backup-restore"></i> Reset Password
+                                                <i class="mdi mdi-backup-restore"></i> Reset Pass
                                         </button>
                                     </td>
                                 </tr>

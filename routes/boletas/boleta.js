@@ -7,10 +7,9 @@ var md_auth = require('../../middleware/authenticated');
 
 // Consultas de boletas por empleado
 router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
-
     //cambiar el id de entrada ya que es el de usuario y se necesita el de empleado
     modelos.sequelize.query('SELECT * FROM public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te, public."Tipo_empleado_boleta" teb, public."Tipo_boleta" tb WHERE e.id = c.id_empleado and c.id_tipo_empleado=te.id and teb.id_tipo_empleado=te.id and teb.id_tipo_boleta=tb.id and c.id_empleado=' + res.locals.user.empleado.id).spread((Tipo_boleta, metadata) => {
-    res.render('boleta/boleta', { Tipo_boleta: Tipo_boleta, dato: 0 })
+    res.render('boleta/boleta', { Tipo_boleta: Tipo_boleta, dato: 0, moment: moment })
     })
 });
 
@@ -65,22 +64,7 @@ router.post('/reporte', (req, res) => {
         }
 
     }
-    //Sirve para sacar una boleta 5 dias antes como minimo tiempo 
-  /*   while (k <= solicitud_boleta) {
-           if ((moment(fecha_pruebas).day()) == 6 || (moment(fecha_pruebas).day()) == 0) {
-        
-            contador1 = contador1-1;
-            }
-
-            fecha_pruebas = (moment(fecha_pruebas).add(1, 'd')).format("YYYY-MM-DD");
-            k = k + 1;
-        }
-        if(contador1 < 4)
-        {
-            req.flash('error_msg4', 'Debe solicitar su boleta 5 días antes como mínimo');
-            res.redirect('/boleta/formulario');
-        }
-*/
+ 
 //Proibe sacar la boleta en la misma fecha que otra boleta
   modelos.sequelize.query('select fecha_inicio, fecha_fin from public."Boleta" where id_empleado =' + res.locals.user.empleado.id).spread((total, metadata) => {
             

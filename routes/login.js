@@ -66,11 +66,20 @@ router.post('/login', (req, res, next) => {
             errors: errors
         });
     } else {
-        passport.authenticate('local', {
-            successRedirect: '/home',
-            failureRedirect: '/',
-            failureFlash: true
-        })(req, res, next)
+        modelos.Usuario.findOne({ 
+            where: {'username': req.body.username } 
+        }).then(usuario => {
+            if(usuario.estado == true){
+                passport.authenticate('local', {
+                    successRedirect: '/home',
+                    failureRedirect: '/',
+                    failureFlash: true
+                })(req, res, next)
+            }else{
+                req.flash('success_msg', 'Usuario inactivo');
+                res.redirect('/');
+            }
+        })
 
     }
 });

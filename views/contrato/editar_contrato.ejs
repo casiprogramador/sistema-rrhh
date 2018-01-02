@@ -46,8 +46,8 @@
 
                                 <label for="area" class="col-sm-2 col-form-label">Cargo:</label>
                                 
-                                  <div class="col-sm-5">
-                                    <select class="form-control" id="cargo" name="cargo">
+                                  <div class="col-sm-8">
+                                    <select class="form-control" id="select-cargo" name="cargo">
                                         <% for(var i=0; i< cargos.length; i++) { %>
                                             <option value="<%= cargos[i].id%>"  <%= (contrato.id_cargo == cargos[i].id)? 'selected' : '' %> ><%= cargos[i].cargo %></option>
                                         <% } %>

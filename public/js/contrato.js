@@ -30,4 +30,6 @@
         }
     });
 
+    $('#select-cargo').select2();
+
 })(jQuery);
