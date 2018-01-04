@@ -1,3 +1,3 @@
 $(document).ready(function() {
- console.log('formulario boleta vacacion');
+ //console.log('formulario boleta vacacion');
 });
