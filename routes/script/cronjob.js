@@ -13,6 +13,7 @@ router.get('/calcularvacacion', function(req, res, next) {
         }).then(empleados=>{
             //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(empleados));
             id_empleados = [];
+            
             for(const empleado of empleados){
                 //Obtenemos la antiguedad , en caso de tener CAS lo calculamos segun sus años 
                 
@@ -36,8 +37,7 @@ router.get('/calcularvacacion', function(req, res, next) {
                         dias_vacacion = 0; 
                     }
 
-                    //console.log('AA ANTIGUEDAD:'+moment(empleado.fecha_inicio).format('YYYY'));
-                    //console.log('AA ACTUAL:'+moment().format('YYYY'));
+                    
                     anio_inicio = moment(empleado.fecha_inicio).format('YYYY');
                     //anio_actual = moment().format('YYYY');
                     anio_actual = '2018';

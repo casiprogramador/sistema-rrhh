@@ -38,17 +38,20 @@
                         </thead>
                         <tbody>
                             <% for(var empleado of empleados) { %>
-                                <td><%= empleado.ndi %></td>
-                                <td><%= empleado.paterno %> <%= empleado.materno %> <%= empleado.nombres %></td>
-                                <td><%= empleado.cargo %></td>
-                                <td><%= moment(empleado.fecha_inicio).format( 'DD/MM/YYYY') %></td>
-                                <td><%= empleado.desc_area %></td>
-                                <td class="text-center"><%= empleado.min_gestion %></td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-danger btn-prescripcion" data-toggle="modal" data-target="#datosPrescripcionModal" cargo-empleado="<%= empleado.cargo %>" area-empleado="<%= empleado.desc_area %>" id-empleado="<%= empleado.id %>">
-                                        <i class="mdi mdi-content-cut btn-label btn-label-left"></i>Prescribir
-                                    </button>
-                                </td>
+                                <tr>
+                                    <td><%= empleado.ndi %></td>
+                                    <td><%= empleado.paterno %> <%= empleado.materno %> <%= empleado.nombres %></td>
+                                    <td><%= empleado.cargo %></td>
+                                    <td><%= moment(empleado.fecha_inicio).format( 'DD/MM/YYYY') %></td>
+                                    <td><%= empleado.desc_area %></td>
+                                    <td class="text-center"><%= empleado.min_gestion %></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-danger btn-prescripcion" data-toggle="modal" data-target="#datosPrescripcionModal" cargo-empleado="<%= empleado.cargo %>" area-empleado="<%= empleado.desc_area %>" id-empleado="<%= empleado.id %>">
+                                            <i class="mdi mdi-content-cut btn-label btn-label-left"></i>Prescribir
+                                        </button>
+                                    </td>
+                                </tr>
+
                             <% } %>
                         </tbody>
                       </table>
