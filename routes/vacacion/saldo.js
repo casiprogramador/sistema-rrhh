@@ -12,7 +12,7 @@ router.get('/formulario', function(req, res, next) {
         attributes: ['id', 'desc_area']
     }).then(areas => {
 
-        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
+        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE s.prescrito_estado = false and e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
 
             res.render('vacacion/saldo', { areas: areas, saldovacaciones: results, moment: moment });
         })
@@ -42,7 +42,7 @@ router.post('/formulario/buscar', function(req, res, next) {
             query_estado = '';
         }
 
-        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id' + query_area + query_estado + ' ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
+        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE s.prescrito_estado = false and e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id' + query_area + query_estado + ' ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
             //console.log(JSON.stringify(results));
             res.render('vacacion/saldo', { areas: areas, saldovacaciones: results, fecha: req.body.fecha, moment: moment });
         })
@@ -59,7 +59,7 @@ router.post('/formulario/buscar/individual', function(req, res, next) {
         attributes: ['id', 'desc_area']
     }).then(areas => {
 
-        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE e.ndi=' + "'" + Number(req.body.ci_empleado) + "'" + 'and e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
+        modelos.sequelize.query('SELECT e.ndi, e.materno, e.paterno, e.nombres, a.cargo, c.fecha_inicio, s.gestion, s.dias , r.desc_area FROM public."Empleados" e, public."Contratos" c, public."Cargos" a , public."Areas" r, public."Saldo_Vacacions" s WHERE s.prescrito_estado = false and e.ndi=' + "'" + Number(req.body.ci_empleado) + "'" + 'and e.id=c.id_empleado and c.id_cargo=a.id and a.id_area=r.id and s.id_empleado = e.id ORDER BY r.desc_area, e.ndi').spread((results, metadata) => {
             res.render('vacacion/saldo', { areas: areas, saldovacaciones: results, fecha: req.body.fecha, moment: moment });
         })
 
