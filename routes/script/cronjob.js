@@ -7,12 +7,18 @@ var Sequelize = require('sequelize');
 //Consulta de empleados por area
 router.get('/calcularvacacion', function(req, res, next) {
     
-    modelos.sequelize.query('SELECT public."Empleados".id,public."Historico_Cas".id as id_cas, public."Contratos".fecha_inicio, public."Historico_Cas".aa, public."Historico_Cas".mm, public."Historico_Cas".dd , public."Tipo_Empleados".id as id_tipo FROM public."Empleados" INNER JOIN  public."Contratos" ON public."Contratos".id_empleado = public."Empleados".id INNER JOIN  public."Tipo_Empleados" ON public."Tipo_Empleados".id  = public."Contratos".id_tipo_empleado LEFT JOIN  public."Historico_Cas" ON public."Historico_Cas".id_empleado = public."Empleados".id  WHERE public."Empleados".estado = true and public."Contratos".estado = true and public."Tipo_Empleados".id = 1').spread(
+    modelos.sequelize.query('SELECT public."Empleados".id,public."Historico_Cas".id as id_cas, public."Contratos".fecha_inicio, public."Historico_Cas".aa, public."Historico_Cas".mm, public."Historico_Cas".dd , public."Tipo_Empleados".id as id_tipo FROM public."Empleados" INNER JOIN  public."Contratos" ON public."Contratos".id_empleado = public."Empleados".id INNER JOIN  public."Tipo_Empleados" ON public."Tipo_Empleados".id  = public."Contratos".id_tipo_empleado LEFT JOIN  public."Historico_Cas" ON public."Historico_Cas".id_empleado = public."Empleados".id  WHERE public."Empleados".estado = true and public."Contratos".estado = true and public."Tipo_Empleados".id = 1 and public."Historico_Cas".estado = true').spread(
         (empleados, metadata) => {
             return empleados;
         }).then(empleados=>{
             //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(empleados));
             id_empleados = [];
+
+            var fecha_requerida = moment().startOf('day').format('YYYY-MM-DD');
+
+            if (req.query.fecha) {
+                fecha_requerida = moment(req.query.fecha).startOf('day').format('YYYY-MM-DD');
+            }
             
             for(const empleado of empleados){
                 //Obtenemos la antiguedad , en caso de tener CAS lo calculamos segun sus años 
@@ -40,10 +46,10 @@ router.get('/calcularvacacion', function(req, res, next) {
                     
                     anio_inicio = moment(empleado.fecha_inicio).format('YYYY');
                     //anio_actual = moment().format('YYYY');
-                    anio_actual = '2018';
+                    anio_actual = moment(fecha_requerida).format('YYYY');
 
                     fecha_inicio = moment(empleado.fecha_inicio).startOf('day').format('YYYY-MM-DD');
-                    fecha_actual = moment('2018-01-02').startOf('day').format('YYYY-MM-DD');
+                    fecha_actual = moment(fecha_requerida).startOf('day').format('YYYY-MM-DD');
                     //fecha_actual = '2018-01-05';
 
 
@@ -107,7 +113,9 @@ router.get('/calcularvacacion', function(req, res, next) {
                         //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(saldo));                   
                     }
                 });
-            } 
+
+            }
+            res.json({mensaje: 'ejecutado correctamente'}); 
         })
     
 });

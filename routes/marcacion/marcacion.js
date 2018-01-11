@@ -6,8 +6,8 @@ var path = require('path');
 var request = require('request');
 var http= require("http");
 var md_auth = require('../../middleware/authenticated');
-var moment = require('moment');
 var param = require('../../config/param.json');
+var Promise = require("bluebird");
 
 router.get('/llenar_mes', function(req, res, next){
   modelos.Empleado.findAll({
@@ -47,27 +47,105 @@ router.get('/llenar_mes', function(req, res, next){
 })
 
 router.get('/actualizar_asistencia', function(req, res, next){
-  var fecha_dia = moment().format("DD-MM-YYYY");
-  modelos.BS.findAll({
-    where: {
-        bandera : '0'
-    }
-  }).then((marcaciones) => {
-    for(marcacion of marcaciones){
-      console.log(marcacion.UserID);
-      modelos.Empleado.findOne({
-        where:{
-          ndi: marcacion.Code
-        },
-        include: [
-          'horario'
-        ]
-      }).then( empleado =>{
+  var fecha_marcado = moment('2017-12-26').format("YYYY-MM-DD");
+  var asistencias_actualizado = [];
+  modelos.sequelize.query(`SELECT  bs.*, em.nombres, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval`).spread((marcados, metadata) => {
+    //res.json(marcados);
+    return marcados;
+  }).then(marcados=>{
 
-        console.log(JSON.stringify(empleado));
 
-      })
+
+    var promises_marcados = marcados.map((marcado)=>{
+      //console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
+
+      var asistencia_promise = marcado =>{
+        return modelos.Horario_especial.findOne({
+          where: {
+              id_empleado: marcado.UserID,
+              fecha: fecha_marcado+' 20:00:00-04'
+          }
+        }).then((horario_especial) => {
+          asistencia = 'nada';
+          if(horario_especial){
+            //asistencia = 'horario';
+            //console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado.id));
+            //console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL:'+JSON.stringify(horario_especial));
+            
+            asistencia = { 
+              fecha : fecha_marcado,
+              entrada_1 : marcado.eventTime,
+              salida_1 : marcado.eventTime,
+              entrada_2 : marcado.eventTime,
+              salida_2 : marcado.eventTime,
+              retraso_entrada_1 : 0,
+              retraso_salida_1 : 0,
+              retraso_entrada_2 : 0,
+              retraso_salida_2 : 0,
+              observacion_entrada_1 : '',
+              observacion_salida_1 : '',
+              observacion_entrada_2 : '',
+              observacion_salida_2 : '',
+              id_empleado : marcado.id ,
+              id_horario : horario_especial.id
+              
+            };
+            
+            //console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial));
+          }else{
+            //asistencia = 'marcado';
+            
+            asistencia = { 
+              fecha : fecha_marcado,
+              entrada_1 : marcado.eventTime,
+              salida_1 : marcado.eventTime,
+              entrada_2 : marcado.eventTime,
+              salida_2 : marcado.eventTime,
+              retraso_entrada_1 : 0,
+              retraso_salida_1 : 0,
+              retraso_entrada_2 : 0,
+              retraso_salida_2 : 0,
+              observacion_entrada_1 : '',
+              observacion_salida_1 : '',
+              observacion_entrada_2 : '',
+              observacion_salida_2 : '',
+              id_empleado : marcado.id,
+              id_horario : marcado.id_horario
+            }
+          }
+          return asistencia;
+        });
+      };
+
+      return asistencia_promise(marcado);
+      //console.log(fecha_marcado+' 20:00:00-04');
+    })
+
+    Promise.all(promises_marcados).then((asistencias)=>{
+      //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[0]));
+      
+      for(var i = 0; i < asistencias.length; i++){
+        console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[i]));
+      }
+      console.log('\x1b[33m%s\x1b[0m: ',asistencias);
+      return res.json(asistencias_actualizado);
+    });
+/*
+    for(marcado of marcados){
+      //console.log(JSON.stringify(marcado));
+      modelos.Horario_especial.findOne({
+          where: {
+              id_empleado: marcado.UserID,
+              fecha: '2017-12-26 20:00:00-04'
+          }
+        }).then((horario_especial) => {
+          if(horario_especial){
+            console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
+            console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial));
+          }
+        });
     }
+*/
   })
 })
 
