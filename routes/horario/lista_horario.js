@@ -28,9 +28,10 @@ router.get('/editar/:id_horario', (req, res) => {
   modelos.Horario.findOne({
     where: {
       id: req.params.id_horario,
-    },
+    }
     
       }).then((horario) => {
+        console.log('HORARIO:'+JSON.stringify(horario));
          res.render('horario/editar_horario',{horario:horario});   
       })
     

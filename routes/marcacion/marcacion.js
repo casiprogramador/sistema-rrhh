@@ -49,15 +49,13 @@ router.get('/llenar_mes', function(req, res, next){
 router.get('/actualizar_asistencia', function(req, res, next){
   var fecha_marcado = moment('2017-12-26').format("YYYY-MM-DD");
   var asistencias_actualizado = [];
-  modelos.sequelize.query(`SELECT  bs.*, em.nombres, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval`).spread((marcados, metadata) => {
-    //res.json(marcados);
+  modelos.sequelize.query(`SELECT bs.*, em.nombres, em.id AS id_empleado, ho.id as id_horario, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval`).spread((marcados, metadata) => {
+    console.log('\x1b[33m%s\x1b[0m: ','MARCADOS:'+JSON.stringify(marcados));
     return marcados;
   }).then(marcados=>{
 
-
-
     var promises_marcados = marcados.map((marcado)=>{
-      //console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
+      console.log('\x1b[31m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
 
       var asistencia_promise = marcado =>{
         return modelos.Horario_especial.findOne({
@@ -66,18 +64,19 @@ router.get('/actualizar_asistencia', function(req, res, next){
               fecha: fecha_marcado+' 20:00:00-04'
           }
         }).then((horario_especial) => {
-          asistencia = 'nada';
+          //console.log('\x1b[36m%s\x1b[0m: ','MARCADO F:'+moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"));
           if(horario_especial){
             //asistencia = 'horario';
             //console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado.id));
-            //console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL:'+JSON.stringify(horario_especial));
+            //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario_especial));
+
             
             asistencia = { 
               fecha : fecha_marcado,
-              entrada_1 : marcado.eventTime,
-              salida_1 : marcado.eventTime,
-              entrada_2 : marcado.eventTime,
-              salida_2 : marcado.eventTime,
+              entrada_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              salida_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              entrada_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              salida_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
               retraso_entrada_1 : 0,
               retraso_salida_1 : 0,
               retraso_entrada_2 : 0,
@@ -86,21 +85,43 @@ router.get('/actualizar_asistencia', function(req, res, next){
               observacion_salida_1 : '',
               observacion_entrada_2 : '',
               observacion_salida_2 : '',
-              id_empleado : marcado.id ,
-              id_horario : horario_especial.id
+              id_empleado : marcado.id_empleado,
+              id_horario : horario_especial.id_horario
               
             };
             
             //console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial));
           }else{
             //asistencia = 'marcado';
-            
+            //console.log('\x1b[36m%s\x1b[0m',JSON.stringify(marcado));
+            marcacion_datos = {
+             eventTime: moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+             min_entrada1: moment(fecha_marcado+' '+marcado.min_entrada_1).format("YYYY-MM-DD HH:mm"),
+             max_entrada1: moment(fecha_marcado+' '+marcado.max_entrada_1).format("YYYY-MM-DD HH:mm"),
+             min_salida1: moment(fecha_marcado+' '+marcado.min_salida_1).format("YYYY-MM-DD HH:mm"),
+             max_salida1: moment(fecha_marcado+' '+marcado.max_salida_1).format("YYYY-MM-DD HH:mm"),
+             min_entrada2: moment(fecha_marcado+' '+marcado.min_entrada_2).format("YYYY-MM-DD HH:mm"),
+             max_entrada2: moment(fecha_marcado+' '+marcado.max_entrada_2).format("YYYY-MM-DD HH:mm"),
+             min_salida2: moment(fecha_marcado+' '+marcado.min_salida_2).format("YYYY-MM-DD HH:mm"),
+             max_salida2: moment(fecha_marcado+' '+marcado.max_salida_2).format("YYYY-MM-DD HH:mm")
+            };
+            console.log('\x1b[36m%s\x1b[0m','MARCACION DATOS:'+JSON.stringify(marcacion_datos));
+            if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada1,marcacion_datos.max_entrada1)){
+              console.log('\x1b[36m%s\x1b[0m','Entrada Mañana');
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
+              console.log('\x1b[36m%s\x1b[0m','Salida Mañana');
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
+              console.log('\x1b[36m%s\x1b[0m','Entrada Tarde');
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
+              console.log('\x1b[36m%s\x1b[0m','Salida Tarde');
+            }
+
             asistencia = { 
               fecha : fecha_marcado,
-              entrada_1 : marcado.eventTime,
-              salida_1 : marcado.eventTime,
-              entrada_2 : marcado.eventTime,
-              salida_2 : marcado.eventTime,
+              entrada_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              salida_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              entrada_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+              salida_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
               retraso_entrada_1 : 0,
               retraso_salida_1 : 0,
               retraso_entrada_2 : 0,
@@ -109,7 +130,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
               observacion_salida_1 : '',
               observacion_entrada_2 : '',
               observacion_salida_2 : '',
-              id_empleado : marcado.id,
+              id_empleado : marcado.id_empleado,
               id_horario : marcado.id_horario
             }
           }
@@ -125,27 +146,13 @@ router.get('/actualizar_asistencia', function(req, res, next){
       //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[0]));
       
       for(var i = 0; i < asistencias.length; i++){
-        console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[i]));
+        //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[i]));
+        asistencias_actualizado.push(asistencias[i]);
       }
-      console.log('\x1b[33m%s\x1b[0m: ',asistencias);
+      //console.log('\x1b[33m%s\x1b[0m: ',asistencias);
       return res.json(asistencias_actualizado);
     });
-/*
-    for(marcado of marcados){
-      //console.log(JSON.stringify(marcado));
-      modelos.Horario_especial.findOne({
-          where: {
-              id_empleado: marcado.UserID,
-              fecha: '2017-12-26 20:00:00-04'
-          }
-        }).then((horario_especial) => {
-          if(horario_especial){
-            console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
-            console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial));
-          }
-        });
-    }
-*/
+
   })
 })
 
