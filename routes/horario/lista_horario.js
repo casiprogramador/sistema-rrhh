@@ -32,7 +32,7 @@ router.get('/editar/:id_horario', (req, res) => {
     
       }).then((horario) => {
         console.log('HORARIO:'+JSON.stringify(horario));
-         res.render('horario/editar_horario',{horario:horario});   
+         res.render('horario/editar_horario',{horario:horario,moment:moment});   
       })
     
 });
