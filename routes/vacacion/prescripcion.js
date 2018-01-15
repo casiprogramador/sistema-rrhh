@@ -31,17 +31,27 @@ router.get('/:id_empleado/saldovacacion', md_auth.ensureAuth, function(req, res,
 });
 
 router.post('/', md_auth.ensureAuth, function(req, res, next) {
-    
-    for (let id_saldo of req.body.saldoid) {
-        console.log(id_saldo);
+    console.log('ID prescribir:'+(typeof req.body.saldoid));
+    if(typeof req.body.saldoid === "string"){
         let updateValue = { prescrito_estado:true };
-        modelos.Saldo_Vacacion.update(updateValue, { where: { id: id_saldo } }).then((result) => {
-            // here your result is simply an array with number of affected rows
-            //console.log(result);
+        modelos.Saldo_Vacacion.update(updateValue, { where: { id: req.body.saldoid } }).then((result) => {
             req.flash('success_msg','Prescripcion actualizada correctamente');
-            res.redirect('/vacacion/prescripcion');
-        });
+        }); 
+    }else if(typeof req.body.saldoid === "object"){
+        for (let id_saldo of req.body.saldoid) {
+            console.log('SALDO ID:'+id_saldo);
+             let updateValue = { prescrito_estado:true };
+            modelos.Saldo_Vacacion.update(updateValue, { where: { id: id_saldo } }).then((result) => {
+                
+            }); 
+        }
+        req.flash('success_msg','Prescripcion actualizada correctamente'); 
+    }else{
+        req.flash('success_msg','Error al actualizar');
     }
+
+    req.flash('success_msg','Prescripcion actualizada correctamente');
+    res.redirect('/vacacion/prescripcion');
 });
 
 module.exports = router;

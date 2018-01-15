@@ -55,7 +55,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
   }).then(marcados=>{
 
     var promises_marcados = marcados.map((marcado)=>{
-      console.log('\x1b[31m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
+      //console.log('\x1b[31m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
 
       var asistencia_promise = marcado =>{
         return modelos.Horario_especial.findOne({
@@ -94,8 +94,9 @@ router.get('/actualizar_asistencia', function(req, res, next){
           }else{
             //asistencia = 'marcado';
             //console.log('\x1b[36m%s\x1b[0m',JSON.stringify(marcado));
+            let eventTime = moment(marcado.eventTime).format("YYYY-MM-DD HH:mm");
             marcacion_datos = {
-             eventTime: moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
+             eventTime: eventTime,
              min_entrada1: moment(fecha_marcado+' '+marcado.min_entrada_1).format("YYYY-MM-DD HH:mm"),
              max_entrada1: moment(fecha_marcado+' '+marcado.max_entrada_1).format("YYYY-MM-DD HH:mm"),
              min_salida1: moment(fecha_marcado+' '+marcado.min_salida_1).format("YYYY-MM-DD HH:mm"),
@@ -108,13 +109,39 @@ router.get('/actualizar_asistencia', function(req, res, next){
             console.log('\x1b[36m%s\x1b[0m','MARCACION DATOS:'+JSON.stringify(marcacion_datos));
             if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada1,marcacion_datos.max_entrada1)){
               console.log('\x1b[36m%s\x1b[0m','Entrada Mañana');
+              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
+              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
+              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
+              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
               console.log('\x1b[36m%s\x1b[0m','Salida Mañana');
+              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
+              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
+              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
+              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
               console.log('\x1b[36m%s\x1b[0m','Entrada Tarde');
+              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
+              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
+              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
+              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
               console.log('\x1b[36m%s\x1b[0m','Salida Tarde');
+              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
+              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
+              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
+              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
             }
+
+            console.log('\x1b[33m%s\x1b[0m',moment(eventTime).isBefore(sub_evenTime_tol));
+            
+            /* if(moment(eventTime).isBefore(sub_evenTime_tol)){
+              console.log('\x1b[33m%s\x1b[0m','Abandono');
+            }else if(moment(eventTime).isAfter(add_evenTime_tol)){
+              console.log('\x1b[33m%s\x1b[0m','Llego Tarde');
+            }else{
+              console.log('\x1b[33m%s\x1b[0m','En Hora');
+            } */
 
             asistencia = { 
               fecha : fecha_marcado,
