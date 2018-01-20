@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Horario.associate = function(models) {
     Horario.hasMany(models.Empleado, { foreignKey: 'id_horario', as: 'empleados' });
+    Horario.hasMany(models.Horario_especial, { foreignKey: 'id_horario', as: 'horariosespeciales' });
   };
   return Horario;
 

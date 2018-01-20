@@ -61,42 +61,173 @@ router.get('/actualizar_asistencia', function(req, res, next){
         return modelos.Horario_especial.findOne({
           where: {
               id_empleado: marcado.UserID,
-              fecha: fecha_marcado+' 20:00:00-04'
-          }
+              fecha: fecha_marcado+' 19:59:00-04'
+          },
+          include: ['horario']
         }).then((horario_especial) => {
           //console.log('\x1b[36m%s\x1b[0m: ','MARCADO F:'+moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"));
           if(horario_especial){
             //asistencia = 'horario';
             //console.log('\x1b[33m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado.id));
-            //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(horario_especial));
 
-            
-            asistencia = { 
-              fecha : fecha_marcado,
-              entrada_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              salida_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              entrada_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              salida_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              retraso_entrada_1 : 0,
-              retraso_salida_1 : 0,
-              retraso_entrada_2 : 0,
-              retraso_salida_2 : 0,
-              observacion_entrada_1 : '',
-              observacion_salida_1 : '',
-              observacion_entrada_2 : '',
-              observacion_salida_2 : '',
-              id_empleado : marcado.id_empleado,
-              id_horario : horario_especial.id_horario
-              
+            console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial.horario));
+            let eventTime = moment(marcado.eventTime).format("YYYY-MM-DD HH:mm");
+
+            marcacion_datos = {
+             id_empleado : marcado.id_empleado,
+             id_horario: horario_especial.horario.id,
+             desc_horario: horario_especial.horario.descripcion,
+             eventTime: eventTime,
+             entrada_1: moment(fecha_marcado+' '+horario_especial.horario.entrada_1).format("YYYY-MM-DD HH:mm"),
+             entrada_2: moment(fecha_marcado+' '+horario_especial.horario.entrada_2).format("YYYY-MM-DD HH:mm"),
+             salida_1: moment(fecha_marcado+' '+horario_especial.horario.salida_1).format("YYYY-MM-DD HH:mm"),
+             salida_2: moment(fecha_marcado+' '+horario_especial.horario.salida_2).format("YYYY-MM-DD HH:mm"),
+             min_entrada1: moment(fecha_marcado+' '+horario_especial.horario.min_entrada_1).format("YYYY-MM-DD HH:mm"),
+             max_entrada1: moment(fecha_marcado+' '+horario_especial.horario.max_entrada_1).format("YYYY-MM-DD HH:mm"),
+             min_salida1: moment(fecha_marcado+' '+horario_especial.horario.min_salida_1).format("YYYY-MM-DD HH:mm"),
+             max_salida1: moment(fecha_marcado+' '+horario_especial.horario.max_salida_1).format("YYYY-MM-DD HH:mm"),
+             min_entrada2: moment(fecha_marcado+' '+horario_especial.horario.min_entrada_2).format("YYYY-MM-DD HH:mm"),
+             max_entrada2: moment(fecha_marcado+' '+horario_especial.horario.max_entrada_2).format("YYYY-MM-DD HH:mm"),
+             min_salida2: moment(fecha_marcado+' '+horario_especial.horario.min_salida_2).format("YYYY-MM-DD HH:mm"),
+             max_salida2: moment(fecha_marcado+' '+horario_especial.horario.max_salida_2).format("YYYY-MM-DD HH:mm")
             };
-            
-            //console.log('\x1b[33m%s\x1b[0m: ','HORARIO ESPECIAL'+JSON.stringify(horario_especial));
+
+            //console.log('\x1b[36m%s\x1b[0m','MARCACION DATOS:'+JSON.stringify(marcacion_datos));
+            if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada1,marcacion_datos.max_entrada1)){
+              console.log('\x1b[36m%s\x1b[0m','Entrada Mañana');
+              var add_evenTime_tol = moment(marcado.entrada_1).add(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isAfter(add_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(add_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Llego Tarde');
+                var asistencia = {
+                  tipo: 'E1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_1: marcacion_datos.eventTime,
+                  retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_entrada_1:'retraso',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'E1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_1: marcacion_datos.eventTime,
+                  retraso_entrada_1: 0,
+                  observacion_entrada_1:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+              }
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
+              console.log('\x1b[36m%s\x1b[0m','Salida Mañana');
+              var sub_evenTime_tol = moment(marcacion_datos.salida_1).subtract(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isBefore(sub_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(sub_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Abandono');
+                var asistencia = {
+                  tipo: 'S1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_1: marcacion_datos.eventTime,
+                  retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_salida_1:'abandono',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'S1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_1: marcacion_datos.eventTime,
+                  retraso_salida_1: 0,
+                  observacion_salida_1:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+              }
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
+              console.log('\x1b[36m%s\x1b[0m','Entrada Tarde');
+              var add_evenTime_tol = moment(marcacion_datos.entrada_2).add(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isAfter(add_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(add_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Llego Tarde');
+                var asistencia = {
+                  tipo: 'E2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_2: marcacion_datos.eventTime,
+                  retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_entrada_2:'retraso',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'E2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_2: marcacion_datos.eventTime,
+                  retraso_entrada_2: 0,
+                  observacion_entrada_2:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+              }
+            }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
+              console.log('\x1b[36m%s\x1b[0m','Salida Tarde');
+              var sub_evenTime_tol = moment(marcacion_datos.salida_2).subtract(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isBefore(sub_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(sub_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Abandono');
+                var asistencia = {
+                  tipo: 'S2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_2: marcacion_datos.eventTime,
+                  retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_salida_2:'abandono',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'S2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_2: marcacion_datos.eventTime,
+                  retraso_salida_2: 0,
+                  observacion_salida_2:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcacion_datos.id_horario
+                };
+              }
+
+
+            }else{
+              var asistencia = {
+                error: error
+              };
+            }
           }else{
             //asistencia = 'marcado';
             //console.log('\x1b[36m%s\x1b[0m',JSON.stringify(marcado));
             let eventTime = moment(marcado.eventTime).format("YYYY-MM-DD HH:mm");
             marcacion_datos = {
+             id_empleado : marcado.id_empleado,
+             desc_horario: marcado.descripcion,
              eventTime: eventTime,
+             entrada_1: moment(fecha_marcado+' '+marcado.entrada_1).format("YYYY-MM-DD HH:mm"),
+             entrada_2: moment(fecha_marcado+' '+marcado.entrada_2).format("YYYY-MM-DD HH:mm"),
+             salida_1: moment(fecha_marcado+' '+marcado.salida_1).format("YYYY-MM-DD HH:mm"),
+             salida_2: moment(fecha_marcado+' '+marcado.salida_2).format("YYYY-MM-DD HH:mm"),
              min_entrada1: moment(fecha_marcado+' '+marcado.min_entrada_1).format("YYYY-MM-DD HH:mm"),
              max_entrada1: moment(fecha_marcado+' '+marcado.max_entrada_1).format("YYYY-MM-DD HH:mm"),
              min_salida1: moment(fecha_marcado+' '+marcado.min_salida_1).format("YYYY-MM-DD HH:mm"),
@@ -109,58 +240,130 @@ router.get('/actualizar_asistencia', function(req, res, next){
             console.log('\x1b[36m%s\x1b[0m','MARCACION DATOS:'+JSON.stringify(marcacion_datos));
             if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada1,marcacion_datos.max_entrada1)){
               console.log('\x1b[36m%s\x1b[0m','Entrada Mañana');
-              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
-              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
-              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
-              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
+              var add_evenTime_tol = moment(marcado.entrada_1).add(marcado.tolerancia_entrada_1,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isAfter(add_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(add_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Llego Tarde');var asistencia = {
+                  tipo: 'E1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_1: marcacion_datos.eventTime,
+                  retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_entrada_1:'retraso',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'E1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_1: marcacion_datos.eventTime,
+                  retraso_entrada_1: 0,
+                  observacion_entrada_1:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+              }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
               console.log('\x1b[36m%s\x1b[0m','Salida Mañana');
-              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
-              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
-              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
-              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
+              var sub_evenTime_tol = moment(marcacion_datos.salida_1).subtract(marcado.tolerancia_salida_1,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isBefore(sub_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(sub_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Abandono');
+                var asistencia = {
+                  tipo: 'S1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_1: marcacion_datos.eventTime,
+                  retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_salida_1:'abandono',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'S1',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_1: marcacion_datos.eventTime,
+                  retraso_salida_1: 0,
+                  observacion_salida_1:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+              }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
               console.log('\x1b[36m%s\x1b[0m','Entrada Tarde');
-              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
-              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
-              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
-              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
+              var add_evenTime_tol = moment(marcacion_datos.entrada_2).add(marcado.tolerancia_entrada_2,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isAfter(add_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(add_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Llego Tarde');
+                var asistencia = {
+                  tipo: 'E2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_2: marcacion_datos.eventTime,
+                  retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_entrada_2:'retraso',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+
+              }else{
+                var asistencia = {
+                  tipo: 'E2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  entrada_2: marcacion_datos.eventTime,
+                  retraso_entrada_2: 0,
+                  observacion_entrada_2:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+              }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
               console.log('\x1b[36m%s\x1b[0m','Salida Tarde');
-              var add_evenTime_tol = moment(eventTime).add(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
-              var sub_evenTime_tol = moment(eventTime).subtract(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
-              console.log('\x1b[33m%s\x1b[0m',add_evenTime_tol);
-              console.log('\x1b[33m%s\x1b[0m',sub_evenTime_tol);
-            }
+              var sub_evenTime_tol = moment(marcacion_datos.salida_2).subtract(marcado.tolerancia_salida_2,'m').format("YYYY-MM-DD HH:mm");
+              if(moment(eventTime).isBefore(sub_evenTime_tol)){
+                console.log('\x1b[363m%s\x1b[0m',moment(sub_evenTime_tol).diff(eventTime,'minutes'));
+                console.log('\x1b[36m%s\x1b[0m','Abandono');
+                var asistencia = {
+                  tipo: 'S2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_2: marcacion_datos.eventTime,
+                  retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
+                  observacion_salida_2:'abandono',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
 
-            console.log('\x1b[33m%s\x1b[0m',moment(eventTime).isBefore(sub_evenTime_tol));
-            
-            /* if(moment(eventTime).isBefore(sub_evenTime_tol)){
-              console.log('\x1b[33m%s\x1b[0m','Abandono');
-            }else if(moment(eventTime).isAfter(add_evenTime_tol)){
-              console.log('\x1b[33m%s\x1b[0m','Llego Tarde');
+              }else{
+                var asistencia = {
+                  tipo: 'S2',
+                  horario: marcacion_datos.desc_horario,
+                  fecha: fecha_marcado,
+                  salida_2: marcacion_datos.eventTime,
+                  retraso_salida_2: 0,
+                  observacion_salida_2:'',
+                  id_empleado: marcacion_datos.id_empleado,
+                  id_horario: marcado.id_horario
+                };
+              }
+
+
             }else{
-              console.log('\x1b[33m%s\x1b[0m','En Hora');
-            } */
-
-            asistencia = { 
-              fecha : fecha_marcado,
-              entrada_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              salida_1 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              entrada_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              salida_2 : moment(marcado.eventTime).format("YYYY-MM-DD HH:mm"),
-              retraso_entrada_1 : 0,
-              retraso_salida_1 : 0,
-              retraso_entrada_2 : 0,
-              retraso_salida_2 : 0,
-              observacion_entrada_1 : '',
-              observacion_salida_1 : '',
-              observacion_entrada_2 : '',
-              observacion_salida_2 : '',
-              id_empleado : marcado.id_empleado,
-              id_horario : marcado.id_horario
+              var asistencia = {
+                error: error
+              };
             }
+
+
           }
+          
           return asistencia;
         });
       };
@@ -170,14 +373,115 @@ router.get('/actualizar_asistencia', function(req, res, next){
     })
 
     Promise.all(promises_marcados).then((asistencias)=>{
-      //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[0]));
       
-      for(var i = 0; i < asistencias.length; i++){
-        //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[i]));
-        asistencias_actualizado.push(asistencias[i]);
-      }
+
+      var promise_asistencia = asistencias.map((asistencia)=>{
+        
+        console.log('\x1b[36m%s\x1b[0m','ASISTENCIA:'+JSON.stringify(asistencia));
+                var default_asistencia = {
+                  fecha: asistencia.fecha_marcado,
+                  entrada_1:(asistencia.entrada_1) ? asistencia.entrada_1 : null,
+                  salida_1: (asistencia.salida_1) ? asistencia.salida_1 : null,
+                  entrada_2: (asistencia.entrada_2) ? asistencia.entrada_2 : null,
+                  salida_2: (asistencia.salida_2) ? asistencia.salida_2 : null,
+                  retraso_entrada_1: asistencia.retraso_entrada_1,
+                  retraso_salida_1: asistencia.retraso_salida_1,
+                  retraso_entrada_2: asistencia.retraso_entrada_2,
+                  retraso_salida_2: asistencia.retraso_salida_2,
+                  observacion_entrada_1 : asistencia.observacion_entrada_1,
+                  observacion_salida_1: asistencia.observacion_salida_1,
+                  observacion_entrada_2: asistencia.observacion_entrada_2,
+                  observacion_salida_2: asistencia.observacion_salida_2,
+                  id_empleado: asistencia.id_empleado,
+                  id_horario: (asistencia.id_horario) ? asistencia.id_horario : null,
+                }
+                console.log('\x1b[36m%s\x1b[0m','DATOS CREAR ASISTENCIA:'+JSON.stringify(default_asistencia));
+                modelos.Asistencia.findOrCreate(
+                  {where: {
+                    id_empleado: asistencia.id_empleado,
+                    fecha: asistencia.fecha+' 20:00:00-04'
+                  }, defaults: default_asistencia })
+                .spread((asistencia_encontrada, created) => {
+                  let asistencia_actualizable;
+
+                  if(asistencia_encontrada){
+                    if(asistencia.tipo === 'E1' ){
+                      var updateAsistencia = { 
+                        entrada_1: asistencia.entrada_1,
+                        retraso_entrada_1: asistencia.retraso_entrada_1,
+                        observacion_entrada_1: asistencia.observacion_entrada_1
+                      };
+                    }else if(asistencia.tipo === 'E2'){
+                      var updateAsistencia = { 
+                        entrada_2: asistencia.entrada_2,
+                        retraso_entrada_2: asistencia.retraso_entrada_2,
+                        observacion_entrada_2: asistencia.observacion_entrada_2
+                      };
+                    }else if(asistencia.tipo === 'S1'){
+                      var updateAsistencia = { 
+                        salida_1: asistencia.salida_1,
+                        retraso_salida_1: asistencia.retraso_salida_1,
+                        observacion_salida_1: asistencia.observacion_salida_1
+                      };
+                    }else if(asistencia.tipo === 'S2'){
+                      var updateAsistencia = { 
+                        salida_2: asistencia.salida_2,
+                        retraso_salida_2: asistencia.retraso_salida_2,
+                        observacion_salida_2: asistencia.observacion_salida_2
+                      };
+                    }else{
+                      console.log('error');
+                    }
+                    console.log('\x1b[36m%s\x1b[0m','update Asistencia:',JSON.stringify(asistencia));
+                    console.log('\x1b[36m%s\x1b[0m','update Value1:',updateAsistencia);
+                    
+                    return modelos.Asistencia.update(
+                      updateAsistencia, 
+                      { where: {
+                         id: asistencia_encontrada.id 
+                      } 
+                    }).then((result) => {
+                      console.log('\x1b[33m%s\x1b[0m','update Value:',updateAsistencia);
+                      modelos.Asistencia.findById(asistencia_encontrada.id)
+                        .then(function(asistenciaActualizada){
+                          //console.log(asistenciaActualizada.dataValues);
+                          asistencia_actualizable = asistenciaActualizada.dataValues;
+                          return default_asistencia;
+                        }).catch(function (err) {
+                          console.log(err);
+                        });
+                    }); 
+
+
+                    //console.log('\x1b[36m%s\x1b[0m','ASISTENCIA ENCONTRADA:'+JSON.stringify(asistencia));
+                    
+                  }else{
+                    //console.log('\x1b[36m%s\x1b[0m','ASISTENCIA CREADA'+JSON.stringify(created));
+                    asistencia_actualizable = created;
+                    return default_asistencia;
+                  }
+                 //return default_asistencia;
+                }).catch(function(e) {
+                  console.log(e);
+                 });
+          
+
+      })
+
+      Promise.all(promise_asistencia).then( (asistencias)=>{
+
+        console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA PUSH:'+JSON.stringify(asistencias));
+        
+        var asistencias_actualizado = [];
+        for(var i = 0; i < asistencias.length; i++){
+          //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias[i]));
+
+          asistencias_actualizado.push(asistencias[i]);
+
+        }
+        return res.json(asistencias_actualizado);
+      });
       //console.log('\x1b[33m%s\x1b[0m: ',asistencias);
-      return res.json(asistencias_actualizado);
     });
 
   })
