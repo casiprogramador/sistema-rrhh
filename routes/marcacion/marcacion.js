@@ -49,13 +49,13 @@ router.get('/llenar_mes', function(req, res, next){
 router.get('/actualizar_asistencia', function(req, res, next){
   var fecha_marcado = moment('2017-12-26').format("YYYY-MM-DD");
   var asistencias_actualizado = [];
-  modelos.sequelize.query(`SELECT bs.*, em.nombres, em.id AS id_empleado, ho.id as id_horario, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval`).spread((marcados, metadata) => {
+  modelos.sequelize.query(`SELECT bs.*,bs.id AS id_marcado, em.nombres, em.id AS id_empleado, ho.id as id_horario, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval AND em.id = 2284291`).spread((marcados, metadata) => {
     console.log('\x1b[33m%s\x1b[0m: ','MARCADOS:'+JSON.stringify(marcados));
     return marcados;
   }).then(marcados=>{
 
     var promises_marcados = marcados.map((marcado)=>{
-      //console.log('\x1b[31m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
+      console.log('\x1b[31m%s\x1b[0m: ','MARCADO:'+JSON.stringify(marcado));
 
       var asistencia_promise = marcado =>{
         return modelos.Horario_especial.findOne({
@@ -74,6 +74,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
             let eventTime = moment(marcado.eventTime).format("YYYY-MM-DD HH:mm");
 
             marcacion_datos = {
+             id_marcado: marcado.id_marcado,
              id_empleado : marcado.id_empleado,
              id_horario: horario_especial.horario.id,
              desc_horario: horario_especial.horario.descripcion,
@@ -107,7 +108,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_1:'retraso',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -119,7 +121,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_1: 0,
                   observacion_entrada_1:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
@@ -136,7 +139,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_1:'abandono',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -148,7 +152,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_1: 0,
                   observacion_salida_1:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
@@ -165,7 +170,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_2:'retraso',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -177,7 +183,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_2: 0,
                   observacion_entrada_2:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
@@ -194,7 +201,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_2:'abandono',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -206,7 +214,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_2: 0,
                   observacion_salida_2:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcacion_datos.id_horario
+                  id_horario: marcacion_datos.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
 
@@ -221,6 +230,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
             //console.log('\x1b[36m%s\x1b[0m',JSON.stringify(marcado));
             let eventTime = moment(marcado.eventTime).format("YYYY-MM-DD HH:mm");
             marcacion_datos = {
+              id_marcado: marcado.id_marcado,
              id_empleado : marcado.id_empleado,
              desc_horario: marcado.descripcion,
              eventTime: eventTime,
@@ -251,7 +261,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_1:'retraso',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -263,7 +274,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_1: 0,
                   observacion_entrada_1:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida1,marcacion_datos.max_salida1)){
@@ -280,7 +292,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_1:'abandono',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -292,7 +305,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_1: 0,
                   observacion_salida_1:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_entrada2,marcacion_datos.max_entrada2)){
@@ -309,7 +323,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_2:'retraso',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -321,7 +336,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_entrada_2: 0,
                   observacion_entrada_2:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
             }else if(moment(marcacion_datos.eventTime).isBetween(marcacion_datos.min_salida2,marcacion_datos.max_salida2)){
@@ -338,7 +354,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_2:'abandono',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
 
               }else{
@@ -350,7 +367,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   retraso_salida_2: 0,
                   observacion_salida_2:'',
                   id_empleado: marcacion_datos.id_empleado,
-                  id_horario: marcado.id_horario
+                  id_horario: marcado.id_horario,
+                  id_marcado: marcacion_datos.id_marcado
                 };
               }
 
@@ -446,7 +464,6 @@ router.get('/actualizar_asistencia', function(req, res, next){
                         .then(function(asistenciaActualizada){
                           //console.log(asistenciaActualizada.dataValues);
                           asistencia_actualizable = asistenciaActualizada.dataValues;
-                          return default_asistencia;
                         }).catch(function (err) {
                           console.log(err);
                         });
@@ -458,14 +475,23 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   }else{
                     //console.log('\x1b[36m%s\x1b[0m','ASISTENCIA CREADA'+JSON.stringify(created));
                     asistencia_actualizable = created;
-                    return default_asistencia;
+                    
                   }
-                 //return default_asistencia;
+
+
+                  
                 }).catch(function(e) {
                   console.log(e);
                  });
+                 // Actualizacion de bandera de BS
+                 modelos.BS.update(
+                  { bandera: 1}, 
+                  { where: {
+                     id: asistencia.id_marcado
+                  } 
+                })
           
-
+                 return asistencia;
       })
 
       Promise.all(promise_asistencia).then( (asistencias)=>{
