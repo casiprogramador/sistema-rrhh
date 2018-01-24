@@ -6,6 +6,7 @@
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres",
+    "timezone": "-04:00",
     "connectionTimeout": 0,
       "pool":{
          "max": 1,
