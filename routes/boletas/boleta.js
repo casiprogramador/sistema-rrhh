@@ -150,7 +150,7 @@ if (suma_dias <= Number(sumatoria[0].vacacion_dias)) {
             codigo: id_tipo_boleta,
         })
         .then(newboleta => {
-            modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a, , public."Contratos" co  where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id and co.id_empleado=e.id and co.id_cargo = c.id').spread((datos_boleta, metadata) => {
+            modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a, public."Contratos" co  where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id and co.id_empleado=e.id and co.id_cargo = c.id').spread((datos_boleta, metadata) => {
 
                 const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
                 const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
