@@ -14,7 +14,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
   if(req.query.fecha){
     var fecha_marcado = req.query.fecha;
   }else{
-    var fecha_marcado = moment('2018-01-19').format("YYYY-MM-DD");
+    var fecha_marcado = moment().format("YYYY-MM-DD");
   }
   
   console.log('\x1b[33m%s\x1b[0m: ','FECHA REQUERIDA:'+fecha_marcado);
@@ -491,7 +491,6 @@ router.get('/actualizar_asistencia', function(req, res, next){
         }
         return res.json(asistencias_actualizado);
       });
-      //console.log('\x1b[33m%s\x1b[0m: ',asistencias);
     });
 
   })
