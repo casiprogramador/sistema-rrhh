@@ -15,11 +15,11 @@ router.get('/formulario', md_auth.ensureAuth, function(req, res, next) {
 
 router.post('/reporte', (req, res) => {
 
-    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 +00:00");
+    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 -04:00");
     const observacion = '';
     const estado = 'Pendiente';
-    const fecha_inicio = req.body.fecha_inicio + ' ' + req.body.hora_inicio + '.000 +00:00';
-    const fecha_fin = req.body.fecha_fin + ' ' + req.body.hora_fin + '.000 +00:00';
+    const fecha_inicio = req.body.fecha_inicio + ' ' + req.body.hora_inicio + '.000 -04:00';
+    const fecha_fin = req.body.fecha_fin + ' ' + req.body.hora_fin + '.000 -04:00';
     const fecha_inicio1 = req.body.fecha_inicio;
     const fecha_fin1 = req.body.fecha_fin;
     const hora_inicio = req.body.hora_inicio;
@@ -34,7 +34,7 @@ router.post('/reporte', (req, res) => {
     const dias_total = moment(fecha_fin).diff(moment(fecha_inicio), "days");
     var contador = 0;
     var fecha_prueba = fecha_inicio;
-    var fecha_pruebas= moment().format("YYYY-MM-DD");
+    var fecha_pruebas = moment().format("YYYY-MM-DD");
     var fecha_fer = fecha_inicio;
     var i = 0;
     var j = 0;
@@ -200,7 +200,6 @@ else {
                 codigo: id_tipo_boleta,
             }).then(newboleta => {
                 modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a, public."Contratos" co  where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id and co.id_empleado=e.id and co.id_cargo = c.id').spread((datos_boleta, metadata) => {
-
                     const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
                     const fecha_fin_repor = moment(fecha_fin1).format("YYYY-MM-DD") + ' ' + hora_fin;
                     const fecha_solicitud1 = moment(fecha_solicitud).format("YYYY-MM-DD" +' '+ 'HH:mm');
@@ -243,7 +242,7 @@ else {
             {        
                 if (suma_dias < Number(sumatoria[0].dias) && au_horas< Number(sumatoria[0].dias) ) {
 
-                    modelos.Boleta.create({
+/*                     modelos.Boleta.create({
                             fecha_solicitud: fecha_solicitud,
                             observacion: observacion,
                             estado: estado,
@@ -255,6 +254,7 @@ else {
                             codigo: id_tipo_boleta,
                         })
                         .then(newboleta => {
+
                             modelos.sequelize.query('SELECT te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, c.cargo, a.desc_area  FROM public."Tipo_boleta" te, public."Empleados" e, public."Cargos" c, public."Areas" a, public."Contratos" co  where e.id=' + id_empleado + ' and te.id=' + id_tipo_boleta + ' and c.id_area=a.id and co.id_empleado=e.id and co.id_cargo = c.id').spread((datos_boleta, metadata) => {
             
                                 const fecha_inicio_repor = moment(fecha_inicio1).format("YYYY-MM-DD") + ' ' + hora_inicio;
@@ -263,7 +263,10 @@ else {
             
                                 res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor, variable3: fecha_solicitud1});
                             });
-                        })
+                        }) */
+
+                        
+
                 }
                 //en caso de que este pidiendo vacaciones y estos sias sobrepasan su saldo sale un mensaje
                 else {
@@ -330,18 +333,21 @@ router.get('/suma', (req, res) => {
     console.log(req.query.hora_fin);
     console.log(req.query.id_empleado);
     console.log(req.query.id_tipo_boleta);
-    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 +00:00");
+    console.log(req.query.texto_boleta);
+    const fecha_solicitud = moment().format("YYYY-MM-DD" + " 00:00:00.000 -04:00");
     const observacion = '';
     const estado = 'PENDIENTE';
-    const fecha_inicio = req.query.fecha_inicio + ' ' + req.query.hora_inicio + '.000 +00:00';
-    const fecha_fin = req.query.fecha_fin + ' ' + req.query.hora_fin + '.000 +00:00';
+    const fecha_inicio = req.query.fecha_inicio + ' ' + req.query.hora_inicio + '.000 -04:00';
+    const fecha_fin = req.query.fecha_fin + ' ' + req.query.hora_fin + '.000 -04:00';
     const fecha_inicio1 = req.query.fecha_inicio;
     const fecha_fin1 = req.query.fecha_fin;
     const hora_inicio = req.query.hora_inicio;
     const hora_fin = req.query.hora_fin;
     const id_empleado = req.query.id_empleado;
     const id_tipo_boleta = req.query.id_tipo_boleta;
+    const texto_boleta = req.query.texto_boleta;
     const inicio = moment(hora_inicio, 'HH:mm');
+
     const fin = moment(hora_fin, 'HH:mm');
     const suma_horas = (moment.duration(fin - inicio)) / 3600000;
 
@@ -393,8 +399,63 @@ router.get('/suma', (req, res) => {
             j = j + 1;
         };
 
-        dias = suma_dias - contador + au_horas,
-            res.json({ dias: dias });
+        dias = suma_dias - contador + au_horas;
+
+        //console.log('\x1b[33m%s\x1b[0m: ', moment(fecha_inicio).format("YYYY-MM-DD HH:mm"));
+        //console.log('\x1b[33m%s\x1b[0m: ', moment(fecha_fin).format("YYYY-MM-DD HH:mm"));
+        //console.log('\x1b[33m%s\x1b[0m: ',moment(fecha_inicio).add(12,'hours').format("YYYY-MM-DD HH:mm"));
+        //console.log('\x1b[33m%s\x1b[0m: ',texto_boleta);
+        
+        var fecha_inicial = moment(fecha_inicio).format("YYYY-MM-DD HH:mm");
+        var fecha_final = moment(fecha_fin).format("YYYY-MM-DD HH:mm");
+        var fecha_iterada = moment(fecha_inicio).format("YYYY-MM-DD HH:mm");
+
+        while(moment(fecha_iterada).isBefore(fecha_final)){
+            var fecha_ref = moment(fecha_iterada).format("YYYY-MM-DD");
+            var fecha_media_manana = moment(fecha_ref+' 13:30:00-04').format("YYYY-MM-DD HH:mm");
+            var fecha_media_tarde = moment(fecha_ref+' 23:30:00-04').format("YYYY-MM-DD HH:mm");
+
+            var default_asistencia = {
+                fecha: moment(fecha_iterada).format("YYYY-MM-DD"),
+                entrada_1:null,
+                salida_1: null,
+                entrada_2: null,
+                salida_2: null,
+                retraso_entrada_1: 0,
+                retraso_salida_1: 0,
+                retraso_entrada_2: 0,
+                retraso_salida_2: 0,
+                observacion_entrada_1 : null,
+                observacion_salida_1: null,
+                observacion_entrada_2: null,
+                observacion_salida_2: null,
+                id_empleado: res.locals.user.empleado.id,
+                id_horario: res.locals.user.empleado.id_horario,
+              }
+            //console.log('\x1b[33m%s\x1b[0m: ','FECHA ITERADA:'+fecha_iterada);
+
+            if(moment(fecha_iterada).isBefore(fecha_media_manana)){
+                console.log('\x1b[33m%s\x1b[0m: ', 'e1 s1');
+            }else if(moment(fecha_iterada).isBefore(fecha_media_tarde)){
+                console.log('\x1b[33m%s\x1b[0m: ', 'e2 s2');
+            }else{
+                console.log('\x1b[33m%s\x1b[0m: ', 'No asistencia');
+            }
+
+            fecha_iterada = moment(fecha_iterada).add(12,'hours').format("YYYY-MM-DD HH:mm");
+
+             /*modelos.Asistencia.findOrCreate(
+                {where: {
+                  id_empleado: res.locals.user.empleado.id,
+                  fecha:  moment(fecha_iterada).format("YYYY-MM-DD")
+                }, defaults: default_asistencia })
+              .spread((asistencia_encontrada, created) => {
+
+              }); */
+        
+        }
+
+        res.json({ dias: dias });
 
     })
 })
