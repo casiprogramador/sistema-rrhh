@@ -410,54 +410,87 @@ router.get('/suma', (req, res) => {
         var fecha_final = moment(fecha_fin).format("YYYY-MM-DD HH:mm");
         var fecha_iterada = moment(fecha_inicio).format("YYYY-MM-DD HH:mm");
 
+        var fechas_array = [];
+
         while(moment(fecha_iterada).isBefore(fecha_final)){
+            fechas_array.push(moment(fecha_iterada).format("YYYY-MM-DD"));
+            fecha_iterada = moment(fecha_iterada).add(24,'hours').format("YYYY-MM-DD HH:mm");
+        }
+
+        var promises_asistencia = fechas_array.map((fecha_asistencia)=>{
+            console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA FECHA: '+fecha_asistencia);
+
+            modelos.Asistencia.findOne(
+                {where: {
+                id_empleado: res.locals.user.empleado.id,
+                fecha:  moment(fecha_asistencia).format("YYYY-MM-DD")+' 20:00:00-04'
+                }}
+              ).then(asistencia => {
+                  console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA: '+JSON.stringify(asistencia));
+                  if(asistencia == null){
+                    var default_asistencia = {
+                        fecha: moment(fecha_asistencia).format("YYYY-MM-DD")+' 20:00:00-04',
+                        entrada_1:null,
+                        salida_1: null,
+                        entrada_2: null,
+                        salida_2: null,
+                        retraso_entrada_1: 0,
+                        retraso_salida_1: 0,
+                        retraso_entrada_2: 0,
+                        retraso_salida_2: 0,
+                        observacion_entrada_1 : null,
+                        observacion_salida_1: null,
+                        observacion_entrada_2: null,
+                        observacion_salida_2: null,
+                        id_empleado: res.locals.user.empleado.id,
+                        id_horario: res.locals.user.empleado.id_horario,
+                      }
+                      modelos.Asistencia.create(default_asistencia).then(asistencia => {
+                        console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA CREADA: '+JSON.stringify(asistencia));
+                      })
+                  }
+              })
+
+        })
+
+        Promise.all(promises_asistencia).then((asistencias)=>{
+            console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias));
+        });
+
+
+
+        /* while(moment(fecha_iterada).isBefore(fecha_final)){
             var fecha_ref = moment(fecha_iterada).format("YYYY-MM-DD");
             var fecha_media_manana = moment(fecha_ref+' 13:30:00-04').format("YYYY-MM-DD HH:mm");
-            var fecha_media_tarde = moment(fecha_ref+' 23:30:00-04').format("YYYY-MM-DD HH:mm");
+            var fecha_dia_ini = moment(fecha_ref+' 06:00:00-04').format("YYYY-MM-DD HH:mm");
+            var fecha_dia_fin = moment(fecha_ref+' 23:30:00-04').format("YYYY-MM-DD HH:mm");
 
-            var default_asistencia = {
-                fecha: moment(fecha_iterada).format("YYYY-MM-DD"),
-                entrada_1:null,
-                salida_1: null,
-                entrada_2: null,
-                salida_2: null,
-                retraso_entrada_1: 0,
-                retraso_salida_1: 0,
-                retraso_entrada_2: 0,
-                retraso_salida_2: 0,
-                observacion_entrada_1 : null,
-                observacion_salida_1: null,
-                observacion_entrada_2: null,
-                observacion_salida_2: null,
-                id_empleado: res.locals.user.empleado.id,
-                id_horario: res.locals.user.empleado.id_horario,
-              }
             //console.log('\x1b[33m%s\x1b[0m: ','FECHA ITERADA:'+fecha_iterada);
+            if(moment(fecha_iterada).isBetween(fecha_dia_ini,fecha_dia_fin)){
 
-            if(moment(fecha_iterada).isBefore(fecha_media_manana)){
-                console.log('\x1b[33m%s\x1b[0m: ', 'e1 s1');
-            }else if(moment(fecha_iterada).isBefore(fecha_media_tarde)){
-                console.log('\x1b[33m%s\x1b[0m: ', 'e2 s2');
-            }else{
-                console.log('\x1b[33m%s\x1b[0m: ', 'No asistencia');
+                if(moment(fecha_iterada).isBefore(fecha_media_manana)){
+                    console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e1 s1');
+                    
+                }else if(moment(fecha_iterada).isAfter(fecha_media_manana)){
+                    console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e2 s2');
+                }else{
+                    console.log('\x1b[33m%s\x1b[0m: ', 'No asistencia');
+                }
+
             }
 
-            fecha_iterada = moment(fecha_iterada).add(12,'hours').format("YYYY-MM-DD HH:mm");
+            fecha_iterada = moment(fecha_iterada).add(8,'hours').format("YYYY-MM-DD HH:mm");
 
-             /*modelos.Asistencia.findOrCreate(
-                {where: {
-                  id_empleado: res.locals.user.empleado.id,
-                  fecha:  moment(fecha_iterada).format("YYYY-MM-DD")
-                }, defaults: default_asistencia })
-              .spread((asistencia_encontrada, created) => {
 
-              }); */
         
-        }
+        } */
 
         res.json({ dias: dias });
 
     })
 })
+
+
+
 
 module.exports = router;
