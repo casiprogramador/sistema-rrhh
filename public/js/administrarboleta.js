@@ -4,9 +4,12 @@
         var id_boleta = $(this).attr('id-boleta');
         var id_tipo_boleta = $(this).attr('id-tipo-boleta');
         var id_empleado = $(this).attr('id-empleado');
+        var id_horario = $(this).attr('id-horario');
         var nombre = $(this).attr('nombre');
         var boleta = $(this).attr('boleta');
         var fecha = $(this).attr('fecha');
+        var fecha_ini = $(this).attr('fecha-ini');
+        var fecha_fin = $(this).attr('fecha-fin');
         var dias = $(this).attr('dias');
 
         $('#modal-empleado-nombre').val(nombre);
@@ -16,6 +19,10 @@
         $('#input-id-boleta').val(id_boleta);
         $('#input-id-tipo-boleta').val(id_tipo_boleta);
         $('#input-id-empleado').val(id_empleado);
+        $('#input-id-horario').val(id_horario);
+        $('#input-fecha-inicio').val(fecha_ini);
+        $('#input-fecha-fin').val(fecha_fin);
+        $('#input-texto-boleta').val(boleta);
 
     });
 

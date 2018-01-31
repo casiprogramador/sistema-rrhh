@@ -242,7 +242,8 @@ else {
             {        
                 if (suma_dias < Number(sumatoria[0].dias) && au_horas< Number(sumatoria[0].dias) ) {
 
-/*                     modelos.Boleta.create({
+
+                     modelos.Boleta.create({
                             fecha_solicitud: fecha_solicitud,
                             observacion: observacion,
                             estado: estado,
@@ -263,9 +264,7 @@ else {
             
                                 res.render('boleta/reporte', { boleta: datos_boleta, boleta_insertada: newboleta, variable: suma_dias, variable1: fecha_inicio_repor, variable2: fecha_fin_repor, variable3: fecha_solicitud1});
                             });
-                        }) */
-
-                        
+                        }) 
 
                 }
                 //en caso de que este pidiendo vacaciones y estos sias sobrepasan su saldo sale un mensaje
@@ -400,90 +399,6 @@ router.get('/suma', (req, res) => {
         };
 
         dias = suma_dias - contador + au_horas;
-
-        //console.log('\x1b[33m%s\x1b[0m: ', moment(fecha_inicio).format("YYYY-MM-DD HH:mm"));
-        //console.log('\x1b[33m%s\x1b[0m: ', moment(fecha_fin).format("YYYY-MM-DD HH:mm"));
-        //console.log('\x1b[33m%s\x1b[0m: ',moment(fecha_inicio).add(12,'hours').format("YYYY-MM-DD HH:mm"));
-        //console.log('\x1b[33m%s\x1b[0m: ',texto_boleta);
-        
-        var fecha_inicial = moment(fecha_inicio).format("YYYY-MM-DD HH:mm");
-        var fecha_final = moment(fecha_fin).format("YYYY-MM-DD HH:mm");
-        var fecha_iterada = moment(fecha_inicio).format("YYYY-MM-DD HH:mm");
-
-        var fechas_array = [];
-
-        while(moment(fecha_iterada).isBefore(fecha_final)){
-            fechas_array.push(moment(fecha_iterada).format("YYYY-MM-DD"));
-            fecha_iterada = moment(fecha_iterada).add(24,'hours').format("YYYY-MM-DD HH:mm");
-        }
-
-        var promises_asistencia = fechas_array.map((fecha_asistencia)=>{
-            console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA FECHA: '+fecha_asistencia);
-
-            modelos.Asistencia.findOne(
-                {where: {
-                id_empleado: res.locals.user.empleado.id,
-                fecha:  moment(fecha_asistencia).format("YYYY-MM-DD")+' 20:00:00-04'
-                }}
-              ).then(asistencia => {
-                  console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA: '+JSON.stringify(asistencia));
-                  if(asistencia == null){
-                    var default_asistencia = {
-                        fecha: moment(fecha_asistencia).format("YYYY-MM-DD")+' 20:00:00-04',
-                        entrada_1:null,
-                        salida_1: null,
-                        entrada_2: null,
-                        salida_2: null,
-                        retraso_entrada_1: 0,
-                        retraso_salida_1: 0,
-                        retraso_entrada_2: 0,
-                        retraso_salida_2: 0,
-                        observacion_entrada_1 : null,
-                        observacion_salida_1: null,
-                        observacion_entrada_2: null,
-                        observacion_salida_2: null,
-                        id_empleado: res.locals.user.empleado.id,
-                        id_horario: res.locals.user.empleado.id_horario,
-                      }
-                      modelos.Asistencia.create(default_asistencia).then(asistencia => {
-                        console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA CREADA: '+JSON.stringify(asistencia));
-                      })
-                  }
-              })
-
-        })
-
-        Promise.all(promises_asistencia).then((asistencias)=>{
-            console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(asistencias));
-        });
-
-
-
-        /* while(moment(fecha_iterada).isBefore(fecha_final)){
-            var fecha_ref = moment(fecha_iterada).format("YYYY-MM-DD");
-            var fecha_media_manana = moment(fecha_ref+' 13:30:00-04').format("YYYY-MM-DD HH:mm");
-            var fecha_dia_ini = moment(fecha_ref+' 06:00:00-04').format("YYYY-MM-DD HH:mm");
-            var fecha_dia_fin = moment(fecha_ref+' 23:30:00-04').format("YYYY-MM-DD HH:mm");
-
-            //console.log('\x1b[33m%s\x1b[0m: ','FECHA ITERADA:'+fecha_iterada);
-            if(moment(fecha_iterada).isBetween(fecha_dia_ini,fecha_dia_fin)){
-
-                if(moment(fecha_iterada).isBefore(fecha_media_manana)){
-                    console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e1 s1');
-                    
-                }else if(moment(fecha_iterada).isAfter(fecha_media_manana)){
-                    console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e2 s2');
-                }else{
-                    console.log('\x1b[33m%s\x1b[0m: ', 'No asistencia');
-                }
-
-            }
-
-            fecha_iterada = moment(fecha_iterada).add(8,'hours').format("YYYY-MM-DD HH:mm");
-
-
-        
-        } */
 
         res.json({ dias: dias });
 
