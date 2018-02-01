@@ -47,8 +47,8 @@ router.post('/buscar', (req, res) => {
 
 router.post('/estado', (req, res) => {
  console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(req.body));
- //let actualizarBoleta = { estado: req.body.estado_boleta, observacion: req.body.observacion,usuario_anulacion_aprobacion:res.locals.user.id, fecha_anulacion_aprobacion:moment().format() };
- let actualizarBoleta = { estado: 'Pendiente', observacion: req.body.observacion,usuario_anulacion_aprobacion:res.locals.user.id, fecha_anulacion_aprobacion:moment().format() };
+ let actualizarBoleta = { estado: req.body.estado_boleta, observacion: req.body.observacion,usuario_anulacion_aprobacion:res.locals.user.id, fecha_anulacion_aprobacion:moment().format() };
+ 
  modelos.Boleta.update(
    actualizarBoleta, 
    { 
@@ -58,6 +58,7 @@ router.post('/estado', (req, res) => {
 /*
 *Creacion o actualizacion de asistencias
 */
+if(req.body.estado_boleta == 'Aprobado'){
         var fecha_inicial = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
         var fecha_final = moment(req.body.fecha_fin).format("YYYY-MM-DD HH:mm");
         var fecha_iterada = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
@@ -95,7 +96,7 @@ router.post('/estado', (req, res) => {
                         observacion_entrada_2: null,
                         observacion_salida_2: null,
                         id_empleado: req.body.id_empleado,
-                        id_horario: req.body.id_body,
+                        id_horario: req.body.id_horario
                       }
                       return modelos.Asistencia.create(default_asistencia).then(asistencia_creada => {
                         console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA CREADA: '+JSON.stringify(asistencia_creada));
@@ -110,30 +111,31 @@ router.post('/estado', (req, res) => {
         })
 
         Promise.all(promises_asistencia).then((asistencias)=>{
-        console.log('\x1b[33m%s\x1b[0m: ','fecha inicio'+ moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm"));
-        console.log('\x1b[33m%s\x1b[0m: ','fecha fin'+ moment(req.body.fecha_fin).format("YYYY-MM-DD HH:mm"));
-        console.log('\x1b[33m%s\x1b[0m: ',req.body.texto_boleta);
+        console.log('\x1b[33m%s\x1b[0m: ','ENTRA A PROMESA');
+        //console.log('\x1b[33m%s\x1b[0m: ','fecha inicio'+ moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm"));
+        //console.log('\x1b[33m%s\x1b[0m: ','fecha fin'+ moment(req.body.fecha_fin).format("YYYY-MM-DD HH:mm"));
+        //console.log('\x1b[33m%s\x1b[0m: ',req.body.texto_boleta);
             array_asistencia_boleta = [];
             var fecha_inicial = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
             var fecha_final = moment(req.body.fecha_fin).format("YYYY-MM-DD HH:mm");
-            var fecha_iterada = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
+            var fecha_iterada_boleta = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
 
-            while(moment(fecha_iterada).isBefore(fecha_final)){
-                var fecha_ref = moment(fecha_iterada).format("YYYY-MM-DD");
+            while(moment(fecha_iterada_boleta).isBefore(fecha_final)){
+                
+                var fecha_ref = moment(fecha_iterada_boleta).format("YYYY-MM-DD");
                 var fecha_media_manana = moment(fecha_ref+' 13:30:00-04').format("YYYY-MM-DD HH:mm");
                 var fecha_dia_ini = moment(fecha_ref+' 06:00:00-04').format("YYYY-MM-DD HH:mm");
                 var fecha_dia_fin = moment(fecha_ref+' 23:30:00-04').format("YYYY-MM-DD HH:mm");
 
-                //console.log('\x1b[33m%s\x1b[0m: ','FECHA ITERADA:'+fecha_iterada);
-                if(moment(fecha_iterada).isBetween(fecha_dia_ini,fecha_dia_fin)){
-                    console.log('\x1b[33m%s\x1b[0m: ',fecha_iterada);
-                    if(moment(fecha_iterada).isBefore(fecha_media_manana)){
-                        //console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e1 s1');
-                        asist_boleta = { fecha:fecha_ref, turno: 1, id_empleado: res.locals.user.empleado.id, boleta:texto_boleta };
+                if(moment(fecha_iterada_boleta).isBetween(fecha_dia_ini,fecha_dia_fin)){
+                  
+                    if(moment(fecha_iterada_boleta).isBefore(fecha_media_manana)){
+                        console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e1 s1');
+                        asist_boleta = { fecha:fecha_ref, turno: 1, id_empleado: req.body.id_empleado, boleta:req.body.texto_boleta };
                         array_asistencia_boleta.push(asist_boleta);
-                    }else if(moment(fecha_iterada).isAfter(fecha_media_manana)){
-                        //console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e2 s2');
-                        asist_boleta = { fecha:fecha_ref, turno: 2, id_empleado: res.locals.user.empleado.id, boleta:texto_boleta };
+                    }else if(moment(fecha_iterada_boleta).isAfter(fecha_media_manana)){
+                        console.log('\x1b[33m%s\x1b[0m: ',fecha_ref+' e2 s2');
+                        asist_boleta = { fecha:fecha_ref, turno: 2, id_empleado: req.body.id_empleado, boleta:req.body.texto_boleta };
                         array_asistencia_boleta.push(asist_boleta);
                     }else{
                         console.log('\x1b[33m%s\x1b[0m: ', 'No asistencia');
@@ -141,12 +143,12 @@ router.post('/estado', (req, res) => {
 
                 }
 
-                fecha_iterada = moment(fecha_iterada).add(8,'hours').format("YYYY-MM-DD HH:mm");
-            
+                fecha_iterada_boleta = moment(fecha_iterada_boleta).add(8,'hours').format("YYYY-MM-DD HH:mm");
+                console.log('\x1b[33m%s\x1b[0m: ','fecha ITERADA add: '+ fecha_iterada_boleta);
             }
 
-            console.log('\x1b[33m%s\x1b[0m: ', JSON.stringify(array_asistencia_boleta));
-            var promise_asistencia_boleta = array_asistencia_boleta.map((asistencia_boleta)=>{
+            console.log('\x1b[33m%s\x1b[0m: ','ARRAY ASISTENCIA BOLETA:'+ JSON.stringify(array_asistencia_boleta));
+              var promise_asistencia_boleta = array_asistencia_boleta.map((asistencia_boleta)=>{
                 console.log('\x1b[33m%s\x1b[0m: ','ASISTENCIA ACTUALIZAR:' + JSON.stringify(asistencia_boleta));
 
                     var updateAsistencia1 = { 
@@ -189,9 +191,10 @@ router.post('/estado', (req, res) => {
 
             Promise.all(promise_asistencia_boleta).then((asistencias_actualizadas)=>{
                 console.log('\x1b[33m%s\x1b[0m: ', JSON.stringify(asistencias_actualizadas));
-            })
+            }) 
 
         });
+      }
 /*
 *Fin de creacion o actualizacion de asistencia
 */
@@ -224,14 +227,15 @@ router.post('/estado', (req, res) => {
             modelos.Saldo_Vacacion.update(updateValues, { where: { id: saldovacacion.id } }).then((result) => {
       
                 console.log(result);
-                req.flash('success_msg','Boleta actualizada correctamene');
+                
             });
         })
      }
 
      return updateboleta;
  }).then((boleta_actualizada)=>{
-  //res.redirect('/administrar/boleta');
+  req.flash('success_msg','Boleta actualizada correctamene');
+  res.redirect('/administrar/boleta');
  });
 });
 module.exports = router;

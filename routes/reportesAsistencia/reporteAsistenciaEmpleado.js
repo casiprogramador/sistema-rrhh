@@ -43,7 +43,7 @@ router.post('/buscar', function (req, res, next) {
     if ( typeof req.body.ci_empleado  === 'undefined') {
       if (req.body.tipo == 'completo') {
         console.log('\x1b[33m%s\x1b[0m', "comparar");
-        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + "'" + ' AND' + "'" + req.body.fin + "' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
+        modelos.sequelize.query('SELECT r.desc_area, e.ndi, e.paterno, e.materno, e.nombres, a.* FROM "Asistencia" a, "Empleados" e, "Usuarios" u, "Contratos" c, "Cargos" g, "Areas" r, "Horarios" h WHERE h.id=a.id_horario AND e.id=c.id_empleado AND c.id_cargo=g.id AND g.id_area=r.id AND a.id_empleado=e.id AND e.id_usuario=u.id AND a.fecha BETWEEN ' + "'" + req.body.inicio + " 00:01:00'" + ' AND' + "'" + req.body.fin + " 23:59:00' AND u.id=" + "'" + res.locals.user.id + "' ORDER BY fecha").spread((marcados, metadata) => {
           //console.log('\x1b[33m%s\x1b[0m', JSON.stringify(marcados));
 
           if(marcados.length >0){
