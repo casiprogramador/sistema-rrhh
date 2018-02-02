@@ -240,7 +240,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
                   retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_entrada_1:'retraso',
+                  observacion_entrada_1:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -253,7 +253,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
                   retraso_entrada_1: 0,
-                  observacion_entrada_1:'',
+                  observacion_entrada_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -271,7 +271,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
                   retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_salida_1:'abandono',
+                  observacion_salida_1:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -284,7 +284,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
                   retraso_salida_1: 0,
-                  observacion_salida_1:'',
+                  observacion_salida_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -302,7 +302,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
                   retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_entrada_2:'retraso',
+                  observacion_entrada_2:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -315,7 +315,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
                   retraso_entrada_2: 0,
-                  observacion_entrada_2:'',
+                  observacion_entrada_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -333,7 +333,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
                   retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_salida_2:'abandono',
+                  observacion_salida_2:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -346,7 +346,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
                   retraso_salida_2: 0,
-                  observacion_salida_2:'',
+                  observacion_salida_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcado.id_horario,
                   id_marcado: marcacion_datos.id_marcado

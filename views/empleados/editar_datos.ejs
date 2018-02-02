@@ -16,7 +16,7 @@
                      <div class="form-group row">
                            <label for="calculo_dias" class="col-sm-2 col-form-label">Nombre:</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" class="form-control"  value= "<%= empleado[0].nombres %>"  readonly="readonly">
+                                    <input type="text" class="form-control" class="form-control"  value= "<%= empleado[0].paterno %> <%= empleado[0].materno %> <%= empleado[0].nombres %>"  readonly="readonly">
                                 </div>
                         </div>
                         <div class="form-group row">
@@ -49,7 +49,7 @@
                         <div class="form-group row">
 
 
-                            <label for="area" class="col-sm-2 col-form-label">Contrato:</label>
+                            <label for="estado" class="col-sm-2 col-form-label">Contrato:</label>
                             
                               <div class="col-sm-10">
                                 <select class="form-control" id="tipo-horario" name="id_contrato">
@@ -58,7 +58,21 @@
                                     <% } %>
                                 </select>
                         </div>
+
                     </div>
+                    <div class="form-group row">
+                            <label for="area" class="col-sm-2 col-form-label">Estado:</label>
+                            <div class="col-sm-10">
+                                    <div class="form-check" >
+                                            <label class="form-check-label">
+        
+                                                <input type="checkbox" class="form-check-input"  name="estado"  <%= (empleado[0].estado) ? "checked" : " "  %> >
+        
+                                            </label>
+                                    </div>
+                            </div>
+
+                        </div>
 
                         <input type="hidden" name="id_empleado" value= "<%= empleado[0].id %>">  
                    
@@ -68,8 +82,8 @@
                  
                     <input class="btn btn-primary " type="submit" value="Grabar ">
              
-            <div>
-                    <a class="nav-link  "  type="button" href="/horario/lista_asignacion_horario">Volver</a>
+                <div>
+                    <a class="nav-link  "  type="button" href="/empleado">Volver</a>
                 </div>         
             </div>
             </div>

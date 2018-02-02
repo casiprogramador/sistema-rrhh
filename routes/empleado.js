@@ -7,13 +7,13 @@ var moment = require('moment');
 /* GET principal page. */
 router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
-    modelos.sequelize.query('select e.id,e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=true').spread((Empleado, metadata) => {
-        res.render('empleados/lista_empleados', { Empleado: Empleado});
+    modelos.sequelize.query('select e.id,e.ndi,e.estado , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=true').spread((Empleado, metadata) => {
+        res.render('empleados/lista_empleados', { Empleado: Empleado, opcion_estado:1});
     })
 });
 
 router.get('/editar/:id_empleado', md_auth.ensureAuth,  (req, res) => {
-    modelos.sequelize.query('select e.id, e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, e.id_horario, c.id as id_contrato, c.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.id='+req.params.id_empleado).spread((empleado, metadata) => {
+    modelos.sequelize.query('select e.id,e.estado, e.ndi , e.paterno, e.materno, e.nombres, h.descripcion, e.id_horario, c.id as id_contrato, c.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.id='+req.params.id_empleado).spread((empleado, metadata) => {
      
         modelos.Horario.findAll({
           where: {
@@ -35,10 +35,29 @@ router.get('/editar/:id_empleado', md_auth.ensureAuth,  (req, res) => {
     })
 });
 
+//BUsqueda por estado del empleado (Activo , inactivos o ambos)
+router.get('/buscar', md_auth.ensureAuth, function(req, res, next) {
+    console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(req.query));
+    var query = 'select e.id,e.ndi ,e.estado, e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=true';
+    if(req.query.estado == 1){
+        var query = 'select e.id,e.ndi,e.estado , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=true';
+    }else if(req.query.estado == 0){
+        query = 'select e.id,e.ndi,e.estado , e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id and e.estado=false';
+    }else{
+        query = 'select e.id,e.ndi ,e.estado, e.paterno, e.materno, e.nombres, h.descripcion, ca.cargo, a.desc_area from public."Empleados" e, public."Horarios" h, public."Contratos" c, public."Cargos" ca, public."Areas" a where e.id_horario = h.id and c.id_empleado = e.id and c.id_cargo= ca.id and ca.id_area=a.id';
+    }
+
+    modelos.sequelize.query(query).spread((Empleado, metadata) => {
+        res.render('empleados/lista_empleados', { Empleado: Empleado, opcion_estado:req.query.estado});
+    })
+});
+
+//Editar
 router.post('/editar', (req, res) => {
 
     let updateEmpleado = { 
         id_horario : req.body.id_horario,
+        estado: req.body.estado
     };
     modelos.Empleado.update(updateEmpleado, { where: { id: req.body.id_empleado } }).then((result) => {
   

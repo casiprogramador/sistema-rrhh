@@ -20,7 +20,10 @@ router.get('/editar/:id_contrato', function(req, res, next) {
 
     modelos.Contrato.findById(req.params.id_contrato).then(contrato => {
         modelos.Cargo.findAll().then((cargos) => {
-            res.render('contrato/editar_contrato',{cargos:cargos, contrato: contrato, moment:moment });
+            modelos.Tipo_Empleado.findAll().then((tipo_empleado)=>{
+                res.render('contrato/editar_contrato',{cargos:cargos, contrato: contrato,tipo_empleado:tipo_empleado, moment:moment });
+            })
+            
         })
         
     });
@@ -36,7 +39,8 @@ router.post('/editar', function(req, res, next) {
         nro_contrato: req.body.nro, 
         fecha_inicio : req.body.fecha_inicio,
         fecha_fin: fecha_final,
-        id_cargo: req.body.cargo
+        id_cargo: req.body.cargo,
+        id_tipo_empleado: req.body.tipo_empleado
     };
     modelos.Contrato.update(updateContrato, { where: { id: req.body.id_contrato } }).then((result) => {
   

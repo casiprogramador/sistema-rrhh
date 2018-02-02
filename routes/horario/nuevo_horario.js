@@ -49,6 +49,7 @@ router.get('/', md_auth.ensureAuth, function(req, res, next) {
 
 router.post('/modificar', (req, res) => {
 
+    console.log('\x1b[36m%s\x1b[0m',JSON.stringify(req.body));
     let updateHorario = { 
 
             descripcion:req.body.descripcion,
@@ -56,19 +57,19 @@ router.post('/modificar', (req, res) => {
             max_entrada_1:req.body.max_entrada_1,
             entrada_1:req.body.entrada_1,
             tolerancia_entrada_1:req.body.tolerancia_1,
-            min_salida_1:req.body.min_entrada_2,
-            max_salida_1:req.body.max_entrada_2,
-            salida_1:req.body.entrada_2,
-            tolerancia_salida_1:req.body.tolerancia_2,
+            min_salida_1:req.body.min_salida_1,
+            max_salida_1:req.body.max_salida_1,
+            salida_1:req.body.salida_1,
+            tolerancia_salida_1:req.body.tolerancia_salida_1,
     
-            min_entrada_2:req.body.min_entrada_3,
-            max_entrada_2:req.body.max_entrada_3,
-            entrada_2:req.body.entrada_3,
-            tolerancia_entrada_2:req.body.tolerancia_3,
-            min_salida_2:req.body.min_entrada_4,
-            max_salida_2:req.body.max_entrada_4,
-            salida_2:req.body.entrada_4,
-            tolerancia_salida_2:req.body.tolerancia_4,
+            min_entrada_2:req.body.min_entrada_2,
+            max_entrada_2:req.body.max_entrada_2,
+            entrada_2:req.body.entrada_2,
+            tolerancia_entrada_2:req.body.tolerancia_entrada_2,
+            min_salida_2:req.body.min_salida_2,
+            max_salida_2:req.body.max_salida_2,
+            salida_2:req.body.salida_2,
+            tolerancia_salida_2:req.body.tolerancia_salida_2,
             estado:(req.body.estado=='on'?'TRUE':'FALSE')
             
         };
