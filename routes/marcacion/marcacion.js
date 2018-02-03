@@ -74,14 +74,18 @@ router.get('/actualizar_asistencia', function(req, res, next){
               
               if(moment(eventTime).isAfter(add_evenTime_tol)){
                 
-                console.log('\x1b[36m%s\x1b[0m','Llego Tarde');
+                //console.log('\x1b[36m%s\x1b[0m','Llego Tarde');
                 var asistencia = {
                   tipo: 'E1',
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_entrada_1:'retraso',
+                  observacion_entrada_1:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -93,8 +97,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_1: 0,
-                  observacion_entrada_1:'',
+                  observacion_entrada_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -111,8 +119,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_salida_1:'abandono',
+                  observacion_salida_1:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -124,8 +136,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_1: 0,
-                  observacion_salida_1:'',
+                  observacion_salida_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -142,8 +158,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_entrada_2:'retraso',
+                  observacion_entrada_2:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -155,8 +175,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_2: 0,
-                  observacion_entrada_2:'',
+                  observacion_entrada_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -173,8 +197,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
-                  observacion_salida_2:'abandono',
+                  observacion_salida_2:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -186,8 +214,12 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_2: 0,
-                  observacion_salida_2:'',
+                  observacion_salida_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
                   id_horario: marcacion_datos.id_horario,
                   id_marcado: marcacion_datos.id_marcado
@@ -200,6 +232,8 @@ router.get('/actualizar_asistencia', function(req, res, next){
                 error: error
               };
             }
+
+            
           }else{
             //asistencia = 'marcado';
             //console.log('\x1b[36m%s\x1b[0m',JSON.stringify(marcado));
@@ -239,6 +273,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_1: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_1:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
@@ -252,6 +290,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_1: 0,
                   observacion_entrada_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
@@ -270,6 +312,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_1: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_1:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
@@ -283,6 +329,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_1: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_1: 0,
                   observacion_salida_1:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
@@ -301,6 +351,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_2: moment(add_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_entrada_2:'Retraso',
                   id_empleado: marcacion_datos.id_empleado,
@@ -314,6 +368,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   entrada_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_entrada_2: 0,
                   observacion_entrada_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
@@ -332,6 +390,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_2: moment(sub_evenTime_tol).diff(eventTime,'minutes'),
                   observacion_salida_2:'Abandono',
                   id_empleado: marcacion_datos.id_empleado,
@@ -345,6 +407,10 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   horario: marcacion_datos.desc_horario,
                   fecha: fecha_marcado,
                   salida_2: marcacion_datos.eventTime,
+                  horario_entrada_1:moment(marcacion_datos.entrada_1).format("HH:mm"),
+                  horario_entrada_2:moment(marcacion_datos.entrada_2).format("HH:mm"),
+                  horario_salida_1:moment(marcacion_datos.salida_1).format("HH:mm"),
+                  horario_salida_2:moment(marcacion_datos.salida_2).format("HH:mm"),
                   retraso_salida_2: 0,
                   observacion_salida_2:'En hora',
                   id_empleado: marcacion_datos.id_empleado,
@@ -377,16 +443,17 @@ router.get('/actualizar_asistencia', function(req, res, next){
       var promise_asistencia = asistencias.map((asistencia)=>{
         
         console.log('\x1b[36m%s\x1b[0m','ASISTENCIA:'+JSON.stringify(asistencia));
+        console.log('\x1b[36m%s\x1b[0m',(asistencia.horario_entrada_2 == '00:00') ? 0 : asistencia.retraso_entrada_1);
                 var default_asistencia = {
                   fecha: asistencia.fecha_marcado,
                   entrada_1:(asistencia.entrada_1) ? asistencia.entrada_1 : null,
                   salida_1: (asistencia.salida_1) ? asistencia.salida_1 : null,
                   entrada_2: (asistencia.entrada_2) ? asistencia.entrada_2 : null,
                   salida_2: (asistencia.salida_2) ? asistencia.salida_2 : null,
-                  retraso_entrada_1: asistencia.retraso_entrada_1,
-                  retraso_salida_1: asistencia.retraso_salida_1,
-                  retraso_entrada_2: asistencia.retraso_entrada_2,
-                  retraso_salida_2: asistencia.retraso_salida_2,
+                  retraso_entrada_1: (asistencia.horario_entrada_1 == '00:00') ? 0 : asistencia.retraso_entrada_1,
+                  retraso_salida_1: (asistencia.horario_salida_1 == '00:00') ? 0 : asistencia.retraso_salida_1,
+                  retraso_entrada_2: (asistencia.horario_entrada_2 == '00:00') ? 0 : asistencia.retraso_entrada_2,
+                  retraso_salida_2: (asistencia.horario_salida_2 == '00:00') ?  0 : asistencia.retraso_salida_2,
                   observacion_entrada_1 : asistencia.observacion_entrada_1,
                   observacion_salida_1: asistencia.observacion_salida_1,
                   observacion_entrada_2: asistencia.observacion_entrada_2,
@@ -465,13 +532,15 @@ router.get('/actualizar_asistencia', function(req, res, next){
                   console.log(e);
                  });
                  // Actualizacion de bandera de BS
+                 if(asistencia.id_marcado != null){
+                  modelos.BS.update(
+                    { bandera: 1}, 
+                    { where: {
+                       id: asistencia.id_marcado
+                    } 
+                  })
+                 }
 
-                 modelos.BS.update(
-                  { bandera: 1}, 
-                  { where: {
-                     id: asistencia.id_marcado
-                  } 
-                })
 
 
           
