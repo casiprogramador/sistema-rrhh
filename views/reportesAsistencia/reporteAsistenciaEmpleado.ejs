@@ -138,7 +138,7 @@
                 <%= marcados[0].nombres%>
               </h2>
               <div class="table-responsive">
-                <table id="table-consulta-marcado" class="table">
+                <table id="table-consulta-marcado1" class="table">
                   <thead align="center">
                     <tr>
                       <th colspan="3"></th>
@@ -169,20 +169,47 @@
 
                     </tr>
                   </thead>
-                  <tfoot>
-                      <tr>
-                          <th colspan="4" style="text-align:right">Total:</th>
-                          <th></th>
-                      </tr>
-                  </tfoot>
-                  <tbody>
-                    <%  var atrasos=0; 
-                                        var faltas=0;
-                                        var abandonos=0;
-                                        for(var i=0; i< marcados.length; i++) {
-                                          atrasos =atrasos + marcados[i].retraso_entrada_1 + marcados[i].retraso_salida_1+marcados[i].retraso_entrada_2+marcados[i].retraso_salida_2;
 
-                                      %>
+                  <tbody>
+                    <%  var sum_atrasos=0; 
+                        var sum_faltas=0;
+                        var sum_abandonos=0;
+                        var retraso_entrada_1 = 0;
+                        var retraso_salida_1 = 0;
+                        var retraso_entrada_2 = 0;
+                        var retraso_salida_1 = 0;
+                        var abandono_entrada_1 = 0;
+                        var abandono_salida_1 = 0;
+                        var abandono_entrada_2 = 0;
+                        var abandono_salida_1 = 0;
+                        var falta_entrada_1 = 0;
+                        var falta_salida_1 = 0;
+                        var falta_entrada_2 = 0;
+                        var falta_salida_1 = 0;
+                        %>
+                    <% for(var i=0; i< marcados.length; i++) { %>
+                    <% 
+                    retraso_entrada_1 = (marcados[i].retraso_entrada_1 == null) ? 0 : Math.abs(marcados[i].retraso_entrada_1); 
+                    retraso_entrada_2 = (marcados[i].retraso_entrada_2 == null) ? 0 : Math.abs(marcados[i].retraso_entrada_2); 
+                    retraso_salida_1 = (marcados[i].retraso_salida_1 == null) ? 0 : Math.abs(marcados[i].retraso_salida_1); 
+                    retraso_salida_2 = (marcados[i].retraso_salida_2 == null) ? 0 : Math.abs(marcados[i].retraso_salida_2);
+
+                    abandono_entrada_1 = (marcados[i].observacion_entrada_1 == 'Abandono') ? 1 : 0;
+                    abandono_entrada_2 = (marcados[i].observacion_entrada_2 == 'Abandono') ? 1 : 0;
+                    abandono_salida_1 = (marcados[i].observacion_salida_1 == 'Abandono') ? 1 : 0;
+                    abandono_salida_2 = (marcados[i].observacion_salida_2 == 'Abandono') ? 1 : 0;
+
+                    falta_entrada_1 = (marcados[i].retraso_entrada_1 == null) ? 1 : 0;
+                    falta_entrada_2 = (marcados[i].retraso_entrada_2 == null) ? 1 : 0;
+                    falta_salida_1 = (marcados[i].retraso_salida_1 == null) ? 1 : 0;
+                    falta_salida_2 = (marcados[i].retraso_salida_2 == null) ? 1 : 0;
+
+                    sum_atrasos = sum_atrasos+retraso_entrada_1+retraso_entrada_2+retraso_salida_1+retraso_salida_2;
+
+                    sum_abandonos = sum_abandonos+abandono_entrada_1+abandono_entrada_2+abandono_salida_1+abandono_salida_2;
+
+                    sum_faltas = sum_faltas + falta_entrada_1 + falta_entrada_2 + falta_salida_1 + falta_salida_2;
+                    %>
                       <tr align="center">
                         <td>
                         <% if(moment(marcados[i].fecha).format( 'dddd') == 'Monday' ) { %>
@@ -214,41 +241,45 @@
                           <%= marcados[i].descripcion %>
                         </td>
                         <td>
-                          <%= marcados[i].entrada_1 %>
+                          <%= (marcados[i].entrada_1 == null)? '' : marcados[i].entrada_1 %>
                         </td>
                         <td>
-                          <%= marcados[i].salida_1 %>
+                          <%= (marcados[i].salida_1 == null) ? '' : marcados[i].salida_1 %>
                         </td>
 
                         <td>
-                          <%= marcados[i].entrada_2 %>
+                          <%= (marcados[i].entrada_2 == null) ? '' : marcados[i].entrada_2 %>
                         </td>
                         <td>
-                          <%= marcados[i].salida_2 %>
+                          <%= (marcados[i].salida_2 == null ) ? '' : marcados[i].salida_2 %>
                         </td>
                         <td>
-                          <%= Math.abs(marcados[i].retraso_entrada_1) %>
+                          <%= (marcados[i].retraso_entrada_1 == null) ? '' : Math.abs(marcados[i].retraso_entrada_1)   %>
                         </td>
                         <td>
-                          <%= Math.abs(marcados[i].retraso_salida_1) %>
+                          <%= (marcados[i].retraso_salida_1 == null) ? '' :Math.abs(marcados[i].retraso_salida_1) %>
                         </td>
                         <td>
-                          <%= Math.abs(marcados[i].retraso_entrada_2) %>
+                          <%= (marcados[i].retraso_entrada_2 == null) ? '' : Math.abs(marcados[i].retraso_entrada_2) %>
                         </td>
                         <td>
-                          <%= Math.abs(marcados[i].retraso_salida_2) %>
+                          <%= (marcados[i].retraso_salida_2 == null) ? '' : Math.abs(marcados[i].retraso_salida_2) %>
                         </td>
                         <td>
-                          <%= marcados[i].observacion_entrada_1 == null ? "" : marcados[i].observacion_entrada_1 %>
+                          <%= marcados[i].observacion_entrada_1 == null ? 
+                          ( (marcados[i].retraso_entrada_1 == null) ? 'Falta' :'' ) : marcados[i].observacion_entrada_1 %>
                         </td>
                         <td>
-                          <%= marcados[i].observacion_salida_1 == null ? "" : marcados[i].observacion_salida_1 %>
+                          <%= marcados[i].observacion_salida_1 == null ? 
+                          ( (marcados[i].retraso_salida_1 == null) ? 'Falta' :'' ) : marcados[i].observacion_salida_1 %>
                         </td>
                         <td>
-                          <%= marcados[i].observacion_entrada_2 == null ? "" : marcados[i].observacion_entrada_2 %>
+                          <%= marcados[i].observacion_entrada_2 == null ? 
+                          ( (marcados[i].retraso_entrada_2 == null) ? 'Falta' :'' ) : marcados[i].observacion_entrada_2 %>
                         </td>
                         <td>
-                          <%= marcados[i].observacion_salida_2 == null ? "" : marcados[i].observacion_salida_2 %>
+                          <%= marcados[i].observacion_salida_2 == null ?
+                          ( (marcados[i].retraso_salida_2 == null) ? 'Falta' :'' ) : marcados[i].observacion_salida_2 %>
                         </td>
 
 
@@ -256,7 +287,14 @@
                       <% } %>
 
                   </tbody>
-
+                  <tfoot>
+                      <tr>
+                          <th style="text-align:right">Total:</th>
+                          <th>Atrasos: <%= sum_atrasos %></th>
+                          <th>Abandono: <%= sum_abandonos %> </th>
+                          <th>Faltas: <%= sum_faltas %></th>
+                      </tr>
+                  </tfoot>
 
 
                 </table>

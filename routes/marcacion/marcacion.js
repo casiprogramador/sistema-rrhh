@@ -19,7 +19,7 @@ router.get('/actualizar_asistencia', function(req, res, next){
   
   console.log('\x1b[33m%s\x1b[0m: ','FECHA REQUERIDA:'+fecha_marcado);
   var asistencias_actualizado = [];
-  modelos.sequelize.query(`SELECT bs.*,bs.id AS id_marcado, em.nombres, em.id AS id_empleado, ho.id as id_horario, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval `).spread((marcados, metadata) => {
+  modelos.sequelize.query(`SELECT bs.*,bs.id AS id_marcado, em.nombres, em.id AS id_empleado, ho.id as id_horario, ho.* FROM public."Bs" AS bs INNER JOIN public."Empleados" AS em ON em.id = bs."UserID" INNER JOIN public."Horarios" AS ho ON em.id_horario = ho.id WHERE bandera = '0' AND em.estado = TRUE AND bs."eventTime" BETWEEN '${fecha_marcado }'::timestamp AND '${fecha_marcado }'::timestamp + '1 days'::interval AND bs."UserID" = 4963958`).spread((marcados, metadata) => {
     console.log('\x1b[33m%s\x1b[0m: ','MARCADOS:'+JSON.stringify(marcados));
     return marcados;
   }).then(marcados=>{
