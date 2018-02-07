@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     id_empleado: DataTypes.INTEGER,
     id_tipo_boleta: DataTypes.INTEGER,
     usuario_anulacion_aprobacion: DataTypes.INTEGER,
-    fecha_anulacion_aprobacion: DataTypes.DATE
+    fecha_anulacion_aprobacion: DataTypes.DATE,
+    motivo: DataTypes.STRING,
+    fucov: DataTypes.STRING,
+    fecha_desde_hasta: DataTypes.STRING,
+    lugar: DataTypes.STRING
   });
   
   Boleta.associate = function (models) {

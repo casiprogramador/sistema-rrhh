@@ -37,6 +37,18 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW 
       },
+      motivo: {
+        type: Sequelize.STRING
+      },
+      fucov: {
+        type: Sequelize.STRING
+      },
+      fecha_desde_hasta: {
+        type: Sequelize.STRING
+      },
+      lugar: {
+        type: Sequelize.STRING
+      },
       id_empleado: {
         type: Sequelize.INTEGER,
         references: {

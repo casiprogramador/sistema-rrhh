@@ -130,13 +130,11 @@ if (req.body.tipo_boleta == 1 || req.body.tipo_boleta == 2) {
             };
             suma_dias = suma_dias - contador;
        
-if(sumatoria.length ==0)
-{
+if(sumatoria.length ==0){
 req.flash('error_msg1', 'No tiene el saldo suficiente para pedir vacacion');
 res.redirect('/boleta/formulario');
-}
-else
-{        
+}else {
+
 if (suma_dias <= Number(sumatoria[0].vacacion_dias)) {
     modelos.Boleta.create({
             fecha_solicitud: fecha_solicitud,
@@ -169,9 +167,8 @@ else {
 }
         })
     });
-}
+}else {
 //grabado de boletas normales 
-else {
     modelos.sequelize.query('select * from public."Empleados" e, public."Contratos" c, public."Tipo_Empleados" te where e.id=' + res.locals.user.empleado.id + 'and c.id_empleado = e.id and c.id_tipo_empleado = te.id and te.id= 2').spread((eventual, metadata) => {
     if(eventual.length == 0)
     {          
@@ -366,7 +363,7 @@ router.get('/suma', (req, res) => {
         res.json({ dias: 0 });
     } else {
 
-        if (suma_horas <= 4) {
+        if (suma_horas <= 6) {
             au_horas = 0.5;
         } else {
             au_horas = 1;

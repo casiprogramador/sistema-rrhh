@@ -1,10 +1,59 @@
 (function($) {
-
+    $('#motivo').hide();
+    $('#fucov').hide();
+    $('#fecha-viaje-comision').hide();
+    $('#lugar').hide();
+    $('#olvido-marcado').hide();
+    $('#fecha-inicio-block').show();
+    $('#fecha-fin-block').show();
+    $('#tiempo-solicitado').show();
+    $('#submit-boleta').prop('disabled', true);
     //texto-boleta
     $('#tipo-boleta').on('change', function() {
          var texto_boleta = $( "#tipo-boleta option:selected" ).text();
-         console.log(texto_boleta);
+         var id_boleta = $("#tipo-boleta option:selected").val();
+
          $('#texto-boleta').val(texto_boleta);
+
+         if(id_boleta == 6){
+            console.log('Boleta Viaje');
+            $('#motivo').show("fast");
+            $('#fucov').show("fast");
+            $('#fecha-viaje-comision').show("fast");
+            $('#lugar').show("fast");
+         }else if(id_boleta == 5){
+            console.log('Boleta Salida Comision');
+            $('#motivo').show("fast");
+            $('#fucov').hide();
+            $('#fecha-viaje-comision').hide();
+            $('#lugar').show("fast");
+         }else if(id_boleta == 3){
+            console.log('Boleta Permiso sin gose');
+            $('#motivo').show("fast");
+            $('#fucov').hide();
+            $('#fecha-viaje-comision').hide();
+            $('#lugar').hide();
+         }else if(id_boleta == 14){
+            $('#olvido-marcado').show();
+            $('#fecha-inicio-block').hide();
+            $('#fecha-fin-block').hide();
+            $('#motivo').hide();
+            $('#fucov').hide();
+            $('#fecha-viaje-comision').hide();
+            $('#lugar').hide();
+            $('#tiempo-solicitado').hide();
+            $('#submit-boleta').prop('disabled', false);
+         }else{
+            console.log('Boleta general');
+            $('#motivo').hide();
+            $('#fucov').hide();
+            $('#fecha-viaje-comision').hide();
+            $('#lugar').hide();
+            $('#olvido-marcado').hide();
+            $('#fecha-inicio-block').show();
+            $('#fecha-fin-block').show();
+            $('#tiempo-solicitado').show();
+         }
     });
 
 
