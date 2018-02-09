@@ -83,7 +83,7 @@ router.get('/calcularvacacion', function(req, res, next) {
                         if(diff_dias == 0){
                             console.log('agregar vacacion');
                             id_empleados.push({ 'id_empleado': empleado.id,
-                            'fecha_inicio': fecha_inicio,'dias':dias_vacacion, 'fecha_actual':fecha_actual });                     
+                            'fecha_inicio': fecha_inicio,'dias':dias_vacacion, 'fecha_actual':fecha_actual });                      
                         }
                     }
                     
