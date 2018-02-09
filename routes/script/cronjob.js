@@ -7,7 +7,7 @@ var Sequelize = require('sequelize');
 //Consulta de empleados por area
 router.get('/calcularvacacion', function(req, res, next) {
     
-    modelos.sequelize.query('SELECT public."Empleados".id,public."Historico_Cas".id as id_cas, public."Contratos".fecha_inicio, public."Historico_Cas".aa, public."Historico_Cas".mm, public."Historico_Cas".dd , public."Tipo_Empleados".id as id_tipo FROM public."Empleados" INNER JOIN  public."Contratos" ON public."Contratos".id_empleado = public."Empleados".id INNER JOIN  public."Tipo_Empleados" ON public."Tipo_Empleados".id  = public."Contratos".id_tipo_empleado LEFT JOIN  public."Historico_Cas" ON public."Historico_Cas".id_empleado = public."Empleados".id  WHERE public."Empleados".estado = true and public."Contratos".estado = true and public."Tipo_Empleados".id = 1 and public."Historico_Cas".estado = true').spread(
+    modelos.sequelize.query('SELECT public."Empleados".id, hc.id as id_cas,public."Contratos".fecha_inicio, hc.aa, public."Tipo_Empleados".id as id_tipo FROM public."Empleados" INNER JOIN  public."Contratos" ON public."Contratos".id_empleado = public."Empleados".id INNER JOIN  public."Tipo_Empleados" ON public."Tipo_Empleados".id  = public."Contratos".id_tipo_empleado LEFT JOIN  (SELECT id, aa, mm, dd,fecha, estado,id_empleado FROM public."Historico_Cas" WHERE estado = TRUE) hc ON hc.id_empleado = public."Empleados".id WHERE public."Empleados".estado = true and public."Contratos".estado = true and public."Tipo_Empleados".id = 1 ').spread(
         (empleados, metadata) => {
             return empleados;
         }).then(empleados=>{
@@ -49,8 +49,16 @@ router.get('/calcularvacacion', function(req, res, next) {
                     anio_actual = moment(fecha_requerida).format('YYYY');
 
                     fecha_inicio = moment(empleado.fecha_inicio).startOf('day').format('YYYY-MM-DD');
-                    fecha_actual = moment(fecha_requerida).startOf('day').format('YYYY-MM-DD');
-                    //fecha_actual = '2018-01-05';
+                    
+                    if(req.query.fecha){
+                        fecha_actual = req.query.fecha;
+                    }else{
+                        fecha_actual = moment(fecha_requerida).startOf('day').format('YYYY-MM-DD');
+                    }
+
+                    
+                                        
+                    //fecha_actual = '2017-01-01';
 
 
                     console.log('\x1b[33m%s\x1b[0m: ','EMPLEADO ID:'+empleado.id);
@@ -74,7 +82,8 @@ router.get('/calcularvacacion', function(req, res, next) {
                         //console.log('\x1b[33m%s\x1b[0m: ','FUERA: '+ moment(fecha).format('DD-MM-YYYY'));
                         if(diff_dias == 0){
                             console.log('agregar vacacion');
-                            id_empleados.push({ 'id_empleado': empleado.id,'dias':dias_vacacion, 'fecha_actual':fecha_actual });                     
+                            id_empleados.push({ 'id_empleado': empleado.id,
+                            'fecha_inicio': fecha_inicio,'dias':dias_vacacion, 'fecha_actual':fecha_actual });                     
                         }
                     }
                     
@@ -84,9 +93,9 @@ router.get('/calcularvacacion', function(req, res, next) {
             return id_empleados
         }).then(id_empleados =>{
             console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(id_empleados));
-            for(let empleado of id_empleados){
-                //console.log('\x1b[33m%s\x1b[0m: ',empleado);
-                modelos.Saldo_Vacacion.findOne({
+
+            var promise_saldo_vacacion = id_empleados.map((empleado)=>{
+                return modelos.Saldo_Vacacion.findOne({
                     where: {
                         id_empleado: empleado.id_empleado,
                         prescrito_estado: false,
@@ -102,20 +111,30 @@ router.get('/calcularvacacion', function(req, res, next) {
 
                         var nuevo_saldo = { fecha_inicio: saldo_fecha_inicio, fecha_fin: saldo_fecha_fin, dias: empleado.dias, prescrito_estado: false, gestion: gestion, observacion: '', id_empleado: empleado.id_empleado }
                         console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(nuevo_saldo));
-
+                        
                         modelos.Saldo_Vacacion.create(
                             nuevo_saldo
                         ).then(new_saldo_vacacion => {
-                            //res.json(new_saldo_vacacion);
+                            console.log('\x1b[33m%s\x1b[0m: ','SALDO INSERTADO'+JSON.stringify(new_saldo_vacacion));
+                            return new_saldo_vacacion; 
                         })
-                    }else{
-                        //console.log('\x1b[33m%s\x1b[0m: ','Saldo Vacacion');
-                        //console.log('\x1b[33m%s\x1b[0m: ',JSON.stringify(saldo));                   
+                        
                     }
+                    console.log('\x1b[33m%s\x1b[0m: ','SALDO ENCONTRADO'+JSON.stringify(saldo));
+                    return saldo; 
                 });
+            });
 
-            }
-            res.json({mensaje: 'ejecutado correctamente'}); 
+            var saldo_insertado = [];
+            Promise.all(promise_saldo_vacacion).then((saldo_vacaciones)=>{
+                for(saldo_vacacion in saldo_vacaciones){
+                    saldo_insertado.push(saldo_vacacion);
+                }
+                console.log('\x1b[33m%s\x1b[0m: ','SALDO'+JSON.stringify(saldo_vacacion)); 
+                //res.json(saldo_insertado); 
+            });
+            res.json(id_empleados);
+
         })
     
 });
