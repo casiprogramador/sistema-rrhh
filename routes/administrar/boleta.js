@@ -76,7 +76,25 @@ router.post('/estado', (req, res) => {
      */
     if (req.body.estado_boleta == 'Aprobado') {
       if (req.body.id_tipo_boleta == 14) {
-        
+
+        if(req.body.periodo_marcado == '1e'){
+          updateAsistenciaMarcado = { retraso_entrada_1:0,observacion_entrada_1:req.body.texto_boleta }
+        }else if(req.body.periodo_marcado == '1s'){
+          updateAsistenciaMarcado = { retraso_salida_1:0,observacion_salida_1:req.body.texto_boleta }
+        }else if(req.body.periodo_marcado == '2e'){
+          updateAsistenciaMarcado = { retraso_entrada_2:0,observacion_entrada_2:req.body.texto_boleta }
+        }else{
+          updateAsistenciaMarcado = { retraso_salida_2:0,observacion_salida_2:req.body.texto_boleta }
+        }
+        modelos.Asistencia.update(
+          updateAsistenciaMarcado, {
+            where: {
+              id_empleado: asistencia_boleta.id_empleado,
+              fecha: moment(req.body.fecha_marcado).format("YYYY-MM-DD") + ' 20:00:00-04'
+            }
+          }).then((asistenciaActualizada) => {
+          console.log('\x1b[33m%s\x1b[0m: ', asistenciaActualizada);
+        });
       } else {
         var fecha_inicial = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
         var fecha_final = moment(req.body.fecha_fin).format("YYYY-MM-DD HH:mm");
