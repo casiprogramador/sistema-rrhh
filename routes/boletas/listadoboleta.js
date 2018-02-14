@@ -7,7 +7,7 @@ var md_auth = require('../../middleware/authenticated');
 
 router.get('/', md_auth.ensureAuth,function(req, res, next) {
   
-      modelos.sequelize.query('SELECT b.id, te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, b.fecha_solicitud, b.estado, b.observacion, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id='+res.locals.user.empleado.id+' and te.id=b.id_tipo_boleta and b.id_empleado=e.id ').spread((boletas, metadata) => {
+      modelos.sequelize.query('SELECT b.*, te.tipo_boleta, e.ndi,e.paterno, e.materno, e.nombres, b.fecha_solicitud, b.estado, b.observacion, b.fecha_inicio, b.fecha_fin, b.id_empleado FROM public."Tipo_boleta" te, public."Empleados" e, public."Boleta" b where e.id='+res.locals.user.empleado.id+' and te.id=b.id_tipo_boleta and b.id_empleado=e.id ').spread((boletas, metadata) => {
         //console.log('\x1b[33m%s\x1b[0m',JSON.stringify(boletas));
         res.render('boleta/listadoboleta', { boletas: boletas,  moment:moment });
       })
@@ -33,14 +33,14 @@ router.post('/buscar', (req, res) => {
 
 router.get('/imprimir/:id', (req, res) => {
 
- modelos.sequelize.query('select b.id, b.fecha_solicitud, b.estado, b.fecha_inicio, b.fecha_fin, b.dias, e.ndi, e.paterno, e.materno, e.nombres, tb.tipo_boleta, ca.cargo, a.desc_area from public."Boleta" b, public."Empleados" e, public."Tipo_boleta" tb, public."Contratos" c, public."Cargos" ca, public."Areas" a where b.id='+req.params.id+'and e.id = b.id_empleado and tb.id= b.id_tipo_boleta and e.id= c.id_empleado and c.id_cargo= ca.id and ca.id_area= a.id limit 1').spread((datos_boleta, metadata) => {
+ modelos.sequelize.query('select b.*, e.ndi, e.paterno, e.materno, e.nombres, tb.tipo_boleta, ca.cargo, a.desc_area from public."Boleta" b, public."Empleados" e, public."Tipo_boleta" tb, public."Contratos" c, public."Cargos" ca, public."Areas" a where b.id='+req.params.id+'and e.id = b.id_empleado and tb.id= b.id_tipo_boleta and e.id= c.id_empleado and c.id_cargo= ca.id and ca.id_area= a.id limit 1').spread((datos_boleta, metadata) => {
   
   console.log('\x1b[33m%s\x1b[0m',JSON.stringify(datos_boleta));
   const fecha_solicitud = moment(datos_boleta[0].fecha_solicitud).format("YYYY-MM-DD" +' '+ 'HH:mm');
   const fecha_inicio = moment(datos_boleta[0].fecha_inicio).format("YYYY-MM-DD" +' '+ 'HH:mm');
   const fecha_fin = moment(datos_boleta[0].fecha_fin).format("YYYY-MM-DD" +' '+ 'HH:mm');
   
-res.render('boleta/reportetabla',{boleta:datos_boleta, variable1:fecha_solicitud,variable2:fecha_inicio,variable3:fecha_fin })
+res.render('boleta/reportetabla',{boleta:datos_boleta, variable1:fecha_solicitud,variable2:fecha_inicio,variable3:fecha_fin,moment:moment })
 
 
  })

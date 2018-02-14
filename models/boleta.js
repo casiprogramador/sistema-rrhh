@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     motivo: DataTypes.STRING,
     fucov: DataTypes.STRING,
     fecha_desde_hasta: DataTypes.STRING,
-    lugar: DataTypes.STRING
+    lugar: DataTypes.STRING,
+    fecha_marcado: DataTypes.DATE,
+    periodo_marcado: DataTypes.STRING
   });
   
   Boleta.associate = function (models) {
