@@ -72,9 +72,37 @@
                                             <td id='id' name='id'><%= boletas[i].id %></td>
                                             <td><%= boletas[i].ndi %></td>
                                             <td><%= boletas[i].tipo_boleta %></td>
-                                            <td><%= moment(boletas[i].fecha_solicitud).format( 'DD/MM/YYYY') %></td>
-                                            <td><%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY HH:mm') %></td>
-                                            <td><%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY HH:mm') %> </td>
+                                            <td>
+                                              <%if (boletas[i].id_tipo_boleta == 14) { %>
+                                                <%= moment(boletas[i].fecha_marcado).format( 'DD/MM/YYYY') %>
+                                              <% }else{ %>
+                                                <%= moment(boletas[i].fecha_solicitud).format( 'DD/MM/YYYY') %>
+                                              <% } %>
+                                            </td>
+                                            <td>
+                                                <%if (boletas[i].id_tipo_boleta == 14) { %>
+                                                  <%if (boletas[i].periodo_marcado == '1e') { %>
+                                                    <%=  'Entrada 1º periodo' %>
+                                                  <% }else if (boletas[i].periodo_marcado == '1s') { %>
+                                                    <%=  'Salida 1º periodo' %>
+                                                  <% }else if (boletas[i].periodo_marcado == '2e') { %>
+                                                    <%=  'Entrada 2º periodo' %>
+                                                  <% }else if (boletas[i].periodo_marcado == '2s') { %>
+                                                    <%=  'Salida 2º periodo' %>
+                                                  <% }else{%>
+                                                    <%=  'Sin Periodo' %>
+                                                  <% } %>
+                                                <% }else{ %>
+                                                  <%= moment(boletas[i].fecha_inicio).format( 'DD/MM/YYYY HH:mm') %>
+                                                <% } %>
+                                              
+                                            </td>
+                                            <td>
+                                                <%if (boletas[i].id_tipo_boleta != 14) { %>
+                                                  <%= moment(boletas[i].fecha_fin).format( 'DD/MM/YYYY HH:mm') %> 
+                                                <% } %>
+                                              
+                                            </td>
                                             <td><%= boletas[i].observacion %></td>
                                             <td><%= boletas[i].estado %></td>
                                             <td>

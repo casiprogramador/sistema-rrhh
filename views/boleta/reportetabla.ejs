@@ -20,6 +20,43 @@
 </br>
 </br>
   <b>Area: </b> <%= boleta[0].desc_area %>
+  <%if (boleta[0].id_tipo_boleta == 6 || boleta[0].id_tipo_boleta == 5) { %>
+  </br>
+  <b>Motivo: </b>
+  <%= boleta[0].motivo %>
+    </br>
+    <b>Lugar: </b>
+    <%= boleta[0].lugar %>
+
+  <% } %>
+        <%if (boleta[0].id_tipo_boleta == 6 ) { %>
+          </br>
+          <b>Fucov: </b>
+          <%= boleta[0].fucov %>
+            </br>
+            <b>Fecha del Viaje: </b>
+            <%= boleta[0].fecha_desde_hasta %>
+
+        <% } %>
+        <%if (boleta[0].id_tipo_boleta == 14) { %>
+                  </br>
+                  <b>Fecha Marcado: </b>
+                  <%= moment(boleta[0].fecha_marcado).format("DD/MM/YYYY") %>
+                    </br>
+                    <b>Periodo: </b>
+                    <%if (boleta[0].periodo_marcado == '1e') { %>
+                      <%=  'Entrada 1º periodo' %>
+                    <% }else if (boleta[0].periodo_marcado == '1s') { %>
+                      <%=  'Salida 1º periodo' %>
+                    <% }else if (boleta[0].periodo_marcado == '2e') { %>
+                      <%=  'Entrada 2º periodo' %>
+                    <% }else if (boleta[0].periodo_marcado == '2s') { %>
+                      <%=  'Salida 2º periodo' %>
+                    <% }else{%>
+                      <%=  'Sin Periodo' %>
+                    <% } %>
+                    
+         <% } %>
 </br>
   <hr align="left" size="4" width="1830" color="black" />
   <b>Desde Fecha y Hora:  </b><%= variable2%>
