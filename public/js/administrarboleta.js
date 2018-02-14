@@ -11,6 +11,25 @@
         var fecha_ini = $(this).attr('fecha-ini');
         var fecha_fin = $(this).attr('fecha-fin');
         var dias = $(this).attr('dias');
+        var fecha_marcado = $(this).attr('fecha-marcado');
+        var periodo_marcado = $(this).attr('periodo-marcado');
+        if(id_tipo_boleta == 14){
+            $('#boleta-normal').hide();
+            $('#boleta-olvido').show();
+        }else{
+            $('#boleta-normal').show();
+            $('#boleta-olvido').hide();
+        }
+
+        if(periodo_marcado == '1e'){
+            var texto_periodo = 'Entrada 1º periodo';
+        }else if(periodo_marcado == '1s'){
+            var texto_periodo = 'Salida 1º periodo';
+        }else if(periodo_marcado == '2e'){
+            var texto_periodo = 'Entrada 2º periodo';
+        }else{
+            var texto_periodo = 'Salida 2º periodo';
+        }
 
         $('#modal-empleado-nombre').val(nombre);
         $('#modal-empleado-fecha').val(fecha);
@@ -23,7 +42,11 @@
         $('#input-fecha-inicio').val(fecha_ini);
         $('#input-fecha-fin').val(fecha_fin);
         $('#input-texto-boleta').val(boleta);
-
+        $('#modal-input-periodo-marcado').val(texto_periodo);
+        $('#input-fecha-marcado').val(
+            $.format.date(fecha_marcado,'dd/MM/yyyy')
+        );
+        $('#input-periodo-marcado').val(periodo_marcado);
     });
 
     $( "#button-boleta" ).on( "click", function() {
