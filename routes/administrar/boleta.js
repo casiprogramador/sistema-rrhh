@@ -56,9 +56,9 @@ router.post('/buscar', (req, res) => {
 
 router.post('/estado', (req, res) => {
   console.log('\x1b[33m%s\x1b[0m: ', JSON.stringify(req.body));
-  res.json(req.body);
+  //res.json(req.body);
   let actualizarBoleta = {
-    estado: req.body.estado_boleta,
+    //estado: req.body.estado_boleta,
     observacion: req.body.observacion,
     usuario_anulacion_aprobacion: res.locals.user.id,
     fecha_anulacion_aprobacion: moment().format()
@@ -77,23 +77,48 @@ router.post('/estado', (req, res) => {
     if (req.body.estado_boleta == 'Aprobado') {
       if (req.body.id_tipo_boleta == 14) {
 
-        if(req.body.periodo_marcado == '1e'){
-          updateAsistenciaMarcado = { retraso_entrada_1:0,observacion_entrada_1:req.body.texto_boleta }
-        }else if(req.body.periodo_marcado == '1s'){
-          updateAsistenciaMarcado = { retraso_salida_1:0,observacion_salida_1:req.body.texto_boleta }
-        }else if(req.body.periodo_marcado == '2e'){
-          updateAsistenciaMarcado = { retraso_entrada_2:0,observacion_entrada_2:req.body.texto_boleta }
-        }else{
-          updateAsistenciaMarcado = { retraso_salida_2:0,observacion_salida_2:req.body.texto_boleta }
+        if (req.body.periodo_marcado == '1e') {
+          updateAsistenciaMarcado = {
+            retraso_entrada_1: 0,
+            observacion_entrada_1: req.body.texto_boleta
+          }
+        } else if (req.body.periodo_marcado == '1s') {
+          updateAsistenciaMarcado = {
+            retraso_salida_1: 0,
+            observacion_salida_1: req.body.texto_boleta
+          }
+        } else if (req.body.periodo_marcado == '2e') {
+          updateAsistenciaMarcado = {
+            retraso_entrada_2: 0,
+            observacion_entrada_2: req.body.texto_boleta
+          }
+        } else {
+          updateAsistenciaMarcado = {
+            retraso_salida_2: 0,
+            observacion_salida_2: req.body.texto_boleta
+          }
         }
+        console.log('\x1b[33m%s\x1b[0m: ', 'fecha marcado:' + moment(req.body.fecha_marcado).format("YYYY-MM-DD") + ' 20:00:00-04');
         modelos.Asistencia.update(
           updateAsistenciaMarcado, {
             where: {
-              id_empleado: asistencia_boleta.id_empleado,
+              id_empleado: req.body.id_empleado,
               fecha: moment(req.body.fecha_marcado).format("YYYY-MM-DD") + ' 20:00:00-04'
             }
           }).then((asistenciaActualizada) => {
-          console.log('\x1b[33m%s\x1b[0m: ', asistenciaActualizada);
+          if (asistenciaActualizada) {
+            console.log('\x1b[33m%s\x1b[0m: ', asistenciaActualizada);
+            req.flash('success_msg', 'Boleta actualizada correctamene');
+            res.redirect('/administrar/boleta');
+            res.end();
+          } else {
+            req.flash('success_msg', 'No se puede actualizar la asistencia');
+            res.redirect('/administrar/boleta');
+            res.end();
+          }
+
+        }).catch(function (err) {
+          console.log(err);
         });
       } else {
         var fecha_inicial = moment(req.body.fecha_inicio).format("YYYY-MM-DD HH:mm");
@@ -138,7 +163,9 @@ router.post('/estado', (req, res) => {
               return modelos.Asistencia.create(default_asistencia).then(asistencia_creada => {
                 console.log('\x1b[33m%s\x1b[0m: ', 'ASISTENCIA CREADA: ' + JSON.stringify(asistencia_creada));
                 return asistencia_creada;
-              })
+              }).catch(function (err) {
+                console.log(err);
+              });
             } else {
               return asistencia;
             }
@@ -243,15 +270,19 @@ router.post('/estado', (req, res) => {
         });
       }
 
-    }
 
-    /*
-     *Fin de creacion o actualizacion de asistencia
+
+      /*
+       *Fin de creacion o actualizacion de asistencia
+       */
+
+          /*
+     * Actualizacion de Saldo de vacaciones
      */
-
-
     if (req.body.id_tipo_boleta == 1 || req.body.id_tipo_boleta == 2) {
-      modelos.Saldo_Vacacion.findOne({
+
+
+      modelos.Saldo_Vacacion.findAll({
         where: {
           id_empleado: req.body.id_empleado,
           prescrito_estado: false
@@ -259,39 +290,66 @@ router.post('/estado', (req, res) => {
         order: [
           ['gestion', 'ASC'],
         ]
-      }).then((saldovacacion) => {
-        //res.render('administrar/boleta',{boletas:boletas, moment:moment});
+      }).then((saldovacaciones) => {
 
+        console.log('\x1b[33m%s\x1b[0m: ', 'SALDO VACACION:' + JSON.stringify(saldovacaciones));
+        var saldo_vacaciones_actualizado = [];
         var dias_vacacion = req.body.dias_vacacion;
-        var dias_vacacion_saldo = saldovacacion.dias;
-        var dias_vacaciones_actualizar = saldovacacion.dias;
-
-        if (req.body.estado_boleta == 'Aprobado') {
-          var dias_vacaciones_actualizar = dias_vacacion_saldo - dias_vacacion;
-          //console.log('\x1b[33m%s\x1b[0m: ','DIAS:'+dias_vacaciones_actualizar);
+        for(var saldo_vacacion of saldovacaciones){
+          
+          id_saldo_vacacion = saldo_vacacion.id;
+          dias_saldo_vacacion = saldo_vacacion.dias;
+          dias_actualizado = dias_saldo_vacacion - dias_vacacion;
+          if(dias_actualizado <= 0){
+            dias_vacacion = Math.abs(dias_actualizado);
+            dias_actualizado = 0;
+          }else{
+            dias_vacacion = 0;
+          }
+          let saldo_vacacion_actualizado = {
+            id: id_saldo_vacacion,
+            dias: dias_actualizado
+          }
+          saldo_vacaciones_actualizado.push(saldo_vacacion_actualizado);
         }
 
+        console.log('\x1b[33m%s\x1b[0m: ', 'SALDO VACACION ACTUALIZADO:' + JSON.stringify(saldo_vacaciones_actualizado));
 
-        let updateValues = {
-          dias: dias_vacaciones_actualizar
-        };
+        var promise_saldo_vacacion = saldo_vacaciones_actualizado.map((saldo_vacacion_actualizado)=>{
+          let updateSaldoVacacion = { dias: saldo_vacacion_actualizado.dias};
+          console.log('VALORE ACTUALIZAR: '+JSON.stringify(updateSaldoVacacion));
+          return  modelos.Saldo_Vacacion.update(
+            updateSaldoVacacion, {
+            where: {
+              id: saldo_vacacion_actualizado.id
+            }
+          }).then((result) => {
 
-        modelos.Saldo_Vacacion.update(updateValues, {
-          where: {
-            id: saldovacacion.id
-          }
-        }).then((result) => {
+            return result;
 
-          console.log(result);
+          }).catch(function (err) {
+            console.log(err);
+          });
+        })
 
-        });
-      })
+        Promise.all(promise_saldo_vacacion).then((saldo_vacacion_guardado)=>{
+          console.log('\x1b[33m%s\x1b[0m: ', 'REGISTRO ACTUALIZADOS: '+saldo_vacacion_guardado.length);
+        })
+
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
-
+    /*
+     *Fin actualizacion de Saldo de vacaciones
+     */
+    }
     return updateboleta;
   }).then((boleta_actualizada) => {
     req.flash('success_msg', 'Boleta actualizada correctamene');
     res.redirect('/administrar/boleta');
-  });
+  }).catch(function (err) {
+    console.log(err);
+  });;
 });
 module.exports = router;

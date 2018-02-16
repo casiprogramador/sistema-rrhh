@@ -44,7 +44,7 @@
         $('#input-texto-boleta').val(boleta);
         $('#modal-input-periodo-marcado').val(texto_periodo);
         $('#input-fecha-marcado').val(
-            $.format.date(fecha_marcado,'dd/MM/yyyy')
+            $.format.date(fecha_marcado,'yyyy-MM-dd')
         );
         $('#input-periodo-marcado').val(periodo_marcado);
     });

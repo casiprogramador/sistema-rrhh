@@ -7,7 +7,7 @@
     "port": 5432,
     "dialect": "postgres",
     "timezone": "-04:00",
-    "logging": false,
+    "logging": true,
     "connectionTimeout": 0,
       "pool":{
          "max": 1,

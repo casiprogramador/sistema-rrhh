@@ -39,7 +39,7 @@ router.post('/reporte', (req, res) => {
     const lugar = req.body.lugar;
     const fecha_desde_hasta = moment(req.body.fecha_viaje_inicio).format("DD/MM/YYYY")+' al '+moment(req.body.fecha_viaje_fin).format("DD/MM/YYYY");
 
-    const fecha_marcado = req.body.fecha_marcado;
+    const fecha_marcado = req.body.fecha_marcado+" 20:00:00.000 -04:00";
     const periodo_marcado = req.body.periodo_marcado;
 
     var dias_restados = moment(fecha_fin).diff(moment(fecha_inicio), "days");
