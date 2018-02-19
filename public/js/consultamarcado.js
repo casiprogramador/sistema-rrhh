@@ -13,23 +13,27 @@ $(document).ready(function() {
         bSort: false,
         buttons: [{
                 extend: 'copy',
+                footer: true,
                 text: 'COPIAR',
                 title: 'REPORTE DE ASISTENCIA ' + fecha_reporte
             },
             {
                 extend: 'print',
+                footer: true,
                 text: 'IMPRIMIR',
-                title: 'Reporte de Saldo de Vacaciones ' + fecha_reporte
+                title: 'REPORTE DE ASISTENCIA ' + fecha_reporte
             },
             {
                 extend: 'excel',
+                footer: true,
                 text: 'EXPORTAR EXCEL',
-                title: 'Reporte de Saldo de Vacaciones ' + fecha_reporte
+                title: 'REPORTE DE ASISTENCIA  ' + fecha_reporte
             },
             {
                 extend: 'pdfHtml5',
+                footer: true,
                 text: 'EXPORTAR PDF',
-                title: 'Reporte de Saldo de Vacaciones ' + fecha_reporte,
+                title: 'REPORTE DE ASISTENCIA ' + fecha_reporte,
                 orientation: 'landscape'
             }
         ],

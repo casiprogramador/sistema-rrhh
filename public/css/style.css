@@ -14501,6 +14501,15 @@ a.bg-dark:hover {
 }
 
 @media print {
+    html, body {
+        min-height: 100%;
+        float: left;
+        width: 100%;
+    }
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
     .d-print-block {
         display: block !important;
     }
