@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
@@ -29,7 +30,8 @@
     "request": "^2.83.0",
     "sequelize": "^4.22.6",
     "sequelize-cli": "^3.0.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "zklib": "^0.1.2"
   },
   "devDependencies": {
     "color": "^2.0.1",
