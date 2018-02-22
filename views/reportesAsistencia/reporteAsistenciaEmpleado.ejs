@@ -13,6 +13,8 @@
           <% } %>
 
 
+
+
             <div class="row justify-content-md-center">
               <div class="col-12 col-lg-10 grid-margin grid-margin-lg-0">
                 <div class="card">
@@ -28,7 +30,7 @@
                           <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
                           <div class="col-sm-6">
                             <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado"
-                              value="<%= ( typeof empleado  === 'undefined') ? '' : empleado[0].ndi  %>">
+                              value="<%= ( empleado.length  === 0 ) ? '' : empleado[0].ndi  %>">
                           </div>
 
                           <div class="col-sm-2">
@@ -37,7 +39,7 @@
                         </div>
 
 
-                        <%if( typeof empleado  !== 'undefined' ){%>
+                        <%if( empleado.length  !== 0 ){%>
                           <div class="form-group row">
                             <h2 class="card-title">Datos Generales</h2>
                           </div>
@@ -145,13 +147,16 @@
               <h2 class="card-title">
                 <%= marcados[0].desc_area %>
               </h2>
+              <div class="row"></div>
+                <div class="col-md-10">
+                  <h2 class="card-title">
+                    <%= marcados[0].ndi %>
+                      <%= marcados[0].paterno%>
+                        <%= marcados[0].materno%>
+                          <%= marcados[0].nombres%>
+                  </h2>
+                </div>
 
-              <h2 class="card-title">
-                <%= marcados[0].ndi %>
-                  <%= marcados[0].paterno%>
-                    <%= marcados[0].materno%>
-                      <%= marcados[0].nombres%>
-              </h2>
 
               <div class="table-responsive">
                 <table id="table-consulta-marcado" class="table">

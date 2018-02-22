@@ -14,14 +14,14 @@
                       <tr><th>Direccion IP</th><th>Puerto</th><th>Estado</th><th>Modelo</th><th>Identificador</th><th>Comentarios</th><th></th></tr>
                       <% for(var i=0; i< newdispositivo.length; i++) { %>
                         <tr>
-                        <form method="POST" action="/marcacion/marcaciones">
+                        <form method="POST" action="/marcacion/marcaciones" id="">
                           <td><input type="hidden" name="dispositivo" value="<%=newdispositivo[i].DireccionIP%>"/><input name="ip" type="hidden" value="<%=newdispositivo[i].DireccionIP %>"><%=newdispositivo[i].DireccionIP %></td><td><input name="puerto" type="hidden" value="<%=newdispositivo[i].Puerto %>"><%=newdispositivo[i].Puerto %></td><td><%=newdispositivo[i].Cod_Estado %></td><td><%=newdispositivo[i].Modelo %></td><td><%=newdispositivo[i].Identificador %></td><td><%=newdispositivo[i].Comentario %></td><td><button class="button" type="submmit">Ver</button></td>
                         </form>
                         </tr>
                         <%}%>
                     </table>
                     <% if(x.length > 0) { %>
-                    <form method="POST" action="/marcacion/guardar_marcacion">
+                    <form method="POST" action="/marcacion/guardar_marcacion" id="form-guardar-marcacion">
                     <h1><center>Registros</center></h1>
                     <input type="hidden" value="<%=ip%>" name="ip">
                     <center><button type="submmit" class="btn btn-primary">Guardar y limpiar</button></center>
