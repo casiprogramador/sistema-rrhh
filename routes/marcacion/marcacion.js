@@ -11,6 +11,34 @@ var Promise = require("bluebird");
 var ZKLib = require("zklib");
 var async = require('async');
 
+var marcaciones = function(req,res, next) {
+  var ip=req.body.dispositivo;
+  var puerto= "4370";
+  ip=ip.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, '');
+  /*var ips="192.168.130.33";
+  console.log(ip);*/
+    var options = {
+      host: param.webservice_marcacion.ip,
+      port: param.webservice_marcacion.puerto,
+      //host: "localhost",
+      //port: 8080,
+      path: '/usr?'+"ip="+ip+"&puerto="+puerto,
+      method: 'GET'
+    }
+    http.request(options, function(resp) {
+
+      resp.setEncoding('utf8');
+      let data = '';
+      resp.on('data', function (chunk) {
+        data += chunk;
+      });
+      resp.on('end',()=>{
+        req.marcaciones = JSON.parse(data);
+        next();
+      })
+    }).end();
+};
+
 var guardar_marcacion = function(req,res2, next) {
   var ip=req.body.ip;
   var puerto= "4370";
@@ -68,6 +96,14 @@ var guardar_marcacion = function(req,res2, next) {
       })
   }).end();
 };
+
+router.post('/marcaciones', marcaciones, function(req,res, next) {
+  var x = req.marcaciones;
+  modelos.Dispositivo.findAll({
+  }).then(newdispositivos => {
+    res.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:req.body.dispositivo,moment:moment});
+  })
+})
 
 router.post('/guardar_marcacion',guardar_marcacion, function(req, res, next){
   //var fecha_marcado = moment('2018-01-19').format("YYYY-MM-DD");
@@ -1176,68 +1212,6 @@ router.get('/actualizar_asistencia', function(req, res, next){
   })
 })
 
-
-var marcaciones = function(req,res2, next) {
-  var ip=req.body.dispositivo;
-  var puerto= "4370";
-  ip=ip.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, '');
-  /*var ips="192.168.130.33";
-  console.log(ip);*/
-    var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
-      //host: "localhost",
-      //port: 8080,
-      path: '/usr?'+"ip="+ip+"&puerto="+puerto,
-      method: 'GET'
-    }
-    http.request(options, function(res) {
-
-      res.setEncoding('utf8');
-      let data = '';
-      res.on('data', function (chunk) {
-        data += chunk;
-      });
-      res.on('end',()=>{
-        var x = JSON.parse(data);
-        modelos.Dispositivo.findAll({
-        }).then(newdispositivos => {
-          res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
-        })
-      })
-    }).end();
-};
-
-router.post('/marcaciones', function(req,res2, next) {
-  var ip=req.body.dispositivo;
-  var puerto= "4370";
-  ip=ip.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, '');
-  /*var ips="192.168.130.33";
-  console.log(ip);*/
-    var options = {
-      host: param.webservice_marcacion.ip,
-      port: param.webservice_marcacion.puerto,
-      //host: "localhost",
-      //port: 8080,
-      path: '/usr?'+"ip="+ip+"&puerto="+puerto,
-      method: 'GET'
-    }
-    http.request(options, function(res) {
-
-      res.setEncoding('utf8');
-      let data = '';
-      res.on('data', function (chunk) {
-        data += chunk;
-      });
-      res.on('end',()=>{
-        var x = JSON.parse(data);
-        modelos.Dispositivo.findAll({
-        }).then(newdispositivos => {
-          res2.render('marcacion/marcacion',{newdispositivo:newdispositivos,x:x,ip:ip,moment:moment});
-        })
-      })
-    }).end();
-})
 
 
 router.get('/dispositivos',md_auth.ensureAuth, function(req,res, next) {
