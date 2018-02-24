@@ -29,13 +29,8 @@
                         <div class="form-group row">
                           <label for="ci reporte" class="col-sm-2 col-form-label">C. I.:</label>
                           <div class="col-sm-6">
-                              <%if( typeof empleado === 'undefined' ){%>
                             <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado"
                               value="">
-                              <%}else{%>
-                                <input type="text" class="form-control" class="form-control" name="ci_empleado" id="ci_empleado" placeholder="Ingrese el CI del empleado"
-                                value="<%= ( empleado.length  === 0 ) ? '' : empleado[0].ndi  %>">
-                                <%}%>
                           </div>
 
                           <div class="col-sm-2">
@@ -43,7 +38,7 @@
                           </div>
                         </div>
 
-                        <%if( typeof empleado !== 'undefined' ){%>
+
                         <%if( empleado.length  !== 0 ){%>
                           <div class="form-group row">
                             <h2 class="card-title">Datos Generales</h2>
@@ -86,7 +81,6 @@
                               </div>
                             </article>
                           </div>
-                          <%}%>
                           <%}%>
                             <%}%>
 

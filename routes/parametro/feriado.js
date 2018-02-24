@@ -36,8 +36,11 @@ desc_feriado : descripcion,
 fecha_feriado : fecha_convertida,
 })
 .then(newboleta => { 
-res.render('parametro/feriado',{feriado:newboleta });
+    res.render('parametro/feriado',{feriado:newboleta });
+}).catch(function (err) {
+    console.log(err);
 });
+
 }
 })
 
