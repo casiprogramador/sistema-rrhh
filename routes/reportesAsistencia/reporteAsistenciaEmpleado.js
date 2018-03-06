@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var modelos = require('../../models/index');
+
 var moment = require('moment');
+var modelos = require('../../models/index');
+var asistenciaModule = require('../../modules/asistencia');
 
 router.get('/', function (req, res, next) {
 
@@ -33,11 +35,12 @@ router.post('/buscarEmpleado', function (req, res, next) {
 });
 
 
-router.post('/buscar', function (req, res, next) {
-  // console.log(JSON.stringify("entrooo"));
+router.post('/buscar',async function (req, res, next) {
 
   var fecha_inicio = req.body.inicio;
   var fecha_fin = req.body.fin;
+  //let feriados = await asistenciaModule.diasHabilesTrabajo(fecha_inicio,fecha_fin);
+  //console.log(JSON.stringify(feriados));
   if (req.body.inicio < req.body.fin) {
   //lado de un usuario empleado
     if ( typeof req.body.ci_empleado  === 'undefined') {

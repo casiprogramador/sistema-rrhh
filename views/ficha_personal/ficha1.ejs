@@ -1,329 +1,345 @@
 <% layout('/layouts/admin') -%>
-                <!-- partial -->
-                <div class="container-fluid page-body-wrapper">
-                  <div class="row row-offcanvas row-offcanvas-right">
-                    <div class="content-wrapper">
-                      <div class="row user-profile">
-                          <div class="col-lg-10 side-right">
-                            <div class="card">
-                              <div class="card-body">
-                                <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
-                                  <h2 class="card-title">Registro de Ficha Personal</h2>
-                                  <ul class="nav nav-tabs flex-column flex-sm-row" id="FichaPersonalTab" role="tablist">
-                                    <li class="nav-item">
-                                      <a class="nav-link" id="datospersonalestab" data-toggle="tab" href="
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+      <div class="content-wrapper">
+        <div class="row user-profile">
+          <div class="col-lg-10 side-right">
+            <div class="card">
+              <div class="card-body">
+                <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
+                  <h2 class="card-title">Registro de Ficha Personal</h2>
+                  <ul class="nav nav-tabs flex-column flex-sm-row" id="FichaPersonalTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonalestab" data-toggle="tab" href="
                                       #identificacionpersonal" role="tab" aria-controls="identificacionpersonal">Identificacion Personal</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" id="datospersonales1tab" data-toggle="tab" href="#datospersonales1" role="tab" aria-controls="datospersonales1">Datos Personales I</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" id="datospersonales2tab" data-toggle="tab" href="#datospersonales2" role="tab" aria-controls="datospersonales2">Datos Personales II</a>
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div class="wrapper">
-                                  <hr>
-                                  
-                                    
-                                    <form class="cmxform" id="registropersonal" method="post" action="/ficha_personal/identificacion_personal_update" enctype="multipart/form-data">
-                                      <div class="tab-content" id="myTabContent">
-                                        <!-- tab identificacion personal -->
-                                        <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
-                                          <div class="container">
-                                          <h1 class="card-title">Identificacion Personal </h1>
-                
-                                                  <div class="row">
-                                                  <div class="col">
-                                                  <div class="form-group">
-                                                    <label for="nombres">Nombres *</label>
-                                                    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Primer Nombre" minlength="2" value="<%= newempleado[0].nombres %>" >
-                                                  </div>
-                                                  </div>
-                                                  </div>
-                
-                
-                                                  <div class="row">
-                                                  <div class="col">
-                                                  <div class="form-group">
-                                                    <label for="priapellido">Primer Apellido *</label>
-                                                    <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" value="<%=(newempleado[0].paterno!=null) ? newempleado[0].paterno:'' %>">
-                                                  </div>
-                                                  </div>
-                                                  <div class="col">
-                                                  <div class="form-group">
-                                                    <label for="segapellido">Segundo Apellido</label>
-                                                    <input name="segapellido" class="form-control" id="segapellido" placeholder="Segundo Apellido" minlength="2" value="<%= newempleado[0].materno %>">
-                                                  </div>
-                                                  </div>
-                                                  </div>
-                
-                
-                                                  <div class="row">
-                                                  <div class="col-6">
-                                                  <div class="form-group">
-                                                    <label for="casapellido">Apellido de casada</label>
-                                                    <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2" value="<%=(newempleado[0].esposo!=null) ? newempleado[0].esposo:'' %>">
-                                                  </div>
-                                                  </div>
-                                                  </div>
-                
-                                                  <div class="row">
-                                                  <div class="col">
-                                                  <div class="form-group">
-                                                    <label for="ci">Numero de Carnet de identidad *</label>
-                                                    <input name="ci" type="number" class="form-control" id="ci" placeholder="Numero de Carnet de Identidad" onkeypress="return valida(event)" minlength="6" value="<%= newempleado[0].ndi %>">
-                                                  </div>
-                                                  </div>
-                                                  <div class="col">
-                                                  <label for="expedido">Expedido en</label>
-                                                  <select name="expedido" class="form-control" style="width:100%" id="expedido">
-                                                  <option value='<%= newempleado[0].expedido%>'><%= newempleado[0].expedido%></option>
-                                                  <option value="lp">La Paz</option>
-                                                  <option value="cbba">Cochabamba</option>
-                                                  <option value="stc">Santa Cruz</option>
-                                                  <option value="tj">Tarija</option>
-                                                  <option value="O">Oruro</option>
-                                                  <option value="ch">Chuquisaca</option>
-                                                  <option value="B">Beni</option>
-                                                  <option value="P">Pando</option>
-                                                  <option value="Pt">Potosi</option>
-                                                  </select>
-                                                  </div>
-                                                  </div>
-                
-                                                    <div class="row">
-                                                    <div class="col-6">
-                                                    <div class="form-group">
-                                                    <label for="paisci">Pais</label>
-                                                    <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais" minlength="2" value="<%=(newempleado[0].pais_expedido!=null) ? newempleado[0].pais_expedido:'' %>">
-                                                  </div>
-                                                  </div>
-                                                  <div class="col">
-                                                      <div class="form-group">
-                                                      <label for="foto">Fotografia</label>
-                                                      <input type="file" name="foto" class="dropify" data-height = "120" data-default-file="<%= newempleado[0].foto%>" value="<%= newempleado[0].foto%>"/>
-                                                      <input type="hidden" name="path_foto" value="<%= newempleado[0].foto%>"/>
-                                                      
-                                                    </div>
-                                                      </div>
-                                                  </div>
-                                                  
-    
-                                                  <br><br><br><br><br><br><br><br><br>
-                                            
-                                            </div>
-                                            </div>
-                                        <!-- tab identificacion personal ends -->
-                                        <!-- tab datospersonales1 -->
-    
-                                        <div class="tab-pane fade" id="datospersonales1" role="tabpanel" aria-labelledby="dropdown1-tab">
-                                          <div class="container">
-                                          <h1 class="card-title">Datos Personales I</h1>
-                                          <h1 class="card-title">Lugar de Nacimiento</h1>
-                
-                
-                                                      <div class="row">
-                                                        <div class="col">
-                                                          <div class="form-group">
-                                                            <label for="provincia">Provincia</label>
-                                                            <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia" minlength="2" value="<%=(newempleado[0].provincia!=null) ? newempleado[0].provincia:'' %>">
-                                                          </div>
-                                                          </div>
-                                                          <div class="col">
-                                                            <div class="form-group">
-                                                              <label for="departamento">Departamento</label>
-                                                              <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento" minlength="2" value="<%=(newempleado[0].departamento!=null) ? newempleado[0].departamento:'' %>">
-                                                            </div>
-                                                            </div>
-                                                      </div>
-              
-              
-                                                      <div class="row">
-                                                        <div class="col">
-                                                          <div class="form-group">
-                                                            <label for="nacionalidad">Nacionalidad</label>
-                                                            <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" minlength="2" value="<%=(newempleado[0].nacionalidad!=null) ? newempleado[0].nacionalidad:'' %>">
-                                                          </div>
-                                                          </div>
-                                                      <div class="col">
-                                                      <div class="form-group">
-                                                        <label for="paisnac">Pais</label>
-                                                        <input name="paisnac" type="text" class="form-control" id="paisnac" placeholder="Pais" minlength="2" value="pais_nacimiento">
-                                                      </div>
-                                                      </div>
-                                                      </div>
-                    
-                                                      <div class="row">
-                                                      <div class="col">
-                                                        <label for="fecnac">Fecha de Nacimiento</label>
-                                                        <div class="input-group date datepicker b-l-blue">
-                                                          <input name="fecnac" type="text" class="form-control" id="fecnac"  value="<%=moment(newempleado[0].fecha_nacimiento).format('MM/DD/YYYY')%>">
-                                                          <div class="input-group-addon">
-                                                            <span class="mdi mdi-calendar-blank"></span>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                      <div class="col"></div>
-                                                      </div>
-    
-    
-                                              </div>
-                                              </div>
-                                            <!-- tab datospersonales1 ends -->
-                                            <!-- tab datospersonales2 -->
-    
-                                            <div class="tab-pane fade" id="datospersonales2" role="tabpanel" aria-labelledby="dropdown1-tab">
-                                                <div class="container">
-                                            <h1 class="card-title">Datos Personales II</h1>
-                
-                
-                                                  <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                        <label for="sexo">Sexo</label>
-                                                        <div class="form-radio">
-                                                          <label class="form-check-label">
-                                                              <input type="radio" class="form-check-input" name="sexo" id="sexo" value="M" <%=x%>>
-                                                              Masculino
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-radio">
-                                                            <label class="form-check-label">
-                                                              <input type="radio" class="form-check-input" name="sexo" id="sexo" value="F" <%=y%>>
-                                                              Femenino
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="col"><div class="form-group">
-                                                      <label for="sangre">Grupo Sanguineo</label>
-                                                      <input name="sangre" type="text" class="form-control" id="sangre" placeholder="Grupo Sanguineo" minlength="2" value="<%=(newempleado[0].grupo_sang!=null) ? newempleado[0].grupo_sang:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                      <label for="ecivil">Estado Civil *</label>
-                                                      <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil" minlength="2" value="<%=(newempleado[0].estado_civil!=null) ? newempleado[0].estado_civil:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                      <label for="lmilitar">N° Libreta de Servicio Militar</label>
-                                                      <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar" minlength="5" onkeypress="return valida(event)" value="<%=(newempleado[0].num_serv_mil!=null) ? newempleado[0].num_serv_mil:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                                                    
-                                                    <h1 class="card-title">Direccion Domicilio</h1>
-                  
-                  
-                  
-                                                    <div class="row">
-                                                    <div class="col-8">
-                                                    <div class="form-group">
-                                                    <label for="calle">Calle o Avenida *</label>
-                                                    <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida" value="<%=(newempleado[0].calle_avenida!=null) ? newempleado[0].calle_avenida:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                    <div class="form-group">
-                                                    <label for="num">N°</label>
-                                                    <input name="num" type="text" class="form-control" id="num" placeholder="N°" onkeypress="return valida(event)" value="<%=(newempleado[0].nro_direccion!=null) ? newempleado[0].nro_direccion:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="nedificio">Nombre Edificio</label>
-                                                    <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio" minlength="2" value="<%=(newempleado[0].nombre_edificio!=null) ? newempleado[0].nombre_edificio:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="piso">Piso</label>
-                                                    <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso" onkeypress="return valida(event)" value="<%=(newempleado[0].piso_edificio!=null) ? newempleado[0].piso_edificio:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="depto">Depto</label>
-                                                    <input name="depto" type="text" class="form-control" id="depto" placeholder="Departamento" value="<%=(newempleado[0].nro_departamento!=null) ? newempleado[0].nro_departamento:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="zona">Zona *</label>
-                                                    <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona" minlength="2" required value="<%=(newempleado[0].zona!=null) ? newempleado[0].zona:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="tdomicilio">Telefono Domicilio</label>
-                                                    <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio" minlength="7" onkeypress="return valida(event)" value="<%=(newempleado[0].telefono!=null) ? newempleado[0].telefono:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="tcelular">Telefono Celular *</label>
-                                                    <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular" minlength="7" onkeypress="return valida(event)" value="<%=(newempleado[0].celular!=null) ? newempleado[0].celular:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="casilla">Casilla</label>
-                                                    <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla"  onkeypress="return valida(event)" value="<%=(newempleado[0].casilla!=null) ? newempleado[0].casilla:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="email">E'mail Personal *</label>
-                                                    <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal" type="email" minlength="8" value="<%=(newempleado[0].email_personal!=null) ? newempleado[0].email_personal:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-    
-                  
-                                                    <div class="row">
-                                                    <div class="col">
-                                                    <div class="form-group">
-                                                    <label for="emailt">E'mail Trabajo</label>
-                                                    <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo" type="email" minlength="8" value="<%=(newempleado[0].email_trabajo!=null) ? newempleado[0].email_trabajo:'' %>">
-                                                    </div>
-                                                    </div>
-                                                    </div>
-    
-                                                        <div class="row">
-                                                        <div class="col">
-                                                        <div class="form-group">
-                                                        <button type="submit" class="btn btn-success mr-2">Actualizar</button>
-                                                        
-                                                        </div>
-                                                        </div>
-                                                        </div> 
-                                              </div>
-                                            </div>
-                                  </div>
-                                      </form>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales1tab" data-toggle="tab" href="#datospersonales1" role="tab" aria-controls="datospersonales1">Datos Personales I</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="datospersonales2tab" data-toggle="tab" href="#datospersonales2" role="tab" aria-controls="datospersonales2">Datos Personales II</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="wrapper">
+                  <hr>
 
+
+                  <form class="cmxform" id="registropersonal" method="post" action="/ficha_personal/identificacion_personal_update" enctype="multipart/form-data">
+                    <div class="tab-content" id="myTabContent">
+                      <!-- tab identificacion personal -->
+                      <div class="tab-pane fade show active" id="identificacionpersonal" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="container">
+                          <h1 class="card-title">Identificacion Personal </h1>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="nombres">Nombres *</label>
+                                <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Primer Nombre" minlength="2" value="<%= newempleado[0].nombres %>">
+                              </div>
                             </div>
                           </div>
+
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="priapellido">Primer Apellido *</label>
+                                <input name="priapellido" type="text" class="form-control" id="priapellido" placeholder="Primer Apellido" minlength="2" value="<%=(newempleado[0].paterno!=null) ? newempleado[0].paterno:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="segapellido">Segundo Apellido</label>
+                                <input name="segapellido" class="form-control" id="segapellido" placeholder="Segundo Apellido" minlength="2" value="<%= newempleado[0].materno %>">
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="casapellido">Apellido de casada</label>
+                                <input name="casapellido" type="text" class="form-control" id="casapellido" placeholder="Apellido de Casada" minlength="2"
+                                  value="<%=(newempleado[0].esposo!=null) ? newempleado[0].esposo:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="ci">Numero de Carnet de identidad *</label>
+                                <input name="ci" type="number" class="form-control" id="ci" placeholder="Numero de Carnet de Identidad" onkeypress="return valida(event)"
+                                  minlength="6" value="<%= newempleado[0].ndi %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <label for="expedido">Expedido en</label>
+                              <select name="expedido" class="form-control" style="width:100%" id="expedido">
+                                <option value='<%= newempleado[0].expedido%>'>
+                                  <%= newempleado[0].expedido%>
+                                </option>
+                                <option value="lp">La Paz</option>
+                                <option value="cbba">Cochabamba</option>
+                                <option value="stc">Santa Cruz</option>
+                                <option value="tj">Tarija</option>
+                                <option value="O">Oruro</option>
+                                <option value="ch">Chuquisaca</option>
+                                <option value="B">Beni</option>
+                                <option value="P">Pando</option>
+                                <option value="Pt">Potosi</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="paisci">Pais</label>
+                                <input name="paisci" type="text" class="form-control" id="paisci" placeholder="Pais" minlength="2" value="<%=(newempleado[0].pais_expedido!=null) ? newempleado[0].pais_expedido:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="foto">Fotografia</label>
+                                <input type="file" name="foto" class="dropify" data-height="120" data-default-file="<%= newempleado[0].foto%>" value="<%= newempleado[0].foto%>"
+                                />
+                                <input type="hidden" name="path_foto" value="<%= newempleado[0].foto%>" />
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+
+                        </div>
                       </div>
+                      <!-- tab identificacion personal ends -->
+                      <!-- tab datospersonales1 -->
+
+                      <div class="tab-pane fade" id="datospersonales1" role="tabpanel" aria-labelledby="dropdown1-tab">
+                        <div class="container">
+                          <h1 class="card-title">Datos Personales I</h1>
+                          <h1 class="card-title">Lugar de Nacimiento</h1>
+
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="provincia">Provincia</label>
+                                <input name="provincia" type="text" class="form-control" id="provincia" placeholder="Provincia" minlength="2" value="<%=(newempleado[0].provincia!=null) ? newempleado[0].provincia:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="departamento">Departamento</label>
+                                <input name="departamento" type="text" class="form-control" id="departamento" placeholder="Departamento" minlength="2" value="<%=(newempleado[0].departamento!=null) ? newempleado[0].departamento:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="nacionalidad">Nacionalidad</label>
+                                <input name="nacionalidad" type="text" class="form-control" id="nacionalidad" placeholder="Nacionalidad" minlength="2" value="<%=(newempleado[0].nacionalidad!=null) ? newempleado[0].nacionalidad:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="paisnac">Pais</label>
+                                <input name="paisnac" type="text" class="form-control" id="paisnac" placeholder="Pais" minlength="2" value="pais_nacimiento">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <label for="fecnac">Fecha de Nacimiento</label>
+                              <div class="input-group date datepicker b-l-blue">
+                                <input name="fecnac" type="text" class="form-control" id="fecnac" value="<%=moment(newempleado[0].fecha_nacimiento).format('YYYY-MM-DD')%>">
+                                <div class="input-group-addon">
+                                  <span class="mdi mdi-calendar-blank"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col"></div>
+                          </div>
+
+
+                        </div>
                       </div>
+                      <!-- tab datospersonales1 ends -->
+                      <!-- tab datospersonales2 -->
+
+                      <div class="tab-pane fade" id="datospersonales2" role="tabpanel" aria-labelledby="dropdown1-tab">
+                        <div class="container">
+                          <h1 class="card-title">Datos Personales II</h1>
+
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="sexo">Sexo</label>
+                                <div class="form-radio">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="sexo" id="sexo" value="M" <%=x%>> Masculino
+                                  </label>
+                                </div>
+                                <div class="form-radio">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="sexo" id="sexo" value="F" <%=y%>> Femenino
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="sangre">Grupo Sanguineo</label>
+                                <input name="sangre" type="text" class="form-control" id="sangre" placeholder="Grupo Sanguineo" minlength="2" value="<%=(newempleado[0].grupo_sang!=null) ? newempleado[0].grupo_sang:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="ecivil">Estado Civil *</label>
+                                <input name="ecivil" type="text" class="form-control" id="ecivil" placeholder="Estado Civil" minlength="2" value="<%=(newempleado[0].estado_civil!=null) ? newempleado[0].estado_civil:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="lmilitar">N° Libreta de Servicio Militar</label>
+                                <input name="lmilitar" type="text" class="form-control" id="lmilitar" placeholder="N° de Libreta de Servicio Militar" minlength="5"
+                                  onkeypress="return valida(event)" value="<%=(newempleado[0].num_serv_mil!=null) ? newempleado[0].num_serv_mil:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <h1 class="card-title">Direccion Domicilio</h1>
+
+
+
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <label for="calle">Calle o Avenida *</label>
+                                <input name="calle" type="text" class="form-control" id="calle" placeholder="Calle o Avenida" value="<%=(newempleado[0].calle_avenida!=null) ? newempleado[0].calle_avenida:'' %>">
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="num">N°</label>
+                                <input name="num" type="text" class="form-control" id="num" placeholder="N°" onkeypress="return valida(event)" value="<%=(newempleado[0].nro_direccion!=null) ? newempleado[0].nro_direccion:'0' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="nedificio">Nombre Edificio</label>
+                                <input name="nedificio" type="text" class="form-control" id="nedificio" placeholder="Nombre Edificio" minlength="2" value="<%=(newempleado[0].nombre_edificio!=null) ? newempleado[0].nombre_edificio:'' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="piso">Piso</label>
+                                <input name="piso" type="text" class="form-control" id="piso" placeholder="Piso" onkeypress="return valida(event)" value="<%=(newempleado[0].piso_edificio!=null) ? newempleado[0].piso_edificio:'0' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="depto">Depto</label>
+                                <input name="depto" type="text" class="form-control" id="depto" placeholder="Departamento" value="<%=(newempleado[0].nro_departamento!=null) ? newempleado[0].nro_departamento:'0' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="zona">Zona *</label>
+                                <input name="zona" id="zona" rows="6" class="form-control" placeholder="zona" minlength="2" required value="<%=(newempleado[0].zona!=null) ? newempleado[0].zona:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="tdomicilio">Telefono Domicilio</label>
+                                <input name="tdomicilio" id="tdomicilio" rows="6" class="form-control" placeholder="Telefono Domicilio" minlength="7" onkeypress="return valida(event)"
+                                  value="<%=(newempleado[0].telefono!=null) ? newempleado[0].telefono:'0' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="tcelular">Telefono Celular *</label>
+                                <input name="tcelular" id="tcelular" rows="6" class="form-control" placeholder="Telefono Celular" minlength="7" onkeypress="return valida(event)"
+                                  value="<%=(newempleado[0].celular!=null) ? newempleado[0].celular:'0' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="casilla">Casilla</label>
+                                <input name="casilla" id="casilla" rows="6" class="form-control" placeholder="Casilla" onkeypress="return valida(event)"
+                                  value="<%=(newempleado[0].casilla!=null) ? newempleado[0].casilla:'0' %>">
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="email">E'mail Personal *</label>
+                                <input name="emailp" id="emailp" rows="6" class="form-control" placeholder="E'mail Personal" type="email" minlength="8" value="<%=(newempleado[0].email_personal!=null) ? newempleado[0].email_personal:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label for="emailt">E'mail Trabajo</label>
+                                <input name="emailt" id="emailt" rows="6" class="form-control" placeholder="E'mail Trabajo" type="email" minlength="8" value="<%=(newempleado[0].email_trabajo!=null) ? newempleado[0].email_trabajo:'' %>">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-success mr-2">Actualizar</button>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -36,6 +36,7 @@ router.get('/identificacion_personal3',md_auth.ensureAuth, function(req, res, ne
     attributes: ['id','paterno', 'materno','nombres','desc_otro'],
     // añadir id
     where: { id_empleado: res.locals.user.empleado.id } }).then(dependientes => {
+      console.log(JSON.stringify(dependientes));
     // projects will be an array of Project instances with the specified name
     res.render('ficha_personal/ficha3',{dependientes:dependientes});
   })
@@ -49,7 +50,7 @@ router.get('/identificacion_personal4',md_auth.ensureAuth, function(req, res, ne
     // añadir id
     where: { id_empleado: res.locals.user.empleado.id } }).then(experiencia => {
     // projects will be an array of Project instances with the specified name
-    res.render('ficha_personal/ficha4',{experiencia:experiencia});
+    res.render('ficha_personal/ficha4',{experiencia:experiencia, moment:moment});
   })
 });
 
@@ -244,7 +245,7 @@ router.post('/identificacion_personal4',md_auth.ensureAuth, (req, res) => {
           // añadir id
           where: { id_empleado: res.locals.user.empleado.id } }).then(experiencia => {
           // projects will be an array of Project instances with the specified name
-          res.render('ficha_personal/ficha4',{experiencia:experiencia});
+          res.redirect('/ficha_personal/identificacion_personal4');
         })
       })
 });
@@ -256,12 +257,12 @@ router.post('/identificacion_personal5',md_auth.ensureAuth, (req, res) => {
   const nombrep = req.body.nombrep;
   const relacion = req.body.relacion;
   const telefonop = req.body.telefonop;
-  //id_empleado = req.body.id_empleado;
+  const id_empleado = req.body.id_empleado;
   modelos.Referencias_Personales.create({
     nombre: nombrep,
     relacion: relacion,
     telefono: telefonop,
-    id_empleado: res.locals.user.empleado.id
+    id_empleado: id_empleado
   })
     .then(newreferencias_personales => {
       modelos.Referencias_Personales.findAll({ 
@@ -286,12 +287,12 @@ router.post('/identificacion_personal6',md_auth.ensureAuth, (req, res) => {
   const nombrei = req.body.nombrei;
   const institucion = req.body.institucion;
   const telefonoi = req.body.telefonoi;
-  //id_empleado = req.body.id_empleado;
+  const id_empleado = req.body.id_empleado;
   modelos.Referencias_Trabajo.create({
     nombre: nombrei,
     institucion: institucion,
     telefono: telefonoi,
-    id_empleado: res.locals.user.empleado.id
+    id_empleado: id_empleado
   })
     .then(referencias_trabajo => {
       modelos.Referencias_Personales.findAll({ 
@@ -339,7 +340,7 @@ router.post('/elimina_experiencia',md_auth.ensureAuth, (req, res) => {
       // añadir id
       where: { id_empleado: res.locals.user.empleado.id } }).then(newexperiencia => {
       // projects will be an array of Project instances with the specified name
-      res.render('ficha_personal/ficha4',{experiencia:newexperiencia}); 
+      res.redirect('/ficha_personal/identificacion_personal4');
     })
   });
 });
@@ -410,7 +411,7 @@ router.get('/ficha_personal',md_auth.ensureAuth, (req, res) => {
                     where: { id_empleado: res.locals.user.empleado.id } }).then(newreferencias_trabajo => {
                     // projects will be an array of Project instances with the specified name
                     //console.log({newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
-                    res.render('ficha_personal/ficha_personal',{newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo});
+                    res.render('ficha_personal/ficha_personal',{newempleado:newempleado,newestudios:newestudios,newempleado_idioma:newempleado_idioma,newdependiente:newdependiente,newexperiencia:newexperiencia,newreferencias_personales:newreferencias_personales,newreferencias_trabajo:newreferencias_trabajo,moment:moment});
                   })
                 })
               })

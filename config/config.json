@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "12345",
-    "database": "sistema_rrhh_produccion_presi",
+    "database": "sistema_rrhh_produccion1",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres",

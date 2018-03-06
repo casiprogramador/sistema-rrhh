@@ -1,141 +1,166 @@
 <% layout('/layouts/admin') -%>
-<div class="container-fluid page-body-wrapper">
-        <div class="row row-offcanvas row-offcanvas-right">
-          <!-- partial -->
-          <div class="content-wrapper">
-            <div class="row user-profile">
-                <div class="col-lg-10 side-right">
-                  <div class="card">
-                    <div class="card-body">
-                        <center><h2 class="card-title">Referencias Personales de Trabajo</h2></center>
-                      <div class="field_wrapper">
-                          <br>
-                          <h2 class="card-title">Referencias Personales registradas</h2>
-                        <table class="table">
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Relacion (Parentesco, Amistad, etc.)</th>
-                            <th>Telefono</th>
-                            <th></th>
-                          </tr>
-                          <% for(var i=0; i< referencias_personales.length; i++) { %>
-                            <tr>
-                          <td><%= referencias_personales[i].nombre %></td>
-                          <td><%= referencias_personales[i].relacion %></td>
-                          <td><%= referencias_personales[i].telefono %></td>
-                          <td><form id="eliminaexperiencia" method="post" action="/ficha_personal/elimina_referencia_personal">
+  <div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+      <!-- partial -->
+      <div class="content-wrapper">
+        <div class="row user-profile">
+          <div class="col-lg-10 side-right">
+            <div class="card">
+              <div class="card-body">
+                <center>
+                  <h2 class="card-title">Referencias Personales de Trabajo</h2>
+                </center>
+                <div class="field_wrapper">
+                  <br>
+                  <h2 class="card-title">Referencias Personales registradas</h2>
+                  <table class="table">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Relacion (Parentesco, Amistad, etc.)</th>
+                      <th>Telefono</th>
+                      <th></th>
+                    </tr>
+                    <% for(var i=0; i< referencias_personales.length; i++) { %>
+                      <tr>
+                        <td>
+                          <%= referencias_personales[i].nombre %>
+                        </td>
+                        <td>
+                          <%= referencias_personales[i].relacion %>
+                        </td>
+                        <td>
+                          <%= referencias_personales[i].telefono %>
+                        </td>
+                        <td>
+                          <form id="eliminaexperiencia" method="post" action="/ficha_personal/elimina_referencia_personal">
                             <input name="id_referencia_personal" type="hidden" class="form-control" value='<%= referencias_personales[i].id %>'>
                             <button type="submit">Eliminar</button>
-                          </form></td>
-                        </tr>
-                        <% } %>
-                        </table>
-                        <br><br><br><br>
-                        <h2 class="card-title">Registrar Nueva Referencia</h2>
-                        <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal5">
-                          <div>
-                                          
-                                        <h2 class="card-title">Referencias Personales de Trabajo</h2>
-                                        <div class="row">
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <label for="name">Nombre</label>
-                                        <input name="nombrep" type="text" class="form-control" id="refnomb" placeholder="Nombre">
-                                        </div>
-                                        </div>
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <label for="address">Relacion</label>
-                                        <input name="relacion" id="refrelac" rows="6" class="form-control" placeholder="Relacion">
-                                        </div>
-                                        </div>
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <label for="address">Telefono</label>
-                                        <input name="telefonop" id="telfrelac" rows="6" class="form-control" placeholder="Telefono">
-                                        </div>
-                                        </div>
-                                        </div>                                   
-      
-                                <div class="row">
-                                    <div class="col">
-                                    <div class="form-group">
-                                    <button type="submit" class="btn btn-success mr-2">Añadir</button>
-                                    <button class="btn btn-outline-danger">Cancelar</button>
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                        </form>
-                        
-                      </div>
-                    </div>
-                    <div class="card-body">
-                            <center><h2 class="card-title">Referencias de Trabajo</h2></center>
-                          <div class="field_wrapper">
-                              <br>
-                              <h2 class="card-title">Referencias de Trabajo Registradas</h2>
-                            <table class="table">
-                              <tr>
-                                <th>Nombre</th>
-                                <th>Institucion</th>
-                                <th>Telefono</th>
-                                <th></th>
-                              </tr>
-                              <% for(var i=0; i< referencias_trabajo.length; i++) { %>
-                                <tr>
-                              <td><%= referencias_trabajo[i].nombre %></td>
-                              <td><%= referencias_trabajo[i].institucion %></td>
-                              <td><%= referencias_trabajo[i].telefono %></td>
-                              <td><form id="eliminaexperiencia" method="post" action="/ficha_personal/elimina_referencias_trabajo">
-                                <input name="id_referencias_trabajo" type="hidden" class="form-control" value='<%= referencias_trabajo[i].id %>'>
-                                <button type="submit">Eliminar</button>
-                              </form></td>
-                            </tr>
-                            <% } %>
-                            </table>
-                            <br><br><br><br>
-                            <h2 class="card-title">Registrar Nueva Referencia de Trabajo</h2>
-                            <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal6">
-                              <div>                                              
-                                            <h2 class="card-title">Referencias de Trabajo</h2>
-                                            <div class="row">
-                                            <div class="col">
-                                            <div class="form-group">
-                                            <label for="name">Nombre</label>
-                                            <input name="nombrei" type="text" class="form-control" id="refnomb" placeholder="Nombre">
-                                            </div>
-                                            </div>
-                                            <div class="col">
-                                            <div class="form-group">
-                                            <label for="address">Institucion</label>
-                                            <input name="institucion" id="institucion" rows="6" class="form-control" placeholder="institucion">
-                                            </div>
-                                            </div>
-                                            <div class="col">
-                                            <div class="form-group">
-                                            <label for="address">Telefono</label>
-                                            <input name="telefonoi" id="telfrelac" rows="6" class="form-control" placeholder="telefono">
-                                            </div>
-                                            </div>
-                                            </div>                                   
-          
-                                    <div class="row">
-                                        <div class="col">
-                                        <div class="form-group">
-                                        <button type="submit" class="btn btn-success mr-2">Añadir</button>
-                                        <button class="btn btn-outline-danger">Cancelar</button>
-                                        </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                            </form>
+                          </form>
+                        </td>
+                      </tr>
+                      <% } %>
+                  </table>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <h2 class="card-title">Registrar Nueva Referencia</h2>
+                  <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal5">
+                    <div>
+
+                      <h2 class="card-title">Referencias Personales de Trabajo</h2>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input name="nombrep" type="text" class="form-control" id="refnomb" placeholder="Nombre">
                           </div>
                         </div>
-                  </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="address">Relacion</label>
+                            <input name="relacion" id="refrelac" rows="6" class="form-control" placeholder="Relacion">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="address">Telefono</label>
+                            <input name="telefonop" id="telfrelac" rows="6" class="form-control" placeholder="Telefono">
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" name="id_empleado" value="<%= user.empleado.id %>">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="submit" class="btn btn-success mr-2">Añadir</button>
+                            <button class="btn btn-outline-danger">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <center>
+                  <h2 class="card-title">Referencias de Trabajo</h2>
+                </center>
+                <div class="field_wrapper">
+                  <br>
+                  <h2 class="card-title">Referencias de Trabajo Registradas</h2>
+                  <table class="table">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Institucion</th>
+                      <th>Telefono</th>
+                      <th></th>
+                    </tr>
+                    <% for(var i=0; i< referencias_trabajo.length; i++) { %>
+                      <tr>
+                        <td>
+                          <%= referencias_trabajo[i].nombre %>
+                        </td>
+                        <td>
+                          <%= referencias_trabajo[i].institucion %>
+                        </td>
+                        <td>
+                          <%= referencias_trabajo[i].telefono %>
+                        </td>
+                        <td>
+                          <form id="eliminaexperiencia" method="post" action="/ficha_personal/elimina_referencias_trabajo">
+                            <input name="id_referencias_trabajo" type="hidden" class="form-control" value='<%= referencias_trabajo[i].id %>'>
+                            <button type="submit">Eliminar</button>
+                          </form>
+                        </td>
+                      </tr>
+                      <% } %>
+                  </table>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <h2 class="card-title">Registrar Nueva Referencia de Trabajo</h2>
+                  <form class="cmxform" id="registrodependiente" method="post" action="/ficha_personal/identificacion_personal6">
+                    <div>
+                      <h2 class="card-title">Referencias de Trabajo</h2>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input name="nombrei" type="text" class="form-control" id="refnomb" placeholder="Nombre">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="address">Institucion</label>
+                            <input name="institucion" id="institucion" rows="6" class="form-control" placeholder="institucion">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="address">Telefono</label>
+                            <input name="telefonoi" id="telfrelac" rows="6" class="form-control" placeholder="telefono">
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" name="id_empleado" value="<%= user.empleado.id %>">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <button type="submit" class="btn btn-success mr-2">Añadir</button>
+                            <button class="btn btn-outline-danger">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-      
+        </div>
+      </div>
+    </div>
+  </div>
